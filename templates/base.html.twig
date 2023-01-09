@@ -2,7 +2,8 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Quai Antique | {% block title %}{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
@@ -13,7 +14,28 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
-    <body>
+    <body class="bg-primary">
+        {# IF NOT CONNECTED #}
+        {% block header %}
+            {# IF MOBILE #}
+            {% block mobile %}
+            <header class="h-[110px] w-screen absolute flex justify-between p-6">
+                <a href="{{ path('home') }}" class=""><img src={{ asset('images/svg/'~ "logo-white.svg")}} alt="Logo Quai Antique blanc" class="h-full"></a>
+                <button><img src={{ asset('images/svg/'~ "hamburger-open.svg") }} alt="Open menu"></button>
+                <nav class="hidden"> 
+                    <ul>
+                        <li><a href="{{ path('home') }}">Accueil</a></li>
+                        <li><a href="">Carte</a></li>
+                        <li><a href="">Réserver</a></li>
+                        <li><a href="">Contact</a></li>
+                        <li><a href="">Connexion</a></li>
+                        <li><a href="">Inscription</a></li>
+                    </ul>
+                </nav>
+            </header>
+            {% endblock %}
+        {% endblock %}
         {% block body %}{% endblock %}
     </body>
 </html>
+ 
