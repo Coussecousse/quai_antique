@@ -25,9 +25,17 @@ html, body, main {
     height: 100%;
 }
 .image {
-    background:  linear-gradient(rgba(23,21,21,0) 50%, rgb(23, 21, 21)) , center / cover no-repeat url('../../public/build/images/home/home-small.webp');
+    background:  linear-gradient(rgba(23,21,21,0) 50%, rgb(23, 21, 21)) , center / cover no-repeat url('../../public/images/home/home-small.webp');
 }
 .moving-text {
     @apply text-2.5xl;
 }
-
+.carousel_pic {
+    grid-template-columns: repeat(3, 100%);
+}
+.carousel_button {
+    @apply h-[15px] w-[15px] bg-400 rounded-full hover:scale-125 ease-in duration-75 drop-shadow-lg;
+}
+.carousel_button.active {
+    @apply bg-500;
+}
