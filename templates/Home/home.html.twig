@@ -4,5 +4,67 @@
 
 
 {% block body %}
-
+    <main class="">
+        <div class="min-h-screen h-full">
+            <div class="image absolute filter blur-sm h-full w-full -z-10">
+            </div>
+            <div class="relative flex flex-col justify-center items-center text-secondary bg-transparent h-full px-4">
+                <h1 class="font-secondary text-3.5xl flex flex-col items-center">Bienvenue au <span class="font-primary text-4xl pt-2">Quai Antique</span></h1>
+                <div class="font-secondary pt-8">
+                    <p class="text-2.5xl">Un restaurant</p>
+                    <ul class="flex flex-col items-center">
+                        <li class="active">
+                            <p class="moving-text">convivial</p>
+                        </li>
+                        <li class="hidden">
+                            <p class="moving-text">familial</p>
+                        </li>
+                        <li class="hidden">
+                            <p class="moving-text">authentique</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        <div class="min-h-screen h-full text-secondary p-4 font-secondary">
+            <h2 class="text-2.25xl text-center">La Savoie dans votre assiette !</h2>
+            <div class="carousel font-primary p-4 flex">
+               <div class="grid grid-cols-3">
+                   <div class="h-[170px] w-full" id="carousel-1">
+                        <picture>
+                            <source src={{ asset('build/images/uploads/'~"irish-coffee-extraLarge.jpg") }} media="(min-width : 1200px)">
+                            <source src={{ asset('build/images/uploads/'~"irish-coffee-large.jpg") }} media="(min-width : 990px)">
+                            <source src={{ asset('build/images/uploads/'~"irish-coffee-medium.jpg") }} media="(min-width : 768px)">
+                            <img src={{ asset('build/images/uploads/'~"irish-coffee-small.jpg") }} alt="Plusieurs verres contenant du café">
+                        </picture>
+                       <div class="absolute bg-primary opacity-80"><p class="text-base">Irish Coffee</p></div>
+                   </div>
+                   <div class="h-[170px] w-full" id="carousel-2">
+                    <picture>
+                        <source src={{ asset('build/images/uploads/'~"coupe-des-montagnes-extraLarge.jpg") }} media="(min-width : 1200px)">
+                        <source src={{ asset('build/images/uploads/'~"coupe-des-montagnes-large.jpg") }} media="(min-width : 990px)">
+                        <source src={{ asset('build/images/uploads/'~"coupe-des-montagnes-medium.jpg") }} media="(min-width : 768px)">
+                        <img src={{ asset('build/images/uploads/'~"coupe-des-montagnes-small.jpg") }} alt="Coupe de glace à la myrtille et mûres">
+                    </picture>
+                       <div class="absolute bg-primary opacity-80"><p class="text-base">Coupe des montagnes</p></div>
+                   </div>
+                   <div class="h-[170px] w-full" id="carousel-3">
+                    <picture>
+                        <source src={{ asset('build/images/uploads/'~"fondue-royale-extraLarge.jpg") }} media="(min-width : 1200px)">
+                        <source src={{ asset('build/images/uploads/'~"fondue-royale-large.jpg") }} media="(min-width : 990px)">
+                        <source src={{ asset('build/images/uploads/'~"fondue-royale-medium.jpg") }} media="(min-width : 768px)">
+                        <img src={{ asset('build/images/uploads/'~"fondue-royale-small.jpg") }} alt="Casserole de fondue rouge">
+                    </picture>
+                       <div class="absolute bg-primary opacity-80"><p class="text-base">Fondue Royale</p></div>
+                   </div>
+               </div>
+               <div>
+                   <button></button>
+                   <button></button>
+                   <button></button>
+               </div>
+            </div>
+            <p class="text-center" >À coeur de travailler avec les <span>produits</span> et <span>producteurs</span> de la région, le <span>Chef Arnaud Michant</span> vous garantit une expérience <span>unique</span> !</p>
+            <button>Réserver</button>
+        </div>
+    </main>
 {% endblock %}

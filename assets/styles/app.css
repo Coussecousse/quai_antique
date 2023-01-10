@@ -1,3 +1,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+:root {
+    --color-primary : rgb(23, 21, 21);
+}
+
+/* @font-face {
+    font-family: 'Petit Formal Script';
+    src : 
+    url('./fonts/petit_format_script/PetitFormalScript-Regular.ttf') format('truetype'),
+}
+@font-face {
+    font-family: 'Alice';
+    src : 
+    url('./fonts/alice/Alice-Regular.ttf') format('truetype'),
+}
+@font-face {
+    font-family: 'Open Sans';
+    src : 
+    url('./fonts/open_sans/OpenSans-VariableFont_wdth\,wght.ttf') format('truetype'),
+} */
+@import url('https://fonts.googleapis.com/css2?family=Alice&family=Open+Sans:wght@400;600;700&family=Petit+Formal+Script&display=swap');
+html, body, main {
+    height: 100%;
+}
+.image {
+    background:  linear-gradient(rgba(23,21,21,0) 50%, rgb(23, 21, 21)) , center / cover no-repeat url('../../public/build/images/home/home-small.webp');
+}
+.moving-text {
+    @apply text-2.5xl;
+}
+

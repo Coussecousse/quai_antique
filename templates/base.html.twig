@@ -14,14 +14,14 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
-    <body class="bg-primary">
+    <body class="bg-primary min-h-screen">
         {# IF NOT CONNECTED #}
         {% block header %}
             {# IF MOBILE #}
-            {% block mobile %}
-            <header class="h-[110px] w-screen absolute flex justify-between p-6">
-                <a href="{{ path('home') }}" class=""><img src={{ asset('images/svg/'~ "logo-white.svg")}} alt="Logo Quai Antique blanc" class="h-full"></a>
-                <button><img src={{ asset('images/svg/'~ "hamburger-open.svg") }} alt="Open menu"></button>
+            {% block mobile_header %}
+            <header class="h-[110px] w-screen absolute flex justify-between px-6 py-3">
+                <a href="{{ path('home') }}" class=""><img src={{ asset('build/images/svg/'~ "logo-white.svg")}} alt="Logo Quai Antique blanc" class="h-full"></a>
+                <button><img src={{ asset('build/images/svg/'~ "hamburger-open.svg") }} alt="Open menu"></button>
                 <nav class="hidden"> 
                     <ul>
                         <li><a href="{{ path('home') }}">Accueil</a></li>
@@ -36,6 +36,12 @@
             {% endblock %}
         {% endblock %}
         {% block body %}{% endblock %}
+        {# IF NOT CONNECTED #}
+        {% block footer %}
+            {# IF MOBILE #}
+            {% block mobile_footer %}
+            {% endblock %}
+        {% endblock %}
     </body>
 </html>
  
