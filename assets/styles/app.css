@@ -22,7 +22,7 @@
 } */
 @import url('https://fonts.googleapis.com/css2?family=Alice&family=Open+Sans:wght@400;600;700&family=Petit+Formal+Script&display=swap');
 html, body, main {
-    height: 100%;
+    height: fit-content;
 }
 .image {
     background:  linear-gradient(rgba(23,21,21,0) 50%, rgb(23, 21, 21)) , center / cover no-repeat url('../../public/images/home/home-small.webp');
@@ -38,4 +38,20 @@ html, body, main {
 }
 .carousel_button.active {
     @apply bg-500;
+}
+.footer_title {
+    @apply uppercase font-semibold;
+}
+.scedules > li {
+    @apply grid ;
+    grid-template-columns: 80px auto;
+}
+.scedules ul {
+    @apply grid grid-cols-2 ;
+}
+.scedules ul > li {
+    @apply text-center relative;
+}
+.scedules ul > li:first-child {
+    @apply after:h-full after:w-[1px] after:absolute after:bg-secondary after:left-full;
 }

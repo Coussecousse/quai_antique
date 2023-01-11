@@ -40,8 +40,80 @@
         {% block footer %}
             {# IF MOBILE #}
             {% block mobile_footer %}
+            <footer class="bg-500 text-secondary font-third py-4 px-5 mt-8 w-screen">
+                <div class="grid">
+                    <p class="footer_title">Horaires</p>
+                    <ul class = "scedules text-sm">
+                        <li>Lundi
+                            <ul>
+                                <li>Fermé</li>
+                                <li>19:00 - 22:00</li>
+                            </ul>
+                        </li>
+                        <li>Mardi
+                            <ul>
+                                <li>Fermé</li>
+                                <li>Fermé</li>
+                            </ul>
+                        </li>
+                        <li>Mercredi
+                            <ul>
+                                <li>11:30 - 15:00</li>
+                                <li>19:00 - 22:00</li>
+                            </ul>
+                        </li>
+                        <li>Jeudi
+                            <ul>
+                                <li>11:30 - 15:00</li>
+                                <li>19:00 - 22:00</li>
+                            </ul>
+                        </li>
+                        <li>Vendredi
+                            <ul>
+                                <li>11:30 - 15:00</li>
+                                <li>19:00 - 22:00</li>
+                            </ul>
+                        </li>
+                        <li>Samedi
+                            <ul>
+                                <li>11:30 - 15:00</li>
+                                <li>19:00 - 22:00</li>
+                            </ul>
+                        </li>
+                        <li>Dimanche                   
+                            <ul>
+                                <li>11:30 - 15:00</li>
+                                <li>19:00 - 22:00</li>
+                            </ul>
+                        </li> 
+                    </ul>
+                </div>
+                <div class="grid grid-cols-2 my-4">
+                    <div>
+                        <p class="footer_title">Site</p>
+                        <ul class="text-sm">
+                            <li><a href="">Accueil</a></li>
+                            <li><a href="">Carte</a></li>
+                            <li><a href="">Réserver</a></li>
+                            <li><a href="">Contact</a></li>
+                            <li><a href="">Connexion</a></li>
+                            <li><a href="">Inscription</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p class="footer_title">Contact</p>
+                        <ul class="text-sm">
+                            <li>+33 00 00 00 00 00</li>
+                            <li>lorem@ipsum.com</li>
+                            <li><i class="fa-brands fa-square-facebook text-2xl mt-1"></i></li>
+                        </ul>
+                    </div>
+                </div>
+                <img class="max-w-[160px] mx-auto" src={{ asset('images/svg/'~'logo-white.svg')}} alt="">
+            </footer>
             {% endblock %}
         {% endblock %}
+        <script src="https://kit.fontawesome.com/4ba6d56c15.js" crossorigin="anonymous"></script>
     </body>
 </html>
  

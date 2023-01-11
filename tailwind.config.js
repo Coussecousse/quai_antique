@@ -11,7 +11,9 @@ module.exports = {
       'third' : ["'Open Sans', sans-serif"]
     },
     fontSize : {
+      'sm' : '.875rem',
       'lg' : "1.125rem",
+      '2xl' : '1.5rem',
       '2.25xl' : '1.625rem',
       '2.5xl' : '1.75rem',
       '3xl' : "1.875rem",
