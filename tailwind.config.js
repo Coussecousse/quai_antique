@@ -31,6 +31,10 @@ module.exports = {
         md : '4px',
       },
     },
+    screens : {
+      "sm" : "425px",
+      "md" : "768px",
+    }
   },
   plugins: [],
 }

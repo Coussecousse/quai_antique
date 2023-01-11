@@ -39,6 +39,12 @@ html, body, main {
 .carousel_button.active {
     @apply bg-500;
 }
+@media screen and (min-width: 768px) {
+    footer, footer div:nth-child(2), footer div:nth-child(2) div {
+        gap : clamp(1rem, -3.215rem + 8.781vw, 4.688rem);
+    }
+
+}
 .footer_title {
     @apply uppercase font-semibold;
 }

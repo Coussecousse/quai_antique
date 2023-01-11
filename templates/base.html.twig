@@ -40,8 +40,8 @@
         {% block footer %}
             {# IF MOBILE #}
             {% block mobile_footer %}
-            <footer class="bg-500 text-secondary font-third py-4 px-5 mt-8 w-screen">
-                <div class="grid">
+            <footer class="bg-500 text-secondary font-third py-4 px-5 mt-8 w-screen md:flex md:justify-center">
+                <div class="grid max-w-[440px] mx-auto md:w-fit md:max-w-[340px] md:min-w-[300px] md:mx-0 ">
                     <p class="footer_title">Horaires</p>
                     <ul class = "scedules text-sm">
                         <li>Lundi
@@ -88,28 +88,30 @@
                         </li> 
                     </ul>
                 </div>
-                <div class="grid grid-cols-2 my-4">
-                    <div>
-                        <p class="footer_title">Site</p>
-                        <ul class="text-sm">
-                            <li><a href="">Accueil</a></li>
-                            <li><a href="">Carte</a></li>
-                            <li><a href="">Réserver</a></li>
-                            <li><a href="">Contact</a></li>
-                            <li><a href="">Connexion</a></li>
-                            <li><a href="">Inscription</a></li>
-                        </ul>
+                <div class="sm:flex gap-6 max-w-[440px] mx-auto md:mx-0">
+                    <div class="grid grid-cols-2 my-4 sm:flex-1 sm:flex sm:gap-6 md:my-0">
+                        <div>
+                            <p class="footer_title">Site</p>
+                            <ul class="text-sm">
+                                <li><a class="hover:underline hover:underline-offset-2" href="{{ path('home') }}">Accueil</a></li>
+                                <li><a class="hover:underline hover:underline-offset-2" href="">Carte</a></li>
+                                <li><a class="hover:underline hover:underline-offset-2" href="">Réserver</a></li>
+                                <li><a class="hover:underline hover:underline-offset-2" href="">Contact</a></li>
+                                <li><a class="hover:underline hover:underline-offset-2" href="">Connexion</a></li>
+                                <li><a class="hover:underline hover:underline-offset-2" href="">Inscription</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="footer_title">Contact</p>
+                            <ul class="text-sm">
+                                <li><a class="hover:underline hover:underline-offset-2" href="tel:">+33 00 00 00 00 00</a></li>
+                                <li><a class="hover:underline hover:underline-offset-2" href="mailto:lorem@ipsum.com">lorem@ipsum.com</a></li>
+                                <li><a class="hover:underline hover:underline-offset-2" href=""><i class="fa-brands fa-square-facebook text-2xl mt-1"></a></i></li>
+                            </ul>
+                        </div>
                     </div>
-                    <div>
-                        <p class="footer_title">Contact</p>
-                        <ul class="text-sm">
-                            <li>+33 00 00 00 00 00</li>
-                            <li>lorem@ipsum.com</li>
-                            <li><i class="fa-brands fa-square-facebook text-2xl mt-1"></i></li>
-                        </ul>
-                    </div>
+                    <a href="{{ path('home') }}" ><img class="max-w-[160px] mx-auto sm:inline-block sm:w-fit sm:mx-0" src={{ asset('images/svg/'~'logo-white.svg')}} alt=""></a>
                 </div>
-                <img class="max-w-[160px] mx-auto" src={{ asset('images/svg/'~'logo-white.svg')}} alt="">
             </footer>
             {% endblock %}
         {% endblock %}
