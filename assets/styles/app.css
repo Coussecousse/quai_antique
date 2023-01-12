@@ -3,6 +3,7 @@
 @tailwind utilities;
 :root {
     --color-primary : rgb(23, 21, 21);
+    --colo-secondary : rgb(249, 246, 240);
 }
 
 /* @font-face {
@@ -24,6 +25,41 @@
 html, body, main {
     height: fit-content;
 }
+a {
+    cursor: pointer;
+}
+
+/* HEADER */
+header nav a {
+    position: relative;
+}
+header nav li:hover {
+    transform: scale(1.05);
+}
+header nav a.active::after, header nav a.active::before {
+    content: '';
+    position: absolute;
+    background-color: var(--colo-secondary);
+    height: 1px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+header nav a.active::before {
+    width: 50px;
+    top: calc(100% + 1px);
+}
+header nav a.active::after {
+    width: 25px;
+    top: calc(100% + 6px);
+}
+
+/* FOOTER */
+
+.footer_title {
+    @apply uppercase font-semibold;
+} 
+
+/* HOME */
 .image {
     background:  linear-gradient(rgba(23,21,21,0) 50%, rgb(23, 21, 21)) , center / cover no-repeat url('../../public/images/home/home-small.webp');
 }
@@ -37,9 +73,6 @@ html, body, main {
 }
 .carousel_button.active {
     @apply bg-500;
-}
-.footer_title {
-    @apply uppercase font-semibold;
 }
 .scedules > li {
     @apply grid ;
