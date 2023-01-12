@@ -27,23 +27,16 @@ html, body, main {
 .image {
     background:  linear-gradient(rgba(23,21,21,0) 50%, rgb(23, 21, 21)) , center / cover no-repeat url('../../public/images/home/home-small.webp');
 }
-.moving-text {
-    @apply text-2.5xl;
-}
+
 .carousel_pic {
     grid-template-columns: repeat(3, 100%);
+    /* transform: translateX(calc(-33.33% + (16px * 2))); */
 }
 .carousel_button {
     @apply h-[15px] w-[15px] bg-400 rounded-full hover:scale-125 ease-in duration-75 drop-shadow-lg;
 }
 .carousel_button.active {
     @apply bg-500;
-}
-@media screen and (min-width: 768px) {
-    footer, footer div:nth-child(2), footer div:nth-child(2) div {
-        gap : clamp(1rem, -3.215rem + 8.781vw, 4.688rem);
-    }
-
 }
 .footer_title {
     @apply uppercase font-semibold;
@@ -60,4 +53,26 @@ html, body, main {
 }
 .scedules ul > li:first-child {
     @apply after:h-full after:w-[1px] after:absolute after:bg-secondary after:left-full;
+}
+
+@media screen and (min-width: 768px) {
+    footer, footer div:nth-child(2), footer div:nth-child(2) div {
+        gap : clamp(1rem, -3.215rem + 8.781vw, 4.688rem);
+    }
+    .image {
+        background:  linear-gradient(rgba(23,21,21,0) 50%, rgb(23, 21, 21)) , center 60% / cover no-repeat url('../../public/images/home/home-medium.webp');
+    }
+    .carousel_pic {
+        grid-template-columns: repeat(3, 671px);
+    }
+}
+@media screen and (min-width: 992px) {
+    .image {
+        background:  linear-gradient(rgba(23,21,21,0) 50%, rgb(23, 21, 21)) , center 60% / cover no-repeat url('../../public/images/home/home-large.webp');
+    }
+}
+@media screen and (min-width: 1300px) {
+    .image {
+        background:  linear-gradient(rgba(23,21,21,0) 50%, rgb(23, 21, 21)) ,  center 60% / cover no-repeat url('../../public/images/home/home-extraLarge.webp');
+    }
 }
