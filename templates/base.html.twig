@@ -24,8 +24,8 @@
                 <button class="md:hidden"><img src={{ asset('images/svg/'~ "hamburger-open.svg") }} alt="Open menu"></button>
                 <nav class="hidden md:block uppercase"> 
                     <ul class="md:inline-flex md:gap-8 text-secondary font-secondary relative top-[57px]">
-                        <li><a href="{{ path('home') }}" class="active">Accueil</a></li>
-                        <li><a href="">Carte</a></li>
+                        <li><a href={{ path('home') }} class="active">Accueil</a></li>
+                        <li><a href={{ path('card') }}>Carte</a></li>
                         <li><a href="">Réserver</a></li>
                         <li><a href="">Contact</a></li>
                         <li><a href="">Connexion</a></li>

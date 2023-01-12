@@ -12,4 +12,9 @@ class PostController extends AbstractController
     {
         return $this->render('Home/home.html.twig');
     }
+
+    #[Route('/carte', name:'card')]
+    public function card() {
+        return $this->render('Card/card.html.twig');
+    }
 }
