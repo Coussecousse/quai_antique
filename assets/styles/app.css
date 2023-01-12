@@ -59,21 +59,6 @@ header nav a.active::after {
     @apply uppercase font-semibold;
 } 
 
-/* HOME */
-.image {
-    background:  linear-gradient(rgba(23,21,21,0) 50%, rgb(23, 21, 21)) , center / cover no-repeat url('../../public/images/home/home-small.webp');
-}
-
-.carousel_pic {
-    grid-template-columns: repeat(3, 100%);
-    /* transform: translateX(calc(-33.33% + (16px * 2))); */
-}
-.carousel_button {
-    @apply h-[15px] w-[15px] bg-400 rounded-full hover:scale-125 ease-in duration-75 drop-shadow-lg;
-}
-.carousel_button.active {
-    @apply bg-500;
-}
 .scedules > li {
     @apply grid ;
     grid-template-columns: 80px auto;
@@ -88,12 +73,45 @@ header nav a.active::after {
     @apply after:h-full after:w-[1px] after:absolute after:bg-secondary after:left-full;
 }
 
+/* HOME */
+.image {
+    background:  linear-gradient(rgba(23,21,21,0) 50%, rgb(23, 21, 21)) , center / cover no-repeat url('../../public/images/home/home-small.webp');
+}
+
+.carousel_pics {
+    grid-template-columns: repeat(4, clamp(13.375rem, 7.107rem + 31.339vw, 35.313rem));
+    /* transform: translateX(calc(-33.33% + (16px * 2))); */
+    transform: translate3d(calc((359px / 2) - 359px + 8px), 0 , 0);
+}
+.carousel_image {
+    opacity: .2;
+    -webkit-transform: scale3d(0.8, 0.8, 1);
+    transform: scale3d(0.8, 0.8, 1);
+}
+.carousel_image.active {
+    opacity: 1;
+    -webkit-transform: scale3d(1.0, 1.0, 1);
+    transform: scale3d(1.0, 1.0, 1);
+}
+.carousel_image img {
+    transform-style: preserve-3d;
+}
+.carousel_button {
+    @apply h-[15px] w-[15px] bg-400 rounded-full hover:scale-125 ease-in duration-75 drop-shadow-lg;
+}
+.carousel_button.active {
+    @apply bg-500;
+}
+
+
+
+
 @media screen and (min-width: 768px) {
     footer, footer div:nth-child(2), footer div:nth-child(2) div {
         gap : clamp(1rem, -3.215rem + 8.781vw, 4.688rem);
     }
     .image {
-        background:  linear-gradient(rgba(23,21,21,0) 50%, rgb(23, 21, 21)) , center 60% / cover no-repeat url('../../public/images/home/home-medium.webp');
+        background:  linear-gradient(rgba(23,21,21,0) 50%, rgb(23, 21, 21)) , center 61% / cover no-repeat url('../../public/images/home/home-medium.webp');
     }
     .carousel_pic {
         grid-template-columns: repeat(3, 671px);
@@ -101,11 +119,11 @@ header nav a.active::after {
 }
 @media screen and (min-width: 992px) {
     .image {
-        background:  linear-gradient(rgba(23,21,21,0) 50%, rgb(23, 21, 21)) , center 60% / cover no-repeat url('../../public/images/home/home-large.webp');
+        background:  linear-gradient(rgba(23,21,21,0) 50%, rgb(23, 21, 21)) , center 61% / cover no-repeat url('../../public/images/home/home-large.webp');
     }
 }
 @media screen and (min-width: 1300px) {
     .image {
-        background:  linear-gradient(rgba(23,21,21,0) 50%, rgb(23, 21, 21)) ,  center 60% / cover no-repeat url('../../public/images/home/home-extraLarge.webp');
+        background:  linear-gradient(rgba(23,21,21,0) 50%, rgb(23, 21, 21)) ,  center 61% / cover no-repeat url('../../public/images/home/home-extraLarge.webp');
     }
 }

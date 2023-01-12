@@ -14,12 +14,12 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
-    <body class="bg-primary min-h-screen">
+    <body class="bg-primary min-h-screen w-full overflow-x-hidden">
         {# IF NOT CONNECTED #}
         {% block header %}
             {# IF MOBILE #}
             {% block mobile_header %}
-            <header class="h-[110px] w-screen absolute flex justify-between px-6 py-3 md:px-12">
+            <header class="z-10 h-[110px] w-full absolute flex justify-between px-6 py-3 md:px-12">
                 <a href="{{ path('home') }}" class=""><img src={{ asset('images/svg/'~ "logo-white.svg")}} alt="Logo Quai Antique blanc" class="h-full"></a>
                 <button class="md:hidden"><img src={{ asset('images/svg/'~ "hamburger-open.svg") }} alt="Open menu"></button>
                 <nav class="hidden md:block uppercase"> 
@@ -40,10 +40,10 @@
         {% block footer %}
             {# IF MOBILE #}
             {% block mobile_footer %}
-            <footer class="bg-500 text-secondary font-third py-4 px-5 mt-8 w-screen md:flex md:justify-center">
-                <div class="grid max-w-[440px] mx-auto md:w-fit md:max-w-[340px] md:min-w-[300px] md:mx-0 ">
+            <footer class="bg-500 text-secondary font-third py-4 px-5 mt-8 w-full md:flex md:justify-center text-sm">
+                <div class="grid max-w-[440px] mx-auto md:w-fit md:max-w-[340px] md:min-w-[300px] md:mx-0 lg:w-[400px]">
                     <p class="footer_title">Horaires</p>
-                    <ul class = "scedules text-sm">
+                    <ul class = "scedules text-xs">
                         <li>Lundi
                             <ul>
                                 <li>Fermé</li>
@@ -88,11 +88,11 @@
                         </li> 
                     </ul>
                 </div>
-                <div class="sm:flex gap-6 max-w-[440px] mx-auto md:mx-0">
+                <div class="sm:flex gap-6 max-w-[440px] mx-auto md:mx-0 lg:max-w-[600px]">
                     <div class="grid grid-cols-2 my-4 sm:flex-1 sm:flex sm:gap-6 md:my-0">
                         <div>
                             <p class="footer_title">Site</p>
-                            <ul class="text-sm">
+                            <ul class="text-xs">
                                 <li><a class="hover:underline hover:underline-offset-2" href="{{ path('home') }}">Accueil</a></li>
                                 <li><a class="hover:underline hover:underline-offset-2" href="">Carte</a></li>
                                 <li><a class="hover:underline hover:underline-offset-2" href="">Réserver</a></li>
@@ -103,7 +103,7 @@
                         </div>
                         <div>
                             <p class="footer_title">Contact</p>
-                            <ul class="text-sm">
+                            <ul class="text-xs">
                                 <li><a class="hover:underline hover:underline-offset-2" href="tel:">+33 00 00 00 00 00</a></li>
                                 <li><a class="hover:underline hover:underline-offset-2" href="mailto:lorem@ipsum.com">lorem@ipsum.com</a></li>
                                 <li><a class="hover:underline hover:underline-offset-2" href=""><i class="fa-brands fa-square-facebook text-2xl mt-1"></a></i></li>

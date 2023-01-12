@@ -4,8 +4,8 @@
 
 
 {% block body %}
-    <main class="">
-        <div class="min-h-screen h-full">
+    <main class="w-full">
+        <div class="min-h-screen h-full w-full">
             <div class="image absolute filter blur-sm md:blur-md h-full w-full -z-10">
             </div>
             <div class="relative flex flex-col justify-center items-center text-secondary bg-transparent min-h-screen px-4">
@@ -26,40 +26,40 @@
                 </div>
             </div>
         <div class="h-full text-secondary p-4 font-secondary overflow-x-hidden">
-            <h2 class="text-2.25xl text-center md:text-3xl md:mb-4">La Savoie dans votre assiette !</h2>
+            <h2 class="text-2.25xl text-center md:text-2.5xl md:mb-4">La Savoie dans votre assiette !</h2>
             <div class="carousel font-primary flex flex-col md:mb-4">
-                <div class="carousel_pic grid gap-4 relative my-6 w-fit self-center">
-                    <div class="h-full w-full flex justify-center" id="carousel-2">
-                        <div class="h-carousel-image relative">
+                <div class="carousel_pics grid gap-4 relative my-6 w-fit">
+                    <div class="carousel_image h-full w-full flex justify-center" id="carousel-2">
+                        <div class="h-carousel-image relative group overflow-hidden">
                             <picture>
                                 <source srcset={{ asset('images/uploads/'~"coupe-des-montagnes-extraLarge.jpg") }} media="(min-width : 1200px)">
                                 <source srcset={{ asset('images/uploads/'~"coupe-des-montagnes-large.jpg") }} media="(min-width : 990px)">
                                 <source srcset={{ asset('images/uploads/'~"coupe-des-montagnes-medium.jpg") }} media="(min-width : 768px)">
                                 <img class="h-full object-cover object-center drop-shadow-lg" src={{ asset('images/uploads/'~"coupe-des-montagnes-small.jpg") }} alt="Coupe de glace à la myrtille et mûres">
                             </picture>
-                            <div class="absolute bg-primary opacity-80 h-auto w-full top-full -translate-y-full text-center p-2"><p class="text-home-carousel">Coupe des montagnes</p></div>
+                            <div class="absolute bg-primary opacity-80 h-auto w-full top-full -translate-y-full text-center p-2 lg:h-20 lg:-translate-y-0 lg:group-hover:-translate-y-full lg:ease-in lg:duration-150"><p class="text-home-carousel lg:top-1/2 lg:relative lg:-translate-y-1/2">Coupe des montagnes</p></div>
                         </div>
                     </div>
-                    <div class="h-full w-full flex justify-center" id="carousel-1">
-                        <div class="h-carousel-image relative">
+                    <div class="carousel_image h-full w-full flex justify-center active" id="carousel-1">
+                        <div class="h-carousel-image relative group overflow-hidden">
                             <picture>
                                 <source srcset={{ asset('images/uploads/'~"irish-coffee-extraLarge.jpg") }} media="(min-width : 1200px)">
                                 <source srcset={{ asset('images/uploads/'~"irish-coffee-large.jpg") }} media="(min-width : 990px)">
                                 <source srcset={{ asset('images/uploads/'~"irish-coffee-medium.jpg") }} media="(min-width : 768px)">
                                 <img class="h-full object-cover object-center drop-shadow-lg" src={{ asset('images/uploads/'~"irish-coffee-small.jpg") }} alt="Plusieurs verres contenant du café" class="w-full">
                             </picture>
-                            <div class="absolute bg-primary opacity-80 h-auto w-full top-full -translate-y-full text-center p-2"><p class="text-home-carousel">Irish Coffee</p></div>
+                            <div class="absolute bg-primary opacity-80 h-auto w-full top-full -translate-y-full text-center p-2 lg:h-20 lg:-translate-y-0 lg:group-hover:-translate-y-full lg:ease-in lg:duration-150"><p class="text-home-carousel lg:top-1/2 lg:relative lg:-translate-y-1/2">Irish Coffee</p></div>
                         </div>
                     </div>
-                    <div class="h-full w-full flex justify-center" id="carousel-3">
-                        <div class="h-carousel-image relative">
+                    <div class="carousel_image h-full w-full flex justify-center" id="carousel-3">
+                        <div class="h-carousel-image relative group overflow-hidden">
                             <picture>
                                 <source srcset={{ asset('images/uploads/'~"fondue-royale-extraLarge.jpg") }} media="(min-width : 1200px)">
                                 <source srcset={{ asset('images/uploads/'~"fondue-royale-large.jpg") }} media="(min-width : 990px)">
                                 <source srcset={{ asset('images/uploads/'~"fondue-royale-medium.jpg") }} media="(min-width : 768px)">
                                 <img class="h-full object-cover object-center drop-shadow-lg" src={{ asset('images/uploads/'~"fondue-royale-small.jpg") }} alt="Casserole de fondue rouge">
                             </picture>
-                            <div class="absolute bg-primary opacity-80 h-auto w-full top-full -translate-y-full text-center p-2"><p class="text-home-carousel">Fondue Royale</p></div>
+                            <div class="absolute bg-primary opacity-80 h-auto w-full top-full -translate-y-full text-center p-2 lg:h-20 lg:-translate-y-0 lg:group-hover:-translate-y-full lg:ease-in lg:duration-150"><p class="text-home-carousel lg:top-1/2 lg:relative lg:-translate-y-1/2">Fondue Royale</p></div>
                         </div>
                    </div>
                 </div>
@@ -69,8 +69,8 @@
                     <button class="carousel_button"></button>
                 </div>
             </div>
-            <p class="text-center my-7 leading-8 md:text-2xl md:max-w-[810px] md:mx-auto md:mb-12" >À coeur de travailler avec les <span class="text-lg md:text-2.25xl">produits</span> et <span class="text-lg md:text-2.25xl">producteurs</span> de la région, le <span class="text-lg md:text-2.25xl">Chef Arnaud Michant</span> vous garantit une expérience <span class="text-lg md:text-2.5xl">unique</span> !</p>
-            <button class="bg-secondary drop-shadow-lg text-primary text-[1.3rem] h-[58px] w-[170px] text-center relative left-1/2 -translate-x-1/2 hover:bg-400 hover:text-secondary duration-150 md:text-2.5xl md:w-[193px] md:h-[64px]">Réserver</button>
+            <p class="text-center my-7 leading-8 md:text-1.5xl md:max-w-[810px] md:mx-auto md:mb-12" >À coeur de travailler avec les <span class="text-lg md:text-2xl">produits</span> et <span class="text-lg md:text-2xl">producteurs</span> de la région, le <span class="text-lg md:text-2xl">Chef Arnaud Michant</span> vous garantit une expérience <span class="text-lg md:text-2xl">unique</span> !</p>
+            <button class="bg-secondary drop-shadow-lg text-primary text-[1.3rem] h-[58px] w-[170px] text-center relative left-1/2 -translate-x-1/2 hover:bg-400 hover:text-secondary duration-150 md:text-2xl ">Réserver</button>
         </div>
     </main> 
 {% endblock %}
