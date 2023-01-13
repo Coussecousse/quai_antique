@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Carte{% endblock title %}
+{% block title %}Carte{% block subTitle %}{% endblock %}{% endblock title %}
 
 
 {% block body %}
@@ -9,50 +9,65 @@
             <h1 class="title_section">Carte</h1>
             <img src={{ asset('images/svg/'~ "line-white.svg") }} alt="un point entouré de deux traits de longeur égales" class="w-[100px]">
         </div>
-        <section class="text-secondary font-primary section_card">
-            <ul class="diamonds grid grid-cols-2 gap-2 rotate-45 lg:gap-4">
-                <li id="card-1" class="relative left-full -translate-x-full">
-                    <div></div>
-                    <picture>
-                        <source srcset={{ asset('images/card/'~"starter-extraLarge.jpg") }} media="(min-width : 1200px)">
-                        <source srcset={{ asset('images/card/'~"starter-large.jpg") }} media="(min-width : 990px)">
-                        <source srcset={{ asset('images/card/'~"starter-medium.jpg") }} media="(min-width : 768px)">
-                        <img src={{ asset('images/card/'~'starter-small.jpg')}} alt="Demi-camembert roti sur lit de salade">
-                    </picture>
-                    <h2 class="z-0"><a href="">Entrées</a></h2>
-                </li>
-                <li id="card-2">
-                    <div></div>
-                    <picture>
-                        <source srcset={{ asset('images/card/'~"main-extraLarge.jpg") }} media="(min-width : 1200px)">
-                        <source srcset={{ asset('images/card/'~"main-large.jpg") }} media="(min-width : 990px)">
-                        <source srcset={{ asset('images/card/'~"main-medium.jpg") }} media="(min-width : 768px)">
-                    <img src={{ asset('images/card/'~'main-small.jpg')}} alt="Marmitte e crozets aux noix de saint Jacques ">
-                </picture>
-                    <h2 class="z-0"><a href="">Plats</a></h2>
-                </li>
-                <li id="card-3" class="relative left-full -translate-x-full">
-                    <div></div>
-                    <picture>
-                        <source srcset={{ asset('images/card/'~"dessert-extraLarge.jpg") }} media="(min-width : 1200px)">
-                        <source srcset={{ asset('images/card/'~"dessert-large.jpg") }} media="(min-width : 990px)">
-                        <source srcset={{ asset('images/card/'~"dessert-medium.jpg") }} media="(min-width : 768px)">
-                        <img src={{ asset('images/card/'~'dessert-small.jpg')}} alt="Nougat glace et son coulis de myrtilles">
-                    </picture>
-                    <h2 class="z-0"><a href="">Desserts</a></h2>
-                </li>
-                <li id="card-4">
-                    <h2 class="z-0"><a href="">Menus</a></h2>
-                    <div></div>
-                    <picture>
-                        <source srcset={{ asset('images/card/'~"menu-extraLarge.jpg") }} media="(min-width : 1200px)">
-                        <source srcset={{ asset('images/card/'~"menu-large.jpg") }} media="(min-width : 990px)">
-                        <source srcset={{ asset('images/card/'~"menu-medium.jpg") }} media="(min-width : 768px)">
-                        <img src={{ asset('images/card/'~'menu-small.jpg')}} alt="Service de plusieurs assiettes en cuisine">
-                    </picture>
-                </li>
-            </ul>
-        </section>
-        <div class="h-[42px] w-[200px] bg-secondary drop-shadow-lg mx-auto cursor-pointer flex items-center justify-center hover:bg-400 group duration-150 md:w-[350px] md:h-[70px] md:text-1.5xl"><a href="" class="text-primary font-secondary group-hover:text-secondary duration-150">Réservez maintenant !</a></div>
+        {% block section %}
+        <div class="main-content ease-in duration-500">
+            <section class="text-secondary font-primary section_card">
+                <ul class="diamonds grid grid-cols-2 gap-2 rotate-45 lg:gap-4">
+                    <li id="card-starter" class="relative left-full -translate-x-full">
+                        <a href="{{ path('card-starter') }}">
+                            <div></div>
+                            <picture>
+                                <source srcset={{ asset('images/card/'~"starter-extraLarge.jpg") }} media="(min-width : 1200px)">
+                                <source srcset={{ asset('images/card/'~"starter-large.jpg") }} media="(min-width : 990px)">
+                                <source srcset={{ asset('images/card/'~"starter-medium.jpg") }} media="(min-width : 768px)">
+                                <img src={{ asset('images/card/'~'starter-small.jpg')}} alt="Demi-camembert roti sur lit de salade">
+                            </picture>
+                            <h2 class="z-0">Entrées</h2>
+                        </a>
+                    </li>
+                    <li id="card-main">
+                        <a href="">
+                            <div></div>
+                            <picture>
+                                <source srcset={{ asset('images/card/'~"main-extraLarge.jpg") }} media="(min-width : 1200px)">
+                                <source srcset={{ asset('images/card/'~"main-large.jpg") }} media="(min-width : 990px)">
+                                <source srcset={{ asset('images/card/'~"main-medium.jpg") }} media="(min-width : 768px)">
+                            <img src={{ asset('images/card/'~'main-small.jpg')}} alt="Marmitte e crozets aux noix de saint Jacques ">
+                            </picture>
+                            <h2 class="z-0">Plats</h2>
+                        </a>
+                    </li>
+                    <li id="card-dessert" class="relative left-full -translate-x-full">
+                        <a href="">
+                            <div></div>
+                            <picture>
+                                <source srcset={{ asset('images/card/'~"dessert-extraLarge.jpg") }} media="(min-width : 1200px)">
+                                <source srcset={{ asset('images/card/'~"dessert-large.jpg") }} media="(min-width : 990px)">
+                                <source srcset={{ asset('images/card/'~"dessert-medium.jpg") }} media="(min-width : 768px)">
+                                <img src={{ asset('images/card/'~'dessert-small.jpg')}} alt="Nougat glace et son coulis de myrtilles">
+                            </picture>
+                            <h2 class="z-0">Desserts</h2>
+                        </a>
+                    </li>
+                    <li id="card-menus">
+                        <a href="">
+                            <div></div>
+                            <picture>
+                                <source srcset={{ asset('images/card/'~"menu-extraLarge.jpg") }} media="(min-width : 1200px)">
+                                <source srcset={{ asset('images/card/'~"menu-large.jpg") }} media="(min-width : 990px)">
+                                <source srcset={{ asset('images/card/'~"menu-medium.jpg") }} media="(min-width : 768px)">
+                                <img src={{ asset('images/card/'~'menu-small.jpg')}} alt="Service de plusieurs assiettes en cuisine">
+                            </picture>
+                            <h2 class="z-0">Menus</h2>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+            <div class="h-[42px] w-[200px] bg-secondary drop-shadow-lg mx-auto cursor-pointer flex items-center justify-center hover:bg-400 group duration-150 md:w-[350px] md:h-[70px] md:text-1.5xl"><a href="" class="text-primary font-secondary group-hover:text-secondary duration-150">Réservez maintenant !</a></div>
+        </div>
+        {% endblock %}
     </main>
+{% endblock %}
+{% block scripts %}
+    <script src={{ asset('js/card/'~'script-card.js') }}></script>
 {% endblock %}

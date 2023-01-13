@@ -34,7 +34,7 @@ header nav a {
     position: relative;
 }
 header nav li:hover {
-    transform: scale(1.05);
+    @apply scale-105 duration-100;
 }
 header nav a.active::after, header nav a.active::before {
     content: '';
@@ -102,7 +102,6 @@ header nav a.active::after {
 .carousel_button.active {
     @apply bg-500;
 }
-
 /* CARD */
 .section_card {
     margin: clamp(5rem, 3.839rem + 5.804vw, 9.063rem) 0;
@@ -114,6 +113,9 @@ header nav a.active::after {
     @apply mx-auto -top-[5px] relative;
     width: clamp(6.25rem, -1.25rem + 20vw, 12.5rem);
 }
+.diamonds a {
+    @apply w-full h-full flex justify-center items-center;
+}
 .diamonds li:hover img {
     @apply lg:blur-sm;
 }
@@ -122,7 +124,7 @@ header nav a.active::after {
     width: clamp(6.25rem, 0.134rem + 16.31vw, 14.813rem);
     height: clamp(6.25rem, 0.134rem + 16.31vw, 14.813rem);
 }
-.diamonds li:hover h2, .diamonds li:hover > div  {
+.diamonds li:hover h2, .diamonds li:hover a > div  {
     @apply lg:visible ease-in duration-100 lg:opacity-100;
 }
 .diamonds h2 {
@@ -139,9 +141,26 @@ header nav a.active::after {
     width: calc(144% * 100 / 100);
     height: calc(144% * 100 / 100);
 }
-.diamonds li > div {
-    @apply bg-500/50 -z-10 lg:invisible lg:opacity-0;
+.diamonds li a > div {
+    @apply bg-500/50 -z-10 lg:invisible lg:opacity-0 absolute w-full h-full;
 }
+
+.diamonds li.black {
+    @apply opacity-0 invisible ease-in duration-300;
+}
+.diamonds li.black {
+ @apply drop-shadow-none;
+}
+.diamonds li.active a > div{
+    @apply bg-500 opacity-100 visible ease-in duration-300;
+}
+.diamonds li.active a > h2{
+    @apply opacity-0 duration-300;
+}
+.diamonds li.moving {
+    @apply rotate-90 ease-in duration-500;
+}
+
 
 @media screen and (min-width: 768px) {
     footer, footer div:nth-child(2), footer div:nth-child(2) div {
