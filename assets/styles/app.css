@@ -104,29 +104,43 @@ header nav a.active::after {
 }
 
 /* CARD */
+.section_card {
+    margin: clamp(5rem, 3.839rem + 5.804vw, 9.063rem) 0;
+}
 .title_section {
-    @apply text-home-title text-center text-secondary font-primary;
+    @apply text-home-title text-center text-secondary font-primary pt-4;
 }
 .title_container img{
     @apply mx-auto -top-[5px] relative;
-    width: clamp(9.375rem, 1.786rem + 37.946vw, 20rem);
+    width: clamp(6.25rem, -1.25rem + 20vw, 12.5rem);
+}
+.diamonds li:hover img {
+    @apply lg:blur-sm;
 }
 .diamonds li {
-    @apply w-[100px] h-[100px] flex justify-center items-center overflow-hidden relative drop-shadow-lg text-xl;
+    @apply flex justify-center items-center overflow-hidden relative text-xl drop-shadow-lg md:text-2xl lg:text-3xl cursor-pointer lg:hover:scale-105 ease-in duration-150;
+    width: clamp(6.25rem, 0.134rem + 16.31vw, 14.813rem);
+    height: clamp(6.25rem, 0.134rem + 16.31vw, 14.813rem);
+}
+.diamonds li:hover h2, .diamonds li:hover > div  {
+    @apply lg:visible ease-in duration-100 lg:opacity-100;
+}
+.diamonds h2 {
+    @apply lg:invisible lg:opacity-0;
 }
 .diamonds h2, .diamonds img {
     @apply -rotate-45;
 }
 .diamonds img {
-    @apply blur blur-[1px];
+    @apply blur blur-[1px] md:blur-sm lg:blur-0;
 }
 .diamonds img, .diamonds li > div {
     @apply absolute -z-20 max-w-none object-cover top-0 left-0 -translate-y-[15.5%] -translate-x-[15.5%];
-    width: calc(14400px / 101);
-    height: calc(14400px / 101);
+    width: calc(144% * 100 / 100);
+    height: calc(144% * 100 / 100);
 }
 .diamonds li > div {
-    @apply bg-500/50 -z-10;
+    @apply bg-500/50 -z-10 lg:invisible lg:opacity-0;
 }
 
 @media screen and (min-width: 768px) {
