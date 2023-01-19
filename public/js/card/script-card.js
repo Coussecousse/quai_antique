@@ -23,9 +23,9 @@ aArray.forEach(a => {
                         content.style.transform = "translateY(25%)";
                 }
             }, 300);
-            // setTimeout(() => {
-            //     window.location.href = a.href;
-            // }, 800);
+            setTimeout(() => {
+                window.location.href = a.href;
+            }, 800);
         }
     })
 });

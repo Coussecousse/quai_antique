@@ -165,18 +165,21 @@ header nav a.active::after {
 }
 /*  CARD - OPTIONS */
 .box {
-    @apply bg-500 rotate-45 absolute left-1/2 -translate-x-1/2;
-    top: calc(100% - clamp(2.5rem, 0.536rem + 9.821vw, 9.375rem));
+    @apply bg-500 rotate-45 absolute left-1/2 -translate-x-1/2 translate-y-[64%];
+
     width: clamp(6.25rem, 0.134rem + 16.31vw, 14.813rem);
     height: clamp(6.25rem, 0.134rem + 16.31vw, 14.813rem);
-    /* background-image: url('../../public/images/svg/Rectanglepng.png'); */
 
 }
 .box.growing {
-    @apply h-full w-fit top-0 min-h-[450px];
+    @apply h-[105%] w-fit top-0 translate-y-0 translate-y-0;
+}
+.box.shrink {
+    /* width: clamp(6.25rem, 0.134rem + 16.31vw, 14.813rem); */
+    height: clamp(6.25rem, 0.134rem + 16.31vw, 14.813rem);
 }
 .box img {
-    @apply h-full w-auto opacity-0 max-w-none;
+    @apply h-[102%] w-auto opacity-0 max-w-none;
 }
 .container-card {
     @apply opacity-100 visible max-w-[515px];
