@@ -3,8 +3,45 @@
 {% extends "Card/card.html.twig" %}
 
 {% block subTitle %} - Entrées{% endblock %}
-{% block title %}Carte{% endblock title %}
 
-    {% block section %}
-    {% endblock %}
+{% block section %}
+<div class="main-content ease-in duration-500 min-h-full flex-1 flex mt-5">
+    <section class="text-secondary font-primary section_card w-full flex-1 relative max-w-[515px]" id="section-starter">
+        <div class="box duration-500 ease-in -z-10"><img src={{ asset('images/svg/'~'Rectangle.svg') }} alt=""></img></div>
+        <div class="container-card blank duration-150 linear relative">
+            <div class="flex flex-col items-center pb-4 relative -top-[10px] md:-top-[50px]">
+                <h2 class="text-2.25xl md:text-3xl">Entrées</h2>
+                <img src={{ asset('images/svg/'~ "line-sub.svg") }} alt="un point entouré de deux traits de longeur égales" class="w-[100px] -mt-2 md:w-[150px]">
+            </div>
+            <ul class="card-items grid gap-4">
+                <li>
+                    <div>
+                        <h3>Assiette de cochonailles</h3>
+                        <p class="comment" >Jabon sec de Savoie, saucisson de Savoie, coppa (IGP)</p>
+                    </div>
+                    <p class="price">13,00</p>
+                </li>
+                <li>
+                    <div>
+                        <h3>Demi-camembert roti sur lit de salade melée et son lard grillé</h3>
+                        <p class="comment" >Camembert au lait cru</p>
+                    </div>
+                    <p class="price">15,50</p>
+                </li>
+                <li>
+                    <div>
+                        <h3>Escalope de foie gras poëlée au miel et compotée d'oignons doux des Cévennes (AOP)</h3>
+                        <p class="comment" >Miel de Savoie</p>
+                    </div>
+                    <p class="price">28,00</p>
+                </li>
+            </ul>
+            <div class="mx-auto top-[50px] relative flex card-button rounded-full bg-secondary h-[46px] w-[46px] justify-center items-center cursor-pointer md:h-[60px] md:w-[60px] md:top-[100px] "><a href="{{ path('card') }}" class="text-primary text-2xl md:text-4xl"><i class="fa-solid fa-arrow-down"></i></a></button>
+    </div>
+    </section>
+</div>
+{% endblock %}
 
+{% block scripts %}
+    <script src={{ asset('js/card/'~'script-options.js') }}></script>
+{% endblock %}

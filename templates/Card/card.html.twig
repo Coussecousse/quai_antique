@@ -4,13 +4,13 @@
 
 
 {% block body %}
-    <main class="w-full min-h-screen pt-28 px-6 flex flex-col justify-around overflow-y-hidden">
+    <main class="w-full min-h-screen pt-28 px-6 flex flex-col overflow-hidden">
         <div class="title_container">
             <h1 class="title_section">Carte</h1>
             <img src={{ asset('images/svg/'~ "line-white.svg") }} alt="un point entouré de deux traits de longeur égales" class="w-[100px]">
         </div>
         {% block section %}
-        <div class="main-content ease-in duration-500">
+        <div class="main-content ease-in duration-500 min-h-full">
             <section class="text-secondary font-primary section_card">
                 <ul class="diamonds grid grid-cols-2 gap-2 rotate-45 lg:gap-4">
                     <li id="card-starter" class="relative left-full -translate-x-full">

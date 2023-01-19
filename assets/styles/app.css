@@ -104,7 +104,7 @@ header nav a.active::after {
 }
 /* CARD */
 .section_card {
-    margin: clamp(5rem, 3.839rem + 5.804vw, 9.063rem) 0;
+    margin: clamp(5rem, 3.839rem + 5.804vw, 9.063rem) auto;
 }
 .title_section {
     @apply text-home-title text-center text-secondary font-primary pt-4;
@@ -160,6 +160,46 @@ header nav a.active::after {
 .diamonds li.moving {
     @apply rotate-90 ease-in duration-500;
 }
+/*  CARD - OPTIONS */
+.box {
+    @apply bg-500 rotate-45 absolute left-1/2 -translate-x-1/2;
+    top: calc(100% - clamp(2.5rem, 0.536rem + 9.821vw, 9.375rem));
+    width: clamp(6.25rem, 0.134rem + 16.31vw, 14.813rem);
+    height: clamp(6.25rem, 0.134rem + 16.31vw, 14.813rem);
+    /* background-image: url('../../public/images/svg/Rectanglepng.png'); */
+
+}
+.box.growing {
+    @apply h-full w-fit top-0 min-h-[450px];
+}
+.box img {
+    @apply h-full w-auto opacity-0 max-w-none;
+}
+.container-card {
+    @apply opacity-100 visible max-w-[515px];
+    padding: clamp(0rem, -8.261rem + 41.304vw, 6.938rem) 0;
+}
+.container-card.blank {
+    @apply opacity-0 invisible;
+}
+.card-items li {
+    @apply flex gap-2;
+}
+.card-items li div {
+    @apply flex-1;
+}
+.card-items h3 {
+    @apply font-secondary;
+}
+.card-items h3, .price {
+    @apply text-lg;
+}
+.comment, .price {
+    @apply font-third;
+}
+.comment {
+    @apply text-sm
+}
 
 
 @media screen and (min-width: 768px) {
@@ -183,3 +223,4 @@ header nav a.active::after {
         background:  linear-gradient(rgba(23,21,21,0) 50%, rgb(23, 21, 21)) ,  center 61% / cover no-repeat url('../../public/images/home/home-extraLarge.webp');
     }
 }
+
