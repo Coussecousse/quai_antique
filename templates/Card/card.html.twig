@@ -11,8 +11,8 @@
         </div>
         {% block section %}
         <div class="main-content ease-in duration-500 min-h-full">
-            <section class="text-secondary font-primary section_card">
-                <ul class="diamonds grid grid-cols-2 gap-2 rotate-45 lg:gap-4">
+            <section class="text-secondary font-primary section_card flex items-center">
+                <ul class="diamonds grid grid-cols-2 gap-2 rotate-45 lg:gap-4 flex-1 ">
                     <li id="card-starter" class="relative left-full -translate-x-full">
                         <a href="{{ path('card-starter') }}">
                             <div></div>
@@ -26,13 +26,13 @@
                         </a>
                     </li>
                     <li id="card-main">
-                        <a href="">
+                        <a href="{{ path('card-main') }}">
                             <div></div>
                             <picture>
                                 <source srcset={{ asset('images/card/'~"main-extraLarge.jpg") }} media="(min-width : 1200px)">
                                 <source srcset={{ asset('images/card/'~"main-large.jpg") }} media="(min-width : 990px)">
                                 <source srcset={{ asset('images/card/'~"main-medium.jpg") }} media="(min-width : 768px)">
-                            <img src={{ asset('images/card/'~'main-small.jpg')}} alt="Marmitte e crozets aux noix de saint Jacques ">
+                            <img src={{ asset('images/card/'~'main-small.jpg')}} alt="Marmitte e crozets aux noix de saint Jacques">
                             </picture>
                             <h2 class="z-0">Plats</h2>
                         </a>
@@ -63,7 +63,7 @@
                     </li>
                 </ul>
             </section>
-            <div class="h-[42px] w-[200px] bg-secondary drop-shadow-lg mx-auto cursor-pointer flex items-center justify-center hover:bg-400 group duration-150 md:w-[350px] md:h-[70px] md:text-1.5xl"><a href="" class="text-primary font-secondary group-hover:text-secondary duration-150">Réservez maintenant !</a></div>
+            <div class="h-[42px] w-[200px] bg-secondary drop-shadow-lg mx-auto cursor-pointer flex items-center justify-center hover:bg-400 group duration-150 md:w-[350px] md:h-[70px] md:text-1.5xl" id="card-booking"><a href="" class="text-primary font-secondary group-hover:text-secondary duration-150">Réservez maintenant !</a></div>
         </div>
         {% endblock %}
     </main>

@@ -41,7 +41,9 @@ module.exports = {
       },
       screens : {
         "sm" : "425px",
+        "sm-cardButton" : '708px',
         "md" : "768px",
+        "md-cardButton" : "806px",
         "md.5" : "900px",
         "lg" : "992px",
       }
