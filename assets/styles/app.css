@@ -144,10 +144,13 @@ header nav a.active::after {
 .diamonds li a > div {
     @apply bg-500/50 -z-10 lg:invisible lg:opacity-0 absolute w-full h-full;
 }
-
-.diamonds li.black {
-    @apply opacity-0 invisible ease-in duration-300;
+.diamonds li.bottom100 {
+    @apply translate-x-full translate-y-full duration-300 opacity-0 invisible ;
 }
+.diamonds li.bottom0 {
+    @apply translate-x-0 translate-y-full duration-300 opacity-0 invisible ;
+}
+
 .diamonds li.black {
  @apply drop-shadow-none;
 }

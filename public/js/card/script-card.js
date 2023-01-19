@@ -7,7 +7,11 @@ aArray.forEach(a => {
         console.log(a);
         for (let element of aArray) {
             if (element !== a ){
-                element.parentElement.classList.add("black");
+                if (element.parentElement.id === "card-dessert") {
+                    element.parentElement.classList.add("bottom0");
+                } else {
+                    element.parentElement.classList.add("bottom100");
+                }
             } else {
                 element.parentElement.classList.add('active');
             }
@@ -16,12 +20,12 @@ aArray.forEach(a => {
                 console.log(a.parentElement.id);
                 switch(a.parentElement.id) {
                     case "card-starter":
-                        content.style.transform = "translateY(50%)";
+                        content.style.transform = "translateY(25%)";
                 }
             }, 300);
-            setTimeout(() => {
-                window.location.href = a.href;
-            }, 800);
+            // setTimeout(() => {
+            //     window.location.href = a.href;
+            // }, 800);
         }
     })
 });
