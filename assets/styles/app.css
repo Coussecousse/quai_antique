@@ -149,13 +149,20 @@ header nav a.active::after {
 .diamonds li a > div {
     @apply bg-500/50 -z-10 lg:invisible lg:opacity-0 absolute w-full h-full;
 }
-.diamonds li.bottom100 {
+.diamonds li.bottom {
     @apply translate-x-full translate-y-full duration-300 opacity-0 invisible ;
 }
-.diamonds li.bottom0 {
-    @apply translate-x-0 translate-y-full duration-300 opacity-0 invisible ;
-}.diamonds li.right {
+.diamonds #card-dessert.bottom {
+    @apply translate-x-0;
+}
+.diamonds li.right {
     @apply -translate-x-[300%] translate-y-[200%] duration-300 opacity-0 invisible;
+}
+.diamonds li.left {
+    @apply translate-x-[200%] -translate-y-[200%] duration-300 opacity-0 invisible;
+}
+.diamonds #card-starter.left {
+    @apply -translate-y-[300%];
 }
 .diamonds li.black {
  @apply drop-shadow-none;
@@ -168,6 +175,9 @@ header nav a.active::after {
 }
 .diamonds li.moving {
     @apply rotate-90 ease-in duration-500 -translate-x-1/2 translate-y-1/2;
+}
+.diamonds #card-dessert.moving {
+    @apply -translate-y-1/2;
 }
 
 /*  CARD - OPTIONS */
@@ -214,7 +224,7 @@ header nav a.active::after {
     @apply grid gap-4 mb-4;
 }
 .card-items li {
-    @apply flex gap-2;
+    @apply flex gap-3 md:gap-6;
 }
 .card-items li div {
     @apply flex-1;

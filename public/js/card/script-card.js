@@ -10,16 +10,14 @@ aArray.forEach(a => {
             if (element !== a ){
                 switch (a.parentElement.id) {
                     case "card-starter":
-                        if (element.parentElement.id === "card-dessert") {
-                            element.parentElement.classList.add("bottom0");
-                        } else {
-                            element.parentElement.classList.add("bottom100");
-                        }
+                        element.parentElement.classList.add("bottom");
                         break;
                     case "card-main": 
                         element.parentElement.classList.add("right");
                         break;
-
+                    case "card-dessert": 
+                        element.parentElement.classList.add("left");
+                        break;
                 }
             } else {
                 element.parentElement.classList.add('active');
