@@ -18,6 +18,9 @@ aArray.forEach(a => {
                     case "card-dessert": 
                         element.parentElement.classList.add("left");
                         break;
+                    case "card-menus": 
+                        element.parentElement.classList.add('top');
+                        break;
                 }
             } else {
                 element.parentElement.classList.add('active');

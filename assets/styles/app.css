@@ -125,7 +125,7 @@ header nav a.active::after {
     @apply lg:blur-sm;
 }
 .diamonds li {
-    @apply flex justify-center items-center overflow-hidden relative text-xl drop-shadow-lg md:text-2xl lg:text-3xl cursor-pointer lg:hover:scale-105 ease-in duration-150;
+    @apply flex justify-center items-center overflow-hidden relative text-xl shadow-md md:text-2xl lg:text-3xl cursor-pointer lg:hover:scale-105 ease-in duration-150;
     width: clamp(6.25rem, 0.134rem + 16.31vw, 14.813rem);
     height: clamp(6.25rem, 0.134rem + 16.31vw, 14.813rem);
 }
@@ -164,6 +164,12 @@ header nav a.active::after {
 .diamonds #card-starter.left {
     @apply -translate-y-[300%];
 }
+.diamonds li.top {
+    @apply -translate-y-full -translate-x-[200%] duration-300 opacity-0 invisible ;
+}
+.diamonds #card-main.top {
+    @apply -translate-x-full ;
+}
 .diamonds li.black {
  @apply drop-shadow-none;
 }
@@ -176,7 +182,7 @@ header nav a.active::after {
 .diamonds li.moving {
     @apply rotate-90 ease-in duration-500 -translate-x-1/2 translate-y-1/2;
 }
-.diamonds #card-dessert.moving {
+.diamonds #card-dessert.moving, #card-menus.moving {
     @apply -translate-y-1/2;
 }
 
@@ -188,7 +194,7 @@ header nav a.active::after {
     @apply text-secondary font-primary section_card w-full flex-1 relative max-w-[515px];
 }
 .box {
-    @apply bg-500 rotate-45 absolute left-1/2 -translate-x-1/2 translate-y-[64%] duration-500 ease-in -z-10;
+    @apply bg-500 rotate-45 absolute left-1/2 -translate-x-1/2 translate-y-[64%] duration-500 ease-in -z-10 shadow-md;
 
     width: clamp(6.25rem, 0.134rem + 16.31vw, 14.813rem);
     height: clamp(6.25rem, 0.134rem + 16.31vw, 14.813rem);
