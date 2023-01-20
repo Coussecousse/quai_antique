@@ -223,6 +223,24 @@ header nav a.active::after {
 .card-items {
     @apply grid gap-4 mb-4;
 }
+.card-items_menus {
+    @apply grid gap-7 ;
+}
+.card-items_menus h3 {
+    @apply text-1.5xl;
+}
+.card-items_menus .condition {
+    @apply text-xs;
+}
+.menu-formula {
+    @apply flex gap-3 font-third ;
+}
+.menu-formula div {
+    @apply flex-1;
+}
+.menu-formula h4 {
+    @apply font-secondary text-xl leading-5;
+}
 .card-items li {
     @apply flex gap-3 md:gap-6;
 }

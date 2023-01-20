@@ -29,4 +29,8 @@ class PostController extends AbstractController
     public function cardDessert() {
         return $this->render('Card/Dessert/dessert.card.html.twig');
     }
+    #[Route('/carte/menus', name:'card-menus')]
+    public function cardMenus() {
+        return $this->render('Card/Menus/menus.card.html.twig');
+    }
 }
