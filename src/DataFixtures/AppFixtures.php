@@ -62,6 +62,7 @@ class AppFixtures extends Fixture
             }
 
             $day->setPlaces(30);
+            $manager->persist($day);
         }
 
         $booking = new Bookings();
@@ -77,6 +78,8 @@ class AppFixtures extends Fixture
         $horora = new \DateTime('12:30');
         $booking->setScedule($horora);
         
+        $manager->persist($booking);
+
         $manager->flush();
     }
 }
