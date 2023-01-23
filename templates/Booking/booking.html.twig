@@ -1,0 +1,42 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Carte{% endblock title %}
+
+
+{% block body %}
+<main class="pt-28">
+    <div class="title_container">
+        <h1 class="title_section">Réserver</h1>
+        <img src={{ asset('images/svg/'~ "line-white.svg") }} alt="un point entouré de deux traits de longeur égales" class="w-[100px]">
+    </div>
+    <section>
+        <div>
+            <div>
+                <p>Envie d'aller plus vite ?</p>
+                <div>
+                    <div><a href=""></a></div>
+                    <p>ou</p>
+                    <div><a href=""></a></div>
+                </div>
+                {# <picture>
+                    <source srcset={{ asset('images/booking/'~"booking-extraLarge.jpg") }} media="(min-width : 1200px)">
+                    <source srcset={{ asset('images/booking/'~"booking-large.jpg") }} media="(min-width : 990px)">
+                    <source srcset={{ asset('images/booking/'~"booking-medium.jpg") }} media="(min-width : 768px)">
+                    <img src={{ asset('images/booking/'~'booking-small.jpg')}} alt="Demi-camembert roti sur lit de salade">
+                </picture> #}
+            </div>
+            <div class="booking-carousel">
+                <div>
+                    
+                </div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
+
+{% block scripts %}
+    {# <script src={{ asset('js/card/'~'script-card.js') }}></script> #}
+{% endblock %}
