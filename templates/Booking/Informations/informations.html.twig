@@ -1,0 +1,14 @@
+{% extends "Booking/booking.html.twig" %}
+
+{% block form %}
+    {{ form_start(informations, {'method': 'GET'}) }}
+
+        {{ form_row(informations.name) }}
+        {{ form_row(informations.person) }}
+        {{ form_row(informations.allergies) }}
+        {{ form_row(informations.allergiesOther) }}
+
+    <input class="" type="submit" value="Valider" />
+
+{{ form_end(informations) }}
+{% endblock %}

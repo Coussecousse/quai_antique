@@ -272,6 +272,10 @@ header nav a.active::after {
     @apply text-primary text-2xl md:text-4xl duration-150;
 }
 
+/* FORM */
+.choice_buttons {
+    @apply h-[47px] w-[190px] font-primary bg-primary flex justify-center items-center text-lg mx-auto;
+}
 
 @media screen and (min-width: 768px) {
     footer, footer div:nth-child(2), footer div:nth-child(2) div {

@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Informations;
+use App\Form\InformationsType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 
 class PostController extends AbstractController
 {
@@ -34,7 +37,21 @@ class PostController extends AbstractController
         return $this->render('Card/Menus/menus.card.html.twig');
     }
     #[Route('/reserver', name:'booking')]
-    public function booking() {
-        return $this->render('Booking/booking.html.twig');
+    public function booking(Request $request, ) {
+
+        $informations = new Informations();
+        $formInformations = $this->createForm(InformationsType::class, $informations);
+
+        $formInformations->handleRequest($request);
+        if ($formInformations->isSubmitted() && $formInformations->isValid()) {
+            $places = $formInformations->get('person');
+
+            return $this->render('Booking/date.html.twig');
+        }
+
+
+        return $this->render('Booking/Informations/informations.html.twig', [
+            'informations' => $formInformations,
+        ]);
     }
 }
