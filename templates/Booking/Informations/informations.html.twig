@@ -1,14 +1,42 @@
 {% extends "Booking/booking.html.twig" %}
 
 {% block form %}
-    {{ form_start(informations, {'method': 'GET'}) }}
+    {{ form_start(informations, {'method': 'GET', 'attr': { 'class' : 'form_booking'}}) }}
 
-        {{ form_row(informations.name) }}
-        {{ form_row(informations.person) }}
-        {{ form_row(informations.allergies) }}
-        {{ form_row(informations.allergiesOther) }}
+        <div class="input_container">
+            {{ form_label(informations.name) }}
+            {{ form_errors(informations.name) }}
+            <div>
+                <i class="fa-solid fa-user"></i>
+                {{ form_widget(informations.name)}}
+            </div>
+        </div>
+        <div class="flex flex-col gap-2">
+            {{ form_label(informations.person) }}
+            {{ form_errors(informations.person) }}
+            <div class="input_container">
+                <div>
+                    <i class="fa-solid fa-utensils"></i>
+                    {{ form_widget(informations.person)}}
+                </div>
+                <p class="text-sm">*Pour une réservation de plus de 20 personnes merci de nous appeler ou de nous contacter ici</p>
+            </div>
+        </div>
+        <div class="radio_container">
+            {{ form_errors(informations.allergies) }}
+            {{ form_label(informations.allergies) }}
+            {{ form_widget(informations.allergies)}}
+        </div>
+        <div class="input_container">
+            {{ form_label(informations.allergiesOther) }}
+            {{ form_errors(informations.allergiesOther) }}
+            <div>
+                <i class="fa-solid fa-triangle-exclamation"></i>                
+                {{ form_widget(informations.allergiesOther)}}
+            </div>
+        </div>
 
-    <input class="" type="submit" value="Valider" />
+    <button class="rounded-full text-1.5xl w-[48px] h-[48px] mt-6 mx-auto white-button flex justify-center items-center" type="submit" aria-label="Valider" value=""><i class="fa-solid fa-check"></i></button>
 
 {{ form_end(informations) }}
 {% endblock %}

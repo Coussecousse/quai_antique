@@ -33,6 +33,9 @@ html, body, main {
 a {
     cursor: pointer;
 }
+.white-button {
+    @apply bg-secondary text-primary drop-shadow-lg hover:bg-400 hover:text-secondary;
+}
 
 /* HEADER */
 header nav a {
@@ -276,6 +279,32 @@ header nav a.active::after {
 .choice_buttons {
     @apply h-[47px] w-[190px] font-primary bg-primary flex justify-center items-center text-lg mx-auto;
 }
+.form-booking_container {
+    @apply bg-500 text-secondary text-lg;
+}
+.form_booking {
+    @apply p-4 flex flex-col gap-4 justify-center;
+}
+.form_booking .input_container {
+    @apply flex flex-col gap-2; 
+}
+.form_booking .radio_container div {
+    @apply grid pt-2;
+    grid-template-columns: auto 1fr ;
+}
+.form_booking .radio_container input {
+    @apply w-[18px] mr-2;
+}
+.form_booking .input_container div {
+    @apply bg-400/20 flex items-center;
+}
+.form_booking .input_container i {
+    @apply p-2;
+}
+.form_booking .input_container input, .form_booking .input_container select {
+    @apply bg-transparent flex-1 pl-1 text-primary;
+}
+
 
 @media screen and (min-width: 768px) {
     footer, footer div:nth-child(2), footer div:nth-child(2) div {

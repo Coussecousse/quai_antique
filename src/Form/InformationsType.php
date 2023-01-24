@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Informations;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -16,13 +17,13 @@ class InformationsType extends AbstractType
     {
         $builder
         ->add('name', TextType::class, [
-            "label" => "Nom",
+            "label" => "Nom :",
             "required" => true,
             "constraints" => [new Length(["min" => 5, "max" => "50", "maxMessage" => "Ne pas dépasser 100 caractères."]),
                              new NotBlank(["message" => "Le nom d'utilisateur ne doit pas être vide !"])]
         ])
         ->add('person', ChoiceType::class, [
-            "label" => "Couverts",
+            "label" => "Couverts* :",
             "required" => true,
             "choices" => [
                 "1" => 1,
@@ -49,7 +50,7 @@ class InformationsType extends AbstractType
             "multiple" => false
         ])
         ->add('allergies', ChoiceType::class, [
-            "label" => "Allergies",
+            "label" => "Allergie(s) :" ,
             'choices' => [
                 'Céréales (gluten)' => 'céréales(gluten)',
                 'Céleri' => 'céleri',
@@ -71,7 +72,7 @@ class InformationsType extends AbstractType
             "required" => false,
         ])
         ->add('allergiesOther', TextType::class, [
-            "label" => "Autre...",
+            "label" => "Autre :",
             "required" => false,
         ]);
     }
@@ -79,6 +80,8 @@ class InformationsType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
+            "data_class" => Informations::class,
+
             // Configure your form options here
         ]);
     }

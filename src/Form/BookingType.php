@@ -17,13 +17,13 @@ class BookingType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                "label" => "Nom",
+                "label" => "Nom :",
                 "require" => true,
                 "constraint" => [new Length(["min" => 5, "max" => "50", "maxMessage" => "Ne pas dépasser 100 caractères."]),
                                  new NotBlank(["message" => "Le nom d'utilisateur ne doit pas être vide !"])]
             ])
             ->add('places', ChoiceType::class, [
-                "label" => "Couverts",
+                "label" => "Couverts* :",
                 "require" => true,
                 "choices" => [
                     "1" => 1,
@@ -50,7 +50,7 @@ class BookingType extends AbstractType
                 "multiple" => false
             ])
             ->add('allergies', ChoiceType::class, [
-                "label" => "Allergies",
+                "label" => "Allergie(s) :",
                 'choices' => [
                     'Céréales (gluten)' => 'céréales(gluten)',
                     'Céleri' => 'céleri',
@@ -72,7 +72,7 @@ class BookingType extends AbstractType
                 "require" => false,
             ])
             ->add('allergies_other', TextType::class, [
-                "label" => "Autre...",
+                "label" => "Autre :",
                 "require" => false,
             ])
             ->add('date', DateType::class, [
