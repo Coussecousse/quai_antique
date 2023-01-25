@@ -7,22 +7,22 @@
 <main class="pt-28">
     <div class="title_container">
         <h1 class="title_section">Réserver</h1>
-        <img src={{ asset('images/svg/'~ "line-white.svg") }} alt="un point entouré de deux traits de longeur égales" class="w-[100px]">
+        <img src={{ asset('images/svg/'~ "line-white.svg") }} alt="un point entouré de deux traits de longeur égales" class="">
     </div>
-    <section>
-        <div class="min-w-[264px] text-secondary font-secondary w-11/12 mx-auto py-6">
-            <div class="min-h-[295px] relative text-xl flex">
+    <section class="">
+        <div class="mt-6 min-w-[264px] text-secondary font-secondary w-11/12 mx-auto py-6 md:flex max-w-[1000px]">
+            <div class="min-h-[295px] relative text-xl flex md:order-last md:min-w-[300px] md:max-w-[500px] w-full ">
                 <picture>
                     <source srcset={{ asset('images/booking/'~"booking-extraLarge.jpg") }} media="(min-width : 1200px)">
                     <source srcset={{ asset('images/booking/'~"booking-large.jpg") }} media="(min-width : 990px)">
                     <source srcset={{ asset('images/booking/'~"booking-medium.jpg") }} media="(min-width : 768px)">
                     <img src={{ asset('images/booking/'~'booking-small.jpg')}} alt="Assiettes servies avec une salade et un verre à pied." class="w-full h-full blur-[1px] absolute object-center object-cover -z-10">
                 </picture>
-                <p class="w-full py-4 absolute text-center">Envie d'aller plus vite ?</p>
+                <p class="w-full py-4 absolute text-center md:top-12">Envie d'aller plus vite ?</p>
                 <div class="flex flex-col gap-3 relative justify-center w-full">
-                    <div class="choice_buttons"><a href="">Inscrivez vous</a></div>
+                    <div class="choice-button"><a href="" class="">Inscrivez vous</a></div>
                     <p class="text-center">Ou</p>
-                    <div class="choice_buttons"><a href="">Connectez vous</a></div>
+                    <div class="choice-button"><a href="" class="">Connectez vous</a></div>
                 </div>
             </div>
             <div class="form-booking_container">

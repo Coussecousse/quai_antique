@@ -34,7 +34,7 @@ a {
     cursor: pointer;
 }
 .white-button {
-    @apply bg-secondary text-primary drop-shadow-lg hover:bg-400 hover:text-secondary;
+    @apply bg-secondary text-primary drop-shadow-lg hover:bg-400 hover:text-secondary duration-150;
 }
 
 /* HEADER */
@@ -119,7 +119,7 @@ header nav a.active::after {
 }
 .title_container img{
     @apply mx-auto -top-[5px] relative;
-    width: clamp(6.25rem, -1.25rem + 20vw, 12.5rem);
+    width: clamp(5rem, 3.75rem + 6.25vw, 9.375rem);
 }
 .diamonds a {
     @apply w-full h-full flex justify-center items-center;
@@ -276,11 +276,11 @@ header nav a.active::after {
 }
 
 /* FORM */
-.choice_buttons {
-    @apply h-[47px] w-[190px] font-primary bg-primary flex justify-center items-center text-lg mx-auto;
+.choice-button {
+    @apply cursor-pointer duration-150 drop-shadow-lg bg-primary h-[47px] w-[190px] font-primary flex justify-center items-center text-lg mx-auto lg:w-[230px] lg:h-[55px] lg:text-xl hover:bg-500 ;
 }
 .form-booking_container {
-    @apply bg-500 text-secondary text-lg;
+    @apply bg-500 text-secondary text-lg w-full;
 }
 .form_booking {
     @apply p-4 flex flex-col gap-4 justify-center;
@@ -292,6 +292,9 @@ header nav a.active::after {
     @apply grid pt-2;
     grid-template-columns: auto 1fr ;
 }
+.form_booking #informations_person option {
+    @apply bg-primary;
+}
 .form_booking .radio_container input {
     @apply w-[18px] mr-2;
 }
@@ -302,7 +305,7 @@ header nav a.active::after {
     @apply p-2;
 }
 .form_booking .input_container input, .form_booking .input_container select {
-    @apply bg-transparent flex-1 pl-1 text-primary;
+    @apply bg-transparent flex-1 pl-1;
 }
 
 
@@ -315,6 +318,10 @@ header nav a.active::after {
     }
     .carousel_pic {
         grid-template-columns: repeat(3, 671px);
+    }
+    .form_booking .radio_container div {
+        @apply grid pt-2;
+        grid-template-columns: repeat(2, 30px auto) ;
     }
 }
 @media screen and (min-width: 992px) {

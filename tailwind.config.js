@@ -26,7 +26,7 @@ module.exports = {
         md : '4px',
       },
       fontSize : {
-        'home-title' : 'clamp(2rem, 1.282rem + 3.59vw, 3.75rem)',
+        'home-title' : 'clamp(1.625rem, 1.518rem + 0.536vw, 2rem)',
         'home-quai' : 'clamp(2.25rem, 1.224rem + 5.128vw, 4.75rem)',
         'home-carousel' : 'clamp(1rem, 0.857rem + 0.714vw, 1.625rem)',
         'home-title-moving' : 'clamp(2rem, 1.795rem + 1.026vw, 2.5rem)',
