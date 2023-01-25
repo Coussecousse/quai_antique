@@ -298,6 +298,9 @@ header nav a.active::after {
 .form_booking .radio_container input {
     @apply w-[18px] mr-2;
 }
+.form_booking .radio_container label {
+    @apply self-center;
+}
 .form_booking .input_container div {
     @apply bg-400/20 flex items-center;
 }
@@ -306,6 +309,15 @@ header nav a.active::after {
 }
 .form_booking .input_container input, .form_booking .input_container select {
     @apply bg-transparent flex-1 pl-1;
+}
+.form_booking .form_error {
+    @apply text-red-500 text-sm bottom-2 hidden;
+}
+.form_booking .form_error.active {
+    @apply relative block;
+}
+#informations_name.error,  #informations_allergiesOther.error {
+    @apply border border-red-500;
 }
 
 
@@ -321,7 +333,7 @@ header nav a.active::after {
     }
     .form_booking .radio_container div {
         @apply grid pt-2;
-        grid-template-columns: repeat(2, 30px auto) ;
+        grid-template-columns: repeat(2, 30px minmax(145px, auto)) ;
     }
 }
 @media screen and (min-width: 992px) {

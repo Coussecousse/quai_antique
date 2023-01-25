@@ -1,6 +1,6 @@
-aArray = document.querySelectorAll('.diamonds li a');
-content = document.querySelector(".main-content");
-button = document.querySelector("#card-booking");
+const aArray = document.querySelectorAll('.diamonds li a');
+const content = document.querySelector(".main-content");
+const button = document.querySelector("#card-booking");
 
 aArray.forEach(a => {
     a.addEventListener("click", e => {

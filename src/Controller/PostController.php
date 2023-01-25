@@ -38,16 +38,41 @@ class PostController extends AbstractController
     }
     #[Route('/reserver', name:'booking')]
     public function booking(Request $request, ) {
-
+        
         $informations = new Informations();
         $formInformations = $this->createForm(InformationsType::class, $informations);
 
-        $formInformations->handleRequest($request);
-        if ($formInformations->isSubmitted() && $formInformations->isValid()) {
-            $places = $formInformations->get('person');
+        // $formData = $request->request->all();
+        // var_dump($formData);
+        // // $informations->setName($formData['informations[name]']);
+        // // $informations->setPerson($formData['person']);
+        // // $informations->setAllergies($formData['allergies']);
+        // // $informations->setAllergiesOther($formData['allergiesOther']);
 
-            return $this->render('Booking/date.html.twig');
-        }
+        // // $validator = $this->get('validator');
+        // // $errors = $validator->validate($informations);
+
+        // // if (count($errors) > 0) {
+        // //     return $this->render('Booking/Informations/informations.html.twig', [
+        // //         'informations' => $formInformations,
+        // //         'errors' => $errors,
+        // //     ]);
+        // // } else {
+        // //     echo "validate";
+        // // }
+
+
+        // // $formInformations->handleRequest($request);
+        // // if ($request->isXmlHttpRequest()){
+        // //     print_r($request);
+        // // } else {
+        // //     echo 'no XmlHttpRequest made';
+        // // }   
+        // // if ($formInformations->isSubmitted() && $formInformations->isValid()) {
+        // //     $places = $formInformations->get('person');
+
+        // //     return true;
+        // // }
 
 
         return $this->render('Booking/Informations/informations.html.twig', [

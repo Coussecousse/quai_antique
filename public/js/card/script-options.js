@@ -1,6 +1,6 @@
-cardContainer = document.querySelector(".container-card");
-let section = document.querySelector(".section_card");
-let square = document.querySelector(".box");
+const cardContainer = document.querySelector(".container-card");
+const section = document.querySelector(".section_card");
+const square = document.querySelector(".box");
 
 window.addEventListener("load", () => {
     let time = 0;
