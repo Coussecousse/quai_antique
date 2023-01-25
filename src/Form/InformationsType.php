@@ -18,6 +18,9 @@ class InformationsType extends AbstractType
         $builder
         ->add('name', TextType::class, [
             "label" => "Nom :",
+            'attr' => array(
+                'placeholder' => 'Nom Prenom'
+            ),
             "required" => true,
             "constraints" => [new Length(["min" => 5, "max" => "50", "maxMessage" => "Ne pas dépasser 100 caractères."]),
                              new NotBlank(["message" => "Le nom d'utilisateur ne doit pas être vide !"])]
@@ -73,6 +76,9 @@ class InformationsType extends AbstractType
         ])
         ->add('allergiesOther', TextType::class, [
             "label" => "Autre :",
+            'attr' => array(
+                'placeholder' => '...'
+            ),
             "required" => false,
         ]);
     }

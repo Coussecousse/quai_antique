@@ -288,6 +288,9 @@ header nav a.active::after {
 .form_booking .input_container {
     @apply flex flex-col gap-2; 
 }
+.form_booking .input_container input::placeholder {
+    @apply text-secondary/50; 
+}
 .form_booking .radio_container div {
     @apply grid pt-2;
     grid-template-columns: auto 1fr ;
