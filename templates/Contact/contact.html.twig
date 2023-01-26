@@ -3,36 +3,38 @@
 {% block title %}Contact{% endblock %}
 
 {% block body %}
-    <main>
+    <main class="pt-28">
         <div class="title_container">
-            <h1>Contact</h1>
+            <h1 class="title_section">Contact</h1>
             <img src={{ asset('images/svg/'~ "line-white.svg") }} alt="un point entouré de deux traits de longeur égales" class="w-[100px]">
-            <p>Une demande spécifique ?</p>
-            <p>Contactez directement notre équipe !</p>
+            <div class="font-secondary text-secondary text-center my-5 text-lg px-4">
+                <p>Une demande spécifique ?</p>
+                <p>Contactez directement notre équipe !</p>
+            </div>
         </div>
-        <section>
+        <section class="h-[315px] relative w-11/12 mx-auto flex">
             <picture>
                 <source srcset={{ asset('images/contact/'~"contact-extraLarge.jpg") }} media="(min-width : 1200px)">
                 <source srcset={{ asset('images/contact/'~"contact-large.jpg") }} media="(min-width : 990px)">
                 <source srcset={{ asset('images/contact/'~"contact-medium.jpg") }} media="(min-width : 768px)">
-                <img src={{ asset('images/contact/'~'contact-small.jpg')}} alt="Centre ville de Chambery avec la fontaine des éléphants.">
+                <img src={{ asset('images/contact/'~'contact-small.jpg')}} alt="Centre ville de Chambery avec la fontaine des éléphants." class="absolute h-full w-full object-cover object-center blur-[1px]">
             </picture>
-            <div>
-                <div>
-                    <i class="fa-solid fa-location-dot"></i>
-                    <div>
+            <div class="rounded bg-secondary/50 drop-shadow-lg text-primary flex flex-col gap-5 p-4 w-3/4 max-w-[200px] m-auto">
+                <div class="flex gap-2">
+                    <i class="fa-solid fa-location-dot text-lg h-fit self-center"></i>
+                    <div class="flex-1">
                         <p>37 Rue du Croissant</p>
                         <p>Chambery</p>
                         <p>73000</p>
                     </div>
                 </div>
-                <div>
-                    <i class="fa-solid fa-at"></i>
-                    <p>lorem@ipsum.com</p>
+                <div class="flex gap-2">
+                    <i class="fa-solid fa-at text-lg h-fit self-center"></i>
+                    <p class="flex-1">lorem@ipsum.com</p>
                 </div>
-                <div>
-                    <i class="fa-solid fa-phone"></i>
-                    <p>01 23 45 67 89</p>
+                <div class="flex gap-2">
+                    <i class="fa-solid fa-phone text-lg h-fit self-center"></i>
+                    <p class="flex-1">01 23 45 67 89</p>
                 </div>
             </div>
         </section>
