@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="title_container">
+            <h1>Contact</h1>
+            <img src={{ asset('images/svg/'~ "line-white.svg") }} alt="un point entouré de deux traits de longeur égales" class="w-[100px]">
+            <p>Une demande spécifique ?</p>
+            <p>Contactez directement notre équipe !</p>
+        </div>
+        <section>
+            <picture>
+                <source srcset={{ asset('images/contact/'~"contact-extraLarge.jpg") }} media="(min-width : 1200px)">
+                <source srcset={{ asset('images/contact/'~"contact-large.jpg") }} media="(min-width : 990px)">
+                <source srcset={{ asset('images/contact/'~"contact-medium.jpg") }} media="(min-width : 768px)">
+                <img src={{ asset('images/contact/'~'contact-small.jpg')}} alt="Centre ville de Chambery avec la fontaine des éléphants.">
+            </picture>
+            <div>
+                <div>
+                    <i class="fa-solid fa-location-dot"></i>
+                    <div>
+                        <p>37 Rue du Croissant</p>
+                        <p>Chambery</p>
+                        <p>73000</p>
+                    </div>
+                </div>
+                <div>
+                    <i class="fa-solid fa-at"></i>
+                    <p>lorem@ipsum.com</p>
+                </div>
+                <div>
+                    <i class="fa-solid fa-phone"></i>
+                    <p>01 23 45 67 89</p>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div>
+                {{ form_start(form) }}
+                    <div>
+                        {{ form_label(form.name) }}
+                        <div>
+                            <i class="fa-solid fa-user"></i>
+                            {{ form_widget(form.name) }}
+                        </div>
+                        {{ form_errors(form)}}
+                    </div>
+                    <div>
+                        {{ form_label(form.tel) }}
+                        <div>
+                            <i class="fa-solid fa-phone"></i>
+                            {{ form_widget(form.tel, { 'attr': {'class': "span12", 'placeholder': '0123456789'}}) }}
+                        </div>
+                        {{ form_errors(form)}}
+                    </div>
+                    <div>
+                        {{ form_label(form.message) }}
+                        {{ form_widget(form.message, { 'attr': {'class': "span12", 'placeholder': 'Écrivez nous un message ici !'}}) }}
+                        {{ form_errors(form)}}
+                    </div>
+                    <button type="submit">Envoyer<i class="fa-solid fa-paper-plane"></i></button>
+                {{ form_end(form) }}
+            </div>
+        </section>
+    </main>
+{% endblock %}

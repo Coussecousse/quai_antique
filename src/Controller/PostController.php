@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\ContactType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -32,5 +33,15 @@ class PostController extends AbstractController
     #[Route('/carte/menus', name:'card-menus')]
     public function cardMenus() {
         return $this->render('Card/Menus/menus.card.html.twig');
+    }
+    #[Route('/contact', name:'contact')]
+    public function contact() {
+
+        $form = $this->createForm(ContactType::class);
+
+
+        return $this->render('Contact/contact.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }
