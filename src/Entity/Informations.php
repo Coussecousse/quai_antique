@@ -2,12 +2,15 @@
 
 namespace App\Entity;
 
+use DateTime;
+
 class Informations 
 {
     private string $name;
     private int $person;
     private array $allergies = [];
     private ?string $allergiesOther = null;
+    private ?\DateTimeInterface $date = null;
     
 
     /**
@@ -86,6 +89,26 @@ class Informations
     public function setAllergiesOther($allergiesOther) : self
     {
         $this->allergiesOther = $allergiesOther;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of date
+     */ 
+    public function getDate() :DateTime
+    {
+        return $this->date;
+    }
+
+    /**
+     * Set the value of date
+     *
+     * @return  self
+     */ 
+    public function setDate($date) :self
+    {
+        $this->date = $date;
 
         return $this;
     }

@@ -2,7 +2,8 @@
 
 namespace App\Repository;
 
-use App\Entity\Scedules;
+use App\Entity\Scedules\Scedules;
+use App\Scedules\Entity\Scedules as EntityScedules;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -21,7 +22,7 @@ class ScedulesRepository extends ServiceEntityRepository
         parent::__construct($registry, Scedules::class);
     }
 
-    public function save(Scedules $entity, bool $flush = false): void
+    public function save(EntityScedules $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 

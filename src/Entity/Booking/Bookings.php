@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Booking\Entity;
 
 use App\Repository\BookingsRepository;
 use Doctrine\DBAL\Types\Types;

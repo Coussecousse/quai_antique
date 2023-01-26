@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Scedules\Entity;
 
 use App\Repository\ScedulesRepository;
 use Doctrine\DBAL\Types\Types;
