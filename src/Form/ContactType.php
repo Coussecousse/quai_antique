@@ -23,24 +23,28 @@ class ContactType extends AbstractType
                 "constraints" => [
                     new Length(["min" => 5, "max" => 100, "minMessage" => "Chaîne de caractères trop petite.", "maxMessage" => "Chaîne de caractères trop longue."]),
                     new NotBlank(["message" => "Ne peut pas être vide."]),
+                    new Regex([
+                        'pattern' => "/^[a-zA-Z ]*$/",
+                        'message' => 'Chaîne de caractères non valide.',
+                    ])
                 ]
             ])
             ->add('tel', TelType::class, [
-                "label" => "Tel :",
+                "label" => "Téléphone :",
                 "required" => true,
                 "constraints" => [
-                    new NotBlank(["message" => "Ne peut pas être vide."]), 
+                    new NotBlank(["message" => "Ne peut pas être vide."]),
                     new Regex([
-                        'pattern' => '/^[0-9\+\]{8,11}$/',
+                        'pattern' => "/^[0-9\+]{8,11}$/",
                         'message' => 'Veuillez rentrer un numéro de téléphone valide.',
                     ]),
                 ]
             ])
             ->add('message', TextareaType::class, [
-                "label" => "Message :", 
+                "label" => "Message :",
                 "required" => true,
                 "constraints" => [
-                    new Length(["min"=> 20, "max" => 450, "minMessage" => "Message trop court.", "maxMessage"=> "Message trop long."]),
+                    new Length(["min" => 20, "max" => 450, "minMessage" => "Message trop court.", "maxMessage" => "Message trop long."]),
                     new NotBlank(["message" => "Ne peut pas être vide."])
                 ]
             ]);

@@ -271,7 +271,28 @@ header nav a.active::after {
 .button-change a {
     @apply text-primary text-2xl md:text-4xl duration-150;
 }
-
+ /* CONTACT  */
+.form_contact label{
+    @apply font-semibold;
+} 
+.div_contact {
+    @apply flex flex-col gap-2;
+}
+.input_contact {
+    @apply bg-400/20 flex;
+}
+.input_contact i {
+    @apply m-2;
+}
+.input_contact input {
+    @apply bg-transparent flex-1;
+}
+.input_contact input::placeholder{
+    @apply text-secondary/50;
+}
+.form_error-contact {
+    @apply text-red-400 text-sm;
+}
 
 @media screen and (min-width: 768px) {
     footer, footer div:nth-child(2), footer div:nth-child(2) div {

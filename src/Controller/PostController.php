@@ -5,6 +5,9 @@ namespace App\Controller;
 use App\Form\ContactType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 class PostController extends AbstractController
 {
@@ -35,10 +38,28 @@ class PostController extends AbstractController
         return $this->render('Card/Menus/menus.card.html.twig');
     }
     #[Route('/contact', name:'contact')]
-    public function contact() {
+    public function contact(Request $request, MailerInterface $mailer) {
 
         $form = $this->createForm(ContactType::class);
+        $form->handleRequest($request);
+        $subject = $form->get('name')->getData();
+        
 
+        if ($form->isSubmitted() && $form->isValid() ) {
+            dump($form);
+            $email = (new Email())
+                ->from('from@example.com')
+                ->to('to@example.com')
+                ->subject($subject.' cherche à vous contacter !')
+                ->text($form->get('message')->getData());
+                // ->html('');
+
+            dump($email);
+            $mailer->send($email);
+            return $this->render('Contact/contact.html.twig', [
+                'form' => $form->createView(),
+            ]);
+        }
 
         return $this->render('Contact/contact.html.twig', [
             'form' => $form->createView(),
