@@ -30,6 +30,9 @@ class User
     #[Assert\Regex(pattern: '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/', message: "Le mot de passe doit posséder au minimum 8 caractères, une lettre majuscule, une lettre minuscule et un chiffre.")]
     private ?string $password = null;
     private ?string $confirm = null;
+    
+    #[ORM\Column(type: "boolean")]
+    private $isVerified = false;
 
     public function __construct(UserPasswordHasherInterface $passwordHasher)
     {
@@ -95,6 +98,26 @@ class User
     public function setConfirm($confirm)
     {
         $this->confirm = $confirm;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of isVerified
+     */ 
+    public function getIsVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    /**
+     * Set the value of isVerified
+     *
+     * @return  self
+     */ 
+    public function setIsVerified($isVerified)
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }
