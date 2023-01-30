@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController 
 {
-    #[Route('/sign-in', name:'sign_in')]
+    #[Route('/sign-up', name:'sign_up')]
     public function signIn(UserPasswordHasherInterface $userPasswordHasher, Request $request, ManagerRegistry $doctrine ) : Response 
     {
         $user = new User($userPasswordHasher);
@@ -21,7 +21,7 @@ class UserController extends AbstractController
 
         $form->handleRequest($request);
 
-        return $this->render('SignIn/sign.html.twig', [
+        return $this->render('SignUp/sign.html.twig', [
             'form' => $form->createView()
         ]);
     }
