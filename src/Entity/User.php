@@ -15,10 +15,10 @@ class User
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-    
-    #[Assert\NotBlank(message : "Veuillez remplir ce champ.")]
-    #[Assert\Length(min : 10, max: 255, minMessage: "Chaîne de caractères trop courte.", maxMessage: "Chaîne de caractères trop longue.")]
-    #[Assert\Email(message : "Chaîne de caractères non valide.")]
+
+    #[Assert\NotBlank(message: "Veuillez remplir ce champ.")]
+    #[Assert\Length(min: 10, max: 255, minMessage: "Chaîne de caractères trop courte.", maxMessage: "Chaîne de caractères trop longue.")]
+    #[Assert\Email(message: "Chaîne de caractères non valide.")]
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
@@ -26,13 +26,15 @@ class User
     private array $roles = [];
 
     #[ORM\Column(length: 72)]
-    #[Assert\NotBlank(message : "Veuillez remplir ce champ.")]
+    #[Assert\NotBlank(message: "Veuillez remplir ce champ.")]
     #[Assert\Regex(pattern: '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/', message: "Le mot de passe doit posséder au minimum 8 caractères, une lettre majuscule, une lettre minuscule et un chiffre.")]
     private ?string $password = null;
     private ?string $confirm = null;
-    
+
     #[ORM\Column(type: "boolean")]
     private $isVerified = false;
+    #[ORM\Column(length: 20)]
+    private ?string $code = null;
 
     public function __construct(UserPasswordHasherInterface $passwordHasher)
     {
@@ -118,6 +120,26 @@ class User
     public function setIsVerified($isVerified)
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of code
+     */ 
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * Set the value of code
+     *
+     * @return  self
+     */ 
+    public function setCode($code)
+    {
+        $this->code = $code;
 
         return $this;
     }
