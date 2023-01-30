@@ -6,6 +6,7 @@ use App\Form\ContactType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 
@@ -55,14 +56,30 @@ class PostController extends AbstractController
                 // ->html('');
 
             dump($email);
-            $mailer->send($email);
-            return $this->render('Contact/contact.html.twig', [
-                'form' => $form->createView(),
-            ]);
+            try {
+                $mailer->send($email);
+                return $this->redirectToRoute('contact-result', [
+                    "result" => "success",
+                ]);
+            } catch (TransportExceptionInterface $e) {
+                return $this->redirectToRoute('contact-result', [
+                    "result" => "error",
+                ]);
+            }
         }
 
-        return $this->render('Contact/contact.html.twig', [
+        return $this->render('Contact/contact.form.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+    #[Route('/contact/{result}', name:'contact-result')]
+    public function contactSuccess($result) {
+
+        // $result = $this->get('result')->get($result);
+        dump($result);
+
+        return $this->render('Contact/contact.result.html.twig', [
+            "result" => $result
         ]);
     }
 }
