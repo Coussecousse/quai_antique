@@ -293,6 +293,29 @@ header nav a.active::after {
 .form_error-contact {
     @apply text-red-400 text-sm;
 }
+/* SIGN IN */
+#sign-in section {
+    min-height: calc(100vh - 160px);
+}
+.image_sign-in {
+    @apply w-3/5 max-w-[600px];
+    background: center / cover no-repeat url('../../public/images/sign-in/sign_in-medium.jpg')
+}
+.container_sign-in {
+    @apply flex flex-col gap-2;
+}
+.container_sign-in label {
+    @apply font-semibold tracking-wider;
+}
+.inputContainer_sign-in {
+    @apply flex bg-400/20 h-8;
+}
+.inputContainer_sign-in input {
+    @apply flex-1 bg-transparent pl-1;
+}
+.inputContainer_sign-in i {
+    @apply px-2 flex items-center;
+}
 
 @media screen and (min-width: 768px) {
     footer, footer div:nth-child(2), footer div:nth-child(2) div {
