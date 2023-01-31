@@ -294,7 +294,7 @@ header nav a.active::after {
     @apply text-red-400 text-sm;
 }
 /* SIGN IN */
-#sign-in section {
+#sign-in {
     min-height: calc(100vh - 160px);
 }
 .image_sign-in {
@@ -332,10 +332,15 @@ header nav a.active::after {
     .image {
         background:  linear-gradient(rgba(23,21,21,0) 50%, rgb(23, 21, 21)) , center 61% / cover no-repeat url('../../public/images/home/home-large.webp');
     }
+    .image_sign-in {
+        background: center / cover no-repeat url('../../public/images/sign-in/sign_in-large.jpg')
+    }
 }
 @media screen and (min-width: 1300px) {
     .image {
         background:  linear-gradient(rgba(23,21,21,0) 50%, rgb(23, 21, 21)) ,  center 61% / cover no-repeat url('../../public/images/home/home-extraLarge.webp');
     }
+    .image_sign-in {
+        background: center / cover no-repeat url('../../public/images/sign-in/sign_in-extraLarge.jpg')
+    }
 }
-

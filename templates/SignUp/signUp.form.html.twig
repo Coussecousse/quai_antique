@@ -1,0 +1,57 @@
+{% extends 'signUp/sign.html.twig' %}
+
+{% block signUp_title %}
+    <div class="font-secondary text-secondary text-center my-5 text-lg px-4 md:text-xl">
+        <p>Envie de devenir un habitué ?</p>
+        <p>Alors inscrivez vous !</p>
+    </div>
+{% endblock %}
+{% block content %}
+    <section class="my-8 md:my-12 flex md:max-w-[985px] w-11/12 mx-auto items-center ">
+            <div class="flex w-full">
+                <div class="hidden md:block image_sign-in"></div>
+                <div class="text-secondary font-secondary drop-shadow-lg max-w-[380px] md:max-w-none md:flex-1 mx-auto">
+                    {{ form_start(form, {'attr' : { 'class' : 'bg-500 p-4 grid gap-6'}}) }}
+                        <div class="container_sign-in">
+                            {{ form_label(form.email) }}
+                            <div class="inputContainer_sign-in">
+                                <i class="fa-solid fa-at"></i>
+                                {{ form_widget(form.email) }}
+                            </div>
+                            <div>
+                                {{ form_errors(form.email)}}
+                            </div>
+                        </div>
+                        <div class="container_sign-in">
+                            {{ form_label(form.password) }}
+                            <div class="inputContainer_sign-in">
+                                <i class="fa-solid fa-lock"></i>
+                                {{ form_widget(form.password) }}
+                                <button><i class="fa-solid fa-eye"></i></button>
+                                {# <i class="fa-solid fa-eye-slash"></i> #}
+                            </div>
+                            <div>
+                                {{ form_errors(form.password)}}
+                            </div>
+                        </div>
+                        <div class="container_sign-in">
+                            {{ form_label(form.confirm) }}
+                            <div class="inputContainer_sign-in">
+                                <i class="fa-solid fa-lock"></i>
+                                {{ form_widget(form.confirm) }}
+                                <button><i class="fa-solid fa-eye"></i></button>
+                            </div>
+                            <div>
+                                {{ form_errors(form.confirm)}}
+                            </div>
+                        </div>
+                        <button type="submit" class=" bg-secondary text-primary mt-4 mb-2 py-2 px-4 w-fit justify-self-center hover:bg-400 duration-150 hover:text-secondary">Inscription</button>
+                    {{ form_end(form) }}
+                    <div class="bg-400 text-center py-5 text-primary">
+                        <p class="mb-2">Déjà un compte ? </p>
+                        <a href="" class="underline underline-offset-2 hover:text-secondary duration-150">Connectez vous !</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+{% endblock %}

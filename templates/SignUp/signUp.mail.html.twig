@@ -1,0 +1,27 @@
+{% extends "SignUp/sign.html.twig" %}
+
+{% block content %}
+<section class="min-h-[calc(100vh-300px)] flex flex-col lg:text-lg font-secondary justify-center items-center gap-12">
+    <div class="bg-500 drop-shadow-lg w-11/12 max-w-[500px] p-6 text-secondary text-center">
+        {% if result == "success" %}
+        <p class="mb-4">Un mail de confirmation vous a été envoyé !</p>
+        <p>Veuillez le valider afin de pouvoir vous connecter.</p>
+        {% else %}
+        <p class="">Une erreur est survenue.</p>
+        <p>Nous vous invitons à prendre contact directement avec nous.</p>
+        <div class="my-4 font-semibold tracking-wider">
+            <div class="flex gap-2 justify-center">
+                <p>Téléphone :</p>
+                <a href="tel:" class="hover:underline hover:underline-offset-2">01 23 45 67 89</a>
+            </div>
+            <div class="flex gap-2 justify-center">
+                <p>Email :</p>
+                <a href="mailto:" class="hover:underline hover:underline-offset-2">lorem@ipsum.com</a>
+            </div>
+        </div>
+        <p>Veuillez nous excuser pour la gêne occasionnée.</p>
+        {% endif %}
+    </div>
+    <button class="bg-secondary p-4 group hover:bg-400 duration-150 drop-shadow-lg w-fit"><a href="{{ path('home') }}" class="hover:underline underline-offset-4 text-primary group-hover:text-secondary duration-150">Revenir à l'accueil</a></button>
+</section>
+{% endblock %}

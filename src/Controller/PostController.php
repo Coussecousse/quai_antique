@@ -55,7 +55,6 @@ class PostController extends AbstractController
                 ->text($form->get('message')->getData());
                 // ->html('');
 
-            dump($email);
             try {
                 $mailer->send($email);
                 return $this->redirectToRoute('contact-result', [
@@ -75,7 +74,6 @@ class PostController extends AbstractController
     #[Route('/contact/{result}', name:'contact-result')]
     public function contactSuccess($result) {
 
-        // $result = $this->get('result')->get($result);
         dump($result);
 
         return $this->render('Contact/contact.result.html.twig', [

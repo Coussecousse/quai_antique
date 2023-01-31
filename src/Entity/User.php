@@ -5,41 +5,46 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ORM\Table(name: '`user`')]
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    public function __construct(UserPasswordHasherInterface $passwordHasher)
+    {
+        $this->passwordHasher = $passwordHasher;
+    }
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column(length: 180, unique: true)]
     #[Assert\NotBlank(message: "Veuillez remplir ce champ.")]
     #[Assert\Length(min: 10, max: 255, minMessage: "Chaîne de caractères trop courte.", maxMessage: "Chaîne de caractères trop longue.")]
     #[Assert\Email(message: "Chaîne de caractères non valide.")]
-    #[ORM\Column(length: 255)]
     private ?string $email = null;
 
     #[ORM\Column]
     private array $roles = [];
 
-    #[ORM\Column(length: 72)]
+    /**
+     * @var string The hashed password
+     */
+    #[ORM\Column]
     #[Assert\NotBlank(message: "Veuillez remplir ce champ.")]
     #[Assert\Regex(pattern: '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/', message: "Le mot de passe doit posséder au minimum 8 caractères, une lettre majuscule, une lettre minuscule et un chiffre.")]
     private ?string $password = null;
-    private ?string $confirm = null;
 
     #[ORM\Column(type: "boolean")]
     private $isVerified = false;
+
     #[ORM\Column(length: 20)]
     private ?string $code = null;
-
-    public function __construct(UserPasswordHasherInterface $passwordHasher)
-    {
-        $this->passwordHasher = $passwordHasher;
-    }
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -57,9 +62,23 @@ class User
         return $this;
     }
 
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @see UserInterface
+     */
     public function getRoles(): array
     {
-        $this->roles;
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
@@ -72,42 +91,34 @@ class User
         return $this;
     }
 
-    public function getPassword(): ?string
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): string
     {
         return $this->password;
     }
 
     public function setPassword(string $password): self
     {
-        $this->password = $this->$passwordHasher->hashPassword($this, $password);
+        $this->password = $this->passwordHasher->hashPassword($this, $password);
 
         return $this;
     }
 
     /**
-     * Get the value of confirm
-     */ 
-    public function getConfirm()
+     * @see UserInterface
+     */
+    public function eraseCredentials()
     {
-        return $this->confirm;
-    }
-
-    /**
-     * Set the value of confirm
-     *
-     * @return  self
-     */ 
-    public function setConfirm($confirm)
-    {
-        $this->confirm = $confirm;
-
-        return $this;
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 
     /**
      * Get the value of isVerified
      */ 
-    public function getIsVerified(): bool
+    public function getIsVerified()
     {
         return $this->isVerified;
     }

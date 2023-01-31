@@ -1,14 +1,8 @@
-{% extends 'base.html.twig' %}
+{% extends 'contact.html.twig' %}
 
-{% block title %}Contact
-{% endblock %}
 
-{% block body %}
+{% block content %}
 	<main class="pt-28">
-		<div class="title_container">
-			<h1 class="title_section">Contact</h1>
-			<img src={{ asset('images/svg/'~ "line-white.svg") }} alt="un point entouré de deux traits de longeur égales" class="w-[100px]">
-		</div>
 		<section class="min-h-[calc(100vh-300px)] flex flex-col lg:text-lg font-secondary justify-center items-center gap-12">
 			<div class="bg-500 drop-shadow-lg w-11/12 max-w-[500px] p-6 text-secondary text-center">
 				{% if result == "success" %}
