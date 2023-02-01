@@ -290,7 +290,7 @@ header nav a.active::after {
 .input_contact input::placeholder{
     @apply text-secondary/50;
 }
-.form_error-contact {
+.form_error {
     @apply text-red-400 text-sm;
 }
 /* SIGN IN */

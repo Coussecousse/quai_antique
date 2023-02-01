@@ -42,7 +42,7 @@
                     <i class="fa-solid fa-user"></i>
                     {{ form_widget(form.name, { 'attr' : { 'placeholder' : 'Nom Prenom'}}) }}
                 </div>
-                <div class="form_error-contact">
+                <div class="form_error">
                     {{ form_errors(form.name)}}
                 </div>
             </div>
@@ -52,7 +52,7 @@
                     <i class="fa-solid fa-phone"></i>
                     {{ form_widget(form.tel, { 'attr': {'class': "span12", 'placeholder': '0123456789'}}) }}
                 </div>
-                <div class="form_error-contact">
+                <div class="form_error">
                     {{ form_errors(form.tel)}}
                 </div>
             </div>
@@ -60,7 +60,7 @@
                 {{ form_label(form.message) }}
                 {{ form_widget(form.message, { 'attr': {'class': "input_contact placeholder:text-secondary/50 p-2 min-h-[190px]", 'placeholder': 'Écrivez nous un message ici !', 
                                                 'min' : '20', 'max' : '450'}}) }}
-                <div class="form_error-contact">
+                <div class="form_error">
                     {{ form_errors(form.message)}}
                 </div>
             </div>

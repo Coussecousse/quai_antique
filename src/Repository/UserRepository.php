@@ -58,8 +58,10 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     public function findCode($code)
     {
+        dump($code);
+        dump(gettype($code));
         return $this->createQueryBuilder('user')
-            ->andWhere('user.code = :code AND user.isVerified = 0')
+            ->where('user.code LIKE :code AND user.isVerified = 0')
             ->setParameter('code', '%'.$code.'%')
             ->getQuery()
             ->getSingleResult()

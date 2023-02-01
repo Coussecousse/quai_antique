@@ -1,0 +1,24 @@
+{% extends 'signUp/sign.html.twig' %}
+
+{% block content %}
+<section class="min-h-[calc(100vh-300px)] flex flex-col lg:text-lg font-secondary justify-center items-center gap-12">
+    <div class="bg-500 drop-shadow-lg w-11/12 max-w-[500px] p-6 text-secondary text-center">
+        {% if result == "match" %}
+        <p class="mb-4">Votre compte a bien été validé.</p>
+        <p>Vous pouvez dès à présent vous connecter !</p>
+        {% else %}
+        <form class="flex flex-col gap-12 mt-6">
+            <label for="code">Pour valider votre compte vous devez renseigner le code qui vous a été envoyé par mail.</label>
+            <div>
+                <input type="text" name="code" id="code" required class="md:text-xl bg-400/20 w-11/12 md:w-5/6 h-8 mx-auto tracking-code text-center">
+                <p class="form_error">Code incorrect.</p>
+            </div>
+            <button class="bg-secondary py-3 px-5 group hover:bg-400 duration-150 drop-shadow-lg w-fit text-primary hover:text-secondary mx-auto" type="submit">Valider</button>
+        </form>
+        {% endif %}
+    </div>
+    {% if result == "match" %}
+    <button class="bg-secondary p-4 group hover:bg-400 duration-150 drop-shadow-lg w-fit"><a href="{{ path('home') }}" class="hover:underline underline-offset-4 text-primary group-hover:text-secondary duration-150">Se connecter</a></button>
+    {% endif %}
+</section>
+{% endblock %}

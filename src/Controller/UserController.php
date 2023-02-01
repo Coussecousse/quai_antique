@@ -70,27 +70,35 @@ class UserController extends AbstractController
         
         $code = $request->query->get('code');
         if ($code) {
-            
+            dump($code);
             try {
                 $result =  $repository->findCode($code);
-                
+                return $this->redirectToRoute('signUp-validate-result', [
+                    "result" => "match"
+                ]);
             } catch ( NoResultException $e) {
-                return $this->redirectToRoute('signUp-mail', [
+                return $this->redirectToRoute('signUp-validate-result', [
                     "result" => "no-match"
                 ]);
             }
-
         }
         
-        return $this->render('SignUp/signUp.validate.html.twig');
+        return $this->render('SignUp/validate/signUp.validate.html.twig');
+    }
+    #[Route('/sign-up/validate/{result}', name : "signUp-validate-result")]
+    public function signUpValidateResult($result) {
+        dump('coucou');
+        return $this->render('SignUp/validate/signUp.validate.result.html.twig', [
+            "result" => $result
+        ]);
     }
 
     #[Route('/sign-up/{result}', name : "signUp-mail")]
     public function signUpResult($result) {
-
-        return $this->render('SignUp/signUp.mail.html.twig', [
+        return $this->render('SignUp/mail/signUp.mail.html.twig', [
             "result" => $result
         ]);
     }
+
 }  
 
