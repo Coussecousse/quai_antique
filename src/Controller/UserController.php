@@ -4,6 +4,9 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\UserRepository;
+use Doctrine\DBAL\Query\QueryException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -62,10 +65,28 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/sign-up/{result}', name : "signUp-mail")]
-    public function contactSuccess($result) {
+    #[Route('/sign-up/validate', name: 'signUp-validate')]
+    public function signUpValidate(Request $request, UserRepository $repository) {
+        
+        $code = $request->query->get('code');
+        if ($code) {
+            
+            try {
+                $result =  $repository->findCode($code);
+                
+            } catch ( NoResultException $e) {
+                return $this->redirectToRoute('signUp-mail', [
+                    "result" => "no-match"
+                ]);
+            }
 
-        dump($result);
+        }
+        
+        return $this->render('SignUp/signUp.validate.html.twig');
+    }
+
+    #[Route('/sign-up/{result}', name : "signUp-mail")]
+    public function signUpResult($result) {
 
         return $this->render('SignUp/signUp.mail.html.twig', [
             "result" => $result

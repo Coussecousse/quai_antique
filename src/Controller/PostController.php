@@ -72,7 +72,7 @@ class PostController extends AbstractController
         ]);
     }
     #[Route('/contact/{result}', name:'contact-result')]
-    public function contactSuccess($result) {
+    public function contactResult($result) {
 
         dump($result);
 

@@ -21,6 +21,9 @@ module.exports = {
       height : {
         'carousel-image' : 'clamp(13.375rem, 7.107rem + 31.339vw, 35.313rem)',
       },
+      letterSpacing : {
+        "code" : ".875em",
+      },
       blur : {
         sm : '2px',
         md : '4px',
