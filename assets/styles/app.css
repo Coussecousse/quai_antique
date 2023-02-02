@@ -314,7 +314,10 @@ header nav a.active::after {
     @apply flex-1 bg-transparent pl-1;
 }
 .inputContainer_sign-in i {
-    @apply px-2 flex items-center;
+    @apply px-2 flex items-center h-full;
+}
+.inputContainer_sign-in i.hide {
+    @apply hidden;
 }
 
 @media screen and (min-width: 768px) {

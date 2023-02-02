@@ -27,8 +27,10 @@
                             <div class="inputContainer_sign-in">
                                 <i class="fa-solid fa-lock"></i>
                                 {{ form_widget(form.password) }}
-                                <button><i class="fa-solid fa-eye"></i></button>
-                                {# <i class="fa-solid fa-eye-slash"></i> #}
+                                <span role="button" onclick="togglePassword(event)">
+                                    <i class="fa-solid fa-eye lala w-[36px]" ></i>
+                                    <i class="fa-solid fa-eye-slash hide w-[36px]"></i>
+                                </span>
                             </div>
                             <div>
                                 {{ form_errors(form.password)}}
@@ -39,7 +41,10 @@
                             <div class="inputContainer_sign-in">
                                 <i class="fa-solid fa-lock"></i>
                                 {{ form_widget(form.confirm) }}
-                                <button><i class="fa-solid fa-eye"></i></button>
+                                <span role="button" onclick="togglePassword(event)">
+                                    <i class="fa-solid fa-eye w-[36px]"></i>
+                                    <i class="fa-solid fa-eye-slash hide w-[36px]"></i>
+                                </span>                            
                             </div>
                             <div>
                                 {{ form_errors(form.confirm)}}
