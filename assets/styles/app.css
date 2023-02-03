@@ -293,31 +293,41 @@ header nav a.active::after {
 .form_error {
     @apply text-red-400 text-sm;
 }
-/* SIGN IN */
-#sign-in {
-    min-height: calc(100vh - 160px);
+/* FORM */
+.form_main {
+    min-height: calc(100vh - 164px);
 }
-.image_sign-in {
+.form_image {
     @apply w-3/5 max-w-[600px];
-    background: center / cover no-repeat url('../../public/images/sign-in/sign_in-medium.jpg')
 }
-.container_sign-in {
+.form_container {
     @apply flex flex-col gap-2;
 }
-.container_sign-in label {
+.form_container label {
     @apply font-semibold tracking-wider;
 }
-.inputContainer_sign-in {
+/* SIGN IN */
+
+.image_sign-up {
+    @apply w-3/5 max-w-[600px];
+    background: center / cover no-repeat url('../../public/images/sign-up/sign_up-medium.jpg')
+}
+.form_inputContainer {
     @apply flex bg-400/20 h-8;
 }
-.inputContainer_sign-in input {
+.form_inputContainer input {
     @apply flex-1 bg-transparent pl-1;
 }
-.inputContainer_sign-in i {
+.form_inputContainer i {
     @apply px-2 flex items-center h-full;
 }
-.inputContainer_sign-in i.hide {
+.form_inputContainer i.hide {
     @apply hidden;
+}
+
+/* LOGIN */
+.image_login {
+    background: center / cover no-repeat url('../../public/images/login/login-medium.jpg');
 }
 
 @media screen and (min-width: 768px) {
@@ -335,15 +345,15 @@ header nav a.active::after {
     .image {
         background:  linear-gradient(rgba(23,21,21,0) 50%, rgb(23, 21, 21)) , center 61% / cover no-repeat url('../../public/images/home/home-large.webp');
     }
-    .image_sign-in {
-        background: center / cover no-repeat url('../../public/images/sign-in/sign_in-large.jpg')
+    .image_sign-up {
+        background: center / cover no-repeat url('../../public/images/sign-up/sign_up-large.jpg')
     }
 }
 @media screen and (min-width: 1300px) {
     .image {
         background:  linear-gradient(rgba(23,21,21,0) 50%, rgb(23, 21, 21)) ,  center 61% / cover no-repeat url('../../public/images/home/home-extraLarge.webp');
     }
-    .image_sign-in {
-        background: center / cover no-repeat url('../../public/images/sign-in/sign_in-extraLarge.jpg')
+    .image_sign-up {
+        background: center / cover no-repeat url('../../public/images/sign-up/sign_up-extraLarge.jpg')
     }
 }

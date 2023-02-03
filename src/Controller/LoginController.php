@@ -25,10 +25,10 @@ class LoginController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        return $this->render('Login/login.html.twig', [
+        return $this->render('Login/login.form.html.twig', [
             'last_email' => $lastEmail,
             'error' => $error,
-            'form' => $form->createView()
+            // 'form' => $form->createView()
         ]);
         
     }

@@ -7,14 +7,14 @@
     </div>
 {% endblock %}
 {% block content %}
-    <section class="my-8 md:my-12 flex md:max-w-[985px] w-11/12 mx-auto items-center ">
+    <section class="my-8 md:my-12 flex md:max-w-[900px] w-11/12 mx-auto items-center ">
             <div class="flex w-full">
-                <div class="hidden md:block image_sign-in"></div>
+                <div class="hidden md:block image_sign-up form_image"></div>
                 <div class="text-secondary font-secondary drop-shadow-lg max-w-[380px] md:max-w-none md:flex-1 mx-auto">
                     {{ form_start(form, {'attr' : { 'class' : 'bg-500 p-4 grid gap-6'}}) }}
-                        <div class="container_sign-in">
+                        <div class="form_container">
                             {{ form_label(form.email) }}
-                            <div class="inputContainer_sign-in">
+                            <div class="form_inputContainer">
                                 <i class="fa-solid fa-at"></i>
                                 {{ form_widget(form.email) }}
                             </div>
@@ -22,9 +22,9 @@
                                 {{ form_errors(form.email)}}
                             </div>
                         </div>
-                        <div class="container_sign-in">
+                        <div class="form_container">
                             {{ form_label(form.password) }}
-                            <div class="inputContainer_sign-in">
+                            <div class="form_inputContainer">
                                 <i class="fa-solid fa-lock"></i>
                                 {{ form_widget(form.password) }}
                                 <span role="button" onclick="togglePassword(event)">
@@ -36,9 +36,9 @@
                                 {{ form_errors(form.password)}}
                             </div>
                         </div>
-                        <div class="container_sign-in">
+                        <div class="form_container">
                             {{ form_label(form.confirm) }}
-                            <div class="inputContainer_sign-in">
+                            <div class="form_inputContainer">
                                 <i class="fa-solid fa-lock"></i>
                                 {{ form_widget(form.confirm) }}
                                 <span role="button" onclick="togglePassword(event)">
