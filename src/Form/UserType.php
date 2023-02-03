@@ -19,6 +19,7 @@ class UserType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
+                'attr' => ['autocomplete' => 'email'],
                 "label" => "Email :",
                 "required" => true
             ])
