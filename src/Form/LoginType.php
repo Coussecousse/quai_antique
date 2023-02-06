@@ -21,7 +21,8 @@ class LoginType extends AbstractType
             ])
             ->add('password', PasswordType::class, [
                 "label" => "Mot de passe :",
-                "required" => true
+                "required" => true,
+                'attr' => ['autocomplete' => 'new-password'],
             ])
         ;
     }

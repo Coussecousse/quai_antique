@@ -1,14 +1,17 @@
 {% extends 'Login/login.html.twig' %}
 
+{% block content_subtitle %}
+    <div class="font-secondary text-secondary text-center my-5 text-lg px-4 md:text-xl">
+        <h2 class="">Réinitialiser le mot de passe</h2>
+    </div>
+{% endblock %}
 
 {% block content %}
     {% for flash_error in app.flashes('reset_password_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+        <div class="alert alert-danger bg-red-600 p-4 max-w-[380px] mx-auto font-secondary mb-6 text-secondary" role="alert">{{ flash_error }}</div>
     {% endfor %}
-
-    <div class="text-secondary font-secondary drop-shadow-lg max-w-[380px] md:max-w-none md:flex-1 mx-auto bg-500 w-11/12">
-        <h2 class="p-4 text-center text-lg">Réinitialiser le mot de passe</h2>
-        {{ form_start(requestForm, {'attr' : { 'class' : 'p-4 grid gap-6'}}) }}
+    <div class="text-secondary font-secondary drop-shadow-lg max-w-[380px] mx-auto bg-500 w-11/12 p-4">
+        {{ form_start(requestForm, {'attr' : { 'class' : ' grid gap-6'}}) }}
             <div class="form_container">
                 {{ form_label(requestForm.email) }}
                 <div class="form_inputContainer">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -17,8 +17,6 @@
     <body class="bg-primary min-h-screen w-full overflow-x-hidden">
         {# IF NOT CONNECTED #}
         {% block header %}
-            {# IF MOBILE #}
-            {% block mobile_header %}
             <header class="z-10 h-[110px] w-full absolute flex justify-between px-6 py-3 md:px-12">
                 <a href="{{ path('home') }}" class=""><img src={{ asset('images/svg/'~ "logo-white.svg")}} alt="Logo Quai Antique blanc" class="h-full"></a>
                 <button class="md.5:hidden"><img src={{ asset('images/svg/'~ "hamburger-open.svg") }} alt="Open menu"></button>
@@ -33,13 +31,10 @@
                     </ul>
                 </nav>
             </header>
-            {% endblock %}
         {% endblock %}
         {% block body %}{% endblock %}
         {# IF NOT CONNECTED #}
         {% block footer %}
-            {# IF MOBILE #}
-            {% block mobile_footer %}
             <footer class="bg-500 text-secondary font-third py-4 px-5 mt-8 w-full md:flex md:justify-center text-sm">
                 <div class="grid max-w-[440px] mx-auto md:w-fit md:max-w-[340px] md:min-w-[300px] md:mx-0 lg:w-[400px]">
                     <p class="footer_title">Horaires</p>
@@ -113,7 +108,6 @@
                     <a href="{{ path('home') }}" ><img class="max-w-[160px] mx-auto sm:inline-block sm:w-fit sm:mx-0" src={{ asset('images/svg/'~'logo-white.svg')}} alt=""></a>
                 </div>
             </footer>
-            {% endblock %}
         {% endblock %}
         <script src="https://kit.fontawesome.com/4ba6d56c15.js" crossorigin="anonymous"></script>
         {% block scripts %}

@@ -295,7 +295,7 @@ header nav a.active::after {
 }
 /* FORM */
 .form_main {
-    min-height: calc(100vh - 164px);
+    min-height: calc(100vh - 164px - 2rem);
 }
 .form_image {
     @apply w-3/5 max-w-[600px];

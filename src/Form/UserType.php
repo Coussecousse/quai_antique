@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Context\ExecutionContext;
 
@@ -25,12 +26,15 @@ class UserType extends AbstractType
             ])
             ->add('password', PasswordType::class, [
                 "label" => "Mot de passe :",
-                "required" => true
+                "required" => true,
+                "constraints" => [new Length(['min' => 6, 'minMessage' => 'Chaîne de caractères trop courte.', 'max' => 60,])],
+                'attr' => ['autocomplete' => 'new-password'],
             ])
             ->add('confirm', PasswordType::class, [
                 "label" => "Confirmer le mot de passe :",
                 "required" => true,
                 "constraints" => [
+                    new Length(['min' => 6, 'minMessage' => 'Chaîne de caractères trop courte.', 'max' => 60,]),
                     new NotBlank(['message' => "Veuillez remplir ce champ."]),
                     new Callback(['callback' => function ($value, ExecutionContext $ec) 
                     {

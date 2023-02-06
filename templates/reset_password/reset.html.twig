@@ -1,12 +1,29 @@
-{% extends 'base.html.twig' %}
+{% extends 'Login/login.html.twig' %}
 
-{% block title %}Reset your password{% endblock %}
+{% block content_subtitle %}
+    <div class="font-secondary text-secondary text-center my-5 text-lg px-4 md:text-xl">
+        <h2 class="">Réinitialiser le mot de passe</h2>
+    </div>
+{% endblock %}
 
-{% block body %}
-    <h1>Reset your password</h1>
-
-    {{ form_start(resetForm) }}
-        {{ form_row(resetForm.plainPassword) }}
-        <button class="btn btn-primary">Reset password</button>
-    {{ form_end(resetForm) }}
+{% block content %}
+    <div class="text-secondary font-secondary drop-shadow-lg max-w-[380px] mx-auto bg-500 w-11/12">
+        {{ form_start(resetForm, {'attr' : { 'class' : 'p-4 grid gap-6'}}) }}
+            <div class="form_container">
+                {{ form_label(resetForm.plainPassword.first) }}
+                <div class="form_inputContainer">
+                    <i class="fa-solid fa-lock"></i>
+                    {{ form_widget(resetForm.plainPassword.first) }}
+                </div>
+            </div>
+            <div class="form_container">
+                {{ form_label(resetForm.plainPassword.second) }}
+                <div class="form_inputContainer">
+                    <i class="fa-solid fa-lock"></i>
+                    {{ form_widget(resetForm.plainPassword.second) }}
+                </div>
+            </div>
+            <button class="bg-secondary text-primary mt-4 mb-2 py-2 px-4 w-fit justify-self-center hover:bg-400 duration-150 hover:text-secondary" type="submit">Réinitialiser le mot de passe</button>
+        {{ form_end(resetForm) }}
+    </div
 {% endblock %}
