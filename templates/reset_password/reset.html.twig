@@ -14,6 +14,10 @@
                 <div class="form_inputContainer">
                     <i class="fa-solid fa-lock"></i>
                     {{ form_widget(resetForm.plainPassword.first) }}
+                    <span role="button" onclick="togglePassword(event)">
+                        <i class="fa-solid fa-eye lala w-[36px]" ></i>
+                        <i class="fa-solid fa-eye-slash hide w-[36px]"></i>
+                    </span>
                 </div>
             </div>
             <div class="form_container">
@@ -21,9 +25,13 @@
                 <div class="form_inputContainer">
                     <i class="fa-solid fa-lock"></i>
                     {{ form_widget(resetForm.plainPassword.second) }}
+                    <span role="button" onclick="togglePassword(event)">
+                        <i class="fa-solid fa-eye lala w-[36px]" ></i>
+                        <i class="fa-solid fa-eye-slash hide w-[36px]"></i>
+                    </span>
                 </div>
             </div>
             <button class="bg-secondary text-primary mt-4 mb-2 py-2 px-4 w-fit justify-self-center hover:bg-400 duration-150 hover:text-secondary" type="submit">Réinitialiser le mot de passe</button>
         {{ form_end(resetForm) }}
-    </div
+    </div>
 {% endblock %}

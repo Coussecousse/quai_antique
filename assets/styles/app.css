@@ -6,21 +6,6 @@
     --colo-secondary : rgb(249, 246, 240);
 }
 
-/* @font-face {
-    font-family: 'Petit Formal Script';
-    src : 
-    url('./fonts/petit_format_script/PetitFormalScript-Regular.ttf') format('truetype'),
-}
-@font-face {
-    font-family: 'Alice';
-    src : 
-    url('./fonts/alice/Alice-Regular.ttf') format('truetype'),
-}
-@font-face {
-    font-family: 'Open Sans';
-    src : 
-    url('./fonts/open_sans/OpenSans-VariableFont_wdth\,wght.ttf') format('truetype'),
-} */
 @import url('https://fonts.googleapis.com/css2?family=Alice&family=Open+Sans:wght@400;600;700&family=Petit+Formal+Script&display=swap');
 
 html {

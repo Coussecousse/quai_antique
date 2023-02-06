@@ -22,7 +22,7 @@ class UserController extends AbstractController
     #[Route('/sign-up', name:'sign_up')]
     public function signIn(UserPasswordHasherInterface $userPasswordHasher, Request $request, ManagerRegistry $doctrine, MailerInterface $mailer ) : Response 
     {
-        $user = new User($userPasswordHasher);
+        $user = new User();
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
@@ -30,8 +30,18 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid())
         {
             $em = $doctrine->getManager();
+
+            // Hash password 
+            $encodePassword = $userPasswordHasher->hashPassword(
+                $user, 
+                $form->get('password')->getData()
+            );
+            $user->setPassword($encodePassword);
+
+            // Random code for account validation
             $randomCode = rand(1, 1000000000);
             $user->setCode($randomCode);
+
             $em->persist($user);
             $em->flush();
 
