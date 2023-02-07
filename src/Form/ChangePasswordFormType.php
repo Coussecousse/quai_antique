@@ -9,6 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class ChangePasswordFormType extends AbstractType
 {
@@ -28,11 +29,14 @@ class ChangePasswordFormType extends AbstractType
                             'message' => 'Veuillez remplir ce champ.',
                         ]),
                         new Length([
-                            'min' => 6,
+                            'min' => 8,
                             'minMessage' => 'Chaîne de caractères trop courte.',
                             // max length allowed by Symfony for security reasons
                             'max' => 60,
                         ]),
+                        new Regex([
+                            "pattern" => "/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/", "message" => "Le mot de passe doit posséder au minimum 8 caractères, une lettre majuscule, une lettre minuscule et un chiffre."
+                        ])
                     ],
                     'label' => 'Nouveau mot de passe :',
                 ],

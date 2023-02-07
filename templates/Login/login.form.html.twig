@@ -2,6 +2,11 @@
 
 {% block content %}
 <section class="my-8 md:my-12 flex md:max-w-[900px] w-11/12 mx-auto items-center ">
+    {% if (reset == 1) %} 
+    <div class="reset_password_success">
+        <p>Mot de passe modifié avec succès !</p>
+    </div>
+    {% endif %}
     <div class="flex w-full">
         <div class="text-secondary font-secondary drop-shadow-lg max-w-[380px] md:max-w-none md:flex-1 mx-auto lg:min-h-[480px]">
             <div class="bg-500 p-4 lg:h-[70%] lg:flex lg:flex-col lg:justify-center">

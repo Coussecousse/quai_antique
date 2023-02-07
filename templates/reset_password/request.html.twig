@@ -18,6 +18,9 @@
                     <i class="fa-solid fa-at"></i>
                     {{ form_widget(requestForm.email) }}
                 </div>
+                <div class="form_error">
+                    {{ form_error(requestForm.email)}}
+                </div>
             </div>
             <div>
                 <small class="text-sm leading-3">
