@@ -31,3 +31,14 @@ function togglePassword(e) {
     password.type = password.type === "text" ? "password" : "text";
 
 }
+
+function closeResetPassword(e) {
+    let target = e.target.parentElement;
+    if (target.id === "reset_success") {
+        target = target.parentElement;
+    }
+    target.style.opacity = "0";
+    setTimeout(() => {
+        target.remove();
+    }, 75);
+}
