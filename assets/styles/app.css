@@ -315,7 +315,7 @@ header nav a.active::after {
     background: center / cover no-repeat url('../../public/images/login/login-medium.jpg');
 }
 .reset_password_success {
-    @apply absolute bg-primary p-4 text-secondary font-secondary top-1/2 left-1/2 -translate-x-1/2 z-10 w-10/12 max-w-[280px] duration-75;
+    @apply absolute bg-primary p-4 text-secondary font-secondary top-1/2 left-1/2 -translate-x-1/2 z-10 w-10/12 max-w-[280px] duration-75 text-center;
 }
 
 @media screen and (min-width: 768px) {

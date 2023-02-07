@@ -11,8 +11,8 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class LoginController extends AbstractController
 {
-    #[Route('/login/{reset}', name: 'login')]
-    public function index(AuthenticationUtils $authenticationUtils, Request $request, $reset = 0): Response
+    #[Route('/login/{login}', name: 'login')]
+    public function index(AuthenticationUtils $authenticationUtils, Request $request, $login = 0): Response
     {
         // get the login error if there's one 
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -28,7 +28,7 @@ class LoginController extends AbstractController
         return $this->render('Login/login.form.html.twig', [
             'last_email' => $lastEmail,
             'error' => $error,
-            "reset" => $reset
+            "login" => $login
             // 'form' => $form->createView()
         ]);
         

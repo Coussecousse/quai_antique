@@ -122,7 +122,7 @@ class ResetPasswordController extends AbstractController
             $this->cleanSessionAfterReset();
 
             return $this->redirectToRoute('login', [
-                "reset" => 1
+                "login" => 1
             ]);
         }
 

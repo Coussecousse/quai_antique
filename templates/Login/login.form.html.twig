@@ -2,11 +2,17 @@
 
 {% block content %}
 <section class="my-8 md:my-12 flex md:max-w-[900px] w-11/12 mx-auto items-center ">
-    {% if (reset == 1) %} 
+    {% if ((login == 1) or (login == 2)) %} 
     <div class="reset_password_success">
-        <p>Mot de passe modifié avec succès !</p>
+        {% if (login == 1) %}
+            <p>Mot de passe modifié avec succès !</p>
+        {% elseif (login == 2) %}
+            <p>Votre compte a bien été validé.</p>
+            <p>Vous pouvez dès à présent vous connecter !</p>
+        {% endif %}
         <button class=" bg-secondary text-primary mt-4 rounded-full w-9 h-9 flex justify-center items-center justify-self-center hover:bg-400 duration-150 hover:text-secondary mx-auto" id="reset_success" onclick="closeResetPassword(event)"><i class="fa-solid fa-check"></i></button>
-    </div>
+    </div> 
+
     {% endif %}
     <div class="flex w-full">
         <div class="text-secondary font-secondary drop-shadow-lg max-w-[380px] md:max-w-none md:flex-1 mx-auto lg:min-h-[480px]">

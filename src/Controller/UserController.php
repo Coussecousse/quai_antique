@@ -84,8 +84,8 @@ class UserController extends AbstractController
                 $result =  $repository->findCode($code);
                 $changeConfirm = $repository->setConfirm($code);
 
-                return $this->redirectToRoute('signUp-validate-result', [
-                    "result" => "match"
+                return $this->redirectToRoute('login', [
+                    "login" => 2
                 ]);
             } catch ( NoResultException $e) {
                 return $this->redirectToRoute('signUp-validate-result', [
