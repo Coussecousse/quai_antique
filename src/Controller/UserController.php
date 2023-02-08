@@ -7,6 +7,7 @@ use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
+use Exception;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,28 +43,39 @@ class UserController extends AbstractController
             $user->setCode($randomCode);
 
             $em->persist($user);
-            $em->flush();
-
-            $email = (new TemplatedEmail())
-                ->from('from@example.com')
-                ->to($form->get('email')->getData())
-                ->subject("Validez votre compte sur le site du Quai Antique !")
-                ->htmlTemplate('SignUp/mail/email.html.twig')
-                ->context([
-                    'code' => $randomCode,
-                ])
-            ;
-
             try {
-                $mailer->send($email);
-                return $this->redirectToRoute('signUp-mail', [
-                    "result" => "success"
+                $em->flush();
+
+                $email = (new TemplatedEmail())
+                    ->from('from@example.com')
+                    ->to($form->get('email')->getData())
+                    ->subject("Validez votre compte sur le site du Quai Antique !")
+                    ->htmlTemplate('SignUp/mail/email.html.twig')
+                    ->context([
+                        'code' => $randomCode,
+                    ])
+                ;
+
+                try {
+                    $mailer->send($email);
+                    return $this->redirectToRoute('signUp-mail', [
+                        "result" => "success"
+                    ]);
+                } catch (TransportExceptionInterface $e) {
+                    return $this->redirectToRoute('signUp-mail', [
+                        "result" => "error"
+                    ]);
+                }
+
+            } catch (Exception $e) {
+                dump($e);
+                return $this->render('SignUp/form/signUp.form.html.twig', [
+                    'form' => $form->createView(),
+                    'error' => true,
+                    'code' => 1062
                 ]);
-            } catch (TransportExceptionInterface $e) {
-                return $this->redirectToRoute('signUp-mail', [
-                    "result" => "error"
-                ]);
-            }
+            } 
+
         }
 
         return $this->render('SignUp/form/signUp.form.html.twig', [

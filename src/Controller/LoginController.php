@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\LoginType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,7 +17,7 @@ class LoginController extends AbstractController
     {
         // get the login error if there's one 
         $error = $authenticationUtils->getLastAuthenticationError();
-
+        dump($error);
         $lastEmail = $authenticationUtils->getLastUsername();
 
         $form = $this->createForm(LoginType::class);
@@ -28,8 +29,7 @@ class LoginController extends AbstractController
         return $this->render('Login/login.form.html.twig', [
             'last_email' => $lastEmail,
             'error' => $error,
-            "login" => $login
-            // 'form' => $form->createView()
+            "login" => $login,
         ]);
         
     }
