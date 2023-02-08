@@ -1,0 +1,81 @@
+<div class="parent">
+    <div class="container">
+        <div class="logo">
+            <img src="https://127.0.0.1:8000/images/svg/logo-white.svg" alt="Logo Quai Antique en inscription avec des montagnes derrière.">
+        </div>
+        <h1>Bonjour,</h1>
+    
+        <p>Merci de vous être enregistré sur notre site.</p>
+        <p>Pour valider votre compte, veuillez utiliser le code suivant :</p>
+    
+        <p class="code">{{ code }}</p>
+
+        <p>Cliquez sur ce boutton pour rentrer ce code :</p>
+
+        <a class="button" href="{{ url('signUp-validate') }}">Valider votre compte</a>
+    
+        <p><b>Si vous n'êtes pas à l'origine de cette demande d'inscription, veuillez ignorer ce message.</b></p>
+
+        <p>Pour tout autre soucis, vous pouvez nous contacter par mail :<a href="mailto:"> lorem@ipsum.fr </a> ou téléphone : <a href="tel">+33 1 23 45 67 89</a>.
+    
+        <p>Cordialement,</p>
+    
+        <p>L'équipe du Quai Antique.</p>
+    </div>
+</div>               
+                
+
+                
+<style>
+.parent {
+    background : rgb(247,249,250);
+    padding : 24px;
+}
+.logo {
+    border-bottom: 1px solid #CCCCCC;
+    padding : 24px;
+    background : rgb(23, 21, 21);
+}
+img {
+    height : 100%;
+    max-height: 100px;
+    width: auto;
+}
+.container {
+    font-family : serif;
+    width: 100%;
+    background : #fff;
+}
+a {
+    white-space: nowrap;
+}
+.button {   
+    display : inline-block;
+    white-space: nowrap;
+    margin : 24px 0; 
+    background : rgb(23, 21, 21);
+    text-align: center;
+    padding : 14px 12px;
+    color : rgb(249, 246, 240);
+    text-decoration : none;
+}
+
+@media screen and (min-width : 768px) {
+    .parent {
+        transform: scale(0.741071, 0.741071);
+        font-size : 1.275rem;
+    }
+    .logo {
+        max-height : 125px;
+    }
+    .button {
+        font-size : 1.275rem;
+    }
+}
+.code {
+    background : rgb(247,249,250);
+    padding : 8px;
+    letter-spacing : 0.2rem;
+}
+
+</style>

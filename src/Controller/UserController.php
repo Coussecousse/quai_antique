@@ -5,15 +5,14 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
-use Doctrine\DBAL\Query\QueryException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -45,18 +44,15 @@ class UserController extends AbstractController
             $em->persist($user);
             $em->flush();
 
-            $email = (new Email())
+            $email = (new TemplatedEmail())
                 ->from('from@example.com')
                 ->to($form->get('email')->getData())
                 ->subject("Validez votre compte sur le site du Quai Antique !")
-                ->text("Cher utilisateur, \n
-                Merci de vous être enregistré sur notre site. Pour valider votre compte, veuillez utiliser le code suivant :\n
-                Code de validation : ".$randomCode.
-                "\nCliquez sur ce lien pour activer votre compte : https://127.0.0.1:8000/sign-up/validate \n
-                Si vous n'êtes pas à l'origine de cette demande d'inscription, veuillez ignorer ce message.\n
-                Cordialement,\n
-                Le Quai Antique."
-            );
+                ->htmlTemplate('SignUp/mail/email.html.twig')
+                ->context([
+                    'code' => $randomCode,
+                ])
+            ;
 
             try {
                 $mailer->send($email);
