@@ -45,9 +45,9 @@
                         </label>
                         <a href={{ path('app_forgot_password_request') }} class="text-sm hover:underline duration-75">Mot de passe oublié ?</a>
                     </div>
-                    {# If you want to control the URL the user is redirected to on success
-                    <input type="hidden" name="_target_path" value="/account"> #}
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                     <button type="submit" class=" bg-secondary text-primary mt-4 mb-2 py-2 px-4 w-fit justify-self-center hover:bg-400 duration-150 hover:text-secondary">Se connecter</button>
+
                 </form>
             </div>
             <div class="bg-400 text-center py-5 text-primary lg:h-[30%] lg:flex lg:flex-col lg:justify-center">
