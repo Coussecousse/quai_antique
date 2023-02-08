@@ -317,7 +317,10 @@ header nav a.active::after {
 .reset_password_success {
     @apply absolute bg-primary p-4 text-secondary font-secondary top-1/2 left-1/2 -translate-x-1/2 z-10 w-10/12 max-w-[280px] duration-75 text-center;
 }
-
+/*  Error  */
+.error_container {
+    @apply bg-red-700 p-4 max-w-[380px] mx-auto font-secondary mb-6 text-secondary drop-shadow-lg;
+}
 @media screen and (min-width: 768px) {
     footer, footer div:nth-child(2), footer div:nth-child(2) div {
         gap : clamp(1rem, -3.215rem + 8.781vw, 4.688rem);

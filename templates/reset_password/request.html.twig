@@ -8,7 +8,7 @@
 
 {% block content %}
     {% for flash_error in app.flashes('reset_password_error') %}
-        <div class="alert alert-danger bg-red-600 p-4 max-w-[380px] mx-auto font-secondary mb-6 text-secondary" role="alert">{{ flash_error }}</div>
+        <div class="alert alert-danger error_container" role="alert">{{ flash_error }}</div>
     {% endfor %}
     <div class="text-secondary font-secondary drop-shadow-lg max-w-[380px] mx-auto bg-500 w-11/12 p-4">
         {{ form_start(requestForm, {'attr' : { 'class' : ' grid gap-6 p-4'}}) }}

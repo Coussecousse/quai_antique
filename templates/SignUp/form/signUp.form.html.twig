@@ -9,7 +9,7 @@
     </div>
 {% endblock %}
 {% block content %} 
-    {% if error %}
+    {# {% if error %}
         <div>
             {% if (error == 1062) %}
             <p>Une erreur est survenue :</p>
@@ -19,8 +19,10 @@
             <p>Nous vous invitons à prendre contact directement avec nous.</p>
             {% endif %}
         </div>
+    {% endif %} #}
+    {% if error %}
+        <div class="alert alter-danger error_container">{{ error }}</div>
     {% endif %}
-    <div></div>
     <section class="my-8 md:my-12 flex md:max-w-[900px] w-11/12 mx-auto items-center ">
             <div class="flex w-full">
                 <div class="hidden md:block image_sign-up form_image"></div>

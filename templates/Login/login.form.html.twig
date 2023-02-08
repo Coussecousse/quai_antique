@@ -1,7 +1,7 @@
 {% extends 'Login/login.html.twig' %}
 
 {% block content %}
-<section class="my-8 md:my-12 flex md:max-w-[900px] w-11/12 mx-auto items-center ">
+<section class="my-8 md:my-12 flex flex-col md:max-w-[900px] w-11/12 mx-auto items-center ">
     {% if ((login == 1) or (login == 2)) %} 
     <div class="reset_password_success">
         {% if (login == 1) %}
@@ -14,12 +14,12 @@
     </div> 
 
     {% endif %}
+    {% if error %}
+        <div class="error_container">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
     <div class="flex w-full">
         <div class="text-secondary font-secondary drop-shadow-lg max-w-[380px] md:max-w-none md:flex-1 mx-auto lg:min-h-[480px]">
             <div class="bg-500 p-4 lg:h-[70%] lg:flex lg:flex-col lg:justify-center">
-                {% if error %}
-                    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                {% endif %}
                 <form action="{{ path('login') }}" method="post" class="grid gap-6">
                     <div class="form_container">
                         <label for="username">Email :</label>

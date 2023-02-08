@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
@@ -45,41 +46,48 @@ class UserController extends AbstractController
             $em->persist($user);
             try {
                 $em->flush();
-
-                $email = (new TemplatedEmail())
-                    ->from('from@example.com')
-                    ->to($form->get('email')->getData())
-                    ->subject("Validez votre compte sur le site du Quai Antique !")
-                    ->htmlTemplate('SignUp/mail/email.html.twig')
-                    ->context([
-                        'code' => $randomCode,
-                    ])
-                ;
-
-                try {
-                    $mailer->send($email);
-                    return $this->redirectToRoute('signUp-mail', [
-                        "result" => "success"
-                    ]);
-                } catch (TransportExceptionInterface $e) {
-                    return $this->redirectToRoute('signUp-mail', [
-                        "result" => "error"
-                    ]);
-                }
-
-            } catch (Exception $e) {
-                dump($e);
+                
+            } catch (UniqueConstraintViolationException $e) {
+                $error = "Un compte possédant cet email existe déjà.";
                 return $this->render('SignUp/form/signUp.form.html.twig', [
                     'form' => $form->createView(),
-                    'error' => true,
-                    'code' => 1062
+                    'error' => $error
                 ]);
-            } 
-
+            } catch (Exception $e) {
+                $error = "Une erreur est survenue. Nous vous invitons à prendre contact directement avec nous.";
+                
+                return $this->render('SignUp/form/signUp.form.html.twig', [
+                    'form' => $form->createView(),
+                    'error' => $error
+                ]);
+            }
+            
+            
+            $email = (new TemplatedEmail())
+                ->from('from@example.com')
+                ->to($form->get('email')->getData())
+                ->subject("Validez votre compte sur le site du Quai Antique !")
+                ->htmlTemplate('SignUp/mail/email.html.twig')
+                ->context([
+                    'code' => $randomCode,
+                ])
+            ;
+                
+            try {
+                $mailer->send($email);
+                return $this->redirectToRoute('signUp-mail', [
+                    "result" => "success"
+                ]);
+            } catch (TransportExceptionInterface $e) {
+                return $this->redirectToRoute('signUp-mail', [
+                    "result" => "error"
+                ]);
+            }
         }
 
         return $this->render('SignUp/form/signUp.form.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'error' => null
         ]);
     }
 
