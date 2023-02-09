@@ -3,18 +3,28 @@
 namespace App\Controller;
 
 use App\Form\ContactType;
+use App\Repository\UserRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class PostController extends AbstractController
 {
     #[Route('/', name:'home')]
-    public function home()
+    public function home(UserInterface $user = null, UserRepository $repository)
     {
+        if ($user) {
+            $email = $user->getUserIdentifier();
+            dump($email);
+            $result = $repository->isVerified($email);
+            if (!$result->getIsVerified()) {
+                return $this->redirectToRoute('signUp-validate');
+            } 
+        }
         return $this->render('Home/home.html.twig');
     }
 

@@ -23,7 +23,7 @@ class LoginController extends AbstractController
         $form = $this->createForm(LoginType::class);
         $form->handleRequest($request);
         
-
+        
 
         return $this->render('Login/login.form.html.twig', [
             'last_email' => $lastEmail,
@@ -31,5 +31,9 @@ class LoginController extends AbstractController
             "login" => $login,
         ]);
         
+    }
+    #[Route('/logout', name:'logout', methods : ['GET'])]
+    public function logout()
+    {
     }
 }
