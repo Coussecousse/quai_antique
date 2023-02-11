@@ -41,17 +41,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 20)]
     private ?string $code = null;
     
-    public function getId(): ?int
+    public_html function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getEmail(): ?string
+    public_html function getEmail(): ?string
     {
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public_html function setEmail(string $email): self
     {
         $this->email = $email;
 
@@ -63,7 +63,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @see UserInterface
      */
-    public function getUserIdentifier(): string
+    public_html function getUserIdentifier(): string
     {
         return (string) $this->email;
     }
@@ -71,7 +71,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see UserInterface
      */
-    public function getRoles(): array
+    public_html function getRoles(): array
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
@@ -80,7 +80,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return array_unique($roles);
     }
 
-    public function setRoles(array $roles): self
+    public_html function setRoles(array $roles): self
     {
         $this->roles = $roles;
 
@@ -90,12 +90,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see PasswordAuthenticatedUserInterface
      */
-    public function getPassword(): string
+    public_html function getPassword(): string
     {
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public_html function setPassword(string $password): self
     {
         $this->password = $password;
 
@@ -105,7 +105,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see UserInterface
      */
-    public function eraseCredentials()
+    public_html function eraseCredentials()
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
@@ -114,7 +114,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Get the value of isVerified
      */ 
-    public function getIsVerified()
+    public_html function getIsVerified()
     {
         return $this->isVerified;
     }
@@ -124,7 +124,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @return  self
      */ 
-    public function setIsVerified($isVerified)
+    public_html function setIsVerified($isVerified)
     {
         $this->isVerified = $isVerified;
 
@@ -134,7 +134,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Get the value of code
      */ 
-    public function getCode()
+    public_html function getCode()
     {
         return $this->code;
     }
@@ -144,7 +144,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @return  self
      */ 
-    public function setCode($code)
+    public_html function setCode($code)
     {
         $this->code = $code;
 
@@ -154,7 +154,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Get the value of confirm
      */ 
-    public function getConfirm()
+    public_html function getConfirm()
     {
         return $this->confirm;
     }
@@ -164,7 +164,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @return  self
      */ 
-    public function setConfirm($confirm)
+    public_html function setConfirm($confirm)
     {
         $this->confirm = $confirm;
 

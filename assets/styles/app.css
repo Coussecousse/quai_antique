@@ -65,7 +65,7 @@ header nav a.active::after {
 
 /* HOME */
 .image {
-    background:  linear-gradient(rgba(23,21,21,0) 50%, rgb(23, 21, 21)) , center / cover no-repeat url('../../public/images/home/home-small.webp');
+    background:  linear-gradient(rgba(23,21,21,0) 50%, rgb(23, 21, 21)) , center / cover no-repeat url('../../public_html/images/home/home-small.webp');
 }
 
 .carousel_pics {
@@ -295,7 +295,7 @@ header nav a.active::after {
 
 .image_sign-up {
     @apply w-3/5 max-w-[600px];
-    background: center / cover no-repeat url('../../public/images/sign-up/sign_up-medium.jpg')
+    background: center / cover no-repeat url('../../public_html/images/sign-up/sign_up-medium.jpg')
 }
 .form_inputContainer {
     @apply flex bg-400/20 h-8;
@@ -312,7 +312,7 @@ header nav a.active::after {
 
 /* LOGIN */
 .image_login {
-    background: center / cover no-repeat url('../../public/images/login/login-medium.jpg');
+    background: center / cover no-repeat url('../../public_html/images/login/login-medium.jpg');
 }
 .reset_password_success {
     @apply absolute bg-primary p-4 text-secondary font-secondary top-1/2 left-1/2 -translate-x-1/2 z-10 w-10/12 max-w-[280px] duration-75 text-center;
@@ -326,7 +326,7 @@ header nav a.active::after {
         gap : clamp(1rem, -3.215rem + 8.781vw, 4.688rem);
     }
     .image {
-        background:  linear-gradient(rgba(23,21,21,0) 50%, rgb(23, 21, 21)) , center 61% / cover no-repeat url('../../public/images/home/home-medium.webp');
+        background:  linear-gradient(rgba(23,21,21,0) 50%, rgb(23, 21, 21)) , center 61% / cover no-repeat url('../../public_html/images/home/home-medium.webp');
     }
     .carousel_pic {
         grid-template-columns: repeat(3, 671px);
@@ -334,17 +334,17 @@ header nav a.active::after {
 }
 @media screen and (min-width: 992px) {
     .image {
-        background:  linear-gradient(rgba(23,21,21,0) 50%, rgb(23, 21, 21)) , center 61% / cover no-repeat url('../../public/images/home/home-large.webp');
+        background:  linear-gradient(rgba(23,21,21,0) 50%, rgb(23, 21, 21)) , center 61% / cover no-repeat url('../../public_html/images/home/home-large.webp');
     }
     .image_sign-up {
-        background: center / cover no-repeat url('../../public/images/sign-up/sign_up-large.jpg')
+        background: center / cover no-repeat url('../../public_html/images/sign-up/sign_up-large.jpg')
     }
 }
 @media screen and (min-width: 1300px) {
     .image {
-        background:  linear-gradient(rgba(23,21,21,0) 50%, rgb(23, 21, 21)) ,  center 61% / cover no-repeat url('../../public/images/home/home-extraLarge.webp');
+        background:  linear-gradient(rgba(23,21,21,0) 50%, rgb(23, 21, 21)) ,  center 61% / cover no-repeat url('../../public_html/images/home/home-extraLarge.webp');
     }
     .image_sign-up {
-        background: center / cover no-repeat url('../../public/images/sign-up/sign_up-extraLarge.jpg')
+        background: center / cover no-repeat url('../../public_html/images/sign-up/sign_up-extraLarge.jpg')
     }
 }
