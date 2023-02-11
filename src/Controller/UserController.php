@@ -21,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController 
 {
     #[Route('/sign-up', name:'sign_up')]
-    public_html function signIn(UserPasswordHasherInterface $userPasswordHasher, Request $request, ManagerRegistry $doctrine, MailerInterface $mailer ) : Response 
+    public function signIn(UserPasswordHasherInterface $userPasswordHasher, Request $request, ManagerRegistry $doctrine, MailerInterface $mailer ) : Response 
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -92,7 +92,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/sign-up/validate', name: 'signUp-validate')]
-    public_html function signUpValidate(Request $request, UserRepository $repository) {
+    public function signUpValidate(Request $request, UserRepository $repository) {
         
         $code = $request->query->get('code');
         if ($code) {
@@ -113,7 +113,7 @@ class UserController extends AbstractController
         return $this->render('SignUp/validate/signUp.validate.html.twig');
     }
     #[Route('/sign-up/validate/{result}', name : "signUp-validate-result")]
-    public_html function signUpValidateResult($result, Request $request, UserRepository $repository) {
+    public function signUpValidateResult($result, Request $request, UserRepository $repository) {
 
         $code = $request->query->get('code');
         if ($code) {
@@ -136,7 +136,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/sign-up/{result}', name : "signUp-mail")]
-    public_html function signUpResult($result) {
+    public function signUpResult($result) {
         return $this->render('SignUp/mail/signUp.mail.html.twig', [
             "result" => $result
         ]);

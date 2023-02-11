@@ -15,7 +15,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class PostController extends AbstractController
 {
     #[Route('/', name:'home')]
-    public_html function home(UserInterface $user = null, UserRepository $repository)
+    public function home(UserInterface $user = null, UserRepository $repository)
     {
         if ($user) {
             $email = $user->getUserIdentifier();
@@ -29,27 +29,27 @@ class PostController extends AbstractController
     }
 
     #[Route('/carte', name:'card')]
-    public_html function card() {
+    public function card() {
         return $this->render('Card/card.html.twig');
     }
     #[Route('/carte/entrées', name:'card-starter')]
-    public_html function cardStarter() {
+    public function cardStarter() {
         return $this->render('Card/Starter/starter.card.html.twig');
     }
     #[Route('/carte/plats', name:'card-main')]
-    public_html function cardMain() {
+    public function cardMain() {
         return $this->render('Card/Main/main.card.html.twig');
     }
     #[Route('/carte/desserts', name:'card-dessert')]
-    public_html function cardDessert() {
+    public function cardDessert() {
         return $this->render('Card/Dessert/dessert.card.html.twig');
     }
     #[Route('/carte/menus', name:'card-menus')]
-    public_html function cardMenus() {
+    public function cardMenus() {
         return $this->render('Card/Menus/menus.card.html.twig');
     }
     #[Route('/contact', name:'contact')]
-    public_html function contact(Request $request, MailerInterface $mailer) {
+    public function contact(Request $request, MailerInterface $mailer) {
 
         $form = $this->createForm(ContactType::class);
         $form->handleRequest($request);
@@ -82,7 +82,7 @@ class PostController extends AbstractController
         ]);
     }
     #[Route('/contact/{result}', name:'contact-result')]
-    public_html function contactResult($result) {
+    public function contactResult($result) {
 
         dump($result);
 
