@@ -295,7 +295,7 @@ header nav a.active::after {
 
 .image_sign-up {
     @apply w-3/5 max-w-[600px];
-    background: center / cover no-repeat url('../../public_html_html/images/sign-up/sign_up-medium.jpg')
+    background: center / cover no-repeat url('../../public_html/images/sign-up/sign_up-medium.jpg')
 }
 .form_inputContainer {
     @apply flex bg-400/20 h-8;
@@ -326,7 +326,7 @@ header nav a.active::after {
         gap : clamp(1rem, -3.215rem + 8.781vw, 4.688rem);
     }
     .image {
-        background:  linear-gradient(rgba(23,21,21,0) 50%, rgb(23, 21, 21)) , center 61% / cover no-repeat url('../../public_html_html/images/home/home-medium.webp');
+        background:  linear-gradient(rgba(23,21,21,0) 50%, rgb(23, 21, 21)) , center 61% / cover no-repeat url('../../public_html/images/home/home-medium.webp');
     }
     .carousel_pic {
         grid-template-columns: repeat(3, 671px);
