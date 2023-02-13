@@ -64,7 +64,7 @@ class UserController extends AbstractController
             
             
             $email = (new TemplatedEmail())
-                ->from('from@example.com')
+                ->from('restaurant@quai-antique.fr')
                 ->to($form->get('email')->getData())
                 ->subject("Validez votre compte sur le site du Quai Antique !")
                 ->htmlTemplate('SignUp/mail/email.html.twig')
