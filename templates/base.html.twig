@@ -18,8 +18,8 @@
         {# IF NOT CONNECTED #}
         {% block header %}
             <header class="z-10 h-[110px] w-full absolute flex justify-between px-6 py-3 md:px-12">
-                <a href="{{ path('home') }}" class=""><img src={{ asset('images/svg/'~ "logo-white.svg")}} alt="Logo Quai Antique blanc" class="h-full"></a>
-                <button class="md.5:hidden"><img src={{ asset('images/svg/'~ "hamburger-open.svg") }} alt="Open menu"></button>
+                <a href="{{ path('home') }}" class=""><img src={{ asset('/images/svg/'~ "logo-white.svg")}} alt="Logo Quai Antique blanc" class="h-full"></a>
+                <button class="md.5:hidden"><img src={{ asset('/images/svg/'~ "hamburger-open.svg") }} alt="Open menu"></button>
                 <nav class="hidden md.5:block uppercase"> 
                     <ul class="md.5:inline-flex md.5:gap-6 lg:gap-12 text-secondary font-secondary relative top-[57px] xl:text-lg">
                         <li><a href={{ path('home') }} class="active">Accueil</a></li>
@@ -105,7 +105,7 @@
                             </ul>
                         </div>
                     </div>
-                    <a href="{{ path('home') }}" ><img class="max-w-[160px] mx-auto sm:inline-block sm:w-fit sm:mx-0" src={{ asset('images/svg/'~'logo-white.svg')}} alt=""></a>
+                    <a href="{{ path('home') }}" ><img class="max-w-[160px] mx-auto sm:inline-block sm:w-fit sm:mx-0" src={{ asset('/images/svg/'~'logo-white.svg')}} alt=""></a>
                 </div>
             </footer>
         {% endblock %}

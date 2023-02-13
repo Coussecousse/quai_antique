@@ -6,7 +6,7 @@
     <main class="pt-28 flex flex-col justify-evenly form_main" id="login">
         <div class="title_container bg-primary">
             <h1 class="title_section">Connexion</h1>
-            <img src={{ asset('images/svg/'~ "line-white.svg") }} alt="un point entouré de deux traits de longeur égales" class="w-[100px]">
+            <img src={{ asset('/images/svg/'~ "line-white.svg") }} alt="un point entouré de deux traits de longeur égales" class="w-[100px]">
             {% block content_subtitle %}
             {% endblock %}
         </div>
@@ -16,6 +16,6 @@
     
 {% endblock %}
 {% block scripts %}
-<script src={{ asset('js/signUp-login/'~'script.js') }}></script>
+<script src={{ asset('/js/signUp-login/'~'script.js') }}></script>
 {% endblock %}
      

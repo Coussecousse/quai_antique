@@ -7,7 +7,7 @@
     <main class="w-full min-h-screen pt-28 px-6 flex flex-col overflow-hidden">
         <div class="title_container bg-primary">
             <h1 class="title_section">Carte</h1>
-            <img src={{ asset('images/svg/'~ "line-white.svg") }} alt="un point entouré de deux traits de longeur égales" class="w-[100px]">
+            <img src={{ asset('/images/svg/'~ "line-white.svg") }} alt="un point entouré de deux traits de longeur égales" class="w-[100px]">
         </div>
         {% block section %}
         <div class="main-content ease-in duration-500 min-h-full">
@@ -17,10 +17,10 @@
                         <a href="{{ path('card-starter') }}">
                             <div></div>
                             <picture>
-                                <source srcset={{ asset('images/card/'~"starter-extraLarge.jpg") }} media="(min-width : 1200px)">
-                                <source srcset={{ asset('images/card/'~"starter-large.jpg") }} media="(min-width : 990px)">
-                                <source srcset={{ asset('images/card/'~"starter-medium.jpg") }} media="(min-width : 768px)">
-                                <img src={{ asset('images/card/'~'starter-small.jpg')}} alt="Demi-camembert roti sur lit de salade">
+                                <source srcset={{ asset('/images/card/'~"starter-extraLarge.jpg") }} media="(min-width : 1200px)">
+                                <source srcset={{ asset('/images/card/'~"starter-large.jpg") }} media="(min-width : 990px)">
+                                <source srcset={{ asset('/images/card/'~"starter-medium.jpg") }} media="(min-width : 768px)">
+                                <img src={{ asset('/images/card/'~'starter-small.jpg')}} alt="Demi-camembert roti sur lit de salade">
                             </picture>
                             <h2 class="z-0">Entrées</h2>
                         </a>
@@ -29,10 +29,10 @@
                         <a href="{{ path('card-main') }}">
                             <div></div>
                             <picture>
-                                <source srcset={{ asset('images/card/'~"main-extraLarge.jpg") }} media="(min-width : 1200px)">
-                                <source srcset={{ asset('images/card/'~"main-large.jpg") }} media="(min-width : 990px)">
-                                <source srcset={{ asset('images/card/'~"main-medium.jpg") }} media="(min-width : 768px)">
-                            <img src={{ asset('images/card/'~'main-small.jpg')}} alt="Marmitte e crozets aux noix de saint Jacques">
+                                <source srcset={{ asset('/images/card/'~"main-large.jpg") }} media="(min-width : 990px)">
+                                <source srcset={{ asset('/images/card/'~"main-medium.jpg") }} media="(min-width : 768px)">
+                                <source srcset={{ asset('/images/card/'~"main-extraLarge.jpg") }} media="(min-width : 1200px)">
+                            <img src={{ asset('/images/card/'~'main-small.jpg')}} alt="Marmitte e crozets aux noix de saint Jacques">
                             </picture>
                             <h2 class="z-0">Plats</h2>
                         </a>
@@ -41,10 +41,10 @@
                         <a href="{{ path('card-dessert') }}">
                             <div></div>
                             <picture>
-                                <source srcset={{ asset('images/card/'~"dessert-extraLarge.jpg") }} media="(min-width : 1200px)">
-                                <source srcset={{ asset('images/card/'~"dessert-large.jpg") }} media="(min-width : 990px)">
-                                <source srcset={{ asset('images/card/'~"dessert-medium.jpg") }} media="(min-width : 768px)">
-                                <img src={{ asset('images/card/'~'dessert-small.jpg')}} alt="Nougat glace et son coulis de myrtilles">
+                                <source srcset={{ asset('/images/card/'~"dessert-extraLarge.jpg") }} media="(min-width : 1200px)">
+                                <source srcset={{ asset('/images/card/'~"dessert-large.jpg") }} media="(min-width : 990px)">
+                                <source srcset={{ asset('/images/card/'~"dessert-medium.jpg") }} media="(min-width : 768px)">
+                                <img src={{ asset('/images/card/'~'dessert-small.jpg')}} alt="Nougat glace et son coulis de myrtilles">
                             </picture>
                             <h2 class="z-0">Desserts</h2>
                         </a>
@@ -53,10 +53,10 @@
                         <a href="{{ path('card-menus') }}">
                             <div></div>
                             <picture>
-                                <source srcset={{ asset('images/card/'~"menu-extraLarge.jpg") }} media="(min-width : 1200px)">
-                                <source srcset={{ asset('images/card/'~"menu-large.jpg") }} media="(min-width : 990px)">
-                                <source srcset={{ asset('images/card/'~"menu-medium.jpg") }} media="(min-width : 768px)">
-                                <img src={{ asset('images/card/'~'menu-small.jpg')}} alt="Service de plusieurs assiettes en cuisine">
+                                <source srcset={{ asset('/images/card/'~"menu-extraLarge.jpg") }} media="(min-width : 1200px)">
+                                <source srcset={{ asset('/images/card/'~"menu-large.jpg") }} media="(min-width : 990px)">
+                                <source srcset={{ asset('/images/card/'~"menu-medium.jpg") }} media="(min-width : 768px)">
+                                <img src={{ asset('/images/card/'~'menu-small.jpg')}} alt="Service de plusieurs assiettes en cuisine">
                             </picture>
                             <h2 class="z-0">Menus</h2>
                         </a>
@@ -69,5 +69,5 @@
     </main>
 {% endblock %}
 {% block scripts %}
-    <script src={{ asset('js/card/'~'script-card.js') }}></script>
+    <script src={{ asset('/js/card/'~'script-card.js') }}></script>
 {% endblock %}

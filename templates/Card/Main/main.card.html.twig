@@ -6,12 +6,12 @@
 {% block section %}
 <div class="main-content">
     <section class="" id="section-starter">
-        <div class="box"><img src={{ asset('images/svg/'~'Rectangle.svg') }} alt=""></img></div>
+        <div class="box"><img src={{ asset('/images/svg/'~'Rectangle.svg') }} alt=""></img></div>
         <div class="container-card blank sm-cardButton:flex">
             <div class="sm-cardButton:order-last">
                 <div class="card_titles">
                     <h2 class="">Plats</h2>
-                    <img src={{ asset('images/svg/'~ "line-sub.svg") }} alt="un point entouré de deux traits de longeur égales" class="w-[100px] -mt-2 md:w-[150px]">
+                    <img src={{ asset('/images/svg/'~ "line-sub.svg") }} alt="un point entouré de deux traits de longeur égales" class="w-[100px] -mt-2 md:w-[150px]">
                 </div>
                 <ul class="card-items">
                     <li>
@@ -58,5 +58,5 @@
 {% endblock %}
 
 {% block scripts %}
-    <script src={{ asset('js/card/'~'script-options.js') }}></script>
+    <script src={{ asset('/js/card/'~'script-options.js') }}></script>
 {% endblock %}
