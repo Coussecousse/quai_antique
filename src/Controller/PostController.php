@@ -19,7 +19,7 @@ class PostController extends AbstractController
     {
         if ($user) {
             $email = $user->getUserIdentifier();
-            dump($email);
+            
             $result = $repository->isVerified($email);
             if (!$result->getIsVerified()) {
                 return $this->redirectToRoute('signUp-validate');

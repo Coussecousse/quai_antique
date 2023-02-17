@@ -6,6 +6,8 @@
         {% if result == "success" %}
         <p class="mb-4">Un mail de confirmation vous a été envoyé !</p>
         <p>Veuillez le valider afin de pouvoir vous connecter.</p>
+        <small class="mt-6">Si vous n'avez rien reçu, veuillez vérifier votre boîte de <span class="underline underline-offset-2">SPAM</span></small>
+        <p>Si vous n'avez vraiment rien reçu, vous pouvez <a href="{{ path('signUp-sendEmail') }}" class="hover:underline hover:underline-offset-2">renvoyer un mail.</a></p>
         {% else %}
         <p class="">Une erreur est survenue.</p>
         <p>Nous vous invitons à prendre contact directement avec nous.</p>

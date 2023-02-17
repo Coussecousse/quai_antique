@@ -15,13 +15,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Crypto\DkimSigner;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bridge\Twig\Mime\WrappedTemplatedEmail;
+use Twig\Environment;
 
 class UserController extends AbstractController 
 {
     #[Route('/sign-up', name:'sign_up')]
-    public function signIn(UserPasswordHasherInterface $userPasswordHasher, Request $request, ManagerRegistry $doctrine, MailerInterface $mailer ) : Response 
+    public function signIn(UserPasswordHasherInterface $userPasswordHasher, Request $request, ManagerRegistry $doctrine) : Response 
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -61,28 +64,12 @@ class UserController extends AbstractController
                     'error' => $error
                 ]);
             }
-            
-            
-            $email = (new TemplatedEmail())
-                ->from('restaurant@quai-antique.fr')
-                ->to($form->get('email')->getData())
-                ->subject("Validez votre compte sur le site du Quai Antique !")
-                ->htmlTemplate('SignUp/mail/email.html.twig')
-                ->context([
-                    'code' => $randomCode,
-                ])
-            ;
-                
-            try {
-                $mailer->send($email);
-                return $this->redirectToRoute('signUp-mail', [
-                    "result" => "success"
-                ]);
-            } catch (TransportExceptionInterface $e) {
-                return $this->redirectToRoute('signUp-mail', [
-                    "result" => "error"
-                ]);
-            }
+            $email = $form->get('email')->getData();
+
+            $request->getSession()->set('email', $email);
+            $request->getSession()->set('code', $randomCode);
+
+            return $this->redirectToRoute('signUp-sendEmail');
         }
 
         return $this->render('SignUp/form/signUp.form.html.twig', [
@@ -93,6 +80,9 @@ class UserController extends AbstractController
 
     #[Route('/sign-up/validate', name: 'signUp-validate')]
     public function signUpValidate(Request $request, UserRepository $repository) {
+
+        $request->getSession()->remove('email');
+        $request->getSession()->remove('code');
         
         $code = $request->query->get('code');
         if ($code) {
@@ -136,11 +126,51 @@ class UserController extends AbstractController
     }
 
     #[Route('/sign-up/{result}', name : "signUp-mail")]
-    public function signUpResult($result) {
+    public function signUpResult($result, Request $request) {
+        if (!$result) {
+            $request->getSession()->remove('email');
+            $request->getSession()->remove('code');
+        }
         return $this->render('SignUp/mail/signUp.mail.html.twig', [
             "result" => $result
         ]);
     }
 
+    #[Route('/inscription/envoie-email', name:"signUp-sendEmail")]
+    public function signUpEmail(Environment $twig, MailerInterface $mailer, Request $request) {
+
+        $email = $request->getSession()->get('email');
+        $randomCode = $request->getSession()->get('code');
+
+        $key = file_get_contents('../dkim/dkim.private.key');
+        $signer = new DkimSigner($key, 'quai-antique.fr', 'default');
+
+        $email = (new TemplatedEmail())        
+            ->from('restaurant@quai-antique.fr')   
+            ->to($email)
+            ->subject("Validez votre compte sur le site du Quai Antique !");
+
+        $html = $this->render('SignUp/mail/email.html.twig',[
+                        'email' => new WrappedTemplatedEmail($twig, $email),
+                        'code' => $randomCode                        
+                        ])
+                    ->getContent();
+
+        $email->html($html);
+
+        $signedEmail = $signer->sign($email);
+
+        try {
+            $mailer->send($signedEmail);
+
+            return $this->redirectToRoute('signUp-mail', [
+                "result" => "success"
+            ]);
+        } catch (TransportExceptionInterface $e) {
+            return $this->redirectToRoute('signUp-mail', [
+                "result" => "error"
+            ]);
+        }
+    }
 }  
 
