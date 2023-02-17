@@ -1,5 +1,8 @@
 
 ###> symfony/framework-bundle ###
+/tests/
+/dkim/
+/.env
 /.env.local
 /.env.local.php
 /.env.*.local
