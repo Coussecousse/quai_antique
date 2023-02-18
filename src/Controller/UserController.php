@@ -79,16 +79,22 @@ class UserController extends AbstractController
     }
 
     #[Route('/sign-up/validate', name: 'signUp-validate')]
-    public function signUpValidate(Request $request, UserRepository $repository) {
+    public function signUpValidate(Request $request, UserRepository $repository, ManagerRegistry $doctrine) {
 
         $request->getSession()->remove('email');
         $request->getSession()->remove('code');
         
         $code = $request->query->get('code');
-        if ($code) {
+        if ($code) {    
+            $em = $doctrine->getManager();
+
             try {
-                $result =  $repository->findCode($code);
-                $changeConfirm = $repository->setConfirm($code);
+                $result = $repository->findCode($code);
+
+                $result->setRoles(array('ROLE_VERIFIED'));
+
+                $em->persist($result);
+                $em->flush();
 
                 return $this->redirectToRoute('login', [
                     "login" => 2

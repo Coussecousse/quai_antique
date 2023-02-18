@@ -20,10 +20,16 @@ class PostController extends AbstractController
         if ($user) {
             $email = $user->getUserIdentifier();
             
-            $result = $repository->isVerified($email);
-            if (!$result->getIsVerified()) {
+            // $result = $repository->isVerified($email);
+            // if (!$result->getIsVerified()) {
+            //     return $this->redirectToRoute('signUp-validate');
+            // } 
+            $result = $repository->getUser($email);
+            dump($result);
+            dump($result->getRoles());
+            if(!in_array('ROLE_VERIFIED', $result->getRoles())) {{
                 return $this->redirectToRoute('signUp-validate');
-            } 
+            }}
         }
         return $this->render('Home/home.html.twig');
     }
