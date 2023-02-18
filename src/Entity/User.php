@@ -36,7 +36,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $confirm = null;
     
     #[ORM\Column(type: "boolean")]
-    private $isVerified = false;
 
     #[ORM\Column(length: 20)]
     private ?string $code = null;
@@ -109,26 +108,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
-    }
-
-    /**
-     * Get the value of isVerified
-     */ 
-    public function getIsVerified()
-    {
-        return $this->isVerified;
-    }
-
-    /**
-     * Set the value of isVerified
-     *
-     * @return  self
-     */ 
-    public function setIsVerified($isVerified)
-    {
-        $this->isVerified = $isVerified;
-
-        return $this;
     }
 
     /**
