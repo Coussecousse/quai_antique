@@ -109,13 +109,18 @@ class UserController extends AbstractController
         return $this->render('SignUp/validate/signUp.validate.html.twig');
     }
     #[Route('/sign-up/validate/{result}', name : "signUp-validate-result")]
-    public function signUpValidateResult($result, Request $request, UserRepository $repository) {
+    public function signUpValidateResult($result, Request $request, UserRepository $repository, ManagerRegistry $doctrine) {
 
         $code = $request->query->get('code');
         if ($code) {
+            $em = $doctrine->getManager();
+
             try {
                 $result =  $repository->findCode($code);
-                $changeConfirm = $repository->setConfirm($code);
+                $result->setRoles(array('ROLE_VERIFIED'));
+
+                $em->persist($result);
+                $em->flush();
 
                 return $this->redirectToRoute('signUp-validate-result', [
                     "result" => "match"

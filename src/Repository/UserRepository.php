@@ -59,16 +59,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function findCode($code)
     {
         return $this->createQueryBuilder('user')
-            ->where('user.code LIKE :code AND user.isVerified = 0')
+            ->where('user.code LIKE :code AND user.roles NOT LIKE :role')
             ->setParameter('code', '%'.$code.'%')
-            ->getQuery()
-            ->getSingleResult()
-        ;
-    }
-    public function isVerified($email) {
-        return $this->createQueryBuilder('user')
-            ->where('user.email LIKE :email')
-            ->setParameter('email', $email)
+            ->setParameter('role', 'ROLE_VERIFIED')
             ->getQuery()
             ->getSingleResult()
         ;
