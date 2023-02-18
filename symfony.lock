@@ -123,7 +123,7 @@
             "./config/preload.php",
             "./config/routes/framework.yaml",
             "./config/services.yaml",
-            "./public_html/index.php",
+            "./publicl/index.php",
             "./src/Controller/.gitignore",
             "./src/Kernel.php"
         ]
