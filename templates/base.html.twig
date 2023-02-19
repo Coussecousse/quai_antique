@@ -26,14 +26,18 @@
                         <li><a href={{ path('card') }}>Carte</a></li>
                         <li><a href="">Réserver</a></li>
                         <li><a href={{ path('contact') }}>Contact</a></li>
+                        {% if app.user %}
+                        <li><a href={{ path('login') }}>Profil</a></li>
+                        <li><a href={{ path('logout') }}>Deconnexion</a></li>
+                        {% else %}
                         <li><a href={{ path('login') }}>Connexion</a></li>
                         <li><a href={{ path('sign_up') }}>Inscription</a></li>
+                        {% endif %}
                     </ul>
                 </nav>
             </header>
         {% endblock %}
         {% block body %}{% endblock %}
-        {# IF NOT CONNECTED #}
         {% block footer %}
             <footer class="bg-500 text-secondary font-third py-4 px-5 mt-8 w-full md:flex md:justify-center text-sm">
                 <div class="grid max-w-[440px] mx-auto md:w-fit md:max-w-[340px] md:min-w-[300px] md:mx-0 lg:w-[400px]">
@@ -92,8 +96,13 @@
                                 <li><a class="hover:underline hover:underline-offset-2" href="">Carte</a></li>
                                 <li><a class="hover:underline hover:underline-offset-2" href="">Réserver</a></li>
                                 <li><a class="hover:underline hover:underline-offset-2" href="">Contact</a></li>
+                                {% if app.user %}
+                                <li><a class="hover:underline hover:underline-offset-2" href="">Profil</a></li>
+                                <li><a class="hover:underline hover:underline-offset-2" href="">Deconnexion</a></li>
+                                {% else %}
                                 <li><a class="hover:underline hover:underline-offset-2" href="">Connexion</a></li>
                                 <li><a class="hover:underline hover:underline-offset-2" href="">Inscription</a></li>
+                                {% endif %}
                             </ul>
                         </div>
                         <div>

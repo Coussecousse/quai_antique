@@ -15,14 +15,13 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class PostController extends AbstractController
 {
     #[Route('/', name:'home')]
-    public function home(UserInterface $user = null, UserRepository $repository)
+    public function home(UserInterface $user, UserRepository $repository)
     {
         if ($user) {
             $email = $user->getUserIdentifier();
             
             $result = $repository->getUser($email);
-            dump($result);
-            dump($result->getRoles());
+
             if(!in_array('ROLE_VERIFIED', $result->getRoles())) {{
                 return $this->redirectToRoute('signUp-validate');
             }}
