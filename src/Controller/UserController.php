@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Client;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
@@ -24,9 +25,9 @@ use Twig\Environment;
 class UserController extends AbstractController 
 {
     #[Route('/sign-up', name:'sign_up')]
-    public function signIn(UserPasswordHasherInterface $userPasswordHasher, Request $request, ManagerRegistry $doctrine) : Response 
+    public function signIn(UserPasswordHasherInterface $userPasswordHasher, Request $request, ManagerRegistry $doctrine, UserRepository $userRepository) : Response 
     {
-        $user = new User();
+        $user = new Client($userRepository);
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
