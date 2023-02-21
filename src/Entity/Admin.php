@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\AdminRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AdminRepository::class)]
@@ -17,5 +18,4 @@ class Admin extends User
     {
         return $this->id;
     }
-    
 }
