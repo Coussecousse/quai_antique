@@ -27,7 +27,7 @@ class Offer
     private ?float $price = null;
 
     #[ORM\ManyToOne(inversedBy: 'offers')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private ?Menu $menu = null;
 
     public function getId(): ?int

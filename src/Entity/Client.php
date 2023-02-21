@@ -16,10 +16,10 @@ class Client extends User
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToMany(mappedBy: 'Client', targetEntity: Booking::class)]
+    #[ORM\OneToMany(mappedBy: 'client', targetEntity: Booking::class)]
     private Collection $booking;
 
-    #[ORM\OneToMany(mappedBy: 'Client', targetEntity: Template::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'client', targetEntity: Template::class, orphanRemoval: true)]
     private Collection $template;
 
     public function __construct(UserRepository $userRepository)

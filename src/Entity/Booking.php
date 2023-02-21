@@ -30,7 +30,7 @@ class Booking
     private ?\DateTimeInterface $scedule = null;
 
     #[ORM\ManyToOne(inversedBy: 'booking')]
-    private ?Client $Client = null;
+    private ?Client $client = null;
 
     public function getId(): ?int
     {

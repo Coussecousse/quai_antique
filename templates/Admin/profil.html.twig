@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+
+{% block body %}
+    <main class="pt-28 flex flex-col justify-evenly form_main">
+        <div class="profil_container">
+            <section>
+                <nav class="profil_menu">
+                    <ul>
+                        <li class="bg-500 text-secondary"><a href="{{ path('admin_profil', {'page':'carousel'}) }}">Profil</a></li>
+                        <li class="bg-secondary"><a href="">Restaurant</a></li>
+                    </ul>
+                </nav>
+                <div class="text-secondary bg-500 profil_up">
+                    <div class="grid py-4 gap-2 drop-shadow-lg">
+                        <form class="form_profil">
+                            <label for="email" class="hidden md:block">Email :</label>
+                            <div class="form_inputContainer input_profil">
+                                <i class="fa-solid fa-at"></i>
+                                <input type="email" name="email" id="email" placeholder={{ app.user.email }}>
+                                <button type="submit"><i class="fa-solid fa-pen"></i></button>
+                            </div>
+                        </form>
+                        <form class="form_profil">
+                            <label for="password" class="hidden md:block">Mot de passe :</label>
+                            <div class="form_inputContainer input_profil">
+                                <i class="fa-solid fa-lock"></i>
+                                <input type="password" name="password" id="password" placeholder="********">
+                                <span role="button" onclick="togglePassword(event)">
+                                    <i class="fa-solid fa-eye w-[36px]" ></i>
+                                    <i class="fa-solid fa-eye-slash hide w-[36px]"></i>
+                                </span>
+                                <button type="submit"><i class="fa-solid fa-pen"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <nav>
+                    <ul>
+                        <li><a href="">Carousel</a></li>
+                        <li><a href="">Carte</a></li>
+                        <li><a href="">Horaires</a></li>
+                        <li><a href="">Dates</a></li>
+                    </ul>
+                </nav>
+                <div></div>
+            </section>
+        </div>
+    </main>
+{% endblock %}
+
+{% block scripts %}
+    <script src={{ asset('/js/signUp-login/'~'script.js') }}></script>
+{% endblock %}

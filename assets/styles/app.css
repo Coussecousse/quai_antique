@@ -298,10 +298,10 @@ header nav a.active::after {
     background: center / cover no-repeat url('../../public/images/sign-up/sign_up-medium.jpg')
 }
 .form_inputContainer {
-    @apply flex bg-400/20 h-8;
+    @apply flex bg-400/20 h-8 w-11/12 max-w-[395px] mx-auto;
 }
 .form_inputContainer input {
-    @apply flex-1 bg-transparent pl-1;
+    @apply flex-1 bg-transparent pl-1 w-full;
 }
 .form_inputContainer i {
     @apply px-2 flex items-center h-full;
@@ -321,6 +321,38 @@ header nav a.active::after {
 .error_container {
     @apply bg-red-700 p-4 max-w-[380px] mx-auto font-secondary mb-6 text-secondary drop-shadow-lg;
 }
+
+/* PROFIL */
+.profil_container {
+    @apply max-w-[1065px] mx-auto w-11/12 sm:w-4/5 md:w-3/5 font-secondary my-6;
+}
+.profil_menu ul{
+    @apply flex gap-4;
+}
+.profil_menu li {
+    @apply min-w-[110px] min-h-[40px] rounded-t-3xl flex justify-center items-center -z-10;
+    box-shadow: 4px 0 13px rgba(0,0,0,.25);
+}
+.form_profil {
+    @apply md:grid w-11/12 mx-auto max-w-[598px];
+    grid-template-columns: 100px auto;
+}
+.profil_up {
+    @apply min-h-[233px];
+}
+/* .input_profil::placeholder {
+    @apply text-secondary/50;
+} */
+.input_profil input{
+    @apply placeholder-white placeholder-opacity-50;
+}
+.input_profil i:first-child, .fa-eye, .fa-eye-slash {
+    @apply opacity-80;
+}
+.input_profil i:last-child {
+    @apply opacity-50 hover:opacity-100;
+}
+
 @media screen and (min-width: 768px) {
     footer, footer div:nth-child(2), footer div:nth-child(2) div {
         gap : clamp(1rem, -3.215rem + 8.781vw, 4.688rem);
