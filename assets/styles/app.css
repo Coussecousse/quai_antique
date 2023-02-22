@@ -298,7 +298,7 @@ header nav a.active::after {
     background: center / cover no-repeat url('../../public/images/sign-up/sign_up-medium.jpg')
 }
 .form_inputContainer {
-    @apply flex bg-400/20 h-8 w-11/12 max-w-[395px] mx-auto;
+    @apply flex bg-400/20 h-8 max-w-[395px] mx-auto md:w-11/12;
 }
 .form_inputContainer input {
     @apply flex-1 bg-transparent pl-1 w-full;
@@ -306,8 +306,8 @@ header nav a.active::after {
 .form_inputContainer i {
     @apply px-2 flex items-center h-full;
 }
-.form_inputContainer i.hide {
-    @apply hidden;
+.hide {
+    @apply hidden !important;
 }
 
 /* LOGIN */
@@ -319,7 +319,11 @@ header nav a.active::after {
 }
 /*  Error  */
 .error_container {
-    @apply bg-red-700 p-4 max-w-[380px] mx-auto font-secondary mb-6 text-secondary drop-shadow-lg;
+    @apply bg-red-700 p-4 max-w-[380px] mx-auto font-secondary my-6 text-secondary drop-shadow-lg;
+}
+/* SUCCESS */
+.success_container {
+    @apply bg-green-700 p-4 max-w-[380px] mx-auto font-secondary my-6 text-secondary drop-shadow-lg;
 }
 
 /* PROFIL */
@@ -330,19 +334,20 @@ header nav a.active::after {
     @apply flex gap-4;
 }
 .profil_menu li {
-    @apply min-w-[110px] min-h-[40px] rounded-t-3xl flex justify-center items-center -z-10;
+    @apply min-w-[110px] min-h-[40px] rounded-t-3xl cursor-pointer;
     box-shadow: 4px 0 13px rgba(0,0,0,.25);
+}
+.profil_menu a {
+    @apply w-full h-full flex justify-center items-center;
 }
 .form_profil {
     @apply md:grid w-11/12 mx-auto max-w-[598px];
     grid-template-columns: 100px auto;
 }
 .profil_up {
-    @apply min-h-[233px];
+    @apply min-h-[233px] z-10 relative;
 }
-/* .input_profil::placeholder {
-    @apply text-secondary/50;
-} */
+
 .input_profil input{
     @apply placeholder-white placeholder-opacity-50;
 }

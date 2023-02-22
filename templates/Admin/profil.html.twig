@@ -4,34 +4,46 @@
 
 {% block body %}
     <main class="pt-28 flex flex-col justify-evenly form_main">
+        {% if error %}
+            <div class="error_container">{{ error }}</div>
+        {% endif %}
+        {% if success %} 
+            <div class="success_container">{{ success }}</div>
+        {% endif %}
         <div class="profil_container">
             <section>
                 <nav class="profil_menu">
                     <ul>
-                        <li class="bg-500 text-secondary"><a href="{{ path('admin_profil', {'page':'carousel'}) }}">Profil</a></li>
-                        <li class="bg-secondary"><a href="">Restaurant</a></li>
+                        <li class="bg-500 text-secondary"><a href="{{ path('admin_profil', {'page':'carousel'}) }}" class="hover:-translate-y-1 hover:-translate-y-1 bg-500 duration-100 rounded-t-3xl">Profil</a></li>
+                        <li class="bg-secondary"><a href="" class="hover:-translate-y-1 bg-secondary duration-100 rounded-t-3xl">Restaurant</a></li>
                     </ul>
                 </nav>
                 <div class="text-secondary bg-500 profil_up">
                     <div class="grid py-4 gap-2 drop-shadow-lg">
-                        <form class="form_profil">
+                        <form class="form_profil" method="POST">
                             <label for="email" class="hidden md:block">Email :</label>
                             <div class="form_inputContainer input_profil">
                                 <i class="fa-solid fa-at"></i>
-                                <input type="email" name="email" id="email" placeholder={{ app.user.email }}>
-                                <button type="submit"><i class="fa-solid fa-pen"></i></button>
+                                <input type="email" name="email" id="email" placeholder={{ app.user.email }} required min=10 max=80 value={{ last_email }}>
+                                <button type="submit" id="change_email"><i class="fa-solid fa-pen"></i></button>
                             </div>
                         </form>
-                        <form class="form_profil">
+                        <form class="form_profil" method="POST">
                             <label for="password" class="hidden md:block">Mot de passe :</label>
-                            <div class="form_inputContainer input_profil">
+                            <div class="form_inputContainer input_profil relative">
                                 <i class="fa-solid fa-lock"></i>
-                                <input type="password" name="password" id="password" placeholder="********">
+                                <input type="password" name="password" id="password" placeholder="********" required pattern="/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,80}$/" onfocus="displayRules()" onfocusout="removeRules()">
                                 <span role="button" onclick="togglePassword(event)">
                                     <i class="fa-solid fa-eye w-[36px]" ></i>
                                     <i class="fa-solid fa-eye-slash hide w-[36px]"></i>
                                 </span>
-                                <button type="submit"><i class="fa-solid fa-pen"></i></button>
+                                <button type="submit" id="change_password"><i class="fa-solid fa-pen"></i></button>
+                                <small class="absolute w-11/12 mx-auto top-full hide" id="password_rule">Doit contenir au moins 8 caractères, une minuscule, une majuscule et un chiffre.</small>
+                                <small class="absolute w-11/12 mx-auto top-full hide" id="need_password">
+                                    Veuillez insérer votre mot de passe puis validez à nouveau.<br>
+                                    <a href={{ path('app_forgot_password_request') }} class="text-sm hover:underline duration-75 underline-offset-2" id="forgot_password">Mot de passe oublié ?</a>
+                                </small>
+                                {# <small class="absolute w-11/12 mx-auto -bottom-10 hide"><a href={{ path('app_forgot_password_request') }} class="text-sm hover:underline duration-75 underline-offset-2" id="forgot_password">Mot de passe oublié ?</a></small> #}
                             </div>
                         </form>
                     </div>
@@ -54,4 +66,5 @@
 
 {% block scripts %}
     <script src={{ asset('/js/signUp-login/'~'script.js') }}></script>
+    <script src={{ asset('/js/profil/'~'endleRequest.js') }}></script>
 {% endblock %}

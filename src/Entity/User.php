@@ -22,7 +22,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 180, unique: true)]
     #[Assert\NotBlank(message: "Veuillez remplir ce champ.")]
-    #[Assert\Length(min: 10, max: 255, minMessage: "Chaîne de caractères trop courte.", maxMessage: "Chaîne de caractères trop longue.")]
+    #[Assert\Length(min: 10, max: 80, minMessage: "Chaîne de caractères trop courte.", maxMessage: "Chaîne de caractères trop longue.")]
     #[Assert\Email(message: "Chaîne de caractères non valide.")]
     private ?string $email = null;
 
@@ -34,7 +34,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     #[Assert\NotBlank(message: "Veuillez remplir ce champ.")]
-    #[Assert\Regex("/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/", message: "Le mot de passe doit posséder au minimum 8 caractères, une lettre majuscule, une lettre minuscule et un chiffre.")]
+    #[Assert\Regex("/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,80}$/", message: "Le mot de passe doit posséder au minimum 8 caractères, une lettre majuscule, une lettre minuscule et un chiffre.")]
     private ?string $password = null;
     private ?string $confirm = null;
     

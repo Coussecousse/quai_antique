@@ -27,3 +27,15 @@ function closeResetPassword(e) {
         target.remove();
     }, 75);
 }
+
+function displayRules() {
+    const small = document.querySelector('#password_rule');
+    const needPassword = document.querySelector('#need_password');
+
+    needPassword.classList.contains('hide') ? small.classList.remove('hide') : null;
+}
+function removeRules() {
+    const small = document.querySelector('#password_rule');
+    
+    small.classList.add('hide');
+}
