@@ -19,9 +19,9 @@
                         <i class="fa-solid fa-eye-slash hide w-[36px]"></i>
                     </span>
                 </div>
-                <div class="form_error">
+                <small class="form_error">
                     {{ form_errors(resetForm.plainPassword.first)}}
-                </div>
+                </small>
             </div>
             <div class="form_container">
                 {{ form_label(resetForm.plainPassword.second) }}
@@ -33,9 +33,9 @@
                         <i class="fa-solid fa-eye-slash hide w-[36px]"></i>
                     </span>
                 </div>
-                <div class="form_error">
+                <small class="form_error">
                     {{ form_errors(resetForm.plainPassword.second)}}
-                </div>
+                </small>
             </div>
             <button class="bg-secondary text-primary mt-4 mb-2 py-2 px-4 w-fit justify-self-center hover:bg-400 duration-150 hover:text-secondary" type="submit">Réinitialiser le mot de passe</button>
         {{ form_end(resetForm) }}

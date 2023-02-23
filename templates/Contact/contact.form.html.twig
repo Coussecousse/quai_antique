@@ -42,9 +42,9 @@
                     <i class="fa-solid fa-user"></i>
                     {{ form_widget(form.name, { 'attr' : { 'placeholder' : 'Nom Prenom'}}) }}
                 </div>
-                <div class="form_error">
+                <small class="form_error">
                     {{ form_errors(form.name)}}
-                </div>
+                </small>
             </div>
             <div class="div_contact">
                 {{ form_label(form.tel) }}
@@ -52,17 +52,17 @@
                     <i class="fa-solid fa-phone"></i>
                     {{ form_widget(form.tel, { 'attr': {'class': "span12", 'placeholder': '0123456789'}}) }}
                 </div>
-                <div class="form_error">
+                <small class="form_error">
                     {{ form_errors(form.tel)}}
-                </div>
+                </small>
             </div>
             <div class="div_contact">
                 {{ form_label(form.message) }}
                 {{ form_widget(form.message, { 'attr': {'class': "input_contact placeholder:text-secondary/50 p-2 min-h-[190px]", 'placeholder': 'Écrivez nous un message ici !', 
                                                 'min' : '20', 'max' : '450'}}) }}
-                <div class="form_error">
+                <small class="form_error">
                     {{ form_errors(form.message)}}
-                </div>
+                </small>
             </div>
             <button type="submit" class="bg-secondary text-primary w-fit p-3 mt-5 hover:bg-400 hover:text-secondary duration-150">Envoyer<i class="fa-solid fa-paper-plane pl-2"></i></button>
             {{ form_end(form) }}

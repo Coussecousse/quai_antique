@@ -276,7 +276,7 @@ header nav a.active::after {
     @apply text-secondary/50;
 }
 .form_error {
-    @apply text-red-400 text-sm;
+    @apply text-red-500;
 }
 /* FORM */
 .form_main {
@@ -342,7 +342,7 @@ header nav a.active::after {
 }
 .form_profil {
     @apply md:grid w-11/12 mx-auto max-w-[598px];
-    grid-template-columns: 100px auto;
+    grid-template-columns: clamp(6.25rem, 0.8900rem + 11.1667vw, 10.94rem) auto;
 }
 .profil_up {
     @apply min-h-[233px] z-10 relative;
@@ -356,6 +356,9 @@ header nav a.active::after {
 }
 .input_profil i:last-child {
     @apply opacity-50 hover:opacity-100;
+}
+.hidden_label {
+    @apply max-w-[395px] mx-auto block md:mx-0;
 }
 
 @media screen and (min-width: 768px) {

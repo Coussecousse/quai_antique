@@ -31,6 +31,17 @@ function closeResetPassword(e) {
 function displayRules() {
     const small = document.querySelector('#password_rule');
     const needPassword = document.querySelector('#need_password');
+    const errorPassword = document.querySelector('#error_password');
+
+    const validPassword = document.querySelector('label[for=valid_password]');
+
+    console.log(validPassword);
+
+    if (!errorPassword.classList.contains('hide')) {
+        return;
+    } else if (!validPassword.classList.contains('hide')) {
+        return;
+    }
 
     needPassword.classList.contains('hide') ? small.classList.remove('hide') : null;
 }
