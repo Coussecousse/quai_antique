@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Form\LoginType;
-use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,8 +21,6 @@ class LoginController extends AbstractController
 
         $form = $this->createForm(LoginType::class);
         $form->handleRequest($request);
-        
-        
 
         return $this->render('Login/login.form.html.twig', [
             'last_email' => $lastEmail,

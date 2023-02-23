@@ -4,6 +4,7 @@ let count = 0;
 
 buttonEmail.addEventListener('click', e => {
     e.preventDefault();
+    count++;
 
     const setPassword = document.querySelector('#need_password');
     const setEmail = document.querySelector('#change_email');
@@ -13,9 +14,14 @@ buttonEmail.addEventListener('click', e => {
     setPassword.classList.remove('hide');
 
     let email = document.querySelector('#email').value;
-    let passwordvalue = document.querySelector('#passwordvalue').value;
+    let password = document.querySelector('#password').value;
 
-    if (passwordvalue === '') {
+    if (password === '') {
+        if (count > 1) {
+            const a = setPassword.querySelector('a');
+            setPassword.classList.add('form_error');
+            a.style.color = '#F9F6F0';
+        }
         return;
     }
 
@@ -26,12 +32,19 @@ buttonEmail.addEventListener('click', e => {
         if (this.readyState == 4 && this.status == 200) {
             const response = JSON.parse(xhr.responseText);
 
-            if (response.result === "success") {
-                window.location = url + "?result=success_email";
-            } else if (response.result === "error_email"){
-                window.location = url + "?result=error_email_email";
-            } else if (response.result === "error_invalid") {   
-                window.location = url + "?result=error_invalid";
+            switch(response.result) {
+                case "success":
+                    window.location = url + "?result=success_email";
+                    break;
+                case "error_email":
+                    window.location = url + "?result=error_email_email";
+                    break;
+                case "error_invalid":
+                    window.location = url + "?result=error_invalid";
+                    break;
+                default : 
+                    window.location = url + "?result=error";
+                    break;
             }
         }
     }
@@ -39,7 +52,7 @@ buttonEmail.addEventListener('click', e => {
     xhr.open('POST', "/admin/profil/{page}");
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-    let params = 'email='+ email +'&passwordvalue=' + passwordvalue;
+    let params = 'email='+ email +'&password=' + password;
     xhr.send(params);
 })
 
@@ -95,11 +108,14 @@ passwordButton.addEventListener('click', e => {
         error = addError(errorOldPassword, "Veuillez remplir ce champ.");
         addingMargin(oldPassword);
     } else {
-        error = removeError(errorOldPassword);
-        removeMargin(oldPassword);
+        if (!error) {
+            error = removeError(errorOldPassword);
+            removeMargin(oldPassword);
+        }
     }
-    
+    console.log(error);
     if (error) {
+        console.log('error');
         return;
     }
 
@@ -109,20 +125,24 @@ passwordButton.addEventListener('click', e => {
         if (this.readyState == 4 && this.status == 200) {
             const response = JSON.parse(xhr.responseText);
             console.log('success');
-            // if (response.result === "success") {
-            //     window.location = url + "?result=success_email";
-            // } else if (response.result === "error_email"){
-            //     window.location = url + "?result=error_email_email";
-            // } else if (response.result === "error_invalid") {   
-            //     window.location = url + "?result=error_invalid";
-            // }
+            switch(response.result){
+                case 'success':
+                    window.location = url + "?result=success_password";
+                    break;
+                case 'error_invalid':
+                    window.location = url + "?result=error_invalid";
+                    break;
+                default : 
+                    window.location = url + "?result=error";
+                    break;
+            }
         }
     }
 
     xhr.open('POST', "/admin/profil/{page}");
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-    let params = 'passwordvalue='+ passwordvalue +'&oldPasswordValue=' + oldPasswordValue;
+    let params = 'password='+ passwordValue +'&oldPassword=' + oldPasswordValue;
     xhr.send(params);
 })
 
@@ -136,11 +156,10 @@ function addError(element, error) {
 }
 function removeError(element) {
     !element.classList.contains('hide') ? element.classList.add('hide') : null;
-    return true;
+    return false;
 }
 function addingMargin(element) {
     if (window.innerWidth >= 1440 && count > 1) {
-        console.log('yo');
         element.parentElement.style.marginBottom = '.5rem';
     }
 }
