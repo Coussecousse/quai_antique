@@ -345,7 +345,7 @@ header nav a.active::after {
     grid-template-columns: clamp(6.25rem, 0.8900rem + 11.1667vw, 10.94rem) auto;
 }
 .profil_up {
-    @apply min-h-[233px] z-10 relative;
+    @apply min-h-[269px] z-10 relative;
 }
 
 .input_profil input{

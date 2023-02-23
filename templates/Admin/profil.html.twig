@@ -42,7 +42,7 @@
                                 <small class="absolute w-11/12 mx-auto top-full hide" id="password_rule">Doit contenir au moins 8 caractères, une minuscule, une majuscule et un chiffre.</small>
                                 <small class="absolute w-11/12 mx-auto top-full hide" id="need_password">
                                     Veuillez insérer votre mot de passe puis validez à nouveau.<br>
-                                    <a href={{ path('app_forgot_password_request') }} class="text-sm hover:underline duration-75 underline-offset-2" id="forgot_password">Mot de passe oublié ?</a>
+                                    <a href={{ path('app_forgot_password_request') }} class="hover:underline duration-75 underline-offset-2" id="forgot_password">Mot de passe oublié ?</a>
                                 </small>
                             </div>
                             <label for="valid_password" class="hide change_password hidden_label">Valider le mot de passe :</label>
@@ -64,6 +64,7 @@
                                     <i class="fa-solid fa-eye-slash w-[36px]"></i>
                                 </span>
                                 <small class="absolute w-11/12 mx-auto top-full hide form_error" id="error_oldPassword"></small>
+                                <small class="absolute -bottom-9"><a href={{ path('app_forgot_password_request') }} class="hover:underline duration-75 underline-offset-2" id="forgot_password">Mot de passe oublié ?</a></small>
                             </div>
                         </form>
                     </div>

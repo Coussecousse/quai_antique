@@ -159,12 +159,10 @@ function removeError(element) {
     return false;
 }
 function addingMargin(element) {
-    if (window.innerWidth >= 1440 && count > 1) {
-        element.parentElement.style.marginBottom = '.5rem';
+    if (count > 1) {
+        element.parentElement.style.marginBottom = '.8rem';
     }
 }
 function removeMargin(element) {
-    if (window.innerWidth >= 1440) {
-        element.parentElement.style.marginBottom = '0';
-    }
+    element.parentElement.style.marginBottom = '0';
 }
