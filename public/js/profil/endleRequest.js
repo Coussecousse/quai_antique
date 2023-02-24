@@ -1,8 +1,8 @@
-const buttonEmail = document.querySelector('#change_email');
+const emailButton = document.querySelector('#change_email');
 const passwordButton = document.querySelector('#change_password');
 let count = 0;
 
-buttonEmail.addEventListener('click', e => {
+emailButton.addEventListener('click', e => {
     e.preventDefault();
     count++;
 
@@ -25,6 +25,8 @@ buttonEmail.addEventListener('click', e => {
         return;
     }
 
+    emailButton.disabled = true;
+
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
         let url = window.location.origin + window.location.pathname;
@@ -41,6 +43,9 @@ buttonEmail.addEventListener('click', e => {
                     break;
                 case "error_invalid":
                     window.location = url + "?result=error_invalid";
+                    break;
+                case 'error_pattern' :
+                    window.location = url + "?result=error_pattern";
                     break;
                 default : 
                     window.location = url + "?result=error";
@@ -59,6 +64,7 @@ buttonEmail.addEventListener('click', e => {
 
 passwordButton.addEventListener('click', e => {
     let error = false;
+
     const password = document.querySelector('#password');
     const passwordValue = password.value;
     const errorPassword = document.querySelector('#error_password');
@@ -75,7 +81,7 @@ passwordButton.addEventListener('click', e => {
 
     count++;
 
-    buttonEmail.classList.add('hide');
+    emailButton.classList.add('hide');
 
     passwordButton.children[0].classList.replace('fa-pen','fa-check');
 
@@ -113,24 +119,28 @@ passwordButton.addEventListener('click', e => {
             removeMargin(oldPassword);
         }
     }
-    console.log(error);
+
     if (error) {
-        console.log('error');
         return;
     }
+
+    passwordButton.disabled = true;
 
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
         let url = window.location.origin + window.location.pathname;
         if (this.readyState == 4 && this.status == 200) {
             const response = JSON.parse(xhr.responseText);
-            console.log('success');
+
             switch(response.result){
                 case 'success':
                     window.location = url + "?result=success_password";
                     break;
                 case 'error_invalid':
                     window.location = url + "?result=error_invalid";
+                    break;
+                case 'error_pattern' :
+                    window.location = url + "?result=error_pattern";
                     break;
                 default : 
                     window.location = url + "?result=error";
@@ -166,3 +176,4 @@ function addingMargin(element) {
 function removeMargin(element) {
     element.parentElement.style.marginBottom = '0';
 }
+

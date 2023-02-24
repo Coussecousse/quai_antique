@@ -12,6 +12,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AdminController extends AbstractController
 {
+    private function checkPattern($expression, $pattern) 
+    {
+        return preg_match($pattern, $expression);
+    }
+
     #[Route('admin/profil/{page}', name: "admin_profil", methods: ['GET', 'POST'])]
     public function profil($page = 'carousel', UserRepository $repository, Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $userPasswordHasher)
     {
@@ -30,6 +35,9 @@ class AdminController extends AbstractController
             case 'error_invalid':
                 $error = "Mot de passe incorrect.";
                 break;
+            case 'error_pattern':
+                $error = "L'entrée fournie ne correspond pas au format requis.";
+                break;
             case 'error' : 
                 $error = "Un problème est survenu. Veuillez nous excuser pour la gêne occasionnée. Si le problème persiste, n'hésitez pas à nous contacter directement.";
                 break;
@@ -40,6 +48,7 @@ class AdminController extends AbstractController
         $last_email = $request->getSession()->get('last_email');
         
         if ($request->isMethod('POST')) {
+            dump('yo');
             $em = $doctrine->getManager();
 
             $email = $request->request->get('email');
@@ -51,7 +60,13 @@ class AdminController extends AbstractController
                 dump('hey');
                 $oldPassword = $request->request->get('oldPassword');
                 // Check password pattern
-
+                if (!$this->checkPattern($password, "/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,80}$/"))
+                {
+                    $response = new JsonResponse([
+                        'result' => 'error_pattern'
+                    ]);
+                    return $response;
+                }
                 // Check old password && user.password are the same
                 if (!$userPasswordHasher->isPasswordValid($user, $oldPassword)) {
                     $response = new JsonResponse([
@@ -75,8 +90,17 @@ class AdminController extends AbstractController
             }
             // Change email
             if ($email && $password) {
-                //  Check  password
-                if (!$userPasswordHasher->isPasswordValid($user, $password)){
+                // Check email pattern
+                //  https://www.php.net/manual/en/filter.filters.validate.php
+                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    $response = new JsonResponse([
+                        'result' => 'error_pattern'
+                    ]);
+                    return $response;
+                }
+
+                //  Check same password
+                if (!$userPasswordHasher->isPasswordValid($user, $password)) {
                     $request->getSession()->set('last_email', $email);
 
                     $response  = new JsonResponse([
