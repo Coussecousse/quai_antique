@@ -327,6 +327,9 @@ header nav a.active::after {
 }
 
 /* PROFIL */
+#restaurant input::placeholder {
+    @apply text-primary/60;
+}
 .profil_container {
     @apply max-w-[1065px] mx-auto w-11/12 sm:w-4/5 md:w-3/5 font-secondary my-6;
 }
@@ -360,6 +363,7 @@ header nav a.active::after {
 .hidden_label {
     @apply max-w-[395px] mx-auto block md:mx-0;
 }
+
 
 @media screen and (min-width: 768px) {
     footer, footer div:nth-child(2), footer div:nth-child(2) div {

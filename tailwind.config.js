@@ -49,6 +49,9 @@ module.exports = {
         "md-cardButton" : "806px",
         "md.5" : "900px",
         "lg" : "992px",
+      },
+      placeholderColors : {
+        'primary' : '#171515',
       }
     },
   },

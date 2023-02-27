@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Restaurant;
 use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -9,6 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Yaml\Yaml;
 
 class AdminController extends AbstractController
 {
@@ -17,10 +19,13 @@ class AdminController extends AbstractController
         return preg_match($pattern, $expression);
     }
 
-    #[Route('admin/profil/{page}', name: "admin_profil", methods: ['GET', 'POST'])]
-    public function profil($page = 'carousel', UserRepository $repository, Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $userPasswordHasher)
+    #[Route('admin/profil/{page_up}/{page_down}', name: "admin_profil", methods: ['GET', 'POST'], defaults: ['page_up' => 'informations', 'page_down' => 'carousel'])]
+    public function profil(string $page_up, string $page_down,  UserRepository $repository, Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $userPasswordHasher)
     {
         $result = $request->query->get('result');
+
+        $path = $this->getParameter('kernel.project_dir') . '/config/data/restaurant.yaml';
+        $restaurant = Yaml::parseFile($path);
 
         switch($result) {
             case 'success_email' : 
@@ -133,10 +138,12 @@ class AdminController extends AbstractController
         }
 
         return $this->render('Admin/profil.html.twig', [
-            'page' => $page,
+            'page_up' => $page_up,
+            'page_down' => $page_down,
             'error' => $error ?? null,
             'success' => $success ?? null,
             'last_email' => $last_email ?? '',
+            'restaurant' => $restaurant
         ]);
     }
 }

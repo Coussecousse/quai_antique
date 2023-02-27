@@ -1,0 +1,52 @@
+
+<div class="text-secondary bg-500 profil_up">
+    <div class="grid py-4 gap-2 drop-shadow-lg">
+        <form class="form_profil" method="POST">
+            <label for="email" class="hidden md:block">Email :</label>
+            <div class="form_inputContainer input_profil">
+                <i class="fa-solid fa-at"></i>
+                <input type="email" name="email" id="email" placeholder={{ app.user.email }} required minlength=5 maxlength=80 value={{ last_email }}>
+                <button type="submit" id="change_email"><i class="fa-solid fa-pen"></i></button>
+            </div>
+        </form>
+        <form class="form_profil gap-y-2 items-center" method="POST">
+            <label for="password" class="hidden md:block">Mot de passe :</label>
+            <div class="form_inputContainer input_profil relative">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" minlength=8 maxlength=80 name="password" id="password" placeholder="********" required pattern="\^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,80}$\" onfocus="displayRules()" onfocusout="removeRules()" title="Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscle et un chiffre.">
+                <span role="button" onclick="togglePassword(event)">
+                    <i class="fa-solid fa-eye w-[36px] hide" ></i>
+                    <i class="fa-solid fa-eye-slash w-[36px]"></i>
+                </span>
+                <button type="submit" id="change_password"><i class="fa-solid fa-pen"></i></button>
+                <small class="absolute w-11/12 mx-auto top-full hide form_error" id="error_password"></small>
+                <small class="absolute w-11/12 mx-auto top-full hide" id="password_rule">Doit contenir au moins 8 caractères, une minuscule, une majuscule et un chiffre.</small>
+                <small class="absolute w-11/12 mx-auto top-full hide" id="need_password">
+                    Veuillez insérer votre mot de passe puis validez à nouveau.<br>
+                    <a href={{ path('app_forgot_password_request') }} class="hover:underline duration-75 underline-offset-2" id="forgot_password">Mot de passe oublié ?</a>
+                </small>
+            </div>
+            <label for="valid_password" class="hide change_password hidden_label">Valider le mot de passe :</label>
+            <div class="hide form_inputContainer input_profil hide change_password relative">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" minlength=8 maxlength=80 name="valid_password" id="valid_password" placeholder="Nouveau mot de passe" pattern="\^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,80}$\" title="Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscle et un chiffre." required>
+                <span role="button" onclick="togglePassword(event)">
+                    <i class="fa-solid fa-eye w-[36px] hide" ></i>
+                    <i class="fa-solid fa-eye-slash w-[36px]"></i>
+                </span>
+                <small class="absolute w-11/12 mx-auto top-full hide form_error" id="error_validPassword"></small>
+            </div>
+            <label for="old_password" class="hide change_password hidden_label">Ancien mot de passe :</label>
+            <div class="hide form_inputContainer input_profil hide change_password relative">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" minlength=8 maxlength=80 name="old_password" id="old_password" placeholder="Ancien mot de passe"pattern="\^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,80}$\" required title="Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscle et un chiffre.">
+                <span role="button" onclick="togglePassword(event)">
+                    <i class="fa-solid fa-eye w-[36px] hide" ></i>
+                    <i class="fa-solid fa-eye-slash w-[36px]"></i>
+                </span>
+                <small class="absolute w-11/12 mx-auto top-full hide form_error" id="error_oldPassword"></small>
+                <small class="absolute -bottom-9"><a href={{ path('app_forgot_password_request') }} class="hover:underline duration-75 underline-offset-2" id="forgot_password">Mot de passe oublié ?</a></small>
+            </div>
+        </form>
+    </div>
+</div>
