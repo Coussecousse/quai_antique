@@ -4,7 +4,15 @@
             <label for="tel" class="hidden md:block">Téléphone :</label>
             <div class="form_inputContainer input_profil">
                 <i class="fa-solid fa-phone"></i>
-                <input type="tel" name="tel" id="tel" required placeholder="{{ restaurant.tel }}" pattern='\^(0|\+33)[1-9]([-. ]?[0-9]{2}){4}$\'>
+                <input type="tel" name="tel" id="tel" required placeholder="{{ restaurant.tel }}" pattern='^(?:0|\+33)[1-9](?:\d{2}){4}$'>
+                <button type="submit" id="change_tel"><i class="fa-solid fa-pen"></i></button>
+            </div>
+        </form>
+        <form method="POST" class="form_profil">
+            <label for="emailRestaurant" class="hidden md:block">Email :</label>
+            <div class="form_inputContainer input_profil">
+                <i class="fa-solid fa-phone"></i>
+                <input type="email" name="emailRestaurant" id="emailRestaurant" required placeholder="{{ restaurant.email }}" minlength=5 maxlength=50>
                 <button type="submit" id="change_email"><i class="fa-solid fa-pen"></i></button>
             </div>
         </form>
@@ -12,7 +20,7 @@
             <label for="city" class="hidden md:block">Ville :</label>
             <div class="form_inputContainer input_profil">
                 <i class="fa-solid fa-city"></i>
-                <input type="text" name="city" id="city" required placeholder="{{ restaurant.city }}" minlength=2 maxlength=20>
+                <input type="text" name="city" id="city" required placeholder="{{ restaurant.city }}" minlength=2 maxlength=50>
                 <button type="submit" id="change_city"><i class="fa-solid fa-pen"></i></button>
             </div>
         </form>
@@ -20,7 +28,7 @@
             <label for="street" class="hidden md:block">Rue :</label>
             <div class="form_inputContainer input_profil">
                 <i class="fa-solid fa-street-view"></i>
-                <input type="text" name="street" id="street" required placeholder="{{ restaurant.street }}" minlength=2 maxlength=50>
+                <input type="text" name="street" id="street" required placeholder="{{ restaurant.street }}" minlength=5 maxlength=80>
                 <button type="submit" id="change_street"><i class="fa-solid fa-pen"></i></button>
             </div>
         </form>

@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Restaurant;
 use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,6 +17,17 @@ class AdminController extends AbstractController
     {
         return preg_match($pattern, $expression);
     }
+    private function changeRestaurantDatas($restaurant, $id, $element, $path) {
+
+        $restaurant = array_replace($restaurant, array($id => $element));
+        $yaml = Yaml::dump($restaurant);
+        
+        file_put_contents($path, $yaml);
+
+        return new JsonResponse([
+            'result' => 'success',
+        ]);
+    }
 
     #[Route('admin/profil/{page_up}/{page_down}', name: "admin_profil", methods: ['GET', 'POST'], defaults: ['page_up' => 'informations', 'page_down' => 'carousel'])]
     public function profil(string $page_up, string $page_down,  UserRepository $repository, Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $userPasswordHasher)
@@ -28,14 +38,11 @@ class AdminController extends AbstractController
         $restaurant = Yaml::parseFile($path);
 
         switch($result) {
-            case 'success_email' : 
-                $success = "Email modifié avec succès !";
-                break;
-            case 'success_password' : 
-                $success = "Mot de passe modifié avec succès !";
+            case 'success' : 
+                $success = "Modification effectuée avec succès !";
                 break;
             case 'error_email_email' : 
-                $error = "EMail invalide.";
+                $error = "Email invalide.";
                 break;
             case 'error_invalid':
                 $error = "Mot de passe incorrect.";
@@ -56,8 +63,17 @@ class AdminController extends AbstractController
             dump('yo');
             $em = $doctrine->getManager();
 
+            // Informations
             $email = $request->request->get('email');
             $password = $request->request->get('password');
+            // Restaurant
+            $telRestaurant = $request->request->get('tel'); 
+            $emailRestaurant = $request->request->get('emailRestaurant');
+            $cityRestaurant =  $request->request->get('city');
+            $streetRestaurant = $request->request->get('street');
+            $postcodeRestaurant = $request->request->get('postcode');
+            $placesRestaurant = $request->request->get('places');
+
 
             $user = $this->getUser();
             // Change password
@@ -134,7 +150,72 @@ class AdminController extends AbstractController
                     'result' => 'success',
                 ]);
                 return $response;
-            }    
+            } 
+            // Change Restaurant
+            //  Tel :
+            if ($telRestaurant) {
+                $telRestaurant = trim($telRestaurant, " -.+");
+                if (!$this->checkPattern($telRestaurant, "/^(?:0|33)[1-9](?:\d{2}){4}$/")) {
+                    $response = new JsonResponse([
+                        'result' => 'error_pattern'
+                    ]);
+                    return $response;
+                } else if ($telRestaurant[0] == '3' && $telRestaurant[1] == '3') {
+                    $telRestaurant = substr($telRestaurant, 2);
+                }
+                if (!str_starts_with($telRestaurant, "0")) {
+                    $telRestaurant = '0'.$telRestaurant;
+                }
+                $telRestaurant = chunk_split($telRestaurant, 2, ' ');
+
+                return $this->changeRestaurantDatas($restaurant, 'tel', $telRestaurant, $path);
+            }
+            if ($emailRestaurant) {
+                if (!filter_var($emailRestaurant, FILTER_VALIDATE_EMAIL)) {
+                    $response = new JsonResponse([
+                        'result' => 'error_pattern'
+                    ]);
+                    return $response;
+                }
+                return $this->changeRestaurantDatas($restaurant, 'email', $emailRestaurant, $path);
+            }
+            if ($cityRestaurant) {
+                if (!$this->checkPattern($cityRestaurant, '/^[\p{L}\s\'-]{2,50}$/u')) {
+                    $response = new JsonResponse([
+                        'result' => 'error_pattern'
+                    ]);
+                    return $response;
+                }
+                return $this->changeRestaurantDatas($restaurant, 'city', $cityRestaurant, $path);
+            }
+            if ($streetRestaurant) {
+                if (!$this->checkPattern($streetRestaurant, '/^[\p{L}\d\s.\'’-]{5,80}$/u')) {
+                    $response = new JsonResponse([
+                        'result' => 'error_pattern'
+                    ]);
+                    return $response;
+                }
+                return $this->changeRestaurantDatas($restaurant, 'street', $streetRestaurant, $path);
+            }
+            dump($postcodeRestaurant);
+            if ($postcodeRestaurant || $postcodeRestaurant == 0) {
+                if (!$this->checkPattern($postcodeRestaurant, '/^\d{5}$/')) {
+                    $response = new JsonResponse([
+                        'result' => 'error_pattern'
+                    ]);
+                    return $response;
+                }
+                return $this->changeRestaurantDatas($restaurant, 'postcode', $postcodeRestaurant, $path);
+            }
+            if ($placesRestaurant) {
+                if (!$this->checkPattern($placesRestaurant, '/^\d{1,3}$/')) {
+                    $response = new JsonResponse([
+                        'result' => 'error_pattern'
+                    ]);
+                    return $response;
+                }
+                return $this->changeRestaurantDatas($restaurant, 'places', $placesRestaurant, $path);
+            }
         }
 
         return $this->render('Admin/profil.html.twig', [

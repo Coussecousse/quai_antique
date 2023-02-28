@@ -3,6 +3,11 @@ const passwordButton = document.querySelector('#change_password');
 let count = 0;
 
 emailButton.addEventListener('click', e => {
+    let email = document.querySelector('#email').value;
+    
+    if (email === '') {
+        return;
+    }
     e.preventDefault();
     count++;
 
@@ -13,7 +18,6 @@ emailButton.addEventListener('click', e => {
     passwordButton.classList.add('hide');
     setPassword.classList.remove('hide');
 
-    let email = document.querySelector('#email').value;
     let password = document.querySelector('#password').value;
 
     if (password === '') {
@@ -54,7 +58,7 @@ emailButton.addEventListener('click', e => {
         }
     }
 
-    xhr.open('POST', "/admin/profil/{page}");
+    xhr.open('POST', "/admin/profil/{page_up}/{page_down}");
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
     let params = 'email='+ email +'&password=' + password;
