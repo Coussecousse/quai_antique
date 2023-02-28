@@ -34,13 +34,16 @@
 			<section>
 				<nav>
 					<ul>
-						<li><a href="">Carousel</a></li>
+						<li><a href="{{ path('admin_profil', {'page_up' : page_up, 'page_down' : 'carousel' }) }}"  class="hover:-translate-y-1 bg-transparent duration-100 rounded-t-3xl" >Carousel</a></li>
 						<li><a href="">Carte</a></li>
 						<li><a href="">Horaires</a></li>
 						<li><a href="">Dates</a></li>
 					</ul>
 				</nav>
 				{% block profil_down %}
+					{% switch page_down %}
+						{% case 'carousel' %}
+					{% endswitch %}
                 {% endblock %}
 			</section>
 		</div>

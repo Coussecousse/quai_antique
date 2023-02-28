@@ -23,7 +23,6 @@ function changeRestaurant(e, button) {
         if (this.readyState == 4 && this.status == 200) {
             const response = JSON.parse(xhr.responseText);
             //  Gestion des réponses
-            console.log('send');
             switch(response.result) {
                 case "success" : 
                     window.location = url + "?result=success";
@@ -31,7 +30,9 @@ function changeRestaurant(e, button) {
                 case "error_pattern" : 
                     window.location = url + "?result=error_pattern";
                     break;
-                
+                default : 
+                    window.location = url + "?result=error";
+                    break;
             }
 
         }
