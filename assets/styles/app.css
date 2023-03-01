@@ -272,7 +272,7 @@ header nav a.active::after {
 .input_contact input {
     @apply bg-transparent flex-1;
 }
-.input_contact input::placeholder{
+.input_contact input::placeholder, .input_white::placeholder {
     @apply text-secondary/50;
 }
 .form_error {
@@ -343,12 +343,27 @@ header nav a.active::after {
 .profil_menu a {
     @apply w-full h-full flex justify-center items-center;
 }
+/* GENERAL */
+.input_withoutIcon {
+    @apply pl-2 h-8 w-full;
+}
+.button_profil {
+    @apply w-8 h-8 min-w-[2rem]; 
+}
+.button_profil i {
+    @apply m-auto;
+}
+.after:after {
+    @apply absolute bg-primary h-px w-1/2 left-1/2 -translate-x-1/2 bottom-0;
+    content: '';
+}
+/* Page_up */
 .form_profil {
     @apply md:grid w-11/12 mx-auto max-w-[598px];
     grid-template-columns: clamp(6.25rem, 0.8900rem + 11.1667vw, 10.94rem) auto;
 }
 .profil_up {
-    @apply min-h-[269px] z-10 relative;
+    @apply min-h-[319px] z-10 relative;
 }
 
 .input_profil input{
@@ -362,6 +377,10 @@ header nav a.active::after {
 }
 .hidden_label {
     @apply max-w-[395px] mx-auto block md:mx-0;
+}
+/* CAROUSEL */
+.input_carousel {
+    @apply bg-400/20
 }
 
 

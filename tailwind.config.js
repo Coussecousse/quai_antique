@@ -11,12 +11,12 @@ module.exports = {
         'secondary' : ["'Alice', serif"],
         'third' : ["'Open Sans', sans-serif"]
       },
-      
       colors: {
         'primary' : '#171515',
         'secondary' : '#F9F6F0',
         '400' : '#C4AE78',
         '500' : '#6F5B3E',
+        '600' : '#473B29',
       },
       height : {
         'carousel-image' : 'clamp(13.375rem, 7.107rem + 31.339vw, 35.313rem)',

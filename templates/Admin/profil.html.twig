@@ -31,19 +31,19 @@
 					{% endif %}
 				{% endblock %}
 			</section>
-			<section>
-				<nav>
+			<section class="relative -top-[50px] z-20">
+				<nav class="profil_menu overflow-auto h-[50px] flex items-end">
 					<ul>
-						<li><a href="{{ path('admin_profil', {'page_up' : page_up, 'page_down' : 'carousel' }) }}"  class="hover:-translate-y-1 bg-transparent duration-100 rounded-t-3xl" >Carousel</a></li>
+						<li class="bg-600 text-secondary"><a href="{{ path('admin_profil', {'page_up' : page_up, 'page_down' : 'carousel' }) }}"  class="hover:-translate-y-1 bg-transparent duration-100 rounded-t-3xl" >Carousel</a></li>
 						<li><a href="">Carte</a></li>
 						<li><a href="">Horaires</a></li>
 						<li><a href="">Dates</a></li>
 					</ul>
 				</nav>
 				{% block profil_down %}
-					{% switch page_down %}
-						{% case 'carousel' %}
-					{% endswitch %}
+						{% if page_down == 'carousel' %}
+							{% include 'Admin/profil_down/carousel.html.twig' %}
+						{% endif %}
                 {% endblock %}
 			</section>
 		</div>
