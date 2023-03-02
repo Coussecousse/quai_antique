@@ -2,17 +2,23 @@
     <div class="py-4 drop-shadow-lg">
         <section class="after">
             <p class="w-11/12 mx-auto max-w-[598px] pb-3">Ajouter une photo :</p>
-            <form method="POST" class="w-11/12 mx-auto max-w-[598px] lg:flex lg:justify-between">
-                <div class="pb-2">
-                    <label for="file" hidden="hidden" >Fichier :</label>
-                    <input type="file" id="file" name="file" accept="image/png, image/jpeg" class="w-full">
-                </div>
-                <div class="flex gap-3 lg:w-1/2">
-                    <label for="title" hidden="hidden">Titre :</label>
-                    <input type="text" id="title" name="title" class="input_carousel input_withoutIcon input_white" maxlength=30 minLength=2 placeholder="Titre...">
-                    <button type="submit" id="add_image" class="input_carousel button_profil"><i class="fa-solid fa-plus"></i></button>
-                </div>
-            </form>
+            {{ form_start(form_image, { 'attr' : { 'class' :'w-11/12 mx-auto max-w-[598px] lg:flex lg:justify-between'}})}}
+            <div class="pb-2 relative">
+                <div class="hidden">{{ form_label(form_image.image) }}</div>
+                {{ form_widget(form_image.image, { 'attr' : { 'class' : 'w-full pr-2' }}) }}
+                <small class="form_error absolute w-11/12 mx-auto -bottom-4 lg:-bottom-3 left-0">
+                    {{ form_errors(form_image.image) }}
+                </small>
+            </div>
+            <div class="flex gap-2 lg:w-1/2 relative">
+                <div class="hidden">{{ form_label(form_image.title) }}</div>
+                {{ form_widget(form_image.title, { 'attr' : { 'class' : 'input_carousel input_withoutIcon input_white'}} )}}
+                <small class="form_error absolute w-11/12 mx-auto -bottom-4 lg:-bottom-3">
+                    {{ form_errors(form_image.title) }}
+                </small>
+                <button type="submit" id="add_image" class="input_carousel button_profil"><i class="fa-solid fa-plus"></i></button>
+            </div>
+            {{ form_end(form_image) }}
         </section>
         <section>
         </section>

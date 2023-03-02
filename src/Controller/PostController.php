@@ -54,7 +54,6 @@ class PostController extends AbstractController
         
 
         if ($form->isSubmitted() && $form->isValid() ) {
-            dump($form);
             $email = (new Email())
                 ->from('restaurant@quai-antique.fr')
                 ->to('restaurant@quai-antique.fr')

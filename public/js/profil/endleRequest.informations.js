@@ -153,7 +153,7 @@ passwordButton.addEventListener('click', e => {
         }
     }
 
-    xhr.open('POST', "/admin/profil/{page}");
+    xhr.open('POST', "/admin/profil/{page_up}/{page_down}");
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
     let params = 'password='+ passwordValue +'&oldPassword=' + oldPasswordValue;

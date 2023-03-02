@@ -1,9 +1,7 @@
 const buttons = document.querySelector('#restaurant').querySelectorAll('button[type="submit"]');
-console.log(buttons);
 
 function changeRestaurant(e, button) {
 
-    console.log('click');
     let element = button.previousElementSibling;
     let valueElement = element.value;
     let nameElement = element.name;
@@ -34,7 +32,6 @@ function changeRestaurant(e, button) {
                     window.location = url + "?result=error";
                     break;
             }
-
         }
     }
     xhr.open('POST', '/admin/profil/{page_up}/{page_down}');

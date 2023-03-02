@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\ImageType;
 use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -58,9 +59,17 @@ class AdminController extends AbstractController
         }
 
         $last_email = $request->getSession()->get('last_email');
-        
+
+        $form_image = $this->createForm(ImageType::class);
+        $form_image->handleRequest($request);
+
+        if ($form_image->isSubmitted() && $form_image->isValid() ){
+            $image = $form_image->get('image')->getData();
+            return new JsonResponse(["result" => "success"]);
+        }
+
         if ($request->isMethod('POST')) {
-            dump('yo');
+
             $em = $doctrine->getManager();
 
             // Informations
@@ -73,7 +82,7 @@ class AdminController extends AbstractController
             $streetRestaurant = $request->request->get('street');
             $postcodeRestaurant = $request->request->get('postcode');
             $placesRestaurant = $request->request->get('places');
-
+            // Carousel
 
             $user = $this->getUser();
             // Change password
@@ -197,8 +206,8 @@ class AdminController extends AbstractController
                 }
                 return $this->changeRestaurantDatas($restaurant, 'street', $streetRestaurant, $path);
             }
-            dump($postcodeRestaurant);
-            if ($postcodeRestaurant || $postcodeRestaurant == 0) {
+
+            if ($postcodeRestaurant || $postcodeRestaurant == '0') {
                 if (!$this->checkPattern($postcodeRestaurant, '/^\d{5}$/')) {
                     $response = new JsonResponse([
                         'result' => 'error_pattern'
@@ -221,6 +230,7 @@ class AdminController extends AbstractController
         return $this->render('Admin/profil.html.twig', [
             'page_up' => $page_up,
             'page_down' => $page_down,
+            'form_image' => $form_image->createView(),
             'error' => $error ?? null,
             'success' => $success ?? null,
             'last_email' => $last_email ?? '',
