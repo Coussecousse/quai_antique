@@ -5,9 +5,9 @@ namespace App;
 use Imagine\Gd\Imagine;
 use Imagine\Image\Box;
 
-class ImageOptimize 
+class ImageOptimizer 
 {
-    private const MAX_HEIGHT = 570 ;
+    private const MAX_HEIGHT = 2200 ;
     private $imagine;
     public function __construct()
     {
@@ -17,6 +17,7 @@ class ImageOptimize
     public function resize(string $filename,int $width)
     {
         list($iwidth, $iheight) = getimagesize($filename);
+        
         $ratio = $iwidth / $iheight;
         $height = self::MAX_HEIGHT;
 
@@ -28,6 +29,6 @@ class ImageOptimize
 
         $image = $this->imagine->open($filename);
         dump($filename);
-        $image->resize(new Box($width, $height))->save($filename);
+        return $image->resize(new Box($width, $height))->save($filename);
     }
 }

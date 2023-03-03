@@ -31,6 +31,10 @@ security:
 
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
+        image_resolver:
+            pattern: ^/media/cache/resolve
+            security: false
+            
     role_hierarchy : 
         ROLE_USER :     ROLE_USER
         ROLE_VERIFIED : ROLE_VERIFIED

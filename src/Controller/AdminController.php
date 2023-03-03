@@ -2,14 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\Carousel;
 use App\Form\ImageType;
+use App\ImageOptimizer;
 use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Yaml\Yaml;
 
 class AdminController extends AbstractController
@@ -29,9 +34,35 @@ class AdminController extends AbstractController
             'result' => 'success',
         ]);
     }
+    private function handleImages($image, $imageName)
+    {
+
+        $sizes = ['small' => 420, 'medium' => 735,'large' => 950, 'extraLarge' => 1200];
+        $path = $this->getParameter('uploads') .'/'. $imageName;
+        
+        $imageName = explode('.', $imageName);
+        
+        foreach($sizes as $key => $size) {
+            
+            $newNameImageSize = $imageName;
+            array_splice($newNameImageSize, -1, 0, '-'.$key.'.');
+            $newNameImageSize = implode('', $newNameImageSize);
+            $newPathName = $this->getParameter('resize') .'/'. $newNameImageSize;
+            try {
+                copy($path, $newPathName);
+            } catch (Exception $e) {
+                dump($e);
+            }
+
+            $optimizer = new ImageOptimizer;
+            $optimizer->resize($newPathName, $size);
+
+        }
+
+    }
 
     #[Route('admin/profil/{page_up}/{page_down}', name: "admin_profil", methods: ['GET', 'POST'], defaults: ['page_up' => 'informations', 'page_down' => 'carousel'])]
-    public function profil(string $page_up, string $page_down,  UserRepository $repository, Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $userPasswordHasher)
+    public function profil(string $page_up, string $page_down,  UserRepository $repository, Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $userPasswordHasher, SluggerInterface $slugger)
     {
         $result = $request->query->get('result');
 
@@ -65,7 +96,19 @@ class AdminController extends AbstractController
 
         if ($form_image->isSubmitted() && $form_image->isValid() ){
             $image = $form_image->get('image')->getData();
-            return new JsonResponse(["result" => "success"]);
+            $originalFileName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+            $safeFilename = $slugger->slug($originalFileName);
+            $newFileName = $safeFilename . '-' .uniqid() . '.' . $image->guessExtension();
+
+            try {
+                $image->move(
+                    $this->getParameter('uploads'),
+                    $newFileName
+                );
+            } catch (FileException $e) {
+                dump($e);
+            }
+            $this->HandleImages($image, $newFileName);
         }
 
         if ($request->isMethod('POST')) {
@@ -87,7 +130,6 @@ class AdminController extends AbstractController
             $user = $this->getUser();
             // Change password
             if ($password && !$email) {
-                dump('hey');
                 $oldPassword = $request->request->get('oldPassword');
                 // Check password pattern
                 if (!$this->checkPattern($password, "/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,80}$/"))
