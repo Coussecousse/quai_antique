@@ -169,6 +169,7 @@ class AdminController extends AbstractController
             $id = $request->request->get('id');
             $imageTitle = $request->request->get('imageTitle');
             $delete = $request->request->get('delete');
+            $imageDescription = $request->request->get('imageDescription');
 
             $user = $this->getUser();
             // Change password
@@ -328,6 +329,15 @@ class AdminController extends AbstractController
             }
             if ($delete) {
                 return $this->deleteImage($id, $carouselRepository);
+            }
+            if ($imageDescription) {
+                if (!$this->checkPattern($imageDescription, '/^[\p{L}\d\s.\'’-]{10,255}$/u')) {
+                    $response = new JsonResponse([
+                        'result' => 'error_pattern'
+                    ]);
+                    return $response;
+                }
+                return $this->changeImageDatas($id, "description", $imageDescription, $carouselRepository);
             }
         }
 
