@@ -345,7 +345,7 @@ header nav a.active::after {
 }
 /* GENERAL */
 .input_withoutIcon {
-    @apply pl-2 h-8 w-full;
+    @apply px-2 h-8 w-full;
 }
 .button_profil {
     @apply w-8 h-8 min-w-[2rem]; 

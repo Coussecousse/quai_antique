@@ -35,6 +35,21 @@ class AdminController extends AbstractController
             'result' => 'success',
         ]);
     }
+    private function changeImageDatas($id, $value, $input, $em, $repository) {
+        $image = $repository->find($id);
+
+        if ($value === 'title') {
+            $image->setTitle($input);
+        } else {
+            $image->setDescription($input);
+        }
+        $em->persist($image);
+        $em->flush();
+
+        return new JsonResponse([
+            'result' => 'success',
+        ]);
+    }
     private function handleImages($imageName, $title, $description, $doctrine)
     {
 
@@ -143,6 +158,8 @@ class AdminController extends AbstractController
             $postcodeRestaurant = $request->request->get('postcode');
             $placesRestaurant = $request->request->get('places');
             // Carousel
+            $imageTitle = $request->request->get('imageTitle');
+            $id = $request->request->get('id');
 
             $user = $this->getUser();
             // Change password
@@ -238,6 +255,7 @@ class AdminController extends AbstractController
 
                 return $this->changeRestaurantDatas($restaurant, 'tel', $telRestaurant, $path);
             }
+            //  Email
             if ($emailRestaurant) {
                 if (!filter_var($emailRestaurant, FILTER_VALIDATE_EMAIL)) {
                     $response = new JsonResponse([
@@ -247,6 +265,7 @@ class AdminController extends AbstractController
                 }
                 return $this->changeRestaurantDatas($restaurant, 'email', $emailRestaurant, $path);
             }
+            //  City
             if ($cityRestaurant) {
                 if (!$this->checkPattern($cityRestaurant, '/^[\p{L}\s\'-]{2,50}$/u')) {
                     $response = new JsonResponse([
@@ -256,6 +275,7 @@ class AdminController extends AbstractController
                 }
                 return $this->changeRestaurantDatas($restaurant, 'city', $cityRestaurant, $path);
             }
+            //  Street
             if ($streetRestaurant) {
                 if (!$this->checkPattern($streetRestaurant, '/^[\p{L}\d\s.\'’-]{5,80}$/u')) {
                     $response = new JsonResponse([
@@ -265,7 +285,7 @@ class AdminController extends AbstractController
                 }
                 return $this->changeRestaurantDatas($restaurant, 'street', $streetRestaurant, $path);
             }
-
+            //  Post Code
             if ($postcodeRestaurant || $postcodeRestaurant == '0') {
                 if (!$this->checkPattern($postcodeRestaurant, '/^\d{5}$/')) {
                     $response = new JsonResponse([
@@ -275,6 +295,7 @@ class AdminController extends AbstractController
                 }
                 return $this->changeRestaurantDatas($restaurant, 'postcode', $postcodeRestaurant, $path);
             }
+            //  Places
             if ($placesRestaurant) {
                 if (!$this->checkPattern($placesRestaurant, '/^\d{1,3}$/')) {
                     $response = new JsonResponse([
@@ -283,6 +304,18 @@ class AdminController extends AbstractController
                     return $response;
                 }
                 return $this->changeRestaurantDatas($restaurant, 'places', $placesRestaurant, $path);
+            }
+
+            // Carousel
+            // Title
+            if ($imageTitle) {
+                if (!$this->checkPattern($imageTitle, '/^[\p{L}\d\s.\'’-]{2,50}$/u')) {
+                    $response = new JsonResponse([
+                        'result' => 'error_pattern'
+                    ]);
+                    return $response;
+                }
+                return $this->changeImageDatas($id, "title", $imageTitle, $em, $carouselRepository);
             }
         }
 
