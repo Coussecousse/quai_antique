@@ -55,6 +55,8 @@ emailButton.addEventListener('click', e => {
                     window.location = url + "?result=error";
                     break;
             }
+        } else {
+            window.location = url + "?result=error"
         }
     }
 
@@ -150,6 +152,8 @@ passwordButton.addEventListener('click', e => {
                     window.location = url + "?result=error";
                     break;
             }
+        } else {
+            window.location = url + "?result=error"
         }
     }
 

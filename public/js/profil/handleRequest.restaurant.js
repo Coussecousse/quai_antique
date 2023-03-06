@@ -33,6 +33,8 @@ function changeRestaurant(e, button) {
                     window.location = url + "?result=error";
                     break;
             }
+        } else {
+            window.location = url + "?result=error"
         }
     }
     xhr.open('POST', '/admin/profil/{page_up}/{page_down}');
