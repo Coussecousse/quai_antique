@@ -30,7 +30,7 @@ class ImageType extends AbstractType
             ->add('title', TextType::class, [
                 "label" => "Titre :",
                 "required" => true,
-                'attr' => ['placeholder' => 'Titre...'],
+                'attr' => ['placeholder' => 'Titre...', 'value' => ''],
                 "constraints" => [new Length(['min' => 2, "max" => 50, "minMessage" => "Titre trop petit.", "maxMessage" => "Titre trop long."])]
         ]);
     }

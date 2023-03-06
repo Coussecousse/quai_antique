@@ -34,7 +34,7 @@ class AdminController extends AbstractController
             'result' => 'success',
         ]);
     }
-    private function handleImages($image, $imageName)
+    private function handleImages($imageName, $title, $doctrine)
     {
 
         $sizes = ['small' => 420, 'medium' => 735,'large' => 950, 'extraLarge' => 1200];
@@ -47,16 +47,16 @@ class AdminController extends AbstractController
             $newNameImageSize = $imageName;
             array_splice($newNameImageSize, -1, 0, '-'.$key.'.');
             $newNameImageSize = implode('', $newNameImageSize);
-            $newPathName = $this->getParameter('resize') .'/'. $newNameImageSize;
+            $newPath = $this->getParameter('resize') .'/';
             try {
-                copy($path, $newPathName);
+                copy($path, $newPath.$newNameImageSize);
             } catch (Exception $e) {
                 dump($e);
             }
 
-            $optimizer = new ImageOptimizer;
-            $optimizer->resize($newPathName, $size);
-
+            $optimizer = new ImageOptimizer($doctrine);
+            $optimizer->resize($newNameImageSize, $newPath , $size, $key, $title);
+            
         }
 
     }
@@ -108,7 +108,9 @@ class AdminController extends AbstractController
             } catch (FileException $e) {
                 dump($e);
             }
-            $this->HandleImages($image, $newFileName);
+
+            $title = $form_image->get('title')->getData();
+            $this->HandleImages($newFileName, $title,$doctrine);
         }
 
         if ($request->isMethod('POST')) {
