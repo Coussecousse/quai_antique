@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Carousel;
 use App\Form\ImageType;
 use App\ImageOptimizer;
+use App\Repository\CarouselRepository;
 use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
@@ -34,7 +35,7 @@ class AdminController extends AbstractController
             'result' => 'success',
         ]);
     }
-    private function handleImages($imageName, $title, $doctrine)
+    private function handleImages($imageName, $title, $description, $doctrine)
     {
 
         $sizes = ['small' => 420, 'medium' => 735,'large' => 950, 'extraLarge' => 1200];
@@ -44,7 +45,7 @@ class AdminController extends AbstractController
         $em = $doctrine->getManager();
         
         $carousel = new Carousel();
-        $carousel->setPath('/build/images/resize/'.$imageName[0])->setTitle($title);
+        $carousel->setPath('/build/images/resize/'.$imageName[0])->setTitle($title)->setDescription($description);
         
 
         $em->persist($carousel);
@@ -70,7 +71,7 @@ class AdminController extends AbstractController
     }
 
     #[Route('admin/profil/{page_up}/{page_down}', name: "admin_profil", methods: ['GET', 'POST'], defaults: ['page_up' => 'informations', 'page_down' => 'carousel'])]
-    public function profil(string $page_up, string $page_down,  UserRepository $repository, Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $userPasswordHasher, SluggerInterface $slugger)
+    public function profil(string $page_up, string $page_down, UserRepository $repository, Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $userPasswordHasher, SluggerInterface $slugger, CarouselRepository $carouselRepository)
     {
         $result = $request->query->get('result');
 
@@ -118,7 +119,13 @@ class AdminController extends AbstractController
             }
 
             $title = $form_image->get('title')->getData();
-            $this->HandleImages($newFileName, $title,$doctrine);
+            $description = $form_image->get('description')->getData();
+            $this->HandleImages($newFileName, $title, $description, $doctrine);
+            return $this->redirectToRoute('admin_profil', [
+                "page_up" => $page_up,
+                'page_down' => $page_down,
+                'result' => "success"
+            ]);
         }
 
         if ($request->isMethod('POST')) {
@@ -279,7 +286,10 @@ class AdminController extends AbstractController
             }
         }
 
+        $imagesCarousel = $carouselRepository->findAll();
+
         return $this->render('Admin/profil.html.twig', [
+            'images_carousel' => $imagesCarousel,
             'page_up' => $page_up,
             'page_down' => $page_down,
             'form_image' => $form_image->createView(),

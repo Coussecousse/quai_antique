@@ -18,7 +18,8 @@ class Carousel
 
     #[ORM\Column(length: 50)]
     private ?string $title = null;
-
+    #[ORM\Column]
+    private ?string $description = null;
 
     public function getId(): ?int
     {
@@ -45,6 +46,26 @@ class Carousel
     public function setTitle(string $title): self
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of description
+     */ 
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set the value of description
+     *
+     * @return  self
+     */ 
+    public function setDescription($description)
+    {
+        $this->description = $description;
 
         return $this;
     }

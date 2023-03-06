@@ -18,3 +18,4 @@ function addingMargin(element) {
 function removeMargin(element) {
     element.parentElement.style.marginBottom = '0';
 }
+
