@@ -30,18 +30,20 @@
             <h2 class="text-2.25xl text-center md:text-2.5xl md:mb-4">La Savoie dans votre assiette !</h2>
             <div class="carousel font-primary flex flex-col md:mb-4">
                 <div class="carousel_pics grid gap-4 relative my-6 w-fit">
+                    {% for image in images_carousel %}
                     <div class="carousel_image h-full w-full flex justify-center" id="carousel-2">
                         <div class="h-carousel-image relative group overflow-hidden">
                             <picture>
-                                <source srcset={{ asset('/images/uploads/'~"coupe-des-montagnes-extraLarge.jpg") }} media="(min-width : 1200px)">
-                                <source srcset={{ asset('/images/uploads/'~"coupe-des-montagnes-large.jpg") }} media="(min-width : 990px)">
-                                <source srcset={{ asset('/images/uploads/'~"coupe-des-montagnes-medium.jpg") }} media="(min-width : 768px)">
-                                <img class="h-full object-cover object-center drop-shadow-lg" src={{ asset('/images/uploads/'~"coupe-des-montagnes-small.jpg") }} alt="Coupe de glace à la myrtille et mûres">
+                                <source srcset={{ asset( image.path ~"-extraLarge.jpg") }} media="(min-width : 1200px)">
+                                <source srcset={{ asset(image.path ~"-large.jpg") }} media="(min-width : 990px)">
+                                <source srcset={{ asset(image.path ~"-medium.jpg") }} media="(min-width : 768px)">
+                                <img class="h-full object-cover object-center drop-shadow-lg" src={{ asset(image.path ~"-small.jpg") }} alt="{{ image.description }}">
                             </picture>
-                            <div class="absolute bg-primary opacity-80 h-auto w-full top-full -translate-y-full text-center p-2 lg:h-20 lg:-translate-y-0 lg:group-hover:-translate-y-full lg:ease-in lg:duration-150"><p class="text-home-carousel lg:top-1/2 lg:relative lg:-translate-y-1/2">Coupe des montagnes</p></div>
+                            <div class="absolute bg-primary opacity-80 h-auto w-full top-full -translate-y-full text-center p-2 lg:h-20 lg:-translate-y-0 lg:group-hover:-translate-y-full lg:ease-in lg:duration-150"><p class="text-home-carousel lg:top-1/2 lg:relative lg:-translate-y-1/2">{{ image.title }}</p></div>
                         </div>
                     </div>
-                    <div class="carousel_image h-full w-full flex justify-center active" id="carousel-1">
+                    {% endfor %}
+                    {# <div class="carousel_image h-full w-full flex justify-center active" id="carousel-1">
                         <div class="h-carousel-image relative group overflow-hidden">
                             <picture>
                                 <source srcset={{ asset('/images/uploads/'~"irish-coffee-extraLarge.jpg") }} media="(min-width : 1200px)">
@@ -62,7 +64,7 @@
                             </picture>
                             <div class="absolute bg-primary opacity-80 h-auto w-full top-full -translate-y-full text-center p-2 lg:h-20 lg:-translate-y-0 lg:group-hover:-translate-y-full lg:ease-in lg:duration-150"><p class="text-home-carousel lg:top-1/2 lg:relative lg:-translate-y-1/2">Fondue Royale</p></div>
                         </div>
-                   </div>
+                   </div> #}
                 </div>
                 <div class="flex justify-center gap-4">
                     <button class="carousel_button"></button>

@@ -31,16 +31,16 @@
         </section>
         <section class="">
         {% for image in images_carousel %}
-            <div class="max-w-[380px] mx-auto flex flex-col gap-4 py-4 justify-center">
-                <div class="w-full flex gap-4 justify-center">
-                    <form method="POST" onSubmit = "setTitle(event)" class="flex gap-4 flex-1">
+            <div class="w-11/12 max-w-[380px] mx-auto flex flex-col gap-2 py-4 justify-center">
+                <div class="w-full flex gap-2 justify-center">
+                    <form method="POST" onSubmit = "setTitle(event)" class="flex gap-2 flex-1">
                         <label hidden for="{{ 'title_'~ image.id}}">Titre</label>
                         <input type="text" minLength=2 maxlength=50 id="{{ 'title_'~ image.id }}" name="{{ 'title_'~ image.id }}" required value="{{ image.title }}" class="input_carousel input_withoutIcon flex-1">
                         <button aria-label="Modifier" type="submit" id="{{ 'set_title_'~ image.id }}" class="input_carousel button_profil"><i class="fa-solid fa-pen"></i></button>
                     </form>
                     <button aria-label = 'Supprimer' onClick="deleteImage(event)" id="{{ 'delete_'~ image.id }}" class="input_carousel button_profil"><i class="fa-solid fa-trash h-full button-full"></i></i></button>
                 </div>
-                <form method="POST" onSubmit ="setDescription(event)" class="flex gap-4 justify-center">
+                <form method="POST" onSubmit ="setDescription(event)" class="flex gap-2 justify-center">
                     <label hidden for="{{ 'description'~ image.id}}">Description</label>
                     <textarea type="text" minLength=10 maxlength=255 id="{{ 'description_'~ image.id }}" name="{{ 'title_'~ image.id }}" required class="input_carousel px-2 min-h-[80px] flex-1 text-sm">{{ image.description }}</textarea>
                     <button aria-label="Modifier" type="submit" id="{{ 'set_description_'~ image.id }}" class="input_carousel button_profil"><i class="fa-solid fa-pen"></i></button>
@@ -50,7 +50,7 @@
                 <source srcset={{ asset(image.path ~"-extraLarge.jpg") }} media="(min-width : 1200px)">
                 <source srcset={{ asset(image.path ~"-large.jpg") }} media="(min-width : 990px)">
                 <source srcset={{ asset(image.path ~"-medium.jpg") }} media="(min-width : 768px)">
-                <img src={{ asset(image.path ~'-small.jpg')}} alt="{{ image.description }}" class="drop-shadow-lg w-auto max-w-[380px] max-h-[480px] mx-auto pb-4">
+                <img src={{ asset(image.path ~'-small.jpg')}} alt="{{ image.description }}" class="w-11/12 drop-shadow-lg lg:w-auto max-w-[380px] max-h-[480px] mx-auto pb-4 object-contain">
             </picture>
         {% endfor %}
         </section>

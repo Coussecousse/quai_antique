@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\ContactType;
+use App\Repository\CarouselRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,15 +15,19 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class PostController extends AbstractController
 {
     #[Route('/', name:'home')]
-    public function home(UserInterface $user)
+    public function home(UserInterface $user, CarouselRepository $carouselRepository)
     {
+        $images = $carouselRepository->findAll();
         if ($user) {
 
             if(!in_array('ROLE_VERIFIED', $user->getRoles())) {{
                 return $this->redirectToRoute('signUp-validate');
             }}
         }
-        return $this->render('Home/home.html.twig');
+
+        return $this->render('Home/home.html.twig', [
+            'images_carousel' => $images
+        ]);
     }
 
     #[Route('/carte', name:'card')]
