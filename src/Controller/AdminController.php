@@ -39,23 +39,31 @@ class AdminController extends AbstractController
 
         $sizes = ['small' => 420, 'medium' => 735,'large' => 950, 'extraLarge' => 1200];
         $path = $this->getParameter('uploads') .'/'. $imageName;
-        
         $imageName = explode('.', $imageName);
         
+        $em = $doctrine->getManager();
+        
+        $carousel = new Carousel();
+        $carousel->setPath('/build/images/resize/'.$imageName[0])->setTitle($title);
+        
+
+        $em->persist($carousel);
+        $em->flush();        
         foreach($sizes as $key => $size) {
             
             $newNameImageSize = $imageName;
             array_splice($newNameImageSize, -1, 0, '-'.$key.'.');
             $newNameImageSize = implode('', $newNameImageSize);
-            $newPath = $this->getParameter('resize') .'/';
+            $newPath = $this->getParameter('resize') .'/'.$newNameImageSize;
+
             try {
-                copy($path, $newPath.$newNameImageSize);
+                copy($path, $newPath);
             } catch (Exception $e) {
                 dump($e);
             }
 
-            $optimizer = new ImageOptimizer($doctrine);
-            $optimizer->resize($newNameImageSize, $newPath , $size, $key, $title);
+            $optimizer = new ImageOptimizer();
+            $optimizer->resize($newPath, $size);
             
         }
 
