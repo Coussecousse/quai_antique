@@ -52,11 +52,11 @@
 
 {% block scripts %}
 	<script src={{ asset('/js/signUp-login/'~'script.js') }}></script>
-	<script src={{ asset('js/profil/'~'endleRequest.js') }}></script>
+	<script src={{ asset('js/profil/'~'handleRequest.js') }}></script>
 	{% if page_up == 'informations' %}
-	<script src={{ asset('/js/profil/'~'endleRequest.informations.js') }}></script>
+	<script src={{ asset('/js/profil/'~'handleRequest.informations.js') }}></script>
 	{% else %} 
-	<script src={{ asset('js/profil/'~'endleRequest.restaurant.js') }}></script>
+	<script src={{ asset('js/profil/'~'handleRequest.restaurant.js') }}></script>
 	{% endif %}
 	{% if page_down == 'carousel' %}
 	<script src={{ asset('js/profil/'~'handleRequest.carousel.js') }}></script>
