@@ -38,7 +38,7 @@
                         <input type="text" minLength=2 maxlength=50 id="{{ 'title_'~ image.id }}" name="{{ 'title_'~ image.id }}" required value="{{ image.title }}" class="input_carousel input_withoutIcon flex-1">
                         <button aria-label="Modifier" type="submit" id="{{ 'set_title_'~ image.id }}" class="input_carousel button_profil"><i class="fa-solid fa-pen"></i></button>
                     </form>
-                    <button aria-label = 'Supprimer' onClick="delete(event)" id="{{ 'delete_'~ image.id }}" class="input_carousel button_profil"><i class="fa-solid fa-trash"></i></i></button>
+                    <button aria-label = 'Supprimer' onClick="deleteImage(event)" id="{{ 'delete_'~ image.id }}" class="input_carousel button_profil"><i class="fa-solid fa-trash h-full button-full"></i></i></button>
                 </div>
                 <form method="POST" onSubmit ="setDescription(event)" class="flex gap-4 justify-center">
                     <label hidden for="{{ 'description'~ image.id}}">Description</label>

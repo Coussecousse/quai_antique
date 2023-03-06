@@ -35,7 +35,7 @@ class AdminController extends AbstractController
             'result' => 'success',
         ]);
     }
-    private function changeImageDatas($id, $value, $input, $em, $repository) {
+    private function changeImageDatas($id, $value, $input, $repository) {
         $image = $repository->find($id);
 
         if ($value === 'title') {
@@ -43,8 +43,16 @@ class AdminController extends AbstractController
         } else {
             $image->setDescription($input);
         }
-        $em->persist($image);
-        $em->flush();
+        $repository->save($image, true);
+
+        return new JsonResponse([
+            'result' => 'success',
+        ]);
+    }
+    private function deleteImage($id, $repository) {
+
+        $image = $repository->find($id);
+        $repository->remove($image, true);
 
         return new JsonResponse([
             'result' => 'success',
@@ -158,8 +166,9 @@ class AdminController extends AbstractController
             $postcodeRestaurant = $request->request->get('postcode');
             $placesRestaurant = $request->request->get('places');
             // Carousel
-            $imageTitle = $request->request->get('imageTitle');
             $id = $request->request->get('id');
+            $imageTitle = $request->request->get('imageTitle');
+            $delete = $request->request->get('delete');
 
             $user = $this->getUser();
             // Change password
@@ -315,7 +324,10 @@ class AdminController extends AbstractController
                     ]);
                     return $response;
                 }
-                return $this->changeImageDatas($id, "title", $imageTitle, $em, $carouselRepository);
+                return $this->changeImageDatas($id, "title", $imageTitle, $carouselRepository);
+            }
+            if ($delete) {
+                return $this->deleteImage($id, $carouselRepository);
             }
         }
 

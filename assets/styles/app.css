@@ -18,6 +18,10 @@ html, body, main {
 a {
     cursor: pointer;
 }
+.button-full {
+    @apply w-full h-full items-center justify-center;
+    display: flex !important;
+}
 
 /* HEADER */
 header nav a {
