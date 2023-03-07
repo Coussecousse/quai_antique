@@ -22,9 +22,6 @@ class Food
     #[ORM\Column]
     private ?float $price = null;
 
-    #[ORM\Column]
-    private ?string $type = null;
-
     #[ORM\Column(length: 255)]
     private ?string $category = null;
 
@@ -65,27 +62,6 @@ class Food
     public function setPrice(float $price): self
     {
         $this->price = $price;
-
-        return $this;
-    }
-
-
-    /**
-     * Get the value of type
-     */ 
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * Set the value of type
-     *
-     * @return  self
-     */ 
-    public function setType($type)
-    {
-        $this->type = $type;
 
         return $this;
     }

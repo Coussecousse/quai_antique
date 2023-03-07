@@ -1,0 +1,21 @@
+{% extends 'Admin/profil.html.twig' %}
+
+{% block profil_down %}
+<div class="bg-400">
+    <div class="drop-shadow-lg">
+        <nav class="profil_menu overflow-y-hidden overflow-x-auto h-[50px] flex items-end">
+            <ul>
+                <li class="text-primary"><a href="{{ path('admin_card', {'page_up' : page_up, 'page_down' : 'card', 'page_three' : 'entrées' })}}" class="hover:-translate-y-1 bg-500/60 duration-100 rounded-t-3xl">Entrées</a></li>
+                <li><a href="{{ path('admin_card', {'page_up' : page_up, 'page_down' : 'card', 'page_three' : 'Plats' })}}">Plats</a></li>
+                <li><a href="{{ path('admin_card', {'page_up' : page_up, 'page_down' : 'card', 'page_three' : 'Desserts' })}}">Desserts</a></li>
+                <li><a href="{{ path('admin_card', {'page_up' : page_up, 'page_down' : 'card', 'page_three' : 'Menus' })}}">Menus</a></li>
+            </ul>
+        </nav>
+    </div>
+    {% block card_down %}
+        {% if page_three == 'entrées' %}
+            {% include 'Admin/profil_down/card/starter/starter.html.twig' %}
+        {% endif %}
+    {% endblock %}
+</div>
+{% endblock %}

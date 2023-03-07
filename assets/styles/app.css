@@ -338,10 +338,10 @@ header nav a.active::after {
     @apply max-w-[1065px] mx-auto w-11/12 sm:w-4/5 md:w-3/5 font-secondary my-6;
 }
 .profil_menu ul{
-    @apply flex gap-4;
+    @apply flex gap-4 pl-2; 
 }
 .profil_menu li {
-    @apply min-w-[110px] min-h-[40px] rounded-t-3xl cursor-pointer;
+    @apply min-w-[110px] min-h-[45px] rounded-t-3xl cursor-pointer relative top-1;
     box-shadow: 4px 0 13px rgba(0,0,0,.25);
 }
 .profil_menu a {
@@ -370,7 +370,7 @@ header nav a.active::after {
     @apply min-h-[319px] z-10 relative;
 }
 
-.input_profil input{
+.input_whitePlaceholder {
     @apply placeholder-white placeholder-opacity-50;
 }
 .input_profil i:first-child, .fa-eye, .fa-eye-slash {
@@ -386,6 +386,7 @@ header nav a.active::after {
 .input_carousel {
     @apply bg-400/20
 }
+/* CARD */
 
 
 @media screen and (min-width: 768px) {

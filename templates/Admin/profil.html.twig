@@ -15,11 +15,19 @@
 			<section>
 				<nav class="profil_menu">
 					<ul>
-						<li class="bg-500 text-secondary">
-							<a href="{{ path('admin_profil', {'page_up':'informations', 'page_down' : page_down }) }}" class="hover:-translate-y-1 bg-transparent duration-100 rounded-t-3xl">Profil</a>
+						<li class="text-secondary">
+						{% if page_three %}
+							<a href="{{ path('admin_card', {'page_up':'informations', 'page_down' : page_down, 'page_three' : page_three }) }}" class="bg-500 hover:-translate-y-1 duration-100 rounded-t-3xl">Profil</a>
+						{% else %}
+							<a href="{{ path('admin_profil', {'page_up':'informations', 'page_down' : page_down }) }}" class="bg-500 hover:-translate-y-1 duration-100 rounded-t-3xl">Profil</a>
+						{% endif %}
 						</li>
-						<li class="bg-secondary/95 text-primary">
-							<a href="{{ path('admin_profil', {'page_up':'restaurant', 'page_down' : page_down}) }}" class="hover:-translate-y-1 bg-transparent duration-100 rounded-t-3xl">Restaurant</a>
+						<li class="text-primary">
+						{% if page_three %}
+							<a href="{{ path('admin_card', {'page_up':'restaurant', 'page_down' : page_down, 'page_three' : page_three}) }}" class="bg-secondary/95 hover:-translate-y-1 duration-100 rounded-t-3xl">Restaurant</a>
+						{% else %}
+							<a href="{{ path('admin_profil', {'page_up':'restaurant', 'page_down' : page_down}) }}" class="bg-secondary/95 hover:-translate-y-1 duration-100 rounded-t-3xl">Restaurant</a>
+						{% endif %}
 						</li>
 					</ul>
 				</nav>
@@ -32,10 +40,10 @@
 				{% endblock %}
 			</section>
 			<section class="relative -top-[50px] z-20">
-				<nav class="profil_menu overflow-auto h-[50px] flex items-end">
+				<nav class="profil_menu overflow-y-hidden overflow-x-auto h-[50px] flex items-end">
 					<ul>
-						<li class="bg-600 text-secondary"><a href="{{ path('admin_profil', {'page_up' : page_up, 'page_down' : 'carousel' }) }}"  class="hover:-translate-y-1 bg-transparent duration-100 rounded-t-3xl" >Carousel</a></li>
-						<li><a href="">Carte</a></li>
+						<li class="text-secondary"><a href="{{ path('admin_profil', {'page_up' : page_up, 'page_down' : 'carousel' }) }}" class="hover:-translate-y-1 bg-600 duration-100 rounded-t-3xl" >Carousel</a></li>
+						<li class="text-primary"><a href="{{ path('admin_card', { 'page_up' : page_up, 'page_down' : 'carte', 'page_three' : 'entrées' }) }}" class="hover:-translate-y-1 bg-400 duration-100 rounded-t-3xl">Carte</a></li>
 						<li><a href="">Horaires</a></li>
 						<li><a href="">Dates</a></li>
 					</ul>

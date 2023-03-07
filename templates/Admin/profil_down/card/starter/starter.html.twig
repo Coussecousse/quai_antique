@@ -1,0 +1,31 @@
+<div class="drop-shadow-lg bg-500/60">
+    <section class="py-4 after">
+        <p class="w-11/12 mx-auto max-w-[598px] pb-3 underline underline-offset-2">Ajouter une entrée :</p>
+        {{ form_start(form_card, { 'attr' :{ 'class' : 'bg-600 w-11/12 mx-auto max-w-[598px] flex gap-2 justify-center p-4 text-secondary'}}) }}
+            <div class="flex gap-2 flex-col flex-1">
+                <div class="relative">
+                    <div class="hidden">{{ form_label(form_card.title) }}</div>
+                        {{ form_widget(form_card.title, { 'attr' : { 'class' : 'w-full pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon' }}) }}
+                    <small class="form_error">
+                        {{ form_errors(form_card.title) }}
+                    </small>
+                </div>
+                <div class="relative">
+                    <div class="hidden">{{ form_label(form_card.description) }}</div>
+                        {{ form_widget(form_card.description, { 'attr' : { 'class' : 'w-full pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon' }}) }}
+                    <small class="form_error">
+                        {{ form_errors(form_card.description) }}
+                    </small>  
+                </div>
+                <div class="relative w-[120px] ">
+                    <div class="hidden">{{ form_label(form_card.price) }}</div>
+                        {{ form_widget(form_card.price, { 'attr' : { 'class' : 'pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon' }}) }}
+                    <small class="form_error">
+                        {{ form_errors(form_card.price) }}
+                    </small>  
+                </div>
+            </div>
+            <button type="submit" id="add_image" class="bg-primary/50 button_profil"><i class="fa-solid fa-plus text-secondary"></i></button>
+        {{ form_end(form_card, {}) }}
+    </section>
+</div>

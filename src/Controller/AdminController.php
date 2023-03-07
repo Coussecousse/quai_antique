@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Carousel;
+use App\Entity\Food;
+use App\Form\CardType;
 use App\Form\ImageType;
 use App\ImageOptimizer;
 use App\Repository\CarouselRepository;
+use App\Repository\FoodRepository;
 use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
@@ -90,7 +93,49 @@ class AdminController extends AbstractController
             $optimizer->resize($newPath, $size);
             
         }
+    }
+    #[Route('admin/profil/{page_up}/{page_down}/{page_three}', name: "admin_card", methods: ['GET', 'POST'], defaults: ['page_up' => 'informations', 'page_down' => 'carousel'])]
+    public function profilCard(string $page_up, string $page_down, string $page_three, Request $request, FoodRepository $foodRepository)
+    {
+        $path = $this->getParameter('kernel.project_dir') . '/config/data/restaurant.yaml';
+        $restaurant = Yaml::parseFile($path);
 
+        $form_card = $this->createForm(CardType::class);
+        $form_card->handleRequest($request);
+
+        if ($form_card->isSubmitted() && $form_card->isValid()) {
+            $title = $form_card->get('title')->getData();
+            $description = $form_card->get('description')->getData();
+            $price = $form_card->get('price')->getData();
+
+            $food = new Food();
+            $food->setTitle($title)->setDescription($description)->setprice($price);
+
+            switch($page_three) {
+                case 'entrées': 
+                    $food->setCategory('starter');
+                    break;
+                case 'plats':
+                    $food->setCategory('main');
+                    break;
+                case 'desserts':
+                    $food->setCategory('dessert');
+                    break;
+            }
+            $foodRepository->save($food, true);
+            
+        }
+
+        return $this->render('Admin/profil_down/card/card.html.twig', [
+            'page_up' => $page_up, 
+            'page_down' => $page_down, 
+            'page_three'=> $page_three,
+            'form_card' => $form_card,
+            'error' => $error ?? null,
+            'success' => $success ?? null,
+            'last_email' => $last_email ?? '',
+            'restaurant' => $restaurant
+        ]);
     }
 
     #[Route('admin/profil/{page_up}/{page_down}', name: "admin_profil", methods: ['GET', 'POST'], defaults: ['page_up' => 'informations', 'page_down' => 'carousel'])]
@@ -347,6 +392,7 @@ class AdminController extends AbstractController
             'images_carousel' => $imagesCarousel,
             'page_up' => $page_up,
             'page_down' => $page_down,
+            'page_three' => null,
             'form_image' => $form_image->createView(),
             'error' => $error ?? null,
             'success' => $success ?? null,
@@ -354,4 +400,5 @@ class AdminController extends AbstractController
             'restaurant' => $restaurant
         ]);
     }
+
 }
