@@ -52,10 +52,11 @@ class AdminController extends AbstractController
             'result' => 'success',
         ]);
     }
-    private function deleteImage($id, $repository) {
+    private function deleteElement($id, $repository) {
 
-        $image = $repository->find($id);
-        $repository->remove($image, true);
+        dump($id);
+        $element = $repository->find($id);
+        $repository->remove($element, true);
 
         return new JsonResponse([
             'result' => 'success',
@@ -148,7 +149,13 @@ class AdminController extends AbstractController
         }
         if ($request->isMethod('POST')) {
 
+            $delete = $request->request->get('delete');
             $id = $request->request->get('id');
+            
+            if ($delete) {
+                return $this->deleteElement($id, $foodRepository);
+            }
+
             $newTitle = $request->request->get('title');
             $newDescription = $request->request->get('description');
             $newPrice = $request->request->get('price');
@@ -425,7 +432,7 @@ class AdminController extends AbstractController
                 return $this->changeImageDatas($id, "title", $imageTitle, $carouselRepository);
             }
             if ($delete) {
-                return $this->deleteImage($id, $carouselRepository);
+                return $this->deleteElement($id, $carouselRepository);
             }
             if ($imageDescription) {
                 if (!$this->checkPattern($imageDescription, '/^[\p{L}\d\s.\'’-]{10,255}$/u')) {
