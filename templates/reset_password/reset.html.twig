@@ -11,7 +11,7 @@
         {{ form_start(resetForm, {'attr' : { 'class' : 'p-4 grid gap-6'}}) }}
             <div class="form_container">
                 {{ form_label(resetForm.plainPassword.first) }}
-                <div class="form_inputContainer">
+                <div class="form_inputContainer form_icon">
                     <i class="fa-solid fa-lock"></i>
                     {{ form_widget(resetForm.plainPassword.first) }}
                     <span role="button" onclick="togglePassword(event)">
@@ -25,7 +25,7 @@
             </div>
             <div class="form_container">
                 {{ form_label(resetForm.plainPassword.second) }}
-                <div class="form_inputContainer">
+                <div class="form_inputContainer form_icon">
                     <i class="fa-solid fa-lock"></i>
                     {{ form_widget(resetForm.plainPassword.second) }}
                     <span role="button" onclick="togglePassword(event)">

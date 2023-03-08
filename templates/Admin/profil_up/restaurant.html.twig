@@ -3,49 +3,49 @@
         <form method="POST" class="form_profil">
             <label for="tel" class="hidden md:block">Téléphone :</label>
             <div class="form_inputContainer input_profil">
-                <i class="fa-solid fa-phone"></i>
+                <i class="fa-solid fa-phone form_icon"></i>
                 <input class="input_whitePlaceholder" type="tel" name="tel" id="tel" required placeholder="{{ restaurant.tel }}" pattern='^(?:0|\+33)[1-9](?:\d{2}){4}$'>
-                <button type="submit" id="change_tel"><i class="fa-solid fa-pen"></i></button>
+                <button type="submit" id="change_tel" class="form_icon" ><i class="fa-solid fa-pen"></i></button>
             </div>
         </form>
         <form method="POST" class="form_profil">
             <label for="emailRestaurant" class="hidden md:block">Email :</label>
             <div class="form_inputContainer input_profil">
-                <i class="fa-solid fa-phone"></i>
+                <i class="fa-solid fa-phone form_icon"></i>
                 <input class="input_whitePlaceholder" type="email" name="emailRestaurant" id="emailRestaurant" required placeholder="{{ restaurant.email }}" minlength=5 maxlength=50>
-                <button type="submit" id="change_email"><i class="fa-solid fa-pen"></i></button>
+                <button type="submit" id="change_email" class="form_icon" ><i class="fa-solid fa-pen"></i></button>
             </div>
         </form>
         <form method="POST" class="form_profil">
             <label for="city" class="hidden md:block">Ville :</label>
             <div class="form_inputContainer input_profil">
-                <i class="fa-solid fa-city"></i>
+                <i class="fa-solid fa-city form_icon"></i>
                 <input class="input_whitePlaceholder" type="text" name="city" id="city" required placeholder="{{ restaurant.city }}" minlength=2 maxlength=50>
-                <button type="submit" id="change_city"><i class="fa-solid fa-pen"></i></button>
+                <button type="submit" id="change_city" class="form_icon" ><i class="fa-solid fa-pen"></i></button>
             </div>
         </form>
         <form method="post" class="form_profil">
             <label for="street" class="hidden md:block">Rue :</label>
             <div class="form_inputContainer input_profil">
-                <i class="fa-solid fa-street-view"></i>
+                <i class="fa-solid fa-street-view form_icon"></i>
                 <input class="input_whitePlaceholder" type="text" name="street" id="street" required placeholder="{{ restaurant.street }}" minlength=5 maxlength=80>
-                <button type="submit" id="change_street"><i class="fa-solid fa-pen"></i></button>
+                <button type="submit" id="change_street" class="form_icon" ><i class="fa-solid fa-pen"></i></button>
             </div>
         </form>
         <form method="post" class="form_profil">
             <label for="postcode" class="hidden md:block">Code postale :</label>
             <div class="form_inputContainer input_profil">
-                <i class="fa-solid fa-house"></i>
+                <i class="fa-solid fa-house form_icon"></i>
                 <input class="input_whitePlaceholder" type="number" name="postcode" id="postcode" required placeholder="{{ restaurant.postcode }}" pattern='\d{5}$\' minlength=5 maxlength=5> 
-                <button type="submit" id="change_postcode"><i class="fa-solid fa-pen"></i></button>
+                <button type="submit" id="change_postcode" class="form_icon" ><i class="fa-solid fa-pen"></i></button>
             </div>
         </form>
         <form method="post" class="form_profil items-center">
             <label for="places" class="hidden md:block">Couverts maximum :</label>
             <div class="form_inputContainer input_profil">
-                <i class="fa-solid fa-utensils"></i>
+                <i class="fa-solid fa-utensils form_icon"></i>
                 <input class="input_whitePlaceholder" type="number" name="places" id="places" required placeholder={{ restaurant.places }} placeholder="\d{1,3}$\" minlength=1 maxlength=3>
-                <button type="submit" id="change_places"><i class="fa-solid fa-pen"></i></button>
+                <button type="submit" id="change_places" class="form_icon" ><i class="fa-solid fa-pen"></i></button>
             </div>
         </form>
     </div>

@@ -307,8 +307,9 @@ header nav a.active::after {
 .form_inputContainer input {
     @apply flex-1 bg-transparent pl-1 w-full;
 }
-.form_inputContainer i {
-    @apply px-2 flex items-center h-full;
+.form_icon {
+    @apply px-2 items-center h-8 justify-center;
+    display: flex !important;
 }
 .hide {
     @apply hidden !important;

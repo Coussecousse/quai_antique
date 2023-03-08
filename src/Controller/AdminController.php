@@ -126,6 +126,14 @@ class AdminController extends AbstractController
             
         }
 
+        switch ($page_three) {
+            case 'entrées':
+                $values = $foodRepository->findBy(['category' => "starter"]);
+                break;
+            default: 
+                $values = $foodRepository->findBy(['category' => "starter"]);
+                break;
+        }
         return $this->render('Admin/profil_down/card/card.html.twig', [
             'page_up' => $page_up, 
             'page_down' => $page_down, 
@@ -134,7 +142,8 @@ class AdminController extends AbstractController
             'error' => $error ?? null,
             'success' => $success ?? null,
             'last_email' => $last_email ?? '',
-            'restaurant' => $restaurant
+            'restaurant' => $restaurant,
+            'values' => $values
         ]);
     }
 
