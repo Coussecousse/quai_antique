@@ -1,3 +1,5 @@
+console.log('test');
+
 function setFood(e) {
 
     const titleInput = e.target[0];

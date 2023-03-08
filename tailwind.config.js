@@ -24,6 +24,9 @@ module.exports = {
       letterSpacing : {
         "code" : ".875em",
       },
+      opacity: {
+        '85': '.85',
+      },
       blur : {
         sm : '2px',
         md : '4px',

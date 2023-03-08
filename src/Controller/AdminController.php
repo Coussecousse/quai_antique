@@ -145,7 +145,12 @@ class AdminController extends AbstractController
                     break;
             }
             $foodRepository->save($food, true);
-            
+            return $this->redirectToRoute('admin_card', [
+                "page_up" => $page_up,
+                'page_down' => $page_down,
+                'page_three' => $page_three,
+                'result' => "success"
+            ]);
         }
         if ($request->isMethod('POST')) {
 
@@ -174,10 +179,12 @@ class AdminController extends AbstractController
                 'result' => 'success'
             ]);
         }
-
         switch ($page_three) {
             case 'entrées':
                 $values = $foodRepository->findBy(['category' => "starter"]);
+                break;
+            case 'plats':
+                $values = $foodRepository->findBy(['category' => 'main']);
                 break;
             default: 
                 $values = $foodRepository->findBy(['category' => "starter"]);
