@@ -17,13 +17,13 @@
 					{{ form_errors(form_card.description) }}
 				</small>
 			</div>
-			<div class="w-[120px] ">
+			<div class="">
 				<div class="hidden">{{ form_label(form_card.price) }}</div>
-				<div class="flex items-center input_profil">
+				<div class="flex items-center input_profil w-[120px]">
                     <i class="fa-solid fa-euro-sign form_icon bg-primary/20"></i>
                     {{ form_widget(form_card.price, { 'attr' : { 'class' : 'pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon' }}) }}
                 </div>
-				<small class="form_error">
+				<small class="form_error ">
 					{{ form_errors(form_card.price) }}
 				</small>
 			</div>
@@ -40,12 +40,10 @@
 					<div class="">
 						<label hidden for="{{ 'title_'~ value.id }}">Titre :</label>
 						<input type="text" name="{{ 'title_'~ value.id }}" id="{{ 'title_'~ value.id }}" class="w-full pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon" required value="{{ value.title }}">
-						<small class="form_error"></small>
 					</div>
 					<div class="">
 						<label hidden for="{{ 'description_'~ value.id }}">Description :</label>
 						<input type="text" name="{{ 'description_'~ value.id }}" id="{{ 'description_'~ value.id }}" class="w-full pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon" value="{{ value.description }}">
-						<small class="form_error"></small>
 					</div>
 					<div class="w-[120px]">
 						<label hidden for="{{ 'price_'~ value.id }}">Prix :</label>
@@ -53,13 +51,11 @@
                             <i class="fa-solid fa-euro-sign form_icon bg-primary/20"></i>
                             <input type="text" name="{{ 'price_'~ value.id }}" id="{{ 'price_'~ value.id }}" class="w-full pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon" required value="{{ value.price }}">
                         </div>
-						<small class="form_error"></small>
 					</div>
 				</div>
 				<div class="flex flex-col gap-2">
 					<button aria-label="Modifier" type="submit" class="bg-primary/50 button_profil">
 						<i class="fa-solid fa-pen"></i>
-
 					</button>
 					<button aria-label="Supprimer" id="{{ 'delete_'~ value.id }}" onclick="deleteFood(event)" class="bg-primary/50 button_profil">
 						<i class="fa-solid fa-trash h-full button-full"></i>

@@ -7,7 +7,7 @@
             <ul>
                 <li class="text-primary"><a href="{{ path('admin_card', {'page_up' : page_up, 'page_down' : 'card', 'page_three' : 'entrées' })}}" class="hover:-translate-y-1 bg-500/60 duration-100 rounded-t-3xl">Entrées</a></li>
                 <li class="text-secondary"><a href="{{ path('admin_card', {'page_up' : page_up, 'page_down' : 'card', 'page_three' : 'plats' })}}" class="hover:-translate-y-1 bg-primary/85 duration-100 rounded-t-3xl">Plats</a></li>
-                <li><a href="{{ path('admin_card', {'page_up' : page_up, 'page_down' : 'card', 'page_three' : 'Desserts' })}}">Desserts</a></li>
+                <li class="text-secondary"><a href="{{ path('admin_card', {'page_up' : page_up, 'page_down' : 'card', 'page_three' : 'desserts' })}}" class="hover:-translate-y-1 bg-600 duration-100 rounded-t-3xl">Desserts</a></li>
                 <li><a href="{{ path('admin_card', {'page_up' : page_up, 'page_down' : 'card', 'page_three' : 'Menus' })}}">Menus</a></li>
             </ul>
         </nav>
@@ -17,6 +17,8 @@
             {% include 'Admin/profil_down/card/starter/starter.html.twig' %}
         {% elseif page_three == 'plats' %}
             {% include 'Admin/profil_down/card/main/main.html.twig' %}
+        {% elseif page_three == 'desserts' %}
+            {% include 'Admin/profil_down/card/dessert/dessert.html.twig' %}
         {% endif %}
     {% endblock %}
 </div>

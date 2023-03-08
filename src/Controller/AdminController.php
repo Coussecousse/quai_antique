@@ -127,7 +127,7 @@ class AdminController extends AbstractController
 
         if ($form_card->isSubmitted() && $form_card->isValid()) {
             $title = $form_card->get('title')->getData();
-            $description = $form_card->get('description')->getData();
+            $description = $form_card->get('description')->getData() ?? '';
             $price = $form_card->get('price')->getData();
 
             $food = new Food();
@@ -152,19 +152,17 @@ class AdminController extends AbstractController
                 'result' => "success"
             ]);
         }
-        if ($request->isMethod('POST')) {
+        $id = $request->request->get('id');
+        if ($request->isMethod('POST') && $id) {
 
             $delete = $request->request->get('delete');
-            $id = $request->request->get('id');
             
             if ($delete) {
                 return $this->deleteElement($id, $foodRepository);
             }
-
             $newTitle = $request->request->get('title');
             $newDescription = $request->request->get('description');
             $newPrice = $request->request->get('price');
-
             if (!$this->checkPattern($newTitle, "/^[\p{L}\d\s.\'’()-]+$/u") || !$this->checkPattern($newDescription, "/^[\p{L}\d\s.,()'’-]{0,255}$/u")) 
             {
                 return new JsonResponse([
@@ -174,10 +172,11 @@ class AdminController extends AbstractController
             $newFood = $foodRepository->find($id);
             $newFood->setTitle($newTitle)->setDescription($newDescription)->setPrice($newPrice);
             $foodRepository->save($newFood, true);
-            dump('coucou');
+
             return new JsonResponse([
                 'result' => 'success'
             ]);
+            
         }
         switch ($page_three) {
             case 'entrées':
@@ -186,6 +185,9 @@ class AdminController extends AbstractController
             case 'plats':
                 $values = $foodRepository->findBy(['category' => 'main']);
                 break;
+            case 'desserts':
+                $values = $foodRepository->findBy(['category' => 'dessert']);
+                break;                
             default: 
                 $values = $foodRepository->findBy(['category' => "starter"]);
                 break;
@@ -195,7 +197,7 @@ class AdminController extends AbstractController
             'page_up' => $page_up, 
             'page_down' => $page_down, 
             'page_three'=> $page_three,
-            'form_card' => $form_card,
+            'form_card' => $form_card->createView(),
             'error' => $error ?? null,
             'success' => $success ?? null,
             'last_email' => $last_email ?? '',
