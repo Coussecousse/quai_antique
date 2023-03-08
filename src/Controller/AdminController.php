@@ -100,6 +100,27 @@ class AdminController extends AbstractController
         $path = $this->getParameter('kernel.project_dir') . '/config/data/restaurant.yaml';
         $restaurant = Yaml::parseFile($path);
 
+        $result = $request->query->get('result');
+        switch($result) {
+            case 'success' : 
+                $success = "Modification effectuée avec succès !";
+                break;
+            case 'error_email_email' : 
+                $error = "Email invalide.";
+                break;
+            case 'error_invalid':
+                $error = "Mot de passe incorrect.";
+                break;
+            case 'error_pattern':
+                $error = "L'entrée fournie ne correspond pas au format requis.";
+                break;
+            case 'error' : 
+                $error = "Un problème est survenu. Veuillez nous excuser pour la gêne occasionnée. Si le problème persiste, n'hésitez pas à nous contacter directement.";
+                break;
+            default : 
+                break;
+        }
+
         $form_card = $this->createForm(CardType::class);
         $form_card->handleRequest($request);
 
@@ -125,6 +146,27 @@ class AdminController extends AbstractController
             $foodRepository->save($food, true);
             
         }
+        if ($request->isMethod('POST')) {
+
+            $id = $request->request->get('id');
+            $newTitle = $request->request->get('title');
+            $newDescription = $request->request->get('description');
+            $newPrice = $request->request->get('price');
+
+            if (!$this->checkPattern($newTitle, "/^[\p{L}\d\s.\'’()-]+$/u") || !$this->checkPattern($newDescription, "/^[\p{L}\d\s.,()'’-]{0,255}$/u")) 
+            {
+                return new JsonResponse([
+                    'result' => 'error_pattern'
+                ]);
+            }
+            $newFood = $foodRepository->find($id);
+            $newFood->setTitle($newTitle)->setDescription($newDescription)->setPrice($newPrice);
+            $foodRepository->save($newFood, true);
+            dump('coucou');
+            return new JsonResponse([
+                'result' => 'success'
+            ]);
+        }
 
         switch ($page_three) {
             case 'entrées':
@@ -134,6 +176,7 @@ class AdminController extends AbstractController
                 $values = $foodRepository->findBy(['category' => "starter"]);
                 break;
         }
+
         return $this->render('Admin/profil_down/card/card.html.twig', [
             'page_up' => $page_up, 
             'page_down' => $page_down, 
@@ -151,9 +194,6 @@ class AdminController extends AbstractController
     public function profil(string $page_up, string $page_down, UserRepository $repository, Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $userPasswordHasher, SluggerInterface $slugger, CarouselRepository $carouselRepository)
     {
         $result = $request->query->get('result');
-
-        $path = $this->getParameter('kernel.project_dir') . '/config/data/restaurant.yaml';
-        $restaurant = Yaml::parseFile($path);
 
         switch($result) {
             case 'success' : 
@@ -174,6 +214,9 @@ class AdminController extends AbstractController
             default : 
                 break;
         }
+
+        $path = $this->getParameter('kernel.project_dir') . '/config/data/restaurant.yaml';
+        $restaurant = Yaml::parseFile($path);
 
         $last_email = $request->getSession()->get('last_email');
 

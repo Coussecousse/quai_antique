@@ -19,3 +19,10 @@
     {% endblock %}
 </div>
 {% endblock %}
+
+{% block scripts %}
+    parent()
+{% if page_three == 'entrées' %} 
+    <script src={{ asset('js/profil/'~'handleRequest.food.js') }}></script>
+{% endif %}
+{% endblock %}
