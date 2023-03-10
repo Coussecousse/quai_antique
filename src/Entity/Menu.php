@@ -18,7 +18,7 @@ class Menu
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\OneToMany(mappedBy: 'menu', targetEntity: Offer::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'menu', targetEntity: Offer::class, orphanRemoval: true, cascade: ["persist"])]
     private Collection $offers;
 
     public function __construct()

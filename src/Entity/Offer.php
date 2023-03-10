@@ -20,8 +20,8 @@ class Offer
     #[ORM\Column(type: Types::ARRAY)]
     private array $description = [];
 
-    #[ORM\Column(type: Types::ARRAY, nullable: true)]
-    private array $conditions = [];
+    #[ORM\Column(nullable: true)]
+    private ?string $conditions = null;
 
     #[ORM\Column]
     private ?float $price = null;
@@ -58,19 +58,6 @@ class Offer
 
         return $this;
     }
-
-    public function getConditions(): array
-    {
-        return $this->conditions;
-    }
-
-    public function setConditions(array $conditions): self
-    {
-        $this->conditions = $conditions;
-
-        return $this;
-    }
-
     public function getPrice(): ?float
     {
         return $this->price;
@@ -91,6 +78,26 @@ class Offer
     public function setMenu(?Menu $menu): self
     {
         $this->menu = $menu;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of conditions
+     */ 
+    public function getConditions()
+    {
+        return $this->conditions;
+    }
+
+    /**
+     * Set the value of conditions
+     *
+     * @return  self
+     */ 
+    public function setConditions($conditions)
+    {
+        $this->conditions = $conditions;
 
         return $this;
     }

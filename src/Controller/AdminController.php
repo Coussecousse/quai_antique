@@ -4,11 +4,15 @@ namespace App\Controller;
 
 use App\Entity\Carousel;
 use App\Entity\Food;
+use App\Entity\Menu;
+use App\Entity\Offer;
 use App\Form\CardType;
 use App\Form\ImageType;
+use App\Form\MenusType;
 use App\ImageOptimizer;
 use App\Repository\CarouselRepository;
 use App\Repository\FoodRepository;
+use App\Repository\MenuRepository;
 use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
@@ -96,32 +100,11 @@ class AdminController extends AbstractController
         }
     }
     #[Route('admin/profil/{page_up}/{page_down}/{page_three}', name: "admin_card", methods: ['GET', 'POST'], defaults: ['page_up' => 'informations', 'page_down' => 'carousel'])]
-    public function profilCard(string $page_up, string $page_down, string $page_three, Request $request, FoodRepository $foodRepository)
+    public function profilCard(string $page_up, string $page_down, string $page_three, Request $request, FoodRepository $foodRepository, MenuRepository $menuRepository)
     {
         $path = $this->getParameter('kernel.project_dir') . '/config/data/restaurant.yaml';
         $restaurant = Yaml::parseFile($path);
-
-        $result = $request->query->get('result');
-        switch($result) {
-            case 'success' : 
-                $success = "Modification effectuée avec succès !";
-                break;
-            case 'error_email_email' : 
-                $error = "Email invalide.";
-                break;
-            case 'error_invalid':
-                $error = "Mot de passe incorrect.";
-                break;
-            case 'error_pattern':
-                $error = "L'entrée fournie ne correspond pas au format requis.";
-                break;
-            case 'error' : 
-                $error = "Un problème est survenu. Veuillez nous excuser pour la gêne occasionnée. Si le problème persiste, n'hésitez pas à nous contacter directement.";
-                break;
-            default : 
-                break;
-        }
-
+        
         $form_card = $this->createForm(CardType::class);
         $form_card->handleRequest($request);
 
@@ -151,6 +134,31 @@ class AdminController extends AbstractController
                 'page_three' => $page_three,
                 'result' => "success"
             ]);
+        } else if ($form_card->isSubmitted() && !$form_card->isValid()) {
+            $request->query->remove('result');
+        }
+        
+        $menu = new Menu();
+        $offer = new Offer();
+        $offer->setTitle('Offre 1')->setConditions('Condition 1')->setDescription(['Entrée', 'Plat']);
+        $menu->addOffer($offer);
+        
+        $form_menu = $this->createForm(MenusType::class, $menu);
+        $form_menu->handleRequest($request);
+        
+        if ($form_menu->isSubmitted() && $form_menu->isValid()) {
+            // ... do your form processing, like saving the Task and Tag entities
+            $menu = $form_menu->getData(); 
+            $menuRepository->save($menu, true);
+
+            return $this->redirectToRoute('admin_card', [
+                "page_up" => $page_up,
+                'page_down' => $page_down,
+                'page_three' => $page_three,
+                'result' => "success"
+            ]);
+        }  else if ($form_menu->isSubmitted() && !$form_menu->isValid()){
+            $request->query->remove('result');
         }
         $id = $request->request->get('id');
         if ($request->isMethod('POST') && $id) {
@@ -178,6 +186,29 @@ class AdminController extends AbstractController
             ]);
             
         }
+
+        $result = $request->query->get('result');
+        
+        switch($result) {
+            case 'success' : 
+                $success = "Modification effectuée avec succès !";
+                break;
+            case 'error_email_email' : 
+                $error = "Email invalide.";
+                break;
+            case 'error_invalid':
+                $error = "Mot de passe incorrect.";
+                break;
+            case 'error_pattern':
+                $error = "L'entrée fournie ne correspond pas au format requis.";
+                break;
+            case 'error' : 
+                $error = "Un problème est survenu. Veuillez nous excuser pour la gêne occasionnée. Si le problème persiste, n'hésitez pas à nous contacter directement.";
+                break;
+            default : 
+                break;
+        }
+        
         switch ($page_three) {
             case 'entrées':
                 $values = $foodRepository->findBy(['category' => "starter"]);
@@ -198,39 +229,19 @@ class AdminController extends AbstractController
             'page_down' => $page_down, 
             'page_three'=> $page_three,
             'form_card' => $form_card->createView(),
+            'form_menu' => $form_menu,
             'error' => $error ?? null,
             'success' => $success ?? null,
             'last_email' => $last_email ?? '',
             'restaurant' => $restaurant,
-            'values' => $values
+            'values' => $values,
+            'errors' => $errors ?? null
         ]);
     }
 
     #[Route('admin/profil/{page_up}/{page_down}', name: "admin_profil", methods: ['GET', 'POST'], defaults: ['page_up' => 'informations', 'page_down' => 'carousel'])]
     public function profil(string $page_up, string $page_down, UserRepository $repository, Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $userPasswordHasher, SluggerInterface $slugger, CarouselRepository $carouselRepository)
     {
-        $result = $request->query->get('result');
-
-        switch($result) {
-            case 'success' : 
-                $success = "Modification effectuée avec succès !";
-                break;
-            case 'error_email_email' : 
-                $error = "Email invalide.";
-                break;
-            case 'error_invalid':
-                $error = "Mot de passe incorrect.";
-                break;
-            case 'error_pattern':
-                $error = "L'entrée fournie ne correspond pas au format requis.";
-                break;
-            case 'error' : 
-                $error = "Un problème est survenu. Veuillez nous excuser pour la gêne occasionnée. Si le problème persiste, n'hésitez pas à nous contacter directement.";
-                break;
-            default : 
-                break;
-        }
-
         $path = $this->getParameter('kernel.project_dir') . '/config/data/restaurant.yaml';
         $restaurant = Yaml::parseFile($path);
 
@@ -262,6 +273,8 @@ class AdminController extends AbstractController
                 'page_down' => $page_down,
                 'result' => "success"
             ]);
+        } else if ($form_image->isSubmitted() && !$form_image->isValid()) {
+            $request->query->remove('result');
         }
 
         if ($request->isMethod('POST')) {
@@ -455,6 +468,28 @@ class AdminController extends AbstractController
         }
 
         $imagesCarousel = $carouselRepository->findAll();
+
+        $result = $request->query->get('result');
+
+        switch($result) {
+            case 'success' : 
+                $success = "Modification effectuée avec succès !";
+                break;
+            case 'error_email_email' : 
+                $error = "Email invalide.";
+                break;
+            case 'error_invalid':
+                $error = "Mot de passe incorrect.";
+                break;
+            case 'error_pattern':
+                $error = "L'entrée fournie ne correspond pas au format requis.";
+                break;
+            case 'error' : 
+                $error = "Un problème est survenu. Veuillez nous excuser pour la gêne occasionnée. Si le problème persiste, n'hésitez pas à nous contacter directement.";
+                break;
+            default : 
+                break;
+        }
 
         return $this->render('Admin/profil.html.twig', [
             'images_carousel' => $imagesCarousel,

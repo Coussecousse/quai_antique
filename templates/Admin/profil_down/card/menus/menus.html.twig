@@ -1,0 +1,87 @@
+<div class="drop-shadow-lg bg-500 text-secondary">
+    <section class="py-6 after relative">
+        <p class="w-11/12 mx-auto max-w-[598px] pb-3 underline underline-offset-2">Ajouter un menu :</p>
+        {{ form_start(form_menu, { 'attr' : { 'class' : 'bg-600 w-11/12 mx-auto max-w-[598px] flex flex-col justify-center p-4 text-secondary' }}) }}
+        <div class="after relative after:bg-secondary after:opacity-50">
+            <div class="flex gap-2">
+                <div class="flex-1">
+                    <div class="hidden">{{ form_label(form_menu.title) }}</div>
+                    {{ form_widget(form_menu.title, { 'attr' : { 'class' : 'w-full pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon' }}) }}
+                    <small class="form_error">
+                        {{ form_errors(form_menu.title) }}
+                    </small>
+                </div>
+                <button type="submit" id="add_image" class="bg-primary/50 button_profil">
+                    <i class="fa-solid fa-plus text-secondary"></i>
+                </button>
+            </div>
+            <button type="button" class="add_item_link text-secondary bg-primary/50 px-4 py-2 relative left-1/2 -translate-x-1/2 my-3" data-collection-holder-class="offers">Ajouter une formule</button>
+        </div>
+    <ul class="offers"
+        data-index="{{ form_menu.offers|length > 0 ? form_menu.offers|last.vars.name + 1 : 0 }}"
+        data-prototype="{{ _self.offers_prototype(form_menu.offers.vars.prototype)|e('html_attr') }}"
+        >
+        {% for offer in form_menu.offers %}
+
+            {{ _self.offers_prototype(offer) }}
+        {% endfor %}
+    </ul>
+    {{ form_rest(form_menu) }}
+    {{ form_end(form_menu) }}
+    </section>
+</div>
+
+
+{% macro offers_prototype(offer) %}
+<li class="after my-2 relative after:bg-secondary/50 after:w-2/5 flex flex-col gap-2">
+    <div class="name flex gap-2">
+        <div class="flex-1">
+            <div class="hidden">{{ form_label(offer.title) }}</div>
+            {{ form_widget(offer.title, { 'attr' : { 'class' : 'w-full pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon' }}) }}
+            <small class="form_error">
+                {{ form_errors(offer.title) }}
+            </small>
+        </div>
+    </div>
+    <div>
+        <div class="hidden">{{ form_label(offer.conditions) }}</div>
+        {{ form_widget(offer.conditions, { 'attr' : { 'class' : 'w-full pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon' }}) }}
+        <small class="form_error">
+            {{ form_errors(offer.conditions) }}
+        </small>
+    </div>
+    <div class="flex justify-between items-center">
+        <p class="underline underline-offset-2">Composition :</p>
+        <button type="button" class="add_item_link text-secondary bg-primary/50 px-4 py-1" data-collection-holder-class="compositions">Ajouter</button>
+    </div>
+    <ol class="compositions flex flex-col gap-2"
+    data-index="{{ offer.description|length > 0 ? offer.description|last.vars.name + 1 : 0 }}"
+    data-prototype="{{  _self.compositions_prototype(offer.description.vars.prototype)|e('html_attr') }}"
+    >
+    {% for composition in offer.description %}
+        {{ _self.compositions_prototype(composition) }}
+    {% endfor %}
+    </ol>
+    <div class="my-2 relative after:conten-[''] before:absolute before:w-[100px] before:h-px before:bg-secondary before:opacity-50 before:-top-2">
+        <div class="hidden">{{ form_label(offer.price) }}</div>
+        <div class="flex items-center input_profil w-[120px]">
+            <i class="fa-solid fa-euro-sign form_icon bg-primary/20"></i>
+            {{ form_widget(offer.price, { 'attr' : { 'class' : 'pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon' }}) }}
+        </div>
+        <small class="form_error">
+            {{ form_errors(offer.price) }}
+        </small>
+    </div>
+</li>
+{% endmacro %}
+{% macro compositions_prototype(composition) %}
+    <li class="name flex gap-2" >
+        <div class="flex-1">
+            <div class="hidden">{{ form_label(composition) }}</div>
+            {{ form_widget(composition, { 'attr' : { 'class' : 'flex-1 pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon', 'placeholder' : 'Plat...' }}) }}
+            <small class="form_error">
+                {{ form_errors(composition) }}
+            </small>
+        </div>
+    </li>
+{% endmacro %}

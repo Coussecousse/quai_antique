@@ -49,7 +49,7 @@ class CardType extends AbstractType{
                 "constraints" => [
                     new NotBlank(["message" => "Ne peut pas être vide."]),
                 ]
-                ]);
+            ]);
     }
     public function configureOptions(OptionsResolver $resolver): void
     {
