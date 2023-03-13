@@ -223,6 +223,7 @@ class AdminController extends AbstractController
                 $values = $foodRepository->findBy(['category' => "starter"]);
                 break;
         }
+        $menus = $menuRepository->findAll();
 
         return $this->render('Admin/profil_down/card/card.html.twig', [
             'page_up' => $page_up, 
@@ -235,7 +236,8 @@ class AdminController extends AbstractController
             'last_email' => $last_email ?? '',
             'restaurant' => $restaurant,
             'values' => $values,
-            'errors' => $errors ?? null
+            'errors' => $errors ?? null,
+            'menus' => $menus
         ]);
     }
 
