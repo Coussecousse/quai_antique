@@ -160,8 +160,9 @@ function addComposition(e) {
 }
 
 function showMenu(e) {
+
     e.preventDefault();
-    console.log(e.target)
+
     const caret = e.target;
     if (caret.classList.contains('fa-caret-down')) {
         caret.classList.add('hide');
@@ -187,4 +188,91 @@ function showMenu(e) {
         const listOffer = divParent.nextElementSibling;
         listOffer.classList.add('hide');
     }
+}
+
+function setMenu(e) {
+    const form = e.target;
+    const id = (form.id.split('_'))[1];
+
+    const titleMenu = form[0];
+    const titleMenuValue = titleMenu.value;
+
+    if (titleMenuValue === '') {
+        return;
+    }
+    e.preventDefault;
+    const offers = form.querySelector('ul.modify_offers').children;
+    let offerIndex = 0;
+    const offersData = [];
+    for (let offer of offers) {
+        const offerTitle = offer.querySelector('input[name=offer_title_' + offerIndex);
+        const titleValue = offerTitle.value;
+        if (titleValue === '') {
+            return;
+        }
+        offersData.push(titleValue);
+        
+        const conditions = offer.querySelector('input[name=offer_conditions_'+ offerIndex);
+        const conditionsValue = conditions.value;
+        offersData.push(conditionsValue);
+
+        const compositions = offer.querySelector('ol.compositions').children;
+        let compositionIndex = 0;
+        const compositionsData = [];
+        for (let composition of compositions) {
+            const compositionTitle = composition.querySelector('input[name=offer_'+ offerIndex +'_composition_title_'+ compositionIndex);
+    
+            const compositionValue = compositionTitle.value;
+            if (compositionValue === '') {
+                return;
+            }
+            compositionIndex++;
+            compositionsData.push(compositionValue);
+        }
+        offersData.push(compositionsData);
+        
+        const price = offer.querySelector('input[name=price_'+ offerIndex);
+        const priceValue = price.value;
+        if (priceValue === '') {
+            return;
+        }
+        offersData.push(priceValue);
+        offerIndex++;
+    }   
+
+    e.preventDefault();
+
+    const xhr = new XMLHttpRequest();
+
+    xhr.onload = function() {
+        let url = window.location.origin + window.location.pathname;
+
+        if (this.readyState == 4 && this.status == 200) {
+            const response = JSON.parse(xhr.responseText);
+
+            switch(response.result){
+                case 'success':
+                    window.location = url + "?result=success";
+                    break;
+                case 'error_pattern' :
+                    window.location = url + "?result=error_pattern";
+                    break;
+                default : 
+                    window.location = url + "?result=error";
+                    break;
+            }
+        } else {
+            window.location = url + "?result=error";
+        }
+    }
+    xhr.open('POST', '/admin/profil/{page_up}/{page_down}/{page_three}');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    const data = {
+        id : id,
+        menuTitle : titleMenuValue,
+        offers : offersData
+    }
+    
+    xhr.send(JSON.stringify(data));
 }

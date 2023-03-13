@@ -1,12 +1,9 @@
-console.log('test');
-
 function setFood(e) {
 
     const titleInput = e.target[0];
     const title = titleInput.value;
 
     const description = e.target[1].value;
-    console.log(description);
     const price = e.target[2].value;
     const button = e.target[3];
 
