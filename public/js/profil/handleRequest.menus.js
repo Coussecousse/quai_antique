@@ -158,3 +158,33 @@ function addComposition(e) {
 
     parent.appendChild(newOffer);
 }
+
+function showMenu(e) {
+    e.preventDefault();
+    console.log(e.target)
+    const caret = e.target;
+    if (caret.classList.contains('fa-caret-down')) {
+        caret.classList.add('hide');
+        caret.nextElementSibling.classList.remove('hide');
+
+        const divParent = caret.parentElement.parentElement.parentElement;
+        divParent.classList.add('after');
+
+        const buttonAffOffer = divParent.children[1].classList.remove('hide');
+
+        const listOffer = divParent.nextElementSibling;
+        listOffer.classList.remove('hide');
+    } else {
+        caret.classList.add('hide');
+        caret.previousElementSibling.classList.remove('hide');
+
+        const divParent = caret.parentElement.parentElement.parentElement;
+        divParent.classList.remove('after');
+
+        const buttonAffOffer = divParent.children[1].classList.add('hide')
+
+        
+        const listOffer = divParent.nextElementSibling;
+        listOffer.classList.add('hide');
+    }
+}
