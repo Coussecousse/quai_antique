@@ -30,7 +30,7 @@
     </section>
     <section class="flex flex-col gap-7 py-6">
         <ul>
-        {% for key, menu in menus %}
+        {% for key_menu, menu in menus %}
             <li class="after my-2 relative after:bg-secondary/50 after:w-2/5 flex flex-col gap-2">
                 <form onSubmit="setMenu(event)" method="post" class="bg-600 w-11/12 mx-auto max-w-[598px] flex flex-col justify-center p-4 text-secondary" id="{{ 'menu_'~ menu.id }}">
                     <div class="relative after:bg-secondary after:opacity-50">
@@ -58,8 +58,8 @@
                     </div>
                     <ul class="modify_offers hide" 
                     >
-                    {% for key, offer in menu.offers %}
-                        {{ _self.offers_prototype(key, offer, key) }}
+                    {% for key, offer in menu.offers %} 
+                        {{ _self.offers_prototype(key, offer, key_menu) }}
                     {% endfor %}
                     </ul>
                 </form>
@@ -123,42 +123,47 @@
         </div>
     </li>
 {% endmacro %}
-{% macro offers_prototype(key, offer, key_menu) %}
+{% macro offers_prototype(key_offer, offer, key_menu) %}
 <li class="after my-2 relative after:bg-secondary/50 after:w-2/5 flex flex-col gap-2" >
     <div class="flex gap-2">
         <div class="flex-1">
-            <label hidden for="{{'offer_title_'~ key }}">Titre :</label>
-            <input required minLength=2 maxLength=150  type="text" class="w-full pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon" id="{{ 'offer_title_'~ key}}" name="{{ 'offer_title_'~ key}}" value="{{ offer.title }}">
+            <label hidden for="{{'menu_'~ key_menu ~'_offer_title_'~ key_offer }}">Titre :</label>
+            <input required minLength=2 maxLength=150  type="text" class="w-full pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon" id="{{'menu_'~ key_menu ~'_offer_title_'~ key_offer }}" name="{{'menu_'~ key_menu ~'_offer_title_'~ key_offer }}" value="{{ offer.title }}">
         </div>
+        {% if key_offer != 0 %}
+        <button>
+            <i class="button-deleteOffer fa-solid fa-trash button-full bg-primary/50 button_profil" onclick="deleteOffer(event)"></i>
+        </button>
+        {% endif %}
     </div>
     <div>
-        <label hidden for="{{'offer_conditions_'~ key }}">Conditions :</label>
-        <input maxLength=150  type="text" class="w-full pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon" id="{{ 'offer_conditions_'~ key}}" name="{{ 'offer_conditions_'~ key}}" value="{{ offer.conditions }}" placeholder="Condition(s)...">
+        <label hidden for="{{'menu_'~ key_menu ~'_offer_conditions_'~ key_offer }}">Conditions :</label>
+        <input maxLength=150  type="text" class="w-full pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon" id="{{'menu_'~ key_menu ~'_offer_conditions_'~ key_offer }}" name="{{'menu_'~ key_menu ~'_offer_conditions_'~ key_offer }}" value="{{ offer.conditions }}" placeholder="Condition(s)...">
     </div>
     <div class="flex justify-between items-center">
         <p class="underline underline-offset-2">Composition :</p>
-        <button type="button" class="text-secondary bg-primary/50 px-4 py-1" onclick="addComposition(event)">Ajouter</button>
+        <button type="button" class="text-secondary bg-primary/50 px-4 py-1" onclick="addComposition(event)" data-index-menu={{ key_menu }} data-index-offer={{ key_offer }}>Ajouter</button>
     </div>
     <ol class="compositions flex flex-col gap-2"
     >
     {% for key, composition in offer.description %}
-        {{ _self.compositions_prototype(key, composition, key_menu) }}
+        {{ _self.compositions_prototype(key, composition, key_offer, key_menu) }}
     {% endfor %}
     </ol>
     <div class="my-2 relative after:conten-[''] before:absolute before:w-[100px] before:h-px before:bg-secondary before:opacity-50 before:-top-2">
-        <label for="{{ 'price_'~ key }}" hidden>Prix :</label>
+        <label for="{{ 'menu_'~ key_menu ~'price_'~ key_offer }}" hidden>Prix :</label>
         <div class="flex items-center input_profil w-[120px]">
             <i class="fa-solid fa-euro-sign form_icon bg-primary/20"></i>
-            <input required type="number" class="w-full pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon" id="{{ 'price_'~ key}}" name="{{ 'price_'~ key}}" value="{{ offer.price }}" >
+            <input required type="number" class="w-full pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon" id="{{ 'menu_'~ key_menu ~'price_'~ key_offer }}" name="{{ 'menu_'~ key_menu ~'price_'~ key_offer }}" value="{{ offer.price }}" >
         </div>
     </div>
 </li>
 {% endmacro %}
-{% macro compositions_prototype(key, composition, key_menu) %}
+{% macro compositions_prototype(key, composition, key_offer, key_menu) %}
     <li class="name flex gap-2">
         <div class="flex-1">
-            <label hidden for="{{'offer_'~ key_menu ~'_composition_title_'~ key }}">Composer de...</label>
-            <input required minLength="2" maxLength="200"  type="text" class="pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon" id="{{'offer_'~ key_menu ~'_composition_title_'~ key }}" name="{{'offer_'~ key_menu ~'_composition_title_'~ key }}" value="{{ composition }}" placeholder="Plat...">
+            <label hidden for="{{'menu_'~ key_menu ~'_offer_'~ key_offer ~'_composition_title_'~ key }}">Composer de...</label>
+            <input required minLength="2" maxLength="200"  type="text" class="pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon" id="{{'menu_'~ key_menu ~'_offer_'~ key_offer ~'_composition_title_'~ key }}" name="{{'menu_'~ key_menu ~'_offer_'~ key_offer ~'_composition_title_'~ key }}" value="{{ composition }}" placeholder="Plat...">
         </div>
         {% if key >= 1 %}
         <button>

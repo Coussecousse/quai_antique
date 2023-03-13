@@ -13,6 +13,7 @@ use App\ImageOptimizer;
 use App\Repository\CarouselRepository;
 use App\Repository\FoodRepository;
 use App\Repository\MenuRepository;
+use App\Repository\OfferRepository;
 use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
@@ -100,7 +101,7 @@ class AdminController extends AbstractController
         }
     }
     #[Route('admin/profil/{page_up}/{page_down}/{page_three}', name: "admin_card", methods: ['GET', 'POST'], defaults: ['page_up' => 'informations', 'page_down' => 'carousel'])]
-    public function profilCard(string $page_up, string $page_down, string $page_three, Request $request, FoodRepository $foodRepository, MenuRepository $menuRepository)
+    public function profilCard(string $page_up, string $page_down, string $page_three, Request $request, FoodRepository $foodRepository, MenuRepository $menuRepository, OfferRepository $offerRepository)
     {
         $path = $this->getParameter('kernel.project_dir') . '/config/data/restaurant.yaml';
         $restaurant = Yaml::parseFile($path);
@@ -185,6 +186,48 @@ class AdminController extends AbstractController
                 'result' => 'success'
             ]);
             
+        } 
+        if ($request->isMethod('POST')) {
+            $dataMenu = json_decode($request->getContent(), true);
+            dump($dataMenu);
+            if (!is_array($dataMenu) || !$dataMenu) {
+                return new JsonResponse([
+                    'result' => 'error'
+                ]);
+            }
+            $menuId = $dataMenu['id'];
+
+            try {
+                $modifyMenu = $menuRepository->find($menuId);
+            } catch (Exception $e) {
+                return new JsonResponse([
+                    'result' => 'error'
+                ]);
+            }
+            $menuTitle = $dataMenu['menuTitle'];
+            $modifyMenu->setTitle($menuTitle);
+
+            $offersToRemove = $modifyMenu->getOffers();
+            foreach ($offersToRemove as $offer) {
+                $modifyMenu->removeOffer($offer);
+            }
+            $newOffers = $dataMenu['offers'];
+            dump($newOffers);
+
+            foreach($newOffers as $newOffer) {
+                $offer = new Offer();
+                dump($newOffer);
+                // dump($newOffer[2]);
+                // dump(gettype($newOffer[2]));
+                // $offer->setTitle($newOffer[0])->setConditions($newOffer[1])->setDescription($newOffer[2])->setPrice($newOffer[3]);
+                // $modifyMenu->addOffer($offer);
+            }
+            dump($menuRepository);
+            // $menuRepository->save($modifyMenu, true);
+
+            return new JsonResponse([
+                'result' => 'success'
+            ]);
         }
 
         $result = $request->query->get('result');
