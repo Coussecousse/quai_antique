@@ -1,5 +1,4 @@
 function addDeleteButton(parent) {
-    console.log('coucou');
     const element = parent.querySelector('.name');
     const removeButton = document.createElement('button');
     
@@ -53,7 +52,6 @@ document
 
 function deleteComposition(e) {
     e.preventDefault();
-    console.log('hey')
     const element = e.target.parentElement.parentElement;
     // remove the li for the tag form
     element.remove();
@@ -61,7 +59,6 @@ function deleteComposition(e) {
 function deleteOffer(e) {
     e.preventDefault();
     const element = e.target.parentElement.parentElement.parentElement.parentElement;
-    console.log(element);
     element.remove();
 }
 function setElementAttribute(element, attributs) {
@@ -74,7 +71,12 @@ function modifyElement(element, index, changement) {
     element.value = '';
     element.name = changement + index;
     element.id = changement + index;
-    element.previousElementSibling.children[0].setAttribute('for', changement + index)
+
+    if (element.previousElementSibling.children.length == 0) {
+        element.previousElementSibling.setAttribute('for', changement + index);
+    } else {
+        element.previousElementSibling.children[0].setAttribute('for', changement + index);
+    }
 }
 function addOffer(e) {
     const offerModel = document.querySelector('.offer_model');
@@ -100,24 +102,26 @@ function addOffer(e) {
     olCompositions.dataset.index = '';
     olCompositions.dataset.prototype = '';
 
-    const offers = olCompositions.querySelectorAll('.offer_model');
-    offers.forEach( (offer, i) => {
-        offer.value = '';
-        offer.name = 'offer_composition_title_'+ i;
-        offer.id =  'offer_composition_title_'+ i;
-        console.log(offer);
-        offer.previousElementSibling.children[0].setAttribute('for', 'offer_composition_title_'+ i);
+    const compositions = olCompositions.querySelectorAll('.offer_model');
+    compositions.forEach( (composition, i) => {
+        composition.value = '';
+        composition.name = 'offer_'+ offerModel.parentElement.children.length +'_composition_title_'+ i;
+        composition.id =  'offer_'+ offerModel.parentElement.children.length +'_composition_title_'+ i;
+        composition.previousElementSibling.children[0].setAttribute('for', 'offer_composition_title_'+ i);
     })
+
     // Add delete button
     const elementAddDeleteButon = newOffer.querySelectorAll('.name');
-    elementAddDeleteButon.forEach(element => {
+    elementAddDeleteButon.forEach( (element, index) => {
+        if (index == 1) {
+            return;
+        }
         const removeButton = document.createElement('button');
     
         const i = document.createElement('i');
         i.classList.add('fa-solid', 'fa-trash', 'button-full', 'bg-primary/50', 'button_profil');
         
         removeButton.appendChild(i);
-        console.log(element.parentElement.parentElement)
         if (element.parentElement.classList.contains('compositions_model')) {
             removeButton.onclick = e => deleteComposition(e);
         } else {
@@ -128,4 +132,29 @@ function addOffer(e) {
     })
 
     ul.appendChild(newOffer);
+}
+
+function addComposition(e) {
+    const parent = e.target.parentElement.parentElement.children[3];
+    const offerModel = document.querySelector('#offer_0_composition_title_0').parentElement.parentElement;
+    const newOffer = offerModel.cloneNode(true);
+
+    const input = newOffer.querySelector('input');
+    let inputName = input.name.split('_');
+    inputName.pop();
+    
+    inputName = inputName.join('_');    
+    modifyElement(input, parent.length, inputName + '_');
+    if (parent.children.length !== 0) {
+        const removeButton = document.createElement('button');
+        
+        const i = document.createElement('i');
+        i.classList.add('fa-solid', 'fa-trash', 'button-full', 'bg-primary/50', 'button_profil');
+        
+        removeButton.appendChild(i);
+        removeButton.onclick = e => deleteComposition(e);
+        newOffer.appendChild(removeButton);
+    }
+
+    parent.appendChild(newOffer);
 }
