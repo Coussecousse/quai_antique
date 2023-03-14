@@ -28,19 +28,47 @@ function addFormToCollection(e) {
     } else {
         collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
     }
-    const item = document.createElement('li');
 
-    item.innerHTML = collectionHolder
-    .dataset
-    .prototype
-    .replace(
-        /__name__/g,
-        collectionHolder.dataset.index
-        );
+    const index = collectionHolder.dataset.index;
+    
+    const item = document.createElement('li');
+    const offers = document.querySelector('.offers').children;
+    let prototype;
+    if (offers.length > 0 && !collectionHolder.classList.contains('offers') && collectionHolder.dataset.offerId != '0') {
+        let offerId;
+        if (collectionHolder.dataset.offerId === '') {
+            let i = 0;
+            for (let offer of offers) {
+                if (offer == collectionHolder.parentElement.parentElement) {
+                    console.log('yo');
+                    collectionHolder.dataset.offerId = i;
+                    offerId = i;
+                }
+                i++;
+            }
+        } else {
+            offerId = collectionHolder.dataset.offerId;
+        }
         
-        collectionHolder.appendChild(item);
+        prototype = `
+        <li class="name flex gap-2" >
+        <div class="flex-1">
+        <label hidden for="menus_offers_${offerId}_description___name__"></label> 
+        <input type="text" id="menus_offers_${offerId}_description___name__" name="menus[offers][${offerId}][description][__name__]" required="required" class="offer_model pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon" placeholder="Plat..." />
+        <small class="form_error">
         
-        collectionHolder.dataset.index++;
+        </small>
+        </div>
+        </li>`
+    } else {
+        prototype = collectionHolder.dataset.prototype;
+    }
+    const newForm = prototype.replace(/__name__/g, index);
+
+    item.innerHTML = newForm;
+    collectionHolder.appendChild(item);
+
+    collectionHolder.dataset.index++;
 
     addDeleteButton(item);
 };
@@ -215,23 +243,29 @@ function setMenu(e) {
     let offerIndex = 0;
     const offersData = [];
     for (let offer of offers) {
-        const offerTitle = offer.querySelector('input[name=offer_title_' + offerIndex);
+        let indexMenu = offer.dataset.indexMenu;
+
+        const offerTitle = offer.querySelector('input[name=menu_'+ indexMenu +'_offer_title_' + offerIndex);
         const titleValue = offerTitle.value;
         if (titleValue === '') {
             return;
         }
         offersData.push(titleValue);
         
-        const conditions = offer.querySelector('input[name=offer_conditions_'+ offerIndex);
+        const conditions = offer.querySelector('input[name=menu_'+ indexMenu +'_offer_conditions_'+ offerIndex);
         const conditionsValue = conditions.value;
         offersData.push(conditionsValue);
 
         const compositions = offer.querySelector('ol.compositions').children;
+        console.log(compositions)
         let compositionIndex = 0;
+        console.log(compositionIndex);
         const compositionsData = [];
         for (let composition of compositions) {
-            const compositionTitle = composition.querySelector('input[name=offer_'+ offerIndex +'_composition_title_'+ compositionIndex);
-    
+            const compositionTitle = composition.querySelector('input[name=menu_'+ indexMenu +'_offer_'+ offerIndex +'_composition_title_'+ compositionIndex);
+            console.log('menu_'+ indexMenu +'_offer_'+ offerIndex +'_composition_title_'+ compositionIndex);
+            console.log(compositionTitle);
+            e.preventDefault();
             const compositionValue = compositionTitle.value;
             if (compositionValue === '') {
                 return;
@@ -241,7 +275,8 @@ function setMenu(e) {
         }
         offersData.push(compositionsData);
         
-        const price = offer.querySelector('input[name=price_'+ offerIndex);
+        const price = offer.querySelector('input[name=menu_'+ indexMenu +'_price_'+ offerIndex);
+
         const priceValue = price.value;
         if (priceValue === '') {
             return;
@@ -250,42 +285,42 @@ function setMenu(e) {
         offerIndex++;
     }   
 
-    e.preventDefault();
+    // e.preventDefault();
     
-    const button = form.querySelector('button[type=submit]');
-    button.disabled = true;
+    // const button = form.querySelector('button[type=submit]');
+    // button.disabled = true;
 
-    const xhr = new XMLHttpRequest();
+    // const xhr = new XMLHttpRequest();
 
-    xhr.onload = function() {
-        let url = window.location.origin + window.location.pathname;
+    // xhr.onload = function() {
+    //     let url = window.location.origin + window.location.pathname;
 
-        if (this.readyState == 4 && this.status == 200) {
-            const response = JSON.parse(xhr.responseText);
+    //     if (this.readyState == 4 && this.status == 200) {
+    //         const response = JSON.parse(xhr.responseText);
 
-            switch(response.result){
-                case 'success':
-                    window.location = url + "?result=success";
-                    break;
-                case 'error_pattern' :
-                    window.location = url + "?result=error_pattern";
-                    break;
-                default : 
-                    window.location = url + "?result=error";
-                    break;
-            }
-        } else {
-            window.location = url + "?result=error";
-        }
-    }
-    xhr.open('POST', '/admin/profil/{page_up}/{page_down}/{page_three}');
-    xhr.setRequestHeader('Content-Type', 'application/json');
+    //         switch(response.result){
+    //             case 'success':
+    //                 window.location = url + "?result=success";
+    //                 break;
+    //             case 'error_pattern' :
+    //                 window.location = url + "?result=error_pattern";
+    //                 break;
+    //             default : 
+    //                 window.location = url + "?result=error";
+    //                 break;
+    //         }
+    //     } else {
+    //         window.location = url + "?result=error";
+    //     }
+    // }
+    // xhr.open('POST', '/admin/profil/{page_up}/{page_down}/{page_three}');
+    // xhr.setRequestHeader('Content-Type', 'application/json');
 
-    const data = {
-        id : id,
-        menuTitle : titleMenuValue,
-        offers : offersData
-    }
+    // const data = {
+    //     id : id,
+    //     menuTitle : titleMenuValue,
+    //     offers : offersData
+    // }
     
-    xhr.send(JSON.stringify(data));
+    // xhr.send(JSON.stringify(data));
 }

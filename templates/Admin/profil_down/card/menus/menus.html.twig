@@ -21,8 +21,8 @@
             data-index="{{ form_menu.offers|length > 0 ? form_menu.offers|last.vars.name + 1 : 0 }}"
             data-prototype="{{ _self.offers_prototype_empty(form_menu.offers.vars.prototype)|e('html_attr') }}"
             >
-            {% for offer in form_menu.offers %}
-                {{ _self.offers_prototype_empty(offer) }}
+            {% for key, offer in form_menu.offers %}
+                {{ _self.offers_prototype_empty(offer, key) }}
             {% endfor %}
         </ul>
     {{ form_rest(form_menu) }}
@@ -70,7 +70,7 @@
 </div>
 
 
-{% macro offers_prototype_empty(offer) %}
+{% macro offers_prototype_empty(offer, key) %}
 <li class="offer_model after my-2 relative after:bg-secondary/50 after:w-2/5 flex flex-col gap-2">
     <div class="flex gap-2">
         <div class="name flex flex-1 gap-1">
@@ -93,6 +93,7 @@
         <button type="button" class="add_item_link text-secondary bg-primary/50 px-4 py-1" data-collection-holder-class="compositions">Ajouter</button>
     </div>
     <ol class="compositions_model compositions flex flex-col gap-2"
+    data-offer-id="{{ key }}"
     data-index="{{ offer.description|length }}"
     data-prototype="{{  _self.compositions_prototype_empty(offer.description.vars.prototype)|e('html_attr') }}"
     >
@@ -116,7 +117,7 @@
     <li class="name flex gap-2" >
         <div class="flex-1">
             <div class="hidden">{{ form_label(composition) }}</div>
-            {{ form_widget(composition, { 'attr' : { 'class' : 'offer_model pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon', 'placeholder' : 'Plat...' }}) }}
+            {{ form_widget(composition, { 'attr' : {'class' : 'offer_model pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon', 'placeholder' : 'Plat...' }}) }}
             <small class="form_error">
                 {{ form_errors(composition) }}
             </small>
@@ -124,7 +125,7 @@
     </li>
 {% endmacro %}
 {% macro offers_prototype(key_offer, offer, key_menu) %}
-<li class="after my-2 relative after:bg-secondary/50 after:w-2/5 flex flex-col gap-2" >
+<li class="after my-2 relative after:bg-secondary/50 after:w-2/5 flex flex-col gap-2" data-index-menu={{ key_menu }}>
     <div class="flex gap-2">
         <div class="flex-1">
             <label hidden for="{{'menu_'~ key_menu ~'_offer_title_'~ key_offer }}">Titre :</label>
@@ -151,10 +152,10 @@
     {% endfor %}
     </ol>
     <div class="my-2 relative after:conten-[''] before:absolute before:w-[100px] before:h-px before:bg-secondary before:opacity-50 before:-top-2">
-        <label for="{{ 'menu_'~ key_menu ~'price_'~ key_offer }}" hidden>Prix :</label>
+        <label for="{{ 'menu_'~ key_menu ~'_price_'~ key_offer }}" hidden>Prix :</label>
         <div class="flex items-center input_profil w-[120px]">
             <i class="fa-solid fa-euro-sign form_icon bg-primary/20"></i>
-            <input required type="number" class="w-full pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon" id="{{ 'menu_'~ key_menu ~'price_'~ key_offer }}" name="{{ 'menu_'~ key_menu ~'price_'~ key_offer }}" value="{{ offer.price }}" >
+            <input required type="number" class="w-full pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon" id="{{ 'menu_'~ key_menu ~'_price_'~ key_offer }}" name="{{ 'menu_'~ key_menu ~'_price_'~ key_offer }}" value="{{ offer.price }}" >
         </div>
     </div>
 </li>

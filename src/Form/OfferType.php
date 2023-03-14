@@ -45,10 +45,12 @@ class OfferType extends AbstractType{
         ])
         ->add('description', CollectionType::class, [
             'label' => 'Composer de : ',
-            'attr' => ['placeholder' => 'Composer de...', 'value' => ''],
+            'attr' => ['placeholder' => 'Composer de...'],
             'entry_type' => TextType::class,
             'allow_add' => true, 
             'allow_delete' => true,
+            'entry_options' => ['label' => false],
+            'by_reference' => false
         ])
         ->add('price', NumberType::class, [
             "label" => "Prix :",
