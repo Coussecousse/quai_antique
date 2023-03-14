@@ -40,7 +40,6 @@ function addFormToCollection(e) {
             let i = 0;
             for (let offer of offers) {
                 if (offer == collectionHolder.parentElement.parentElement) {
-                    console.log('yo');
                     collectionHolder.dataset.offerId = i;
                     offerId = i;
                 }
@@ -108,32 +107,37 @@ function modifyElement(element, index, changement) {
     if (element.previousElementSibling.children.length == 0) {
         element.previousElementSibling.setAttribute('for', changement + index);
     } else {
-        element.previousElementSibling.children[0].setAttribute('for', changement + index);
+    element.previousElementSibling.children[0].setAttribute('for', changement + index);
     }
 }
 function addOffer(e) {
+    const form = e.target.form;
     const indexMenu = e.target.dataset.indexMenu;
     const indexOffer = e.target.dataset.indexOffer;
 
     const offerModel = document.querySelector('.offer_model');
     const newOffer = offerModel.cloneNode(true);
+    
+    newOffer.dataset.indexMenu = indexMenu;
 
     const formMenu = e.target.parentElement.parentElement;
     const ul = formMenu.querySelector('.modify_offers');
     const index = ul.children.length + 1;
 
     const title = newOffer.querySelector('.offer_title_model');
-    modifyElement(title, index, 'menu_'+ indexMenu +'_offer_'+ indexOffer +'_title_');
+    modifyElement(title, index - 1, 'menu_'+ indexMenu +'_offer_title_');
 
     const conditions = newOffer.querySelector('.offer_conditions_model');
-    modifyElement(conditions, index, 'menu_'+ indexMenu +'_offer_'+ indexOffer + '_conditions_');
+    modifyElement(conditions, index - 1, 'menu_'+ indexMenu +'_offer_conditions_');
 
     const buttons = newOffer.querySelectorAll('.add_item_link');
     buttons.forEach( button => {
         button.classList.remove('add_item_link');
-        button.dataset.collectionHolderClass == "compositions" ?
-            button.onclick = e => addComposition(e) :
-            null;
+        if (button.dataset.collectionHolderClass == "compositions") {
+            button.onclick = e => addComposition(e);
+            button.dataset.indexMenu = form[4].dataset.indexMenu;
+            button.dataset.indexOffer = button.parentElement.nextElementSibling.children.length - 1;
+        }
     })
 
     const olCompositions = newOffer.querySelector('.compositions_model');
@@ -145,7 +149,7 @@ function addOffer(e) {
         composition.value = '';
         composition.name = 'menu_'+ indexMenu +'_offer_'+ indexOffer +'_composition_title_'+ i;
         composition.id = 'menu_'+ indexMenu +'_offer_'+ indexOffer +'_composition_title_'+ i;
-        composition.previousElementSibling.children[0].setAttribute('for', 'menu_'+indexMenu+'_offer_'+ indexOffer +'composition_title_'+ i);
+        composition.previousElementSibling.setAttribute('for', 'menu_'+indexMenu+'_offer_'+ indexOffer +'composition_title_'+ i);
     })
 
     // Add delete button
@@ -169,20 +173,27 @@ function addOffer(e) {
         element.appendChild(removeButton);
     })
 
+    const price = newOffer.querySelector('#menus_offers_0_price');
+    modifyElement(price, index - 1, 'menu_'+ indexMenu +'_price_');
+    
     ul.appendChild(newOffer);
 }
 
 function addComposition(e) {
+    const indexMenu = e.target.dataset.indexMenu;
+    const indexOffer = e.target.dataset.indexOffer;
+
     const parent = e.target.parentElement.parentElement.children[3];
     const offerModel = document.querySelector('#menu_0_offer_0_composition_title_0').parentElement.parentElement;
     const newOffer = offerModel.cloneNode(true);
 
     const input = newOffer.querySelector('input');
-    let inputName = input.name.split('_');
-    inputName.pop();
+  
+    input.value = '';
+    input.name = "menu_"+ indexMenu + "_offer_" + indexOffer + "_composition_title_" + (parent.children.length);
+    input.id = "menu_"+ indexMenu + "_offer_" + indexOffer + "_composition_title_" + (parent.children.length);
+    input.previousElementSibling.setAttribute('for', "menu_"+ indexMenu + "_offer_" + indexOffer + "_composition_title_" + (parent.children.length));
     
-    inputName = inputName.join('_');    
-    modifyElement(input, parent.length, inputName + '_');
     if (parent.children.length !== 0) {
         const removeButton = document.createElement('button');
         
@@ -234,7 +245,7 @@ function setMenu(e) {
 
     const titleMenu = form[0];
     const titleMenuValue = titleMenu.value;
-
+    e.preventDefault();
     if (titleMenuValue === '') {
         return;
     }
@@ -257,15 +268,10 @@ function setMenu(e) {
         offersData.push(conditionsValue);
 
         const compositions = offer.querySelector('ol.compositions').children;
-        console.log(compositions)
         let compositionIndex = 0;
-        console.log(compositionIndex);
         const compositionsData = [];
         for (let composition of compositions) {
             const compositionTitle = composition.querySelector('input[name=menu_'+ indexMenu +'_offer_'+ offerIndex +'_composition_title_'+ compositionIndex);
-            console.log('menu_'+ indexMenu +'_offer_'+ offerIndex +'_composition_title_'+ compositionIndex);
-            console.log(compositionTitle);
-            e.preventDefault();
             const compositionValue = compositionTitle.value;
             if (compositionValue === '') {
                 return;
@@ -285,42 +291,42 @@ function setMenu(e) {
         offerIndex++;
     }   
 
-    // e.preventDefault();
+    e.preventDefault();
     
-    // const button = form.querySelector('button[type=submit]');
-    // button.disabled = true;
+    const button = form.querySelector('button[type=submit]');
+    button.disabled = true;
 
-    // const xhr = new XMLHttpRequest();
+    const xhr = new XMLHttpRequest();
 
-    // xhr.onload = function() {
-    //     let url = window.location.origin + window.location.pathname;
+    xhr.onload = function() {
+        let url = window.location.origin + window.location.pathname;
 
-    //     if (this.readyState == 4 && this.status == 200) {
-    //         const response = JSON.parse(xhr.responseText);
+        if (this.readyState == 4 && this.status == 200) {
+            const response = JSON.parse(xhr.responseText);
 
-    //         switch(response.result){
-    //             case 'success':
-    //                 window.location = url + "?result=success";
-    //                 break;
-    //             case 'error_pattern' :
-    //                 window.location = url + "?result=error_pattern";
-    //                 break;
-    //             default : 
-    //                 window.location = url + "?result=error";
-    //                 break;
-    //         }
-    //     } else {
-    //         window.location = url + "?result=error";
-    //     }
-    // }
-    // xhr.open('POST', '/admin/profil/{page_up}/{page_down}/{page_three}');
-    // xhr.setRequestHeader('Content-Type', 'application/json');
+            switch(response.result){
+                case 'success':
+                    window.location = url + "?result=success";
+                    break;
+                case 'error_pattern' :
+                    window.location = url + "?result=error_pattern";
+                    break;
+                default : 
+                    window.location = url + "?result=error";
+                    break;
+            }
+        } else {
+            window.location = url + "?result=error";
+        }
+    }
+    xhr.open('POST', '/admin/profil/{page_up}/{page_down}/{page_three}');
+    xhr.setRequestHeader('Content-Type', 'application/json');
 
-    // const data = {
-    //     id : id,
-    //     menuTitle : titleMenuValue,
-    //     offers : offersData
-    // }
+    const data = {
+        id : id,
+        menuTitle : titleMenuValue,
+        offers : offersData
+    }
     
-    // xhr.send(JSON.stringify(data));
+    xhr.send(JSON.stringify(data));
 }
