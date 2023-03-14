@@ -333,3 +333,38 @@ function setMenu(e) {
     
     xhr.send(JSON.stringify(data));
 }
+
+function deleteMenu(e) {
+    e.preventDefault();
+    console.log(e.target.parentElement.form);
+    const button = e.target.parentElement;
+    const form = button.form;
+
+    const idMenu = (form.id.split('_'))[1];
+
+    const xhr = new XMLHttpRequest();
+
+    xhr.onload = function() {
+        let url = window.location.origin + window.location.pathname;
+
+        if (this.readyState == 4 && this.status == 200) {
+            const response = JSON.parse(xhr.responseText);
+
+            switch(response.result){
+                case 'success':
+                    window.location = url + "?result=success";
+                    break;
+                default : 
+                    window.location = url + "?result=error";
+                    break;
+            }
+        } else {
+            window.location = url + "?result=error"
+        }
+    }
+    xhr.open('POST', '/admin/profil/{page_up}/{page_down}/{page_three}');
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+    let params = 'id='+ idMenu + '&deleteMenu=' + true;
+    xhr.send(params);
+}

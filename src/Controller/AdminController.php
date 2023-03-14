@@ -164,11 +164,17 @@ class AdminController extends AbstractController
         $id = $request->request->get('id');
         if ($request->isMethod('POST') && $id) {
 
+            // Delete Food
             $delete = $request->request->get('delete');
-            
             if ($delete) {
                 return $this->deleteElement($id, $foodRepository);
             }
+            // Delete Menu
+            $deleteMenu = $request->request->get('deleteMenu');
+            if ($deleteMenu) {
+                return $this->deleteElement($id, $menuRepository);
+            }
+
             $newTitle = $request->request->get('title');
             $newDescription = $request->request->get('description');
             $newPrice = $request->request->get('price');
@@ -188,8 +194,8 @@ class AdminController extends AbstractController
             
         } 
         if ($request->isMethod('POST')) {
+            
             $dataMenu = json_decode($request->getContent(), true);
-            dump($dataMenu);
             if (!is_array($dataMenu) || !$dataMenu) {
                 return new JsonResponse([
                     'result' => 'error'
@@ -205,6 +211,12 @@ class AdminController extends AbstractController
                 ]);
             }
             $menuTitle = $dataMenu['menuTitle'];
+            if (!$this->checkPattern($menuTitle, "/^[\p{L}\d\s.\'’()-]+$/u")) 
+            {
+                return new JsonResponse([
+                    'result' => 'error_pattern'
+                ]);
+            }
             $modifyMenu->setTitle($menuTitle);
 
             $offersToRemove = $modifyMenu->getOffers();
@@ -212,14 +224,27 @@ class AdminController extends AbstractController
                 $modifyMenu->removeOffer($offer);
             }
             $newOffers = $dataMenu['offers'];
-            dump($newOffers);
 
             foreach($newOffers as $newOffer) {
                 $offer = new Offer();
+                if (!$this->checkPattern($newOffer[0], "/^[\p{L}\d\s.\'’()-]+$/u")
+                    || !$this->checkPattern($newOffer[1], "/^[\p{L}\d\s.\'’()-]+$/u")
+                    || !$this->checkPattern($newOffer[3], "/^\d+(\.\d+)?\d$/"))
+                {
+                    return new JsonResponse([
+                        'result' => 'error_pattern'
+                    ]);
+                }
+                foreach($newOffer[2] as $food) {
+                    if (!$this->checkPattern($food, "/^[\p{L}\d\s.\'’()-]+$/u")) {
+                        return new JsonResponse([
+                            'result' => 'error_pattern'
+                        ]);
+                    }
+                }
                 $offer->setTitle($newOffer[0])->setConditions($newOffer[1])->setDescription($newOffer[2])->setPrice($newOffer[3]);
                 $modifyMenu->addOffer($offer);
             }
-            dump($menuRepository);
             $menuRepository->save($modifyMenu, true);
 
             return new JsonResponse([
