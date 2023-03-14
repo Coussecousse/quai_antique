@@ -216,14 +216,11 @@ class AdminController extends AbstractController
 
             foreach($newOffers as $newOffer) {
                 $offer = new Offer();
-                dump($newOffer);
-                // dump($newOffer[2]);
-                // dump(gettype($newOffer[2]));
-                // $offer->setTitle($newOffer[0])->setConditions($newOffer[1])->setDescription($newOffer[2])->setPrice($newOffer[3]);
-                // $modifyMenu->addOffer($offer);
+                $offer->setTitle($newOffer[0])->setConditions($newOffer[1])->setDescription($newOffer[2])->setPrice($newOffer[3]);
+                $modifyMenu->addOffer($offer);
             }
             dump($menuRepository);
-            // $menuRepository->save($modifyMenu, true);
+            $menuRepository->save($modifyMenu, true);
 
             return new JsonResponse([
                 'result' => 'success'

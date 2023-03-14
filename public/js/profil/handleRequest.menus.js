@@ -253,7 +253,9 @@ function setMenu(e) {
     const offers = form.querySelector('ul.modify_offers').children;
     let offerIndex = 0;
     const offersData = [];
-    for (let offer of offers) {
+    for (let offer of offers) 
+    {
+        const offerData = [];
         let indexMenu = offer.dataset.indexMenu;
 
         const offerTitle = offer.querySelector('input[name=menu_'+ indexMenu +'_offer_title_' + offerIndex);
@@ -261,11 +263,11 @@ function setMenu(e) {
         if (titleValue === '') {
             return;
         }
-        offersData.push(titleValue);
+        offerData.push(titleValue);
         
         const conditions = offer.querySelector('input[name=menu_'+ indexMenu +'_offer_conditions_'+ offerIndex);
         const conditionsValue = conditions.value;
-        offersData.push(conditionsValue);
+        offerData.push(conditionsValue);
 
         const compositions = offer.querySelector('ol.compositions').children;
         let compositionIndex = 0;
@@ -279,7 +281,7 @@ function setMenu(e) {
             compositionIndex++;
             compositionsData.push(compositionValue);
         }
-        offersData.push(compositionsData);
+        offerData.push(compositionsData);
         
         const price = offer.querySelector('input[name=menu_'+ indexMenu +'_price_'+ offerIndex);
 
@@ -287,8 +289,9 @@ function setMenu(e) {
         if (priceValue === '') {
             return;
         }
-        offersData.push(priceValue);
+        offerData.push(priceValue);
         offerIndex++;
+        offersData.push(offerData);
     }   
 
     e.preventDefault();
