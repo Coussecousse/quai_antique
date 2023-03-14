@@ -93,7 +93,7 @@
         <button type="button" class="add_item_link text-secondary bg-primary/50 px-4 py-1" data-collection-holder-class="compositions">Ajouter</button>
     </div>
     <ol class="compositions_model compositions flex flex-col gap-2"
-    data-index="{{ offer.description|length > 0 ? offer.description|last.vars.name + 1 : 0 }}"
+    data-index="{{ offer.description|length }}"
     data-prototype="{{  _self.compositions_prototype_empty(offer.description.vars.prototype)|e('html_attr') }}"
     >
     {% for composition in offer.description %}
