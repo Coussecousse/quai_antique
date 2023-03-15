@@ -29,13 +29,13 @@
     {{ form_end(form_menu) }}
     </section>
     <section class="flex flex-col gap-7 py-6">
-        <ul>
+        <ul class="menus">
         {% for key_menu, menu in menus %}
-            <li class="after my-2 relative after:bg-secondary/50 after:w-2/5 flex flex-col gap-2">
+            <li class="after relative after:bg-secondary/50 after:w-2/5 flex flex-col gap-2">
                 <form onSubmit="setMenu(event)" method="post" class="bg-600 w-11/12 mx-auto max-w-[598px] flex flex-col justify-center p-4 text-secondary" id="{{ 'menu_'~ menu.id }}" data-index-menu = {{ key_menu }}>
-                    <div class="relative after:bg-secondary after:opacity-50">
-                        <div class="flex gap-8">
-                            <div class="flex gap-2 flex-1">
+                    <div class="get_sticky bg-600 top-0 relative after:bg-secondary after:opacity-50">
+                        <div class="flex md:gap-8 gap-2">
+                            <div class="flex items-center md:flex-row flex-col gap-2 flex-1">
                                 <div class="flex-1">
                                     <label for="{{ 'title_'~ menu.id }}" hidden>{{ menu.title }}</label>
                                     <input minLength=2 maxLength=150  required type="text" id="{{ 'title_'~ menu.id }}" name="{{ 'title_'~ menu.id }}" value="{{ menu.title }}" class="w-full pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon" value="{{ menu.title }}">
@@ -49,7 +49,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <button class="text-2xl" onclick="showMenu(event)">
+                            <button class="text-2xl self-start md:self-center" onclick="showMenu(event)">
                                 <i class="fa-solid fa-caret-down text-secondary button-full"></i>
                                 <i class="hide fa-solid fa-caret-up button-full"></i>
                             </button>

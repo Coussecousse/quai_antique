@@ -368,3 +368,65 @@ function deleteMenu(e) {
     let params = 'id='+ idMenu + '&deleteMenu=' + true;
     xhr.send(params);
 }
+
+const form = document.querySelector('#menu_5');
+console.log(form.getBoundingClientRect());
+// document.addEventListener( 'scroll', () => {
+//     console.log(window.pageYOffset);
+// })
+// form.addEventListener('scroll', stickyMenu(form))
+
+// function stickyMenu(element) {
+//     console.log('test');
+//     const menu = element;
+//     // const buttonShowActive = menu.querySelector('fa-caret-up');
+     
+//     // if (buttonShowActive.classList.contains('hide')) {
+//     //     return;
+//     // }
+
+//     let posY = window.pageYOffset;
+//     const elementPosY = menu.getBoundingClientRect();
+
+//     if (posY >= elementPosY) {
+//         menu.style.position = "fixed";
+//      } 
+//     //  else if (posY < elementPosY) {
+//     //     menu.style.position = "relative";
+//     // }
+// }
+document.addEventListener('scroll', () => {
+    const posY = window.pageYOffset;
+
+    const menus = document.querySelector('.menus').children;
+    const activeMenus = [];
+    for (let menu of menus) {
+        let activeButton = menu.querySelector('.fa-caret-up');
+        if (!activeButton.classList.contains('hide'))  {
+            const posYMenu = menu.getBoundingClientRect()
+            activeMenus.push([menu, posYMenu]);
+            let parent = menu.parentElement;
+        
+            while (parent) {
+                const hasOverflow = getComputedStyle(parent).overflow;
+                if (hasOverflow !== 'visible') {
+                    console.log(hasOverflow, parent);
+                }
+                parent = parent.parentElement;
+            }
+        }
+    }
+    if (activeMenus.length >= 1) {
+        for (let menu of activeMenus) {
+            const stickyElement = menu[0].querySelector('.get_sticky');
+            if (menu[1].y < 1) {
+                stickyElement.style.position = "sticky";
+                stickyElement.style.top = 0;
+                stickyElement.style.zIndex = 10
+            } else {
+                stickyElement.style.position = 'block';
+            }
+        }
+    }
+
+})

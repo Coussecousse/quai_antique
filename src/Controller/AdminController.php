@@ -228,9 +228,9 @@ class AdminController extends AbstractController
             foreach($newOffers as $newOffer) {
                 $offer = new Offer();
                 if (!$this->checkPattern($newOffer[0], "/^[\p{L}\d\s.\'’()-]+$/u")
-                    || !$this->checkPattern($newOffer[1], "/^[\p{L}\d\s.\'’()-]+$/u")
-                    || !$this->checkPattern($newOffer[3], "/^\d+(\.\d+)?\d$/"))
+                || !$this->checkPattern($newOffer[1], "/^[\p{L}\d\s.\'’()-]*$/u"))
                 {
+                    dump('yo');
                     return new JsonResponse([
                         'result' => 'error_pattern'
                     ]);
