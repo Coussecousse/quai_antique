@@ -388,8 +388,27 @@ header nav a.active::after {
     @apply bg-400/20
 }
 /* CARD */
-
-
+/* ANIMATION */
+.slow-opacity-in {
+    animation: linear 150ms forwards fade-in; 
+}
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    } to {
+        opacity: 1;
+    }
+}
+.slow-opacity-reverse {
+    animation: linear 150ms forwards fade-out; 
+}
+@keyframes fade-out {
+    from {
+        opacity: 1;
+    } to {
+        opacity: 0;
+    }
+}
 @media screen and (min-width: 768px) {
     footer, footer div:nth-child(2), footer div:nth-child(2) div {
         gap : clamp(1rem, -3.215rem + 8.781vw, 4.688rem);

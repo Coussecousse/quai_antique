@@ -18,4 +18,25 @@ function addingMargin(element) {
 function removeMargin(element) {
     element.parentElement.style.marginBottom = '0';
 }
+document.addEventListener('scroll', () => {
+    let posY = window.pageYOffset;
 
+    const button = document.querySelector('#button-up');
+    if (posY > 1100) {
+        if (button.classList.contains('hide')){
+            button.classList.remove('hide');
+            button.classList.replace('slow-opacity-reverse', 'slow-opacity-in');
+        }
+        button.addEventListener('click', () => {
+            window.scrollTo({top: 0, behavior: 'smooth'})
+        })
+    }
+    if (posY < 1100) {
+        if (!button.classList.contains('hide')) {
+            button.classList.replace('slow-opacity-in', 'slow-opacity-reverse');
+            setTimeout(() => {
+                button.classList.add('hide');
+            }, 150);
+        }
+    }
+})

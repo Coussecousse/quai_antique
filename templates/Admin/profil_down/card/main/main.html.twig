@@ -1,7 +1,7 @@
 <div class="drop-shadow-lg bg-primary/85 text-secondary">
 	<section class="py-6 after relative">
 		<p class="w-11/12 mx-auto max-w-[598px] pb-3 underline underline-offset-2">Ajouter une entrée :</p>
-		{{ form_start(form_card, { 'attr' :{ 'class' : 'bg-600 w-11/12 mx-auto max-w-[598px] flex gap-2 justify-center p-4 text-secondary'}}) }}
+		{{ form_start(form_card, { 'attr' :{ 'class' : 'bg-600 w-11/12 mx-auto max-w-[598px] flex gap-2 justify-center md:p-4 p-2 text-secondary'}}) }}
 		<div class="flex gap-2 flex-col flex-1">
 			<div class="">
 				<div class="hidden">{{ form_label(form_card.title) }}</div>
@@ -35,7 +35,7 @@
 	</section>
 	<section class="flex flex-col gap-7 py-6">
 		{% for value in values %}
-			<form onSubmit="setFood(event)" class="bg-600 w-11/12 mx-auto max-w-[598px] p-4 text-secondary flex gap-2">
+			<form onSubmit="setFood(event)" class="bg-600 w-11/12 mx-auto max-w-[598px] md:p-4 p-2 text-secondary flex gap-2">
 				<div class="flex gap-2 flex-col flex-1">
 					<div class="">
 						<label hidden for="{{ 'title_'~ value.id }}">Titre :</label>

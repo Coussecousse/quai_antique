@@ -336,7 +336,7 @@ function setMenu(e) {
 
 function deleteMenu(e) {
     e.preventDefault();
-    console.log(e.target.parentElement.form);
+
     const button = e.target.parentElement;
     const form = button.form;
 
@@ -370,33 +370,9 @@ function deleteMenu(e) {
 }
 
 const form = document.querySelector('#menu_5');
-console.log(form.getBoundingClientRect());
-// document.addEventListener( 'scroll', () => {
-//     console.log(window.pageYOffset);
-// })
-// form.addEventListener('scroll', stickyMenu(form))
 
-// function stickyMenu(element) {
-//     console.log('test');
-//     const menu = element;
-//     // const buttonShowActive = menu.querySelector('fa-caret-up');
-     
-//     // if (buttonShowActive.classList.contains('hide')) {
-//     //     return;
-//     // }
-
-//     let posY = window.pageYOffset;
-//     const elementPosY = menu.getBoundingClientRect();
-
-//     if (posY >= elementPosY) {
-//         menu.style.position = "fixed";
-//      } 
-//     //  else if (posY < elementPosY) {
-//     //     menu.style.position = "relative";
-//     // }
-// }
 document.addEventListener('scroll', () => {
-    const posY = window.pageYOffset;
+    let posY = window.pageYOffset;
 
     const menus = document.querySelector('.menus').children;
     const activeMenus = [];
@@ -405,15 +381,6 @@ document.addEventListener('scroll', () => {
         if (!activeButton.classList.contains('hide'))  {
             const posYMenu = menu.getBoundingClientRect()
             activeMenus.push([menu, posYMenu]);
-            let parent = menu.parentElement;
-        
-            while (parent) {
-                const hasOverflow = getComputedStyle(parent).overflow;
-                if (hasOverflow !== 'visible') {
-                    console.log(hasOverflow, parent);
-                }
-                parent = parent.parentElement;
-            }
         }
     }
     if (activeMenus.length >= 1) {
@@ -428,5 +395,4 @@ document.addEventListener('scroll', () => {
             }
         }
     }
-
 })

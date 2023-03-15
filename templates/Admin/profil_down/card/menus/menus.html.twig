@@ -1,7 +1,7 @@
 <div class="drop-shadow-lg bg-500 text-secondary">
     <section class="py-6 after relative">
         <p class="w-11/12 mx-auto max-w-[598px] pb-3 underline underline-offset-2">Ajouter un menu :</p>
-        {{ form_start(form_menu, { 'attr' : { 'class' : 'bg-600 w-11/12 mx-auto max-w-[598px] flex flex-col justify-center p-4 text-secondary' }}) }}
+        {{ form_start(form_menu, { 'attr' : { 'class' : 'bg-600 w-11/12 mx-auto max-w-[598px] flex flex-col justify-center md:p-4 p-2 text-secondary' }}) }}
         <div class="after relative after:bg-secondary after:opacity-50">
             <div class="flex gap-2">
                 <div class="flex-1">
@@ -32,15 +32,15 @@
         <ul class="menus">
         {% for key_menu, menu in menus %}
             <li class="after relative after:bg-secondary/50 after:w-2/5 flex flex-col gap-2">
-                <form onSubmit="setMenu(event)" method="post" class="bg-600 w-11/12 mx-auto max-w-[598px] flex flex-col justify-center p-4 text-secondary" id="{{ 'menu_'~ menu.id }}" data-index-menu = {{ key_menu }}>
+                <form onSubmit="setMenu(event)" method="post" class="bg-600 w-11/12 mx-auto max-w-[598px] flex flex-col justify-center p-2 md:p-4 text-secondary" id="{{ 'menu_'~ menu.id }}" data-index-menu = {{ key_menu }}>
                     <div class="get_sticky bg-600 top-0 relative after:bg-secondary after:opacity-50">
                         <div class="flex md:gap-8 gap-2">
-                            <div class="flex items-center md:flex-row flex-col gap-2 flex-1">
+                            <div class="flex sm-600:flex-row flex-col gap-2 flex-1">
                                 <div class="flex-1">
                                     <label for="{{ 'title_'~ menu.id }}" hidden>{{ menu.title }}</label>
                                     <input minLength=2 maxLength=150  required type="text" id="{{ 'title_'~ menu.id }}" name="{{ 'title_'~ menu.id }}" value="{{ menu.title }}" class="w-full pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon" value="{{ menu.title }}">
                                 </div>
-                                <div class="flex gap-2">
+                                <div class="self-center flex gap-2">
                                     <button type="submit" class="bg-primary/50 button_profil" aria-label="Modifier">
                                         <i class="fa-solid fa-pen text-secondary button-full"></i>
                                     </button>

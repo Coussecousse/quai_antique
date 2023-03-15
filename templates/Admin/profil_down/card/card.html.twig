@@ -28,6 +28,7 @@
 
 {% block scripts %}
     {{ parent() }}
+
 {% if page_three == 'menus' %} 
     <script src={{ asset('js/profil/'~'handleRequest.menus.js') }}></script>
 {% else %}
