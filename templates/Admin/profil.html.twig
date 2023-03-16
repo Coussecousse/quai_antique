@@ -44,13 +44,15 @@
 					<ul>
 						<li class="text-secondary"><a href="{{ path('admin_profil', {'page_up' : page_up, 'page_down' : 'carousel' }) }}" class="hover:-translate-y-1 bg-600 duration-100 rounded-t-3xl" >Carousel</a></li>
 						<li class="text-primary"><a href="{{ path('admin_card', { 'page_up' : page_up, 'page_down' : 'carte', 'page_three' : 'entrées' }) }}" class="hover:-translate-y-1 bg-400 duration-100 rounded-t-3xl">Carte</a></li>
-						<li><a href="">Horaires</a></li>
+						<li class="text-secondary"><a href="{{ path('admin_profil', { 'page_up' : page_up, 'page_down': 'horaires' }) }}" class="hover:-translate-y-1 bg-400/20 duration-100 rounded-t-3xl">Horaires</a></li>
 						<li><a href="">Dates</a></li>
 					</ul>
 				</nav>
 				{% block profil_down %}
 						{% if page_down == 'carousel' %}
 							{% include 'Admin/profil_down/carousel.html.twig' %}
+						{% elseif page_down == 'horaires' %}
+							{% include 'Admin/profil_down/schedules.html.twig' %}
 						{% endif %}
                 {% endblock %}
 			</section>

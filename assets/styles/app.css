@@ -392,6 +392,14 @@ header nav a.active::after {
 .slow-opacity-in {
     animation: linear 150ms forwards fade-in; 
 }
+
+/* Schedule */
+.after-schedule {
+    @apply  after:content-[''] after:w-[2px] after:h-[100%] after:absolute after:bg-secondary/50 after:right-0 after:top-0;
+}
+.input_black {
+    @apply bg-primary/20;
+}
 @keyframes fade-in {
     from {
         opacity: 0;
@@ -407,6 +415,27 @@ header nav a.active::after {
         opacity: 1;
     } to {
         opacity: 0;
+    }
+}
+/* SCHEDULES */
+#schedules input[type=time] {
+    padding-inline-start: 0px;
+}
+#schedules input[type=time]::-webkit-calendar-picker-indicator  {
+    filter: invert(100%);
+}
+
+
+
+@media screen and (min-width: 420px) {
+    #schedules input[type=time] {
+        padding: 0 4px;
+    }
+}
+@media screen and (min-width:560px) {
+    .fa-lock-open, #schedules .fa-lock {
+        padding-inline-start: 0px;
+        display: none !important;
     }
 }
 @media screen and (min-width: 768px) {

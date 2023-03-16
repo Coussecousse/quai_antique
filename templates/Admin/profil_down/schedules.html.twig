@@ -1,0 +1,71 @@
+<div class="text-secondary bg-500">
+	<div class="drop-shadow-lg bg-400/20">
+		<section class="after py-6 relative" id="schedules">
+			<ol id="days" class="flex flex-col gap-8">
+				{% set frenchDays = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'] %}
+				{% for key, day in schedules %}
+					<li class="bg-600 box-shadow-lg flex flex-col w-11/12 mx-auto max-w-[598px] p-4" data-day={{ day.id }}>
+						<h3 class="text-center m-4 after after:bg-secondary/50 relative">{{ frenchDays[key] }}</h3>
+						<div class="flex flex-col gap-2">
+							<form action="" method="POST" class="text-sm sm:text-base flex flex-col">
+								<div class="relative after flex justify-evenly gap-4after pb-4 after:bg-secondary/50">
+									<div class="flex flex-col gap-3">
+										<p class="hidden sm-600:block pt-2">Ouverture :</p>
+										<i class="before:pr-2 pt-3 fa-solid fa-lock-open">:</i>
+										<p class="hidden sm-600:block">Fermeture :</p>
+										<i class="before:pr-2 pt-3 fa-solid fa-lock">:</i>
+									</div>
+									<div class="flex-1 flex justify-evenly">
+										<div class="flex flex-col gap-2">
+											<div class="">
+												<label hidden for="schedule_evening_start[hour][minute]">Début du service :</label>
+												<div class="flex mx-auto max-w-[7.5rem]">
+													<i class="fa-solid fa-sun form_icon bg-primary/20"></i>
+													<input class="input_black input_withoutIcon p-0 sm:p-1" type="time" name="schedule_evening[start][hour][minute]" placeholder"hh:mm">
+												</div>
+											</div>
+											<div class="">
+												<label hidden for="schedule_evening_end[hour][minute]">Fin du service :</label>
+												<div class="flex mx-auto max-w-[7.5rem]">
+													<i class="fa-solid fa-sun form_icon bg-primary/20"></i>
+													<input class="input_black input_withoutIcon p-0 sm:p-1" type="time" name="schedule_evening[end][hour][minute]" placeholder"hh:mm">
+												</div>
+											</div>
+											<div class="flex gap-2 justify-center">
+												<input class="accent-red-500" type="checkbox" name="schedule[close]">
+												<label for="schedule_close">Fermer</label>
+											</div>
+										</div>
+										<div class="flex flex-col gap-2">
+											<div class="">
+												<label hidden for="schedule_noon_start[hour][minute]">Début du service :</label>
+												<div class="flex mx-auto max-w-[7.5rem]">
+													<i class="fa-solid fa-moon form_icon bg-primary/20"></i>
+													<input class="input_black input_withoutIcon p-0 sm:p-1" type="time" name="schedule_noon[start][hour][minute]" placeholder"hh:mm">
+												</div>
+											</div>
+											<div class="">
+												<label hidden for="schedule_noon_end[hour][minute]">Fin du service :</label>
+												<div class="flex mx-auto max-w-[7.5rem]">
+													<i class="fa-solid fa-moon form_icon bg-primary/20"></i>
+													<input class="input_black input_withoutIcon p-0 sm:p-1" type="time" name="schedule_noon[end][hour][minute]" placeholder"hh:mm">
+												</div>
+											</div>
+											<div class="flex gap-2 justify-center">
+												<input class="accent-red-500" type="checkbox" name="schedule[close]">
+												<label for="schedule_close">Fermer</label>
+											</div>
+										</div>
+									</div>
+									<input type="hidden" value="{{ day.id }}" name="schedule[day]">
+									{# <input type="hidden" value="evening" name="schedule[time]"> #}
+								</div>
+								<button type="submit" class="bg-primary px-4 py-2 w-fit mx-auto mt-4">Modifier les horaires</button>
+							</form>
+						</div>
+					</li>
+				{% endfor %}
+			</ol>
+		</section>
+	</div>
+</div>

@@ -6,14 +6,17 @@ use App\Entity\Carousel;
 use App\Entity\Food;
 use App\Entity\Menu;
 use App\Entity\Offer;
+use App\Entity\Schedule;
 use App\Form\CardType;
 use App\Form\ImageType;
 use App\Form\MenusType;
+use App\Form\ScheduleType;
 use App\ImageOptimizer;
 use App\Repository\CarouselRepository;
 use App\Repository\FoodRepository;
 use App\Repository\MenuRepository;
 use App\Repository\OfferRepository;
+use App\Repository\ScheduleRepository;
 use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
@@ -307,10 +310,16 @@ class AdminController extends AbstractController
     }
 
     #[Route('admin/profil/{page_up}/{page_down}', name: "admin_profil", methods: ['GET', 'POST'], defaults: ['page_up' => 'informations', 'page_down' => 'carousel'])]
-    public function profil(string $page_up, string $page_down, UserRepository $repository, Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $userPasswordHasher, SluggerInterface $slugger, CarouselRepository $carouselRepository)
+    public function profil(string $page_up, string $page_down, UserRepository $repository, Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $userPasswordHasher, SluggerInterface $slugger, CarouselRepository $carouselRepository, ScheduleRepository $scheduleRepository)
     {
+        // Informations
         $path = $this->getParameter('kernel.project_dir') . '/config/data/restaurant.yaml';
         $restaurant = Yaml::parseFile($path);
+
+        // Schedules
+        $schedules = $scheduleRepository->findAll();
+        $form_schedule = $this->createForm(ScheduleType::class);
+        $form_schedule->handleRequest($request);
 
         $last_email = $request->getSession()->get('last_email');
 
@@ -557,6 +566,7 @@ class AdminController extends AbstractController
             default : 
                 break;
         }
+        dump($request);
 
         return $this->render('Admin/profil.html.twig', [
             'images_carousel' => $imagesCarousel,
@@ -567,7 +577,9 @@ class AdminController extends AbstractController
             'error' => $error ?? null,
             'success' => $success ?? null,
             'last_email' => $last_email ?? '',
-            'restaurant' => $restaurant
+            'restaurant' => $restaurant,
+            'form_schedule' => $form_schedule->createView(),
+            'schedules' => $schedules
         ]);
     }
 
