@@ -18,6 +18,8 @@ use App\Repository\MenuRepository;
 use App\Repository\OfferRepository;
 use App\Repository\ScheduleRepository;
 use App\Repository\UserRepository;
+use DateTime;
+use DateTimeImmutable;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -62,7 +64,6 @@ class AdminController extends AbstractController
     }
     private function deleteElement($id, $repository) {
 
-        dump($id);
         $element = $repository->find($id);
         $repository->remove($element, true);
 
@@ -95,7 +96,7 @@ class AdminController extends AbstractController
             try {
                 copy($path, $newPath);
             } catch (Exception $e) {
-                dump($e);
+                return false;
             }
 
             $optimizer = new ImageOptimizer();
@@ -233,7 +234,6 @@ class AdminController extends AbstractController
                 if (!$this->checkPattern($newOffer[0], "/^[\p{L}\d\s.\'’()-]+$/u")
                 || !$this->checkPattern($newOffer[1], "/^[\p{L}\d\s.\'’()-]*$/u"))
                 {
-                    dump('yo');
                     return new JsonResponse([
                         'result' => 'error_pattern'
                     ]);
@@ -338,12 +338,22 @@ class AdminController extends AbstractController
                     $newFileName
                 );
             } catch (FileException $e) {
-                dump($e);
+                return $this->redirectToRoute('admin_profil', [
+                    "page_up" => $page_up,
+                    'page_down' => $page_down,
+                    'result' => "error"
+                ]);
             }
 
             $title = $form_image->get('title')->getData();
             $description = $form_image->get('description')->getData();
-            $this->HandleImages($newFileName, $title, $description, $doctrine);
+            if (!$this->HandleImages($newFileName, $title, $description, $doctrine)) {
+                return $this->redirectToRoute('admin_profil', [
+                    "page_up" => $page_up,
+                    'page_down' => $page_down,
+                    'result' => "error"
+                ]);
+            };
             return $this->redirectToRoute('admin_profil', [
                 "page_up" => $page_up,
                 'page_down' => $page_down,
@@ -372,6 +382,11 @@ class AdminController extends AbstractController
             $imageTitle = $request->request->get('imageTitle');
             $delete = $request->request->get('delete');
             $imageDescription = $request->request->get('imageDescription');
+            // Schedules
+            $schedule = $request->request->all();
+            $schedule_id = $schedule['schedule']['id'];
+            $schedule_evening = $schedule['schedule_evening'];
+            $schedule_noon = $schedule['schedule_noon'];
 
             $user = $this->getUser();
             // Change password
@@ -517,7 +532,6 @@ class AdminController extends AbstractController
                 }
                 return $this->changeRestaurantDatas($restaurant, 'places', $placesRestaurant, $path);
             }
-
             // Carousel
             // Title
             if ($imageTitle) {
@@ -540,6 +554,119 @@ class AdminController extends AbstractController
                     return $response;
                 }
                 return $this->changeImageDatas($id, "description", $imageDescription, $carouselRepository);
+            }
+
+            // Schedules
+            if ($schedule_id) {
+                if (!$this->checkPattern($schedule_id, "/^\d+$/" )) {
+                    return $this->redirectToRoute('admin_profil', [
+                        "page_up" => $page_up,
+                        'page_down' => $page_down,
+                        'result' => "error"
+                    ]);
+                }
+                try {
+                    $day = $scheduleRepository->find($schedule_id);
+                } catch (Exception $e) {
+                    return $this->redirectToRoute('admin_profil', [
+                        "page_up" => $page_up,
+                        'page_down' => $page_down,
+                        'result' => "error"
+                    ]);
+                }
+                if (count($schedule_evening) == 3) {
+                    $close = $schedule['close'];
+                    if ($close != 'on') {
+                        return $this->redirectToRoute('admin_profil', [
+                            "page_up" => $page_up,
+                            'page_down' => $page_down,
+                            'result' => "error"
+                        ]);
+                    }
+                    try {
+                        $day->setEveningClose(true)
+                        ->setEveningStart(null)
+                        ->setEveningEnd(null);
+                    } catch (Exception $e) {
+                        return $this->redirectToRoute('admin_profil', [
+                            "page_up" => $page_up,
+                            'page_down' => $page_down,
+                            'result' => "error"
+                        ]);
+                    }
+                } else if (count($schedule_evening) == 2) {
+                    foreach($schedule_evening as $time) {
+                        if (!$this->checkPattern($time, '/^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/')) {
+                            return $this->redirectToRoute('admin_profil', [
+                                "page_up" => $page_up,
+                                'page_down' => $page_down,
+                                'result' => "error_pattern"
+                            ]);
+                        };
+                    }
+                     try {
+                        $day->setEveningStart(new DateTime($schedule_evening['start']))
+                        ->setEveningEnd(new DateTime($schedule_evening['end']))
+                        ->setEveningClose(false);
+                    } catch (Exception $e) {
+                        return $this->redirectToRoute('admin_profil', [
+                            "page_up" => $page_up,
+                            'page_down' => $page_down,
+                            'result' => "error"
+                        ]);
+                    }
+                }
+                if (count($schedule_noon) === 3) {
+                    $close = $schedule_noon['close'];
+                    if ($close != 'on') {
+                        return $this->redirectToRoute('admin_profil', [
+                            "page_up" => $page_up,
+                            'page_down' => $page_down,
+                            'result' => "error"
+                        ]);
+                    }
+                    try {
+                        $day->setNoonClose(true)
+                        ->setNoonStart(null)
+                        ->setNoonEnd(null);
+                    } catch (Exception $e) {
+                        return $this->redirectToRoute('admin_profil', [
+                            "page_up" => $page_up,
+                            'page_down' => $page_down,
+                            'result' => "error"
+                        ]);
+                    }
+
+                } else if (count($schedule_noon) == 2) {
+                    foreach($schedule_noon as $time) {
+                        if (!$this->checkPattern($time, '/^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/')) {
+                            return $this->redirectToRoute('admin_profil', [
+                                "page_up" => $page_up,
+                                'page_down' => $page_down,
+                                'result' => "error_pattern"
+                            ]);
+                        };
+                    }
+                    try {
+                        $day->setNoonStart(new DateTime($schedule_noon['start']))
+                        ->setNoonEnd(new DateTime($schedule_noon['end']))
+                        ->setNoonClose(false);
+                    } catch (Exception $e) {
+                        return $this->redirectToRoute('admin_profil', [
+                            "page_up" => $page_up,
+                            'page_down' => $page_down,
+                            'result' => "error"
+                        ]);
+                    }
+                }
+                $scheduleRepository->save($day, true);
+                $em->flush();
+
+                return $this->redirectToRoute('admin_profil', [
+                    "page_up" => $page_up,
+                    'page_down' => $page_down,
+                    'result' => "success"
+                ]);
             }
         }
 
@@ -566,7 +693,6 @@ class AdminController extends AbstractController
             default : 
                 break;
         }
-        dump($request);
 
         return $this->render('Admin/profil.html.twig', [
             'images_carousel' => $imagesCarousel,

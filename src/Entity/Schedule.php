@@ -17,6 +17,12 @@ class Schedule
     #[ORM\Column]
     private ?int $day = null;
 
+    #[ORM\Column]
+    private ?bool $evening_close = false;
+
+    #[ORM\Column]
+    private ?bool $noon_close = false;
+
     #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $noon_start = null;
 
@@ -38,14 +44,32 @@ class Schedule
     {
         return $this->day;
     }
-
     public function setDay(int $day): self
     {
         $this->day = $day;
-
+        
         return $this;
     }
-
+    public function getEveningClose(): ?bool
+    {
+        return $this->evening_close;
+    }    
+    public function setEveningClose(bool $evening_close): self
+    {
+        $this->evening_close = $evening_close;
+        
+        return $this;
+    }
+    public function getNoonClose(): ?bool
+    {
+        return $this->noon_close;
+    }    
+    public function setNoonClose(bool $noon_close): self
+    {
+        $this->noon_close = $noon_close;
+        
+        return $this;
+    }
     public function getNoonStart(): ?\DateTimeInterface
     {
         return $this->noon_start;
