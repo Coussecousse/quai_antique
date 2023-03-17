@@ -6,11 +6,10 @@ use App\Entity\Carousel;
 use App\Entity\Food;
 use App\Entity\Menu;
 use App\Entity\Offer;
-use App\Entity\Schedule;
 use App\Form\CardType;
+use App\Form\DatesType;
 use App\Form\ImageType;
 use App\Form\MenusType;
-use App\Form\ScheduleType;
 use App\ImageOptimizer;
 use App\Repository\CarouselRepository;
 use App\Repository\FoodRepository;
@@ -19,7 +18,6 @@ use App\Repository\OfferRepository;
 use App\Repository\ScheduleRepository;
 use App\Repository\UserRepository;
 use DateTime;
-use DateTimeImmutable;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -318,8 +316,10 @@ class AdminController extends AbstractController
 
         // Schedules
         $schedules = $scheduleRepository->findAll();
-        $form_schedule = $this->createForm(ScheduleType::class);
-        $form_schedule->handleRequest($request);
+
+        // Dates
+        $form_dates = $this->createForm(DatesType::class);
+        $form_dates->handleRequest($request);
 
         $last_email = $request->getSession()->get('last_email');
 
@@ -738,7 +738,8 @@ class AdminController extends AbstractController
             'last_email' => $last_email ?? '',
             'restaurant' => $restaurant,
             'form_schedule' => $form_schedule->createView(),
-            'schedules' => $schedules
+            'schedules' => $schedules,
+            'form_dates' => $form_dates
         ]);
     }
 

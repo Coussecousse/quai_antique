@@ -29,6 +29,18 @@ class Date
     #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $evening_end = null;
 
+    #[ORM\Column]
+    private ?bool $evening_close = false;
+
+    #[ORM\Column]
+    private ?bool $noon_close = false;
+
+    #[ORM\Column]
+    private ?bool $evening_normal = false;
+
+    #[ORM\Column]
+    private ?bool $noon_normal = false;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +102,86 @@ class Date
     public function setNoonEnd(?\DateTimeInterface $noon_end): self
     {
         $this->noon_end = $noon_end;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of evening_close
+     */ 
+    public function getEvening_close()
+    {
+        return $this->evening_close;
+    }
+
+    /**
+     * Set the value of evening_close
+     *
+     * @return  self
+     */ 
+    public function setEvening_close($evening_close)
+    {
+        $this->evening_close = $evening_close;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of noon_close
+     */ 
+    public function getNoon_close()
+    {
+        return $this->noon_close;
+    }
+
+    /**
+     * Set the value of noon_close
+     *
+     * @return  self
+     */ 
+    public function setNoon_close($noon_close)
+    {
+        $this->noon_close = $noon_close;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of evening_normal
+     */ 
+    public function getEvening_normal()
+    {
+        return $this->evening_normal;
+    }
+
+    /**
+     * Set the value of evening_normal
+     *
+     * @return  self
+     */ 
+    public function setEvening_normal($evening_normal)
+    {
+        $this->evening_normal = $evening_normal;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of noon_normal
+     */ 
+    public function getNoon_normal()
+    {
+        return $this->noon_normal;
+    }
+
+    /**
+     * Set the value of noon_normal
+     *
+     * @return  self
+     */ 
+    public function setNoon_normal($noon_normal)
+    {
+        $this->noon_normal = $noon_normal;
 
         return $this;
     }

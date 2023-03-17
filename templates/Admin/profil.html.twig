@@ -45,7 +45,7 @@
 						<li class="text-secondary"><a href="{{ path('admin_profil', {'page_up' : page_up, 'page_down' : 'carousel' }) }}" class="hover:-translate-y-1 bg-600 duration-100 rounded-t-3xl" >Carousel</a></li>
 						<li class="text-primary"><a href="{{ path('admin_card', { 'page_up' : page_up, 'page_down' : 'carte', 'page_three' : 'entrées' }) }}" class="hover:-translate-y-1 bg-400 duration-100 rounded-t-3xl">Carte</a></li>
 						<li class="text-secondary"><a href="{{ path('admin_profil', { 'page_up' : page_up, 'page_down': 'horaires' }) }}" class="hover:-translate-y-1 bg-400/20 duration-100 rounded-t-3xl">Horaires</a></li>
-						<li><a href="">Dates</a></li>
+						<li class="text-secondary"><a href="{{ path('admin_profil', {'page_up': page_up, 'page_down' : 'dates' }) }}" class="hover:-translate-y-1 bg-primary/50 duration-100 rounded-t-3xl">Dates</a></li>
 					</ul>
 				</nav>
 				{% block profil_down %}
