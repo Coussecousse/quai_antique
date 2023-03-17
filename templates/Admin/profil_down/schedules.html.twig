@@ -1,6 +1,6 @@
 <div class="text-secondary bg-500">
 	<div class="drop-shadow-lg bg-400/20">
-		<section class="after py-6 relative" id="schedules">
+		<section class="py-6 relative" id="schedules">
 			<ol id="days" class="flex flex-col gap-8">
 				{% set frenchDays = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'] %}
 				{% for key, day in schedules %}
@@ -16,50 +16,50 @@
 										<i class="before:pr-2 pt-3 fa-solid fa-lock">:</i>
 									</div>
 									<div class="flex-1 flex justify-evenly">
-										<div class="flex flex-col gap-2">
+										<div class="schedule_container flex flex-col gap-2">
 											<div class="">
 												<label hidden for="schedule_evening_start">Début du service :</label>
 												<div class="flex mx-auto max-w-[7.5rem]">
 													<i class="fa-solid fa-sun form_icon bg-primary/20"></i>
-													<input value="{{ day.eveningStart is empty ? "" : day.eveningStart|date('H:i', "Europe/Paris") }}" class="input_black input_withoutIcon p-0 sm:p-1" type="time" name="schedule_evening[start]" placeholder"hh:mm">
+													<input value="{{ day.eveningStart is empty ? "" : day.eveningStart|date('H:i', "Europe/Paris") }}" class="input_black input_withoutIcon p-0 sm:p-1 input_time" type="time" name="schedule_evening[start]" placeholder"hh:mm">
 												</div>
 											</div>
 											<div class="">
 												<label hidden for="schedule_evening_end">Fin du service :</label>
 												<div class="flex mx-auto max-w-[7.5rem]">
 													<i class="fa-solid fa-sun form_icon bg-primary/20"></i>
-													<input value="{{ day.eveningEnd is empty ? "" : day.eveningEnd|date('H:i', "Europe/Paris") }}" class="input_black input_withoutIcon p-0 sm:p-1" type="time" name="schedule_evening[end]" placeholder"hh:mm">
+													<input value="{{ day.eveningEnd is empty ? "" : day.eveningEnd|date('H:i', "Europe/Paris") }}" class="input_black input_withoutIcon p-0 sm:p-1 input_time" type="time" name="schedule_evening[end]" placeholder"hh:mm">
 												</div>
 											</div>
 											<div class="flex gap-2 justify-center">
 												{% if day.eveningClose %}
-												<input class="accent-red-500" type="checkbox" name="schedule_evening[close]" checked>
+												<input class="accent-red-500 input_check" type="checkbox" name="schedule_evening[close]" checked>
 												{% else %}
-												<input class="accent-red-500" type="checkbox" name="schedule_evening[close]">
+												<input class="accent-red-500 input_check" type="checkbox" name="schedule_evening[close]">
 												{% endif %}
 												<label for="schedule_evening_close">Fermer</label>
 											</div>
 										</div>
-										<div class="flex flex-col gap-2">
+										<div class="schedule_container flex flex-col gap-2">
 											<div class="">
 												<label hidden for="schedule_noon_start">Début du service :</label>
 												<div class="flex mx-auto max-w-[7.5rem]">
 													<i class="fa-solid fa-moon form_icon bg-primary/20"></i>
-													<input value="{{ day.noonStart is empty ? "" : day.noonStart|date('H:i', "Europe/Paris") }}" class="input_black input_withoutIcon p-0 sm:p-1" type="time" name="schedule_noon[start]" placeholder"hh:mm">
+													<input value="{{ day.noonStart is empty ? "" : day.noonStart|date('H:i', "Europe/Paris") }}" class="input_black input_withoutIcon p-0 sm:p-1 input_time" type="time" name="schedule_noon[start]" placeholder"hh:mm">
 												</div>
 											</div>
 											<div class="">
 												<label hidden for="schedule_noon_end[hour][minute]">Fin du service :</label>
 												<div class="flex mx-auto max-w-[7.5rem]">
 													<i class="fa-solid fa-moon form_icon bg-primary/20"></i>
-													<input value="{{ day.noonEnd is empty ? "" : day.noonEnd|date('H:i', "Europe/Paris") }}" class="input_black input_withoutIcon p-0 sm:p-1" type="time" name="schedule_noon[end]" placeholder"hh:mm">
+													<input value="{{ day.noonEnd is empty ? "" : day.noonEnd|date('H:i', "Europe/Paris") }}" class="input_black input_withoutIcon p-0 sm:p-1 input_time" type="time" name="schedule_noon[end]" placeholder"hh:mm">
 												</div>
 											</div>
 											<div class="flex gap-2 justify-center">
 											{% if day.noonClose %}
-												<input class="accent-red-500" type="checkbox" name="schedule_noon[close]" checked >
+												<input class="accent-red-500 input_check" type="checkbox" name="schedule_noon[close]" checked >
 											{% else %}
-												<input class="accent-red-500" type="checkbox" name="schedule_noon[close]">
+												<input class="accent-red-500 input_check" type="checkbox" name="schedule_noon[close]">
 											{% endif %}
 												<label for="schedule_noon_close">Fermer</label>
 											</div>
@@ -74,6 +74,10 @@
 					</li>
 				{% endfor %}
 			</ol>
+			<div class="flex flex-col items-center">
+				<button onclick="submitAllTheDays(event)" class="bg-secondary text-primary px-4 py-3 box-shadow-lg mb-2 mt-8 hover:bg-400 hover:text-secondary duration-150">Modifier tous les horaires</button>
+				<small class="error_submitAll bg-red-600 p-2 hide box-shadow-lg"></small>
+			</div>
 		</section>
 	</div>
 </div>

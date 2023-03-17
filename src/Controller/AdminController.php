@@ -364,7 +364,6 @@ class AdminController extends AbstractController
         }
 
         if ($request->isMethod('POST')) {
-
             $em = $doctrine->getManager();
 
             // Informations
@@ -383,10 +382,11 @@ class AdminController extends AbstractController
             $delete = $request->request->get('delete');
             $imageDescription = $request->request->get('imageDescription');
             // Schedules
-            $schedule = $request->request->all();
-            $schedule_id = $schedule['schedule']['id'];
-            $schedule_evening = $schedule['schedule_evening'];
-            $schedule_noon = $schedule['schedule_noon'];
+            dump($request);
+            $schedule_id = $request->request->get('id');
+            $schedule_evening = $request->request->all()['schedule_evening'] ?? null;
+            $schedule_noon = $request->request->all()['schedule_noon'] ?? null;
+            $schedulesAllDays = json_decode($request->getContent(), true)['schedules'] ?? null;
 
             $user = $this->getUser();
             // Change password
@@ -666,6 +666,39 @@ class AdminController extends AbstractController
                     "page_up" => $page_up,
                     'page_down' => $page_down,
                     'result' => "success"
+                ]);
+            }
+            if ($schedulesAllDays) {
+                foreach($schedulesAllDays as $day) {
+                    $newDay = $scheduleRepository->find($day['id']);
+                    foreach($day['service'] as $key => $service) {
+                        if (count($service) == 2) {
+                            foreach($service as $time) {
+                                if (!$this->checkPattern($time, '/^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/')){
+                                    return $this->redirectToRoute('admin_profil', [
+                                        "page_up" => $page_up,
+                                        'page_down' => $page_down,
+                                        'result' => "error_pattern"
+                                    ]);
+                                }
+                            }
+                            if ($key == 0)  {
+                                $newDay->setEveningStart(new DateTime($service[0]))->setEveningEnd(new DateTime($service[1]))->setEveningClose(false);
+                            } else {
+                                $newDay->setNoonStart(new DateTime($service[0]))->setEveningEnd(new DateTime($service[1]))->setNoonClose(false);
+                            }
+                        } else {
+                            if ($key == 0) {
+                                $newDay->setEveningStart(null)->setEveningEnd(null)->setEveningClose(true);
+                            } else {
+                                $newDay->setNoonStart(null)->setNoonEnd(null)->setNoonClose(true);
+                            }
+                        }
+                    }
+                    $scheduleRepository->save($newDay, true);
+                }
+                return new JsonResponse([
+                    'result' => 'success'
                 ]);
             }
         }
