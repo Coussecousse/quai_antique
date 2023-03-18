@@ -737,9 +737,8 @@ class AdminController extends AbstractController
             'success' => $success ?? null,
             'last_email' => $last_email ?? '',
             'restaurant' => $restaurant,
-            'form_schedule' => $form_schedule->createView(),
             'schedules' => $schedules,
-            'form_dates' => $form_dates
+            'form_dates' => $form_dates->createView()
         ]);
     }
 

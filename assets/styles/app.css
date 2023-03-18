@@ -418,22 +418,22 @@ header nav a.active::after {
     }
 }
 /* SCHEDULES */
-#schedules input[type=time] {
+#schedules input[type=time],  #special_dates input[type=time] {
     padding-inline-start: 0px;
 }
-#schedules input[type=time]::-webkit-calendar-picker-indicator  {
+#schedules input[type=time]::-webkit-calendar-picker-indicator, #special_dates input[type=time]::-webkit-calendar-picker-indicator, #special_dates input[type=date]::-webkit-calendar-picker-indicator  {
     filter: invert(100%);
 }
-
+/* DATES */
 
 
 @media screen and (min-width: 420px) {
-    #schedules input[type=time] {
+    #schedules input[type=time], #special_dates input[type=time] {
         padding: 0 4px;
     }
 }
 @media screen and (min-width:560px) {
-    .fa-lock-open, #schedules .fa-lock {
+    #schedules .fa-lock-open, #schedules .fa-lock, #special_dates .fa-lock-open, #special_dates .fa-lock {
         padding-inline-start: 0px;
         display: none !important;
     }

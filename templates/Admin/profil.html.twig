@@ -53,6 +53,8 @@
 							{% include 'Admin/profil_down/carousel.html.twig' %}
 						{% elseif page_down == 'horaires' %}
 							{% include 'Admin/profil_down/schedules.html.twig' %}
+						{% else %} 
+							{% include 'Admin/profil_down/dates.html.twig' %}
 						{% endif %}
                 {% endblock %}
 			</section>

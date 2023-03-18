@@ -1,7 +1,75 @@
 <div class="text-secondary bg-500">
     <div class="drop-shadow-lg bg-primary/50">
-        <section class="py-6" id="special_dates">
-        
+        <section class="after relative after:bg-secondary/50 py-6" id="special_dates">
+            <p class="w-11/12 mx-auto max-w-[598px] pb-3 underline underline-offset-2">Ajouter les horaires d'une date spécifique :</p>
+            {{ form_start(form_dates, {'attr' : { 'class' : 'text-sm sm-600:text-base bg-600 w-11/12 mx-auto max-w-[598px] gap-2 md:p-4 p-2 text-secondary'}})}}
+                <div class="py-2 relative after after:bg-secondary/50 after:min-w-[200px] w-fit  mx-auto">
+                    <div class="hidden">{{ form_label(form_dates.date) }}</div>
+                    {{form_widget(form_dates.date, { 'attr' : { 'class' : 'pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon'}}) }}
+                    <small class="form_error">
+                        {{form_errors(form_dates.date) }}
+                    </small>
+                </div>
+                <div class="w-full flex justify-evenly pt-4">
+                    <div class="flex flex-col gap-3">
+                        <p class="hidden sm-600:block pt-2">Ouverture :</p>
+                        <i class="before:pr-2 pt-3 fa-solid fa-lock-open">:</i>
+                        <p class="hidden sm-600:block">Fermeture :</p>
+                        <i class="before:pr-2 pt-3 fa-solid fa-lock">:</i>
+                    </div>
+                    <div class="flex-1 flex justify-evenly gap-2 lg:gap-0">
+                        <div class="flex flex-col gap-2">
+                            <div class="flex justify-center">
+                                <div class="hidden">{{form_label(form_dates.evening_start) }}</div>
+                                <div class="flex max-w-[7.5rem]">
+                                    <i class="fa-solid fa-sun form_icon bg-primary/20"></i>
+                                    {{ form_widget(form_dates.evening_start, { 'attr' : { 'class' : 'w-full pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon'}}) }}
+                                </div>
+                            </div>
+                            <div class="flex justify-center">
+                                <div class="hidden">{{form_label(form_dates.evening_end) }}</div>
+                                <div class="flex max-w-[7.5rem]">
+                                    <i class="fa-solid fa-sun form_icon bg-primary/20"></i>
+                                    {{ form_widget(form_dates.evening_end, { 'attr' : { 'class' : 'w-full pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon'}}) }}
+                                </div>
+                            </div>
+                            <div class="flex justify-center items-center gap-1 self-start sm:self-auto">
+                                {{ form_widget(form_dates.evening_close, { 'attr' : { 'class' : 'accent-red-500'}}) }}
+                                {{ form_label(form_dates.evening_close)}}
+                            </div>
+                            <div class="flex justify-center items-center gap-1">
+                                {{ form_widget(form_dates.evening_normal) }}
+                                {{ form_label(form_dates.evening_normal) }}
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <div class="flex justify-center">
+                                <div class="hidden">{{form_label(form_dates.noon_start) }}</div>
+                                <div class="flex max-w-[7.5rem]">
+                                    <i class="fa-solid fa-moon form_icon bg-primary/20"></i>
+                                    {{ form_widget(form_dates.noon_start, { 'attr' : { 'class' : 'w-full pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon'}}) }}
+                                </div>
+                            </div>
+                            <div class="flex justify-center">
+                                <div class="hidden">{{form_label(form_dates.noon_end) }}</div>
+                                <div class="flex max-w-[7.5rem]">
+                                    <i class="fa-solid fa-moon form_icon bg-primary/20"></i>
+                                    {{ form_widget(form_dates.noon_end, { 'attr' : { 'class' : 'w-full pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon'}}) }}
+                                </div>
+                            </div>
+                            <div class="flex gap-1 justify-center items-center self-start sm:self-auto">
+                                {{ form_widget(form_dates.noon_close, { 'attr' : { 'class' : 'accent-red-500'}}) }}
+                                {{ form_label(form_dates.noon_close)}}
+                            </div>
+                            <div class="flex justify-center items-center gap-1">
+                                {{ form_widget(form_dates.noon_normal) }}
+                                {{ form_label(form_dates.noon_normal) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            {{ form_end(form_dates) }}
         </section>
     </div>
 </div>
