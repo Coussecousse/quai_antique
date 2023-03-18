@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Carousel;
+use App\Entity\Date;
 use App\Entity\Food;
 use App\Entity\Menu;
 use App\Entity\Offer;
@@ -12,6 +13,7 @@ use App\Form\ImageType;
 use App\Form\MenusType;
 use App\ImageOptimizer;
 use App\Repository\CarouselRepository;
+use App\Repository\DateRepository;
 use App\Repository\FoodRepository;
 use App\Repository\MenuRepository;
 use App\Repository\OfferRepository;
@@ -101,6 +103,58 @@ class AdminController extends AbstractController
             $optimizer->resize($newPath, $size);
             
         }
+    }
+    function getErrorScheduleDate($form, $service, $newDate) {
+        dump($form);
+        $time_close = $form->get($service. '_close')->getData();
+        $time_normal = $form->get($service. '_normal')->getData();
+
+        if ($time_close && $time_normal) {
+            return false;
+        }
+       
+        $time_start = $form->get($service. '_start')->getData();
+        $time_end = $form->get($service. '_end')->getData();
+
+        if (!$time_start || !$time_end) {
+            if ($time_close || $time_normal) {
+                return true;
+            }
+            return false;
+        } 
+        return true;
+
+    }
+    function setNewDate($newDate, $form, $service) {
+        $time_close = $form->get($service. '_close')->getData();
+        $time_normal = $form->get($service. '_normal')->getData();
+        if ($time_close) {
+            if ($service == 'evening'){
+                $newDate->setEvening_close(true)->setEveningStart(null)->setEveningEnd(null)->setEvening_normal(false);
+            } else {
+                $newDate->setNoon_close(true)->setNoonStart(null)->setNoonEnd(null)->setNoon_normal(false);
+            }
+            return $newDate;
+        }
+        if ($time_normal) {
+            if ($service == 'evening'){
+                $newDate->setEvening_normal(true)->setEveningStart(null)->setEveningEnd(null)->setEvening_close(false);
+            } else {
+                $newDate->setNoon_normal(true)->setNoonStart(null)->setNoonEnd(null)->setNoon_close(false);
+            }
+            return $newDate;
+        }
+
+        $time_start = $form->get($service. '_start')->getData();
+        $time_end = $form->get($service. '_end')->getData();
+
+        if ($service == 'evening'){
+            $newDate->setEveningStart($time_start)->setEveningEnd($time_end)->setEvening_close(false)->setEvening_normal(false);
+        } else {
+            $newDate->setNoonStart($time_start)->setNoonEnd($time_end)->setNoon_close(false)->setNoon_normal(false);
+        }
+        return $newDate;
+
     }
     #[Route('admin/profil/{page_up}/{page_down}/{page_three}', name: "admin_card", methods: ['GET', 'POST'], defaults: ['page_up' => 'informations', 'page_down' => 'carousel'])]
     public function profilCard(string $page_up, string $page_down, string $page_three, Request $request, FoodRepository $foodRepository, MenuRepository $menuRepository, OfferRepository $offerRepository)
@@ -308,7 +362,7 @@ class AdminController extends AbstractController
     }
 
     #[Route('admin/profil/{page_up}/{page_down}', name: "admin_profil", methods: ['GET', 'POST'], defaults: ['page_up' => 'informations', 'page_down' => 'carousel'])]
-    public function profil(string $page_up, string $page_down, UserRepository $repository, Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $userPasswordHasher, SluggerInterface $slugger, CarouselRepository $carouselRepository, ScheduleRepository $scheduleRepository)
+    public function profil(string $page_up, string $page_down, UserRepository $repository, Request $request, ManagerRegistry $doctrine, UserPasswordHasherInterface $userPasswordHasher, SluggerInterface $slugger, CarouselRepository $carouselRepository, ScheduleRepository $scheduleRepository, DateRepository $dateRepository)
     {
         // Informations
         $path = $this->getParameter('kernel.project_dir') . '/config/data/restaurant.yaml';
@@ -320,9 +374,38 @@ class AdminController extends AbstractController
         // Dates
         $form_dates = $this->createForm(DatesType::class);
         $form_dates->handleRequest($request);
+        if ($form_dates->isSubmitted() && $form_dates->isValid()) {
+            $date = $form_dates->get('date')->getData();
+
+            $newDate = new Date;
+
+            dump('hey');
+            if (!$this->getErrorScheduleDate($form_dates, 'evening', $dateRepository) 
+                || !$this->getErrorScheduleDate($form_dates, 'noon', $dateRepository)){
+                return $this->redirectToRoute('admin_profil', [
+                    "page_up" => $page_up,
+                    'page_down' => $page_down,
+                    'result' => "error_pattern"
+                ]);
+            } else {
+                $newDate->setDate($date);
+                $newDate = $this->setNewDate($newDate, $form_dates, 'evening');
+                $newDate = $this->setNewDate($newDate, $form_dates, 'noon');
+                dump($newDate);
+                $dateRepository->save($newDate, true);
+                return $this->redirectToRoute('admin_profil', [
+                    "page_up" => $page_up,
+                    'page_down' => $page_down,
+                    'result' => "success"
+                ]);
+            }
+        
+        }
+
 
         $last_email = $request->getSession()->get('last_email');
 
+        // Image
         $form_image = $this->createForm(ImageType::class);
         $form_image->handleRequest($request);
 
@@ -387,6 +470,7 @@ class AdminController extends AbstractController
             $schedule_evening = $request->request->all()['schedule_evening'] ?? null;
             $schedule_noon = $request->request->all()['schedule_noon'] ?? null;
             $schedulesAllDays = json_decode($request->getContent(), true)['schedules'] ?? null;
+            // Dates
 
             $user = $this->getUser();
             // Change password
@@ -701,6 +785,7 @@ class AdminController extends AbstractController
                     'result' => 'success'
                 ]);
             }
+
         }
 
         $imagesCarousel = $carouselRepository->findAll();

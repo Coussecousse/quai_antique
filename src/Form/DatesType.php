@@ -22,36 +22,44 @@ class DatesType extends AbstractType{
             'input' => 'datetime'
         ])
         ->add('evening_start', TimeType::class, [
+            'required' => false,
             "label" => "Heure de début de service",
             "widget" => "single_text",
             'input' => 'datetime'
         ])
         ->add('evening_end', TimeType::class, [
+            'required' => false,
             "label" => "Heure de fin de service :",
             "widget" => "single_text",
             'input' => 'datetime'
         ])
         ->add('evening_close', CheckboxType::class, [
+            'required' => false,
             "label" => "Fermer"
         ])
         ->add('evening_normal', CheckboxType::class, [
-            "label" => "Horaires normaux"
+            'required' => false,
+            "label" => "Horaires habituels"
         ])
         ->add('noon_start', TimeType::class, [
+            'required' => false,
             "label" => "Heure de début de service",
             "widget" => "single_text",
             'input' => 'datetime'
         ])
         ->add('noon_end', TimeType::class, [
+            'required' => false,
             "label" => "Heure de fin de service :",
             "widget" => "single_text",
             'input' => 'datetime'
         ])
         ->add('noon_close', CheckboxType::class, [
+            'required' => false,
             "label" => "Fermer"
         ])
         ->add('noon_normal', CheckboxType::class, [
-            "label" => "Horaires normaux"
+            'required' => false,
+            "label" => "Horaires habituels"
         ])
         ;
     }
@@ -59,7 +67,7 @@ class DatesType extends AbstractType{
     {
         $resolver->setDefaults([
             // Configure your form options here
-            'data_class' => Date::class
+            
         ]);
     }
 }
