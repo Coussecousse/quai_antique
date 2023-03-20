@@ -375,13 +375,13 @@ class AdminController extends AbstractController
         $form_dates = $this->createForm(DatesType::class);
         $form_dates->handleRequest($request);
         $special_dates = $dateRepository->findAllByDate();
+        // Dates_search
+        $search_date = $request->query->get('search_date');
 
         if ($form_dates->isSubmitted() && $form_dates->isValid()) {
             $date = $form_dates->get('date')->getData();
-
             $newDate = new Date;
 
-            dump('hey');
             if (!$this->getErrorScheduleDate($form_dates, 'evening', $dateRepository) 
                 || !$this->getErrorScheduleDate($form_dates, 'noon', $dateRepository)){
                 return $this->redirectToRoute('admin_profil', [
@@ -393,7 +393,6 @@ class AdminController extends AbstractController
                 $newDate->setDate($date);
                 $newDate = $this->setNewDate($newDate, $form_dates, 'evening');
                 $newDate = $this->setNewDate($newDate, $form_dates, 'noon');
-                dump($newDate);
                 $dateRepository->save($newDate, true);
                 return $this->redirectToRoute('admin_profil', [
                     "page_up" => $page_up,
@@ -445,6 +444,19 @@ class AdminController extends AbstractController
             ]);
         } else if ($form_image->isSubmitted() && !$form_image->isValid()) {
             $request->query->remove('result');
+        }
+        dump($search_date);
+        if ($search_date) {
+            $dates = $dateRepository->findAfterDate(new DateTime($search_date));
+
+            if (count($dates) == 0) {
+                return $this->redirectToRoute('admin_profil', [
+                    "page_up" => $page_up,
+                    'page_down' => $page_down,
+                    'result' => "error_no_date"
+                ]);
+            } 
+            $special_dates = $dates;
         }
 
         if ($request->isMethod('POST')) {
@@ -835,6 +847,9 @@ class AdminController extends AbstractController
             case 'success_delete_past_dates':
                 $success = "Les dates passées ont bien été supprimées.";
                 break;
+            case 'error_no_date':
+                $error = "Aucune date n'a été trouvé.";
+                break;
             case 'error_email_email' : 
                 $error = "Email invalide.";
                 break;
@@ -863,7 +878,7 @@ class AdminController extends AbstractController
             'restaurant' => $restaurant,
             'schedules' => $schedules,
             'form_dates' => $form_dates->createView(),
-            'special_dates' => $special_dates
+            'special_dates' => $special_dates,
         ]);
     }
 

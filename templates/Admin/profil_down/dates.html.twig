@@ -70,7 +70,13 @@
                 </div>
                 <button type="submit" class="bg-primary/50 px-4 py-2 mt-4 relative left-1/2 -translate-x-1/2">Ajouter une nouvelle date</button>
             {{ form_end(form_dates) }}
-            <button onclick="deletePastDates()" class="box-shadow-lg mt-4 bg-red-600 px-4 py-2 relative left-1/2 -translate-x-1/2">Supprimer les dates passées</button>
+            <button onclick="deletePastDates()" class="scale-[.8] hover:scale-100 duration-150 box-shadow-lg mt-4 bg-red-600 px-4 py-2 relative left-1/2 -translate-x-1/2">Supprimer les dates passées</button>
+        </section>
+        <section class="flex mt-6">
+            <form class="mx-auto text-sm sm-600:text-base flex items-center justify-center">
+                <input type="date" name="search_date" class="bg-secondary text-primary input_withoutIcon">
+                <button type="submit" class="bg-400 text-secondary button_profil"><i class="fa-solid fa-magnifying-glass icon_profil"></i></button>
+            </form>
         </section>
         <section id="all_special_dates">
             <ol class="py-6 flex flex-col gap-6">
