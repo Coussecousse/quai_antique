@@ -34,7 +34,7 @@
                                 </div>
                             </div>
                             <div class="flex justify-center items-center gap-1 self-start sm:self-auto">
-                                {{ form_widget(form_dates.evening_close, { 'attr' : { 'class' : 'accent-red-500'}}) }}
+                                {{ form_widget(form_dates.evening_close, { 'attr' : { 'class' : 'accent-red-600'}}) }}
                                 {{ form_label(form_dates.evening_close)}}
                             </div>
                             <div class="flex justify-center items-center gap-1">
@@ -58,7 +58,7 @@
                                 </div>
                             </div>
                             <div class="flex gap-1 justify-center items-center self-start sm:self-auto">
-                                {{ form_widget(form_dates.noon_close, { 'attr' : { 'class' : 'accent-red-500'}}) }}
+                                {{ form_widget(form_dates.noon_close, { 'attr' : { 'class' : 'accent-red-600'}}) }}
                                 {{ form_label(form_dates.noon_close)}}
                             </div>
                             <div class="flex justify-center items-center gap-1">
@@ -70,6 +70,7 @@
                 </div>
                 <button type="submit" class="bg-primary/50 px-4 py-2 mt-4 relative left-1/2 -translate-x-1/2">Ajouter une nouvelle date</button>
             {{ form_end(form_dates) }}
+            <button onclick="deletePastDates()" class="box-shadow-lg mt-4 bg-red-600 px-4 py-2 relative left-1/2 -translate-x-1/2">Supprimer les dates passées</button>
         </section>
         <section id="all_special_dates">
             <ol class="py-6 flex flex-col gap-6">
@@ -107,16 +108,16 @@
                                 <div class="flex justify-center items-center gap-1 self-start sm:self-auto">
                                     {% if date.evening_close == true %}
                                         <input disabled type="checkbox" checked class="">
-                                        <label class="after:bg-red-500">Fermer</label>
+                                        <label class="after:bg-red-600">Fermer</label>
                                     {% else %}
-                                        <input disabled type="checkbox" class="accent-red-500">
+                                        <input disabled type="checkbox" class="">
                                         <label>Fermer</label>
                                     {% endif %}
                                 </div>
                                 <div class="flex justify-center items-center gap-1">
                                     {% if date.evening_normal == true %}
                                         <input disabled type="checkbox" checked>
-                                        <label class="after:bg-blue-500">Horaires habituels</label>
+                                        <label class="after:bg-blue-600">Horaires habituels</label>
                                     {% else %}
                                         <input disabled type="checkbox">
                                         <label>Horaires habituels</label>
@@ -141,7 +142,7 @@
                                 <div class="flex justify-center items-center gap-1 self-start sm:self-auto">
                                     {% if date.noon_close == true %}
                                         <input disabled type="checkbox" checked class="">
-                                        <label class="after:bg-red-500">Fermer</label>
+                                        <label class="after:bg-red-600">Fermer</label>
                                     {% else %}
                                         <input disabled type="checkbox" class="">
                                         <label>Fermer</label>
@@ -150,7 +151,7 @@
                                 <div class="flex justify-center items-center gap-1">
                                     {% if date.noon_normal == true %}
                                         <input disabled type="checkbox" checked>
-                                        <label class="after:bg-blue-500">Horaires habituels</label>
+                                        <label class="after:bg-blue-600">Horaires habituels</label>
                                     {% else %}
                                         <input disabled type="checkbox" class="">
                                         <label>Horaires habituels</label>

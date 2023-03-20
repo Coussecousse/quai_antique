@@ -472,6 +472,7 @@ class AdminController extends AbstractController
             $schedulesAllDays = json_decode($request->getContent(), true)['schedules'] ?? null;
             // Dates
             $delete_date = $request->request->get('delete_date');
+            $delete_pastDates = $request->request->get('delete_pastDates');
 
             $user = $this->getUser();
             // Change password
@@ -803,7 +804,24 @@ class AdminController extends AbstractController
                     'result' => 'success'
                 ]);
             }
-
+            if ($delete_pastDates) {
+                date_default_timezone_set('Europe/Paris');
+                $today = date("Y-m-d", time());
+                $today = new DateTime($today);
+                try {
+                    $pastDates = $dateRepository->findPastDates($today);
+                    foreach($pastDates as $pastDate) {
+                        $dateRepository->remove($pastDate, true);
+                    }
+                } catch(Exception $e) {
+                    return new JsonResponse([
+                        'result' => 'error'
+                    ]);
+                }
+                return new JsonResponse([
+                    'result' => 'success'
+                ]);
+            }
         }
 
         $imagesCarousel = $carouselRepository->findAll();
@@ -813,6 +831,9 @@ class AdminController extends AbstractController
         switch($result) {
             case 'success' : 
                 $success = "Modification effectuée avec succès !";
+                break;
+            case 'success_delete_past_dates':
+                $success = "Les dates passées ont bien été supprimées.";
                 break;
             case 'error_email_email' : 
                 $error = "Email invalide.";

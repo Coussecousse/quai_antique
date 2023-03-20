@@ -45,6 +45,15 @@ class DateRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    public function findPastDates($today) {
+        $qb = $this->createQueryBuilder('d');
+        dump($today);
+        return $qb
+            ->where('d.date < :today')
+            ->setParameter('today', $today)
+            ->getQuery()
+            ->getResult();
+    }
 
 
 //    /**

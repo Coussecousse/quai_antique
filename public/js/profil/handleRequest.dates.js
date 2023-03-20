@@ -29,3 +29,31 @@ function deleteDate(e) {
 
     xhr.send(params);
 }
+
+function deletePastDates() {
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+        let url = window.location.origin + window.location.pathname;
+
+        if (this.readyState == 4 && this.status == 200) {
+            const response = JSON.parse(xhr.responseText);
+
+            switch(response.result){
+                case 'success':
+                    window.location = url + "?result=success_delete_past_dates";
+                    break;
+                default : 
+                    window.location = url + "?result=error";
+                    break;
+            }
+        } else {
+            window.location = url + "?result=error"
+        }
+    }
+    xhr.open('POST', '/admin/profil/{page_up}/{page_down}');
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+    let params = "delete_pastDates=" + true;
+
+    xhr.send(params);
+}
