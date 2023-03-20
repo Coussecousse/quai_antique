@@ -75,6 +75,7 @@
 	<script src={{ asset('js/profil/'~'handleRequest.carousel.js') }}></script>
 	{% elseif page_down == 'horaires' %}
 	<script src={{ asset('js/profil/'~'handleRequest.schedules.js') }}></script>
-
+	{% elseif page_down == 'dates' %}
+		<script src={{ asset('js/profil/'~'handleRequest.dates.js') }}></script>
 	{% endif %}
 {% endblock %}

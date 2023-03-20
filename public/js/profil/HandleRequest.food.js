@@ -38,7 +38,7 @@ function setFood(e) {
     xhr.open('POST', '/admin/profil/{page_up}/{page_down}/{page_three}');
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-    let params = 'id='+ id + '&title='+ title + '&description=' + description + '&price=' + price;
+    let params = 'id_food='+ id + '&title='+ title + '&description=' + description + '&price=' + price;
     xhr.send(params);
 }
 

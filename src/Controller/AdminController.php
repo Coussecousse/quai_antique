@@ -217,7 +217,7 @@ class AdminController extends AbstractController
         }  else if ($form_menu->isSubmitted() && !$form_menu->isValid()){
             $request->query->remove('result');
         }
-        $id = $request->request->get('id');
+        $id = $request->request->get('id_food');
         if ($request->isMethod('POST') && $id) {
 
             // Delete Food
@@ -461,17 +461,17 @@ class AdminController extends AbstractController
             $postcodeRestaurant = $request->request->get('postcode');
             $placesRestaurant = $request->request->get('places');
             // Carousel
-            $id = $request->request->get('id');
+            $id = $request->request->get('id_carousel');
             $imageTitle = $request->request->get('imageTitle');
             $delete = $request->request->get('delete');
             $imageDescription = $request->request->get('imageDescription');
             // Schedules
-            dump($request);
-            $schedule_id = $request->request->get('id');
+            $schedule_id = $request->request->get('id_schedule');
             $schedule_evening = $request->request->all()['schedule_evening'] ?? null;
             $schedule_noon = $request->request->all()['schedule_noon'] ?? null;
             $schedulesAllDays = json_decode($request->getContent(), true)['schedules'] ?? null;
             // Dates
+            $delete_date = $request->request->get('delete_date');
 
             $user = $this->getUser();
             // Change password
@@ -782,6 +782,23 @@ class AdminController extends AbstractController
                     }
                     $scheduleRepository->save($newDay, true);
                 }
+                return new JsonResponse([
+                    'result' => 'success'
+                ]);
+            }
+
+            // Dates
+            if ($delete_date) {
+                $id = $request->request->get('id_date');
+                try {
+                    $date = $dateRepository->find($id);
+                    $dateRepository->remove($date, true);
+                } catch (Exception $e) {
+                    return new JsonResponse([
+                        "result" => 'error'
+                    ]);
+                }
+
                 return new JsonResponse([
                     'result' => 'success'
                 ]);
