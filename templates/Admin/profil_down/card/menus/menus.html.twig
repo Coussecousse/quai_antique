@@ -11,13 +11,12 @@
                         {{ form_errors(form_menu.title) }}
                     </small>
                 </div>
-                <button type="submit" class="bg-primary/50 button_profil">
-                    <i class="fa-solid fa-plus text-secondary"></i>
-                </button>
+                <button type="submit" id="add_image" class="bg-secondary text-primary hover:bg-primary hover:text-secondary duration-150 h-8 px-2 min-w-[2rem] sm-600:min-w-fit flex gap-2 justify-center items-center"><p class="hidden sm-600:block">Ajouter un menu</p><i class="fa-solid fa-plus"></i>
             </div>
-            <button type="button" class="add_item_link text-secondary bg-primary/50 px-4 py-2 relative left-1/2 -translate-x-1/2 my-3" data-collection-holder-class="offers">Ajouter une formule</button>
+            <button type="button" class="mt-8 text-sm duration-150 hover:bg-secondary hover:text-primary add_item_link text-secondary bg-primary/50 px-4 py-2 relative left-1/2 -translate-x-1/2 my-3" data-collection-holder-class="offers">Ajouter une formule</button>
         </div>
-        <ul class="offers"
+        <p class="py-2 underline underline-offset-2">Formules :</p>
+        <ul class="offers text-sm pt-4"
             data-index="{{ form_menu.offers|length > 0 ? form_menu.offers|last.vars.name + 1 : 0 }}"
             data-prototype="{{ _self.offers_prototype_empty(form_menu.offers.vars.prototype)|e('html_attr') }}"
             >
@@ -44,8 +43,8 @@
                                     <button type="submit" class="bg-primary/50 button_profil" aria-label="Modifier">
                                         <i class="fa-solid fa-pen text-secondary button-full"></i>
                                     </button>
-                                    <button aria-label="Supprimer" id="{{ 'delete_'~ menu.id }}" onclick="deleteMenu(event)" class="">
-                                        <i class="fa-solid fa-trash bg-primary/50 button_profil button-full"></i>
+                                    <button aria-label="Supprimer" id="{{ 'delete_'~ menu.id }}" onclick="deleteMenu(event)" class="bg-red-600 hover:bg-secondary hover:text-red-600 duration-150">
+                                        <i class="fa-solid fa-trash button_profil button-full"></i>
                                     </button>
                                 </div>
                             </div>
@@ -132,8 +131,8 @@
             <input required minLength=2 maxLength=150  type="text" class="w-full pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon" id="{{'menu_'~ key_menu ~'_offer_title_'~ key_offer }}" name="{{'menu_'~ key_menu ~'_offer_title_'~ key_offer }}" value="{{ offer.title }}">
         </div>
         {% if key_offer != 0 %}
-        <button>
-            <i class="button-deleteOffer fa-solid fa-trash button-full bg-primary/50 button_profil" onclick="deleteOffer(event)"></i>
+        <button class="bg-red-600 hover:bg-secondary hover:text-red-600 duration-150">
+            <i class="button-deleteOffer fa-solid fa-trash button-full button_profil" onclick="deleteOffer(event)"></i>
         </button>
         {% endif %}
     </div>
@@ -167,8 +166,8 @@
             <input required minLength="2" maxLength="200"  type="text" class="pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon" id="{{'menu_'~ key_menu ~'_offer_'~ key_offer ~'_composition_title_'~ key }}" name="{{'menu_'~ key_menu ~'_offer_'~ key_offer ~'_composition_title_'~ key }}" value="{{ composition }}" placeholder="Plat...">
         </div>
         {% if key >= 1 %}
-        <button>
-            <i class="fa-solid fa-trash button-full bg-primary/50 button_profil" onclick="deleteComposition(event)"></i>
+        <button class="bg-red-600 hover:bg-secondary hover:text-red-600 duration-150">
+            <i class="fa-solid fa-trash button-full button_profil" onclick="deleteComposition(event)"></i>
         </button>
         {% endif %}
     </li>

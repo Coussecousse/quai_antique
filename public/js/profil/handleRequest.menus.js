@@ -1,9 +1,11 @@
 function addDeleteButton(parent) {
     const element = parent.querySelector('.name');
     const removeButton = document.createElement('button');
+
+    removeButton.classList.add('bg-red-600', 'hover:bg-secondary', 'hover:text-red-600', 'duration-150');
     
     const i = document.createElement('i');
-    i.classList.add('fa-solid', 'fa-trash', 'button-full', 'bg-primary/50', 'button_profil');
+    i.classList.add('fa-solid', 'fa-trash', 'button-full', 'button_profil');
     
     removeButton.appendChild(i);
 
@@ -159,9 +161,11 @@ function addOffer(e) {
             return;
         }
         const removeButton = document.createElement('button');
+        removeButton.classList.add('bg-red-600', 'hover:bg-secondary', 'hover:text-red-600', 'duration-150');
+
     
         const i = document.createElement('i');
-        i.classList.add('fa-solid', 'fa-trash', 'button-full', 'bg-primary/50', 'button_profil');
+        i.classList.add('fa-solid', 'fa-trash', 'button-full', 'button_profil');
         
         removeButton.appendChild(i);
         if (element.parentElement.classList.contains('compositions_model')) {
@@ -196,9 +200,10 @@ function addComposition(e) {
     
     if (parent.children.length !== 0) {
         const removeButton = document.createElement('button');
+        removeButton.classList.add('bg-red-600', 'hover:bg-secondary', 'hover:text-red-600', 'duration-150');
         
         const i = document.createElement('i');
-        i.classList.add('fa-solid', 'fa-trash', 'button-full', 'bg-primary/50', 'button_profil');
+        i.classList.add('fa-solid', 'fa-trash', 'button-full', 'button_profil');
         
         removeButton.appendChild(i);
         removeButton.onclick = e => deleteComposition(e);

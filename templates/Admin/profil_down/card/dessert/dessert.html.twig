@@ -17,20 +17,20 @@
 					{{ form_errors(form_card.description) }}
 				</small>
 			</div>
-			<div class="">
-				<div class="hidden">{{ form_label(form_card.price) }}</div>
-				<div class="flex items-center input_profil w-[120px]">
-                    <i class="fa-solid fa-euro-sign form_icon bg-primary/20"></i>
-                    {{ form_widget(form_card.price, { 'attr' : { 'class' : 'pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon' }}) }}
-                </div>
-				<small class="form_error">
-					{{ form_errors(form_card.price) }}
-				</small>
+			<div class="flex justify-between">
+				<div>
+					<div class="hidden">{{ form_label(form_card.price) }}</div>
+					<div class="flex items-center input_profil w-[120px]">
+										<i class="fa-solid fa-euro-sign form_icon bg-primary/20"></i>
+										{{ form_widget(form_card.price, { 'attr' : { 'class' : 'pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon' }}) }}
+									</div>
+					<small class="form_error">
+						{{ form_errors(form_card.price) }}
+					</small>
+				</div>
+				<button type="submit" id="add_image" class="bg-secondary text-primary hover:bg-primary hover:text-secondary duration-150 h-8 px-2 min-w-[2rem] sm-600:min-w-fit flex gap-2 justify-center items-center"><p class="hidden sm-600:block">Ajouter un plat</p><i class="fa-solid fa-plus"></i>
 			</div>
 		</div>
-		<button type="submit" id="add_image" class="bg-primary/50 button_profil">
-			<i class="fa-solid fa-plus text-secondary"></i>
-		</button>
 		{{ form_end(form_card) }}
 	</section>
 	<section class="flex flex-col gap-7 py-6">
