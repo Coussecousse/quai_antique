@@ -393,6 +393,71 @@ header nav a.active::after {
     animation: linear 150ms forwards fade-in; 
 }
 
+#all_special_dates input[type="checkbox"]:checked,
+#all_special_dates input[type="checkbox"]:not(:checked) {
+    position: absolute;
+    left: -9999px;
+}
+
+#all_special_dates input[type="checkbox"]:checked + label,
+#all_special_dates input[type="checkbox"]:not(:checked) + label
+{
+    position: relative;
+    padding-left: 28px;
+    cursor: pointer;
+    line-height: 20px;
+    display: inline-block;
+}
+#all_special_dates input[type="checkbox"]:not(:checked) + label
+{
+    color: #666;
+}
+#all_special_dates input[type="checkbox"]:checked + label:before,
+#all_special_dates input[type="checkbox"]:not(:checked) + label:before {
+    content: '';
+    position: absolute;
+    left: 12px;
+    top: 5px;
+    width: 11px;
+    height: 11px;
+    border-radius: 2px;
+}
+#all_special_dates input[type="checkbox"]:checked + label:before
+{
+    background: #fff;
+    border: 1px solid #ddd;
+}
+#all_special_dates input[type="checkbox"]:not(:checked) + label:before
+{
+    background: #8e8e8e;
+    border: 1px solid #8e8e8e;
+}
+#all_special_dates input[type="checkbox"]:checked + label:after,
+#all_special_dates input[type="checkbox"]:not(:checked) + label:after {
+    content: '';
+    width: 11px;
+    height: 11px;
+    position: absolute;
+    top: 5px;
+    left: 12px;
+    border-radius: 2px;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+#all_special_dates input[type="checkbox"]:not(:checked) + label:after {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+}
+#all_special_dates input[type="checkbox"]:checked + label:after {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+#all_special_dates input[type="checkbox"]:disabled + label {
+    cursor: not-allowed;
+}
+
 /* Schedule */
 .after-schedule {
     @apply  after:content-[''] after:w-[2px] after:h-[100%] after:absolute after:bg-secondary/50 after:right-0 after:top-0;
@@ -427,13 +492,15 @@ header nav a.active::after {
 /* DATES */
 
 
+
 @media screen and (min-width: 420px) {
     #schedules input[type=time], #special_dates input[type=time] {
         padding: 0 4px;
     }
 }
 @media screen and (min-width:560px) {
-    #schedules .fa-lock-open, #schedules .fa-lock, #special_dates .fa-lock-open, #special_dates .fa-lock {
+    #schedules .fa-lock-open, #schedules .fa-lock, #special_dates .fa-lock-open, #special_dates .fa-lock 
+    , #all_special_dates .fa-lock-open, #all_special_dates .fa-lock {
         padding-inline-start: 0px;
         display: none !important;
     }

@@ -374,6 +374,8 @@ class AdminController extends AbstractController
         // Dates
         $form_dates = $this->createForm(DatesType::class);
         $form_dates->handleRequest($request);
+        $special_dates = $dateRepository->findAllByDate();
+
         if ($form_dates->isSubmitted() && $form_dates->isValid()) {
             $date = $form_dates->get('date')->getData();
 
@@ -399,7 +401,6 @@ class AdminController extends AbstractController
                     'result' => "success"
                 ]);
             }
-        
         }
 
 
@@ -823,7 +824,8 @@ class AdminController extends AbstractController
             'last_email' => $last_email ?? '',
             'restaurant' => $restaurant,
             'schedules' => $schedules,
-            'form_dates' => $form_dates->createView()
+            'form_dates' => $form_dates->createView(),
+            'special_dates' => $special_dates
         ]);
     }
 

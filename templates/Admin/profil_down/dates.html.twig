@@ -71,5 +71,98 @@
                 <button type="submit" class="bg-primary/50 px-4 py-2 mt-4 relative left-1/2 -translate-x-1/2">Ajouter une nouvelle date</button>
             {{ form_end(form_dates) }}
         </section>
+        <section id="all_special_dates">
+            <ol class="py-6 flex flex-col gap-6">
+                {% for date in special_dates %}
+                    <li class="text-sm sm-600:text-base bg-600 w-11/12 mx-auto max-w-[598px] gap-2 md:p-4 p-2 text-secondary">
+                        <div class="w-[128.4px] sm-600:w-[143.2px] py-2 relative after after:bg-secondary/50 after:min-w-[200px] mx-auto">
+                            <div aria-label="Date" class="pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon flex justify-center items-center">
+                                <p class="flex-1">{{ date.date|date("d/m/Y", false) }}</p>
+                                <i class="fa-regular fa-calendar text-sm px-[6px]"></i>
+                            </div>
+                        </div>
+                        <div class="w-full flex justify-evenly pt-4">
+                            <div class="flex flex-col gap-3">
+                                <p class="hidden sm-600:block pt-2">Ouverture :</p>
+                                <i class="before:pr-2 pt-3 fa-solid fa-lock-open">:</i>
+                                <p class="hidden sm-600:block">Fermeture :</p>
+                                <i class="before:pr-2 pt-3 fa-solid fa-lock">:</i>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <div class="flex justify-center">
+                                    <div class="bg-primary/20 flex max-w-[7.5rem] justify-center items-center" aria-label="Début du service du midi" >
+                                        <i class="fa-solid fa-sun form_icon "></i>
+                                        <p class="w-full pr-2  input_whitePlaceholder input_withoutIcon">{{ date.eveningStart ? date.eveningStart|date("H:i", false) : '--:--' }}</p>
+                                        <i class="fa-regular fa-clock  text-sm px-[6px]"></i>
+                                    </div>
+                                </div>
+                                <div class="flex justify-center">
+                                    <div class="bg-primary/20 flex max-w-[7.5rem] justify-center items-center" aria-label="Fin du service du midi">
+                                        <i class="fa-solid fa-sun form_icon "></i>
+                                        <p class="w-full pr-2  input_whitePlaceholder input_withoutIcon">{{ date.eveningEnd ? date.eveningEnd|date("H:i", false): '--:--' }}</p>
+                                        <i class="fa-regular fa-clock  text-sm px-[6px]"></i>
+                                    </div>
+                                </div>
+                                <div class="flex justify-center items-center gap-1 self-start sm:self-auto">
+                                    {% if date.evening_close == true %}
+                                    {# <pre>
+                                        {{ dump('yes') }}
+                                    </pre> #}
+                                        <input disabled type="checkbox" checked class="">
+                                        <label class="after:bg-red-500">Fermer</label>
+                                    {% else %}
+                                        <input disabled type="checkbox" class="accent-red-500">
+                                        <label>Fermer</label>
+                                    {% endif %}
+                                </div>
+                                <div class="flex justify-center items-center gap-1">
+                                    {% if date.evening_normal == true %}
+                                        <input disabled type="checkbox" checked>
+                                        <label class="after:bg-blue-500">Horaires habituels</label>
+                                    {% else %}
+                                        <input disabled type="checkbox">
+                                        <label>Horaires habituels</label>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <div class="flex justify-center">
+                                    <div class="bg-primary/20 flex max-w-[7.5rem] justify-center items-center" aria-label="Début du service du soir">
+                                        <i class="fa-solid fa-moon form_icon"></i>
+                                        <p class="w-full pr-2 input_whitePlaceholder input_withoutIcon">{{ date.noonStart ? date.noonStart|date("d/m/Y") : "--:--" }}</p>
+                                        <i class="fa-regular fa-clock text-sm p-[6px]"></i>
+                                    </div>
+                                </div>
+                                <div class="flex justify-center">
+                                    <div class="bg-primary/20 flex max-w-[7.5rem] justify-center items-center" aria-label="Fin du service du soir">
+                                        <i class="fa-solid fa-moon form_icon"></i>
+                                        <p class="w-full pr-2 input_whitePlaceholder input_withoutIcon">{{ date.noonEnd ? date.noonEnd|date("d/m/Y") : "--:--" }} </p>
+                                        <i class="fa-regular fa-clock text-sm px-[6px]"></i>
+                                    </div>
+                                </div>
+                                <div class="flex justify-center items-center gap-1 self-start sm:self-auto">
+                                    {% if date.noon_close == true %}
+                                        <input disabled type="checkbox" checked class="">
+                                        <label class="after:bg-red-500">Fermer</label>
+                                    {% else %}
+                                        <input disabled type="checkbox" class="">
+                                        <label>Fermer</label>
+                                    {% endif %}
+                                </div>
+                                <div class="flex justify-center items-center gap-1">
+                                    {% if date.noon_normal == true %}
+                                        <input disabled type="checkbox" checked>
+                                        <label class="after:bg-blue-500">Horaires habituels</label>
+                                    {% else %}
+                                        <input disabled type="checkbox" class="">
+                                        <label>Horaires habituels</label>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}    
+            </ol>
+        </section>
     </div>
 </div>

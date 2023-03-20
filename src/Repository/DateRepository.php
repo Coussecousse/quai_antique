@@ -39,6 +39,14 @@ class DateRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllByDate() {
+        return $this->createQueryBuilder('d')
+            ->orderBy("d.date", "ASC")
+            ->getQuery()
+            ->getResult();
+    }
+
+
 //    /**
 //     * @return Date[] Returns an array of Date objects
 //     */
