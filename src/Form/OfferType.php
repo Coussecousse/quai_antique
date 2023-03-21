@@ -61,7 +61,7 @@ class OfferType extends AbstractType
             "required" => true,
             "constraints" => [
                 new NotBlank(["message" => "Ne peut pas être vide."]),
-                new Type(['type' => 'integer' , 'message'=> 'Doit être un chiffre.'])
+                new Type(['type' => 'float' , 'message'=> 'Doit être un chiffre.'])
             ]
         ]);
     }

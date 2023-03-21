@@ -21,9 +21,9 @@
 				<div>
 					<div class="hidden">{{ form_label(form_card.price) }}</div>
 					<div class="flex items-center input_profil w-[120px]">
-										<i class="fa-solid fa-euro-sign form_icon bg-primary/20"></i>
-										{{ form_widget(form_card.price, { 'attr' : { 'class' : 'pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon' }}) }}
-									</div>
+						<i class="fa-solid fa-euro-sign form_icon bg-primary/20"></i>
+						{{ form_widget(form_card.price, { 'attr' : { 'class' : 'pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon' }}) }}
+					</div>
 					<small class="form_error">
 						{{ form_errors(form_card.price) }}
 					</small>

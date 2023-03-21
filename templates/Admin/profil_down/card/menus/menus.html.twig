@@ -144,7 +144,7 @@
         <p class="underline underline-offset-2">Composition :</p>
         <button type="button" class="text-secondary bg-primary/50 px-4 py-1" onclick="addComposition(event)" data-index-menu={{ key_menu }} data-index-offer={{ key_offer }}>Ajouter</button>
     </div>
-    <ol class="compositions flex flex-col gap-2"
+    <ol class="compositions flex flex-col gap-2 modify"
     >
     {% for key, composition in offer.description %}
         {{ _self.compositions_prototype(key, composition, key_offer, key_menu) }}

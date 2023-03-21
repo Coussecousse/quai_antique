@@ -81,7 +81,12 @@ document
 
 function deleteComposition(e) {
     e.preventDefault();
-    const element = e.target.parentElement.parentElement;
+    let element = e.target;
+    if (element.parentElement.parentElement.parentElement.classList.contains('modify')) {
+        element = element.parentElement.parentElement;
+    } else {
+        element = element.parentElement.parentElement.parentElement;
+    }
     // remove the li for the tag form
     element.remove();
 }
@@ -370,7 +375,7 @@ function deleteMenu(e) {
     xhr.open('POST', '/admin/profil/{page_up}/{page_down}/{page_three}');
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-    let params = 'id='+ idMenu + '&deleteMenu=' + true;
+    let params = 'id_menu='+ idMenu + '&deleteMenu=' + true;
     xhr.send(params);
 }
 

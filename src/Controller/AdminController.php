@@ -254,18 +254,39 @@ class AdminController extends AbstractController
         }  else if ($form_menu->isSubmitted() && !$form_menu->isValid()){
             $request->query->remove('result');
         }
-        $id = $request->request->get('id_food');
-        if ($request->isMethod('POST') && $id) {
+        $id_food = $request->request->get('id_food');
+        $id_menu = $request->request->get('id_menu');
+        if ($request->isMethod('POST') && ($id_food || $id_menu)) {
 
             // Delete Food
             $delete = $request->request->get('delete');
             if ($delete) {
-                return $this->deleteElement($id, $foodRepository);
+                try {
+                    $food = $foodRepository->find($id_food);
+                    $foodRepository->remove($food, true);
+                } catch (Exception $e) {
+                    return new JsonResponse([
+                        'result' => 'error'
+                    ]);
+                }
+                return new JsonResponse([
+                    'result' => 'success'
+                ]);
             }
             // Delete Menu
             $deleteMenu = $request->request->get('deleteMenu');
             if ($deleteMenu) {
-                return $this->deleteElement($id, $menuRepository);
+                try {
+                    $menu = $menuRepository->find($id_menu);
+                    $menuRepository->remove($menu, true);
+                } catch (Exception $e) {
+                    return new JsonResponse([
+                        'result' => 'error'
+                    ]);
+                }
+                return new JsonResponse([
+                    'result' => 'success'
+                ]);
             }
 
             $newTitle = $request->request->get('title');
@@ -277,7 +298,7 @@ class AdminController extends AbstractController
                     'result' => 'error_pattern'
                 ]);
             }
-            $newFood = $foodRepository->find($id);
+            $newFood = $foodRepository->find($id_food);
             $newFood->setTitle($newTitle)->setDescription($newDescription)->setPrice($newPrice);
             $foodRepository->save($newFood, true);
 
@@ -286,7 +307,7 @@ class AdminController extends AbstractController
             ]);
             
         } 
-        if ($request->isMethod('POST')) {
+        if ($request->isMethod('POST') && !$form_card->isSubmitted() && !$form_menu->isSubmitted()) {
             
             $dataMenu = json_decode($request->getContent(), true);
             if (!is_array($dataMenu) || !$dataMenu) {

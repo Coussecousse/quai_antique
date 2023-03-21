@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -48,7 +49,7 @@ class CardType extends AbstractType{
                 "required" => true,
                 "constraints" => [
                     new NotBlank(["message" => "Ne peut pas être vide."]),
-                    new Type([ 'type' => 'integer', 'message' => 'Doit être un chiffre.'])
+                    new Type(['type' => 'float', 'message' => 'Doit être un chiffre.'])
                 ]
             ]);
     }
