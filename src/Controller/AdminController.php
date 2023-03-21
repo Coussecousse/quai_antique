@@ -438,6 +438,14 @@ class AdminController extends AbstractController
 
         if ($form_dates->isSubmitted() && $form_dates->isValid()) {
             $date = $form_dates->get('date')->getData();
+            $dateExist = $dateRepository->findBy(['date' => $date]);
+            if ($dateExist) {
+                return $this->redirectToRoute('admin_profil', [
+                    'page_up' => $page_up, 
+                    'page_down' => $page_down, 
+                    'result' => 'error_date_already_exist'
+                ]);
+            }
             $newDate = new Date;
 
             if (!$this->getErrorScheduleDate($form_dates, 'evening', $dateRepository) 
@@ -459,7 +467,6 @@ class AdminController extends AbstractController
                 ]);
             }
         }
-
 
         $last_email = $request->getSession()->get('last_email');
 
@@ -517,6 +524,7 @@ class AdminController extends AbstractController
         }
 
         if ($request->isMethod('POST')) {
+            dump('yo1');
             $em = $doctrine->getManager();
 
             // Informations
@@ -535,7 +543,7 @@ class AdminController extends AbstractController
             $delete = $request->request->get('delete');
             $imageDescription = $request->request->get('imageDescription');
             // Schedules
-            $schedule_id = $request->request->get('id_schedule');
+            $schedule_id = $request->request->all()['schedule']['id_schedule'] ?? null;
             $schedule_evening = $request->request->all()['schedule_evening'] ?? null;
             $schedule_noon = $request->request->all()['schedule_noon'] ?? null;
             $schedulesAllDays = json_decode($request->getContent(), true)['schedules'] ?? null;
@@ -711,33 +719,20 @@ class AdminController extends AbstractController
                 }
                 return $this->changeImageDatas($id_image, "description", $imageDescription, $carouselRepository);
             }
-
             // Schedules
             if ($schedule_id) {
                 if (!$this->checkPattern($schedule_id, "/^\d+$/" )) {
-                    return $this->redirectToRoute('admin_profil', [
-                        "page_up" => $page_up,
-                        'page_down' => $page_down,
-                        'result' => "error"
-                    ]);
+                    $result = "error";
                 }
                 try {
                     $day = $scheduleRepository->find($schedule_id);
                 } catch (Exception $e) {
-                    return $this->redirectToRoute('admin_profil', [
-                        "page_up" => $page_up,
-                        'page_down' => $page_down,
-                        'result' => "error"
-                    ]);
+                    $result = 'error';
                 }
                 if (count($schedule_evening) == 3) {
-                    $close = $schedule['close'];
+                    $close = $schedule_evening['close'];
                     if ($close != 'on') {
-                        return $this->redirectToRoute('admin_profil', [
-                            "page_up" => $page_up,
-                            'page_down' => $page_down,
-                            'result' => "error"
-                        ]);
+                        $result = 'error';
                     }
                     try {
                         $day->setEveningClose(true)
@@ -750,14 +745,12 @@ class AdminController extends AbstractController
                             'result' => "error"
                         ]);
                     }
+                    $result = 'success';
                 } else if (count($schedule_evening) == 2) {
+                    dump('yo');
                     foreach($schedule_evening as $time) {
                         if (!$this->checkPattern($time, '/^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/')) {
-                            return $this->redirectToRoute('admin_profil', [
-                                "page_up" => $page_up,
-                                'page_down' => $page_down,
-                                'result' => "error_pattern"
-                            ]);
+                            $result = 'error_pattern';
                         };
                     }
                      try {
@@ -765,42 +758,26 @@ class AdminController extends AbstractController
                         ->setEveningEnd(new DateTime($schedule_evening['end']))
                         ->setEveningClose(false);
                     } catch (Exception $e) {
-                        return $this->redirectToRoute('admin_profil', [
-                            "page_up" => $page_up,
-                            'page_down' => $page_down,
-                            'result' => "error"
-                        ]);
+                        $result = 'error';
                     }
                 }
                 if (count($schedule_noon) === 3) {
                     $close = $schedule_noon['close'];
                     if ($close != 'on') {
-                        return $this->redirectToRoute('admin_profil', [
-                            "page_up" => $page_up,
-                            'page_down' => $page_down,
-                            'result' => "error"
-                        ]);
+                        $result = 'error';
                     }
                     try {
                         $day->setNoonClose(true)
                         ->setNoonStart(null)
                         ->setNoonEnd(null);
                     } catch (Exception $e) {
-                        return $this->redirectToRoute('admin_profil', [
-                            "page_up" => $page_up,
-                            'page_down' => $page_down,
-                            'result' => "error"
-                        ]);
+                        $result = 'error';
                     }
 
                 } else if (count($schedule_noon) == 2) {
                     foreach($schedule_noon as $time) {
                         if (!$this->checkPattern($time, '/^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/')) {
-                            return $this->redirectToRoute('admin_profil', [
-                                "page_up" => $page_up,
-                                'page_down' => $page_down,
-                                'result' => "error_pattern"
-                            ]);
+                            $result = 'error_pattern';
                         };
                     }
                     try {
@@ -808,21 +785,16 @@ class AdminController extends AbstractController
                         ->setNoonEnd(new DateTime($schedule_noon['end']))
                         ->setNoonClose(false);
                     } catch (Exception $e) {
-                        return $this->redirectToRoute('admin_profil', [
-                            "page_up" => $page_up,
-                            'page_down' => $page_down,
-                            'result' => "error"
-                        ]);
+                        $result = 'error';
                     }
                 }
                 $scheduleRepository->save($day, true);
                 $em->flush();
 
                 return $this->redirectToRoute('admin_profil', [
-                    "page_up" => $page_up,
-                    'page_down' => $page_down,
-                    'result' => "success"
-                ]);
+                    'page_up' => $page_up, 
+                    'page_down' => $page_down, 
+                    'result' => 'success']);
             }
             if ($schedulesAllDays) {
                 foreach($schedulesAllDays as $day) {
@@ -860,6 +832,7 @@ class AdminController extends AbstractController
 
             // Dates
             if ($delete_date) {
+
                 $id = $request->request->get('id_date');
                 try {
                     $date = $dateRepository->find($id);
@@ -907,6 +880,9 @@ class AdminController extends AbstractController
                 break;
             case 'error_no_date':
                 $error = "Aucune date n'a été trouvé.";
+                break;
+            case 'error_date_already_exist':
+                $error = 'La date donnée existe déjà.';
                 break;
             case 'error_email_email' : 
                 $error = "Email invalide.";
