@@ -65,7 +65,44 @@ class AdminController extends AbstractController
     private function deleteElement($id, $repository) {
 
         $element = $repository->find($id);
-        $repository->remove($element, true);
+        // in Build
+        $path = $element->getPath();
+
+        $path = explode('/', $path); // path = array['path', 'to', 'element']
+        $name = array_splice($path, -1); // name = array['name.jpg']
+        $name = implode('', $name); // name = name.jpg
+        $name = explode('.', $name); // name = array['name','jpg']
+
+        $sizes = ['-large.', '-extraLarge.', '-medium.', '-small.'];
+
+        try {
+            foreach ($sizes as $size) {
+                if (file_exists($this->getParameter('build-resize').$name[0].$size.$name[1]))
+                {
+                    unlink($this->getParameter('build-resize').$name[0].$size.$name[1]);
+                }
+                if (file_exists($this->getParameter('resize').$name[0].$size.$name[1]))
+                {
+                    unlink($this->getParameter('resize').$name[0].$size.$name[1]);
+                }
+            }
+    
+            if (file_exists($this->getParameter('uploads').implode('.', $name)))
+            {
+                unlink($this->getParameter('uploads').implode('.', $name));
+            }
+            if (file_exists($this->getParameter('build-uploads').implode('.', $name)))
+            {
+                unlink($this->getParameter('build-uploads').implode('.', $name));
+            }
+
+            $repository->remove($element, true);
+        } catch (Exception $e) {
+            return new JsonResponse([
+                "result" => "error"
+            ]);
+        }
+
 
         return new JsonResponse([
             'result' => 'success',
@@ -73,16 +110,15 @@ class AdminController extends AbstractController
     }
     private function handleImages($imageName, $title, $description, $doctrine)
     {
-
         $sizes = ['small' => 420, 'medium' => 735,'large' => 950, 'extraLarge' => 1200];
         $path = $this->getParameter('uploads') .'/'. $imageName;
-        $imageName = explode('.', $imageName);
         
         $em = $doctrine->getManager();
         
         $carousel = new Carousel();
-        $carousel->setPath('/build/images/resize/'.$imageName[0])->setTitle($title)->setDescription($description);
+        $carousel->setPath('/images/resize/'.$imageName)->setTitle($title)->setDescription($description);
         
+        $imageName = explode('.', $imageName);
 
         $em->persist($carousel);
         $em->flush();        
@@ -101,11 +137,12 @@ class AdminController extends AbstractController
 
             $optimizer = new ImageOptimizer();
             $optimizer->resize($newPath, $size);
-            
         }
+        return new JsonResponse([
+            'result' => 'success'
+        ]);
     }
     function getErrorScheduleDate($form, $service, $newDate) {
-        dump($form);
         $time_close = $form->get($service. '_close')->getData();
         $time_normal = $form->get($service. '_normal')->getData();
 
@@ -445,7 +482,6 @@ class AdminController extends AbstractController
         } else if ($form_image->isSubmitted() && !$form_image->isValid()) {
             $request->query->remove('result');
         }
-        dump($search_date);
         if ($search_date) {
             $dates = $dateRepository->findAfterDate(new DateTime($search_date));
 
@@ -473,7 +509,7 @@ class AdminController extends AbstractController
             $postcodeRestaurant = $request->request->get('postcode');
             $placesRestaurant = $request->request->get('places');
             // Carousel
-            $id = $request->request->get('id_carousel');
+            $id_image = $request->request->get('id_carousel');
             $imageTitle = $request->request->get('imageTitle');
             $delete = $request->request->get('delete');
             $imageDescription = $request->request->get('imageDescription');
@@ -634,24 +670,25 @@ class AdminController extends AbstractController
             // Title
             if ($imageTitle) {
                 if (!$this->checkPattern($imageTitle, '/^[\p{L}\d\s.\'’-]{2,50}$/u')) {
-                    $response = new JsonResponse([
+                    dump('hello');
+                    return new JsonResponse([
                         'result' => 'error_pattern'
                     ]);
-                    return $response;
                 }
-                return $this->changeImageDatas($id, "title", $imageTitle, $carouselRepository);
+                return $this->changeImageDatas($id_image, "title", $imageTitle, $carouselRepository);
             }
             if ($delete) {
-                return $this->deleteElement($id, $carouselRepository);
+                return $this->deleteElement($id_image, $carouselRepository);
             }
             if ($imageDescription) {
                 if (!$this->checkPattern($imageDescription, '/^[\p{L}\d\s.\'’-]{10,255}$/u')) {
+                    dump('hello');
                     $response = new JsonResponse([
                         'result' => 'error_pattern'
                     ]);
                     return $response;
                 }
-                return $this->changeImageDatas($id, "description", $imageDescription, $carouselRepository);
+                return $this->changeImageDatas($id_image, "description", $imageDescription, $carouselRepository);
             }
 
             // Schedules

@@ -11,6 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class ImageType extends AbstractType
 {
@@ -33,15 +34,23 @@ class ImageType extends AbstractType
                 "label" => "Titre :",
                 "required" => true,
                 'attr' => ['placeholder' => 'Titre...', 'value' => ''],
-                "constraints" => [new Length(['min' => 2, "max" => 50, "minMessage" => "Titre trop petit.", "maxMessage" => "Titre trop long."])]
+                "constraints" => [
+                    new Regex([
+                        'pattern' => '/^[\p{L}\d\s.\'’-]{2,50}$/u',
+                        'message' => "L'entrée fournie ne correspond pas au format requis."
+                    ]),
+                    new Length(['min' => 2, "max" => 50, "minMessage" => "Titre trop petit.", "maxMessage" => "Titre trop long."])]
             ])
             ->add('description', TextareaType::class, [
                 "label" => "Description :",
                 "required" => true,
                 "attr" => ['placeholder' => "Description de l'image..."],
                 "constraints" => [
+                    new Regex([
+                        'pattern' => '/^[\p{L}\d\s.\'’-]{10,255}$/u',
+                        'message' => "L'entrée fournie ne correspond pas au format requis."
+                    ]),
                     new Length(["min" => 10, "max" => 255, "minMessage" => "Message trop court.", "maxMessage" => "Message trop long."]),
-                    new NotBlank(["message" => "Ne peut pas être vide."])
                 ]
             ]);
     }

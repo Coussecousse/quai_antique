@@ -9,7 +9,7 @@ function setTitle(e) {
     }
     e.preventDefault();
 
-    const id = (input.name.split('_'))[1];
+    const id = input.dataset.id;;
 
     button.disabled = true;
 
@@ -38,13 +38,14 @@ function setTitle(e) {
     xhr.open('POST', '/admin/profil/{page_up}/{page_down}');
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-    let params = 'imageTitle='+ value + '&id='+ id;
+    let params = 'imageTitle='+ value + '&id_carousel='+ id;
     xhr.send(params);
 }
 
 function deleteImage(e) {
     const button = e.target.parentElement;
-    const id  = (button.id.split('_'))[1];
+
+    const id  = button.dataset.id;
     
     e.preventDefault();
 
@@ -87,7 +88,7 @@ function setDescription(e) {
     }
     e.preventDefault();
 
-    const id = (textarea.name.split('_'))[1];
+    const id = textarea.dataset.id;
 
     button.disabled = true;
 
@@ -116,6 +117,6 @@ function setDescription(e) {
     xhr.open('POST', '/admin/profil/{page_up}/{page_down}');
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-    let params = 'imageDescription='+ value + '&id='+ id;
+    let params = 'imageDescription='+ value + '&id_carousel='+ id;
     xhr.send(params);
 }

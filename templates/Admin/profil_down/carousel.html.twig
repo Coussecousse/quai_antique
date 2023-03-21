@@ -6,26 +6,32 @@
             <div class="">
                 <div class="pb-2 relative">
                     <div class="hidden">{{ form_label(form_image.image) }}</div>
-                    {{ form_widget(form_image.image, { 'attr' : { 'class' : 'w-full pr-2' }}) }}
-                    <small class="form_error absolute w-11/12 mx-auto -bottom-4 lg:-bottom-3 left-0">
-                        {{ form_errors(form_image.image) }}
-                    </small>
+                    <div class="flex-1">
+                        {{ form_widget(form_image.image, { 'attr' : { 'class' : 'w-full pr-2' }}) }}
+                        <small class="form_error w-11/12 mx-auto -bottom-4 lg:-bottom-3 left-0">
+                            {{ form_errors(form_image.image) }}
+                        </small>
+                    </div>
                 </div>
                 <div class="flex gap-2 relative">
                     <div class="hidden">{{ form_label(form_image.title) }}</div>
-                    {{ form_widget(form_image.title, { 'attr' : { 'class' : 'input_carousel input_withoutIcon input_white'}} )}}
-                    <small class="form_error absolute w-11/12 mx-auto -bottom-4 lg:-bottom-3">
-                        {{ form_errors(form_image.title) }}
-                    </small>
+                    <div class="flex-1">
+                        {{ form_widget(form_image.title, { 'attr' : { 'class' : 'input_carousel input_withoutIcon input_white'}} )}}
+                        <small class="form_error w-11/12 mx-auto -bottom-4 lg:-bottom-3">
+                            {{ form_errors(form_image.title) }}
+                        </small>
+                    </div>
                     <button type="submit" id="add_image" class="min-w-[2rem] sm-600:min-w-fit  h-8 px-2 flex gap-2 items-center bg-secondary text-primary hover:bg-primary hover:text-secondary whitespace-nowrap duration-150"><p class="hidden sm-700:block">Ajouter une image</p><i class="fa-solid fa-plus"></i></button>
                 </div>
             </div>
             <div class="relative pt-2">
                 <div class="hidden">{{ form_label(form_image.description) }}</div>
-                {{ form_widget(form_image.description, {'attr' : { 'class' : 'input_carousel input_withoutIcon input_white min-h-[80px]'}}) }}
-                <small class="form_error absolute w-11/12 mx-auto -bottom-4 lg:-bottom-3 left-0">
-                    {{ form_errors(form_image.description) }}
-                </small>
+                <div>
+                    {{ form_widget(form_image.description, {'attr' : { 'class' : 'input_carousel input_withoutIcon input_white min-h-[80px]'}}) }}
+                    <small class="form_error w-11/12 mx-auto -bottom-4 lg:-bottom-3 left-0">
+                        {{ form_errors(form_image.description) }}
+                    </small>
+                </div>
             </div>
             {{ form_end(form_image) }}
         </section>
@@ -37,22 +43,22 @@
                         <div class="w-full flex gap-2 justify-center">
                             <form method="POST" onSubmit = "setTitle(event)" class="flex gap-2 flex-1">
                                 <label hidden for="{{ 'title_'~ image.id}}">Titre</label>
-                                <input type="text" minLength=2 maxlength=50 id="{{ 'title_'~ image.id }}" name="{{ 'title_'~ image.id }}" required value="{{ image.title }}" class="input_carousel input_withoutIcon flex-1">
-                                <button aria-label="Modifier" type="submit" id="{{ 'set_title_'~ image.id }}" class="input_carousel button_profil"><i class="fa-solid fa-pen"></i></button>
+                                <input type="text" minLength=2 maxlength=50 data-id="{{ image.id }}" name="{{ 'title_'~ image.id }}" required value="{{ image.title }}" class="input_carousel input_withoutIcon flex-1">
+                                <button aria-label="Modifier" type="submit" id="{{ 'set_title_'~ image.id }}" class="button_profil bg-secondary text-primary duration-150 hover:bg-primary hover:text-secondary"><i class="fa-solid fa-pen"></i></button>
                             </form>
-                            <button aria-label = 'Supprimer' onClick="deleteImage(event)" id="{{ 'delete_'~ image.id }}" class="bg-red-600 hover:bg-secondary hover:text-red-600 button_profil"><i class="fa-solid fa-trash h-full button-full"></i></button>
+                            <button aria-label = 'Supprimer' onClick="deleteImage(event)" data-id="{{ image.id }}" class="bg-red-600 hover:bg-secondary hover:text-red-600 button_profil"><i class="fa-solid fa-trash h-full button-full"></i></button>
                         </div>
                         <form method="POST" onSubmit ="setDescription(event)" class="flex gap-2 justify-center">
                             <label hidden for="{{ 'description'~ image.id}}">Description</label>
-                            <textarea type="text" minLength=10 maxlength=255 id="{{ 'description_'~ image.id }}" name="{{ 'title_'~ image.id }}" required class="input_carousel px-2 min-h-[80px] flex-1 text-sm">{{ image.description }}</textarea>
-                            <button aria-label="Modifier" type="submit" id="{{ 'set_description_'~ image.id }}" class="input_carousel button_profil"><i class="fa-solid fa-pen"></i></button>
+                            <textarea type="text" minLength=10 maxlength=255 data-id="{{ image.id }}" name="{{ 'title_'~ image.id }}" required class="input_carousel px-2 min-h-[80px] flex-1 text-sm">{{ image.description }}</textarea>
+                            <button aria-label="Modifier" type="submit" id="{{ 'set_description_'~ image.id }}" class="bg-secondary text-primary duration-150 hover:bg-primary hover:text-secondary button_profil "><i class="fa-solid fa-pen"></i></button>
                         </form>
                     </div>
                     <picture>
-                        <source srcset={{ asset(image.path ~"-extraLarge.jpg") }} media="(min-width : 1200px)">
-                        <source srcset={{ asset(image.path ~"-large.jpg") }} media="(min-width : 990px)">
-                        <source srcset={{ asset(image.path ~"-medium.jpg") }} media="(min-width : 768px)">
-                        <img src={{ asset(image.path ~'-small.jpg')}} alt="{{ image.description }}" class="w-11/12 drop-shadow-lg lg:w-auto max-w-[380px] max-h-[480px] mx-auto pb-4 object-contain">
+                        <source srcset={{ asset(image.path|split('.')[0] ~"-extraLarge."~ image.path|split('.')[1] ) }} media="(min-width : 1200px)">
+                        <source srcset={{ asset(image.path|split('.')[0] ~"-large."~ image.path|split('.')[1] ) }} media="(min-width : 990px)">
+                        <source srcset={{ asset(image.path|split('.')[0] ~"-medium."~ image.path|split('.')[1] ) }} media="(min-width : 768px)">
+                        <img src={{ asset(image.path|split('.')[0] ~'-small.'~ image.path|split('.')[1] )}} alt="{{ image.description }}" class="w-11/12 drop-shadow-lg lg:w-auto max-w-[380px] max-h-[480px] mx-auto pb-4 object-contain">
                     </picture>
                 </li>
             </ul>
