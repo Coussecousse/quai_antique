@@ -28,9 +28,9 @@
                         <li><a href={{ path('contact') }}>Contact</a></li>
                         {% if app.user %}
                                 {% if 'ROLE_ADMIN' in app.user.roles %}
-                                    <li><a class="hover:underline hover:underline-offset-2" href="{{ url('admin_profil', {'page_up':'informations', 'page_down' : 'carousel'}) }}">Profil</a></li>
+                                    <li><a class="" href="{{ url('admin_profil', {'page_up':'informations', 'page_down' : 'carousel'}) }}">Profil</a></li>
                                 {% else %}
-                                    <li><a class="hover:underline hover:underline-offset-2" href="">Profil</a></li>
+                                    <li><a class="" href="{{ url('client_profil', {'page_down' : 'fiches' }) }}">Profil</a></li>
                                 {% endif %}
                         <li><a href={{ path('logout') }}>Deconnexion</a></li>
                         {% else %}

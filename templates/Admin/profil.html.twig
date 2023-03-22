@@ -67,15 +67,15 @@
 	<script src={{ asset('/js/signUp-login/'~'script.js') }}></script>
 	<script src={{ asset('js/profil/'~'handleRequest.js') }}></script>
 	{% if page_up == 'informations' %}
-	<script src={{ asset('/js/profil/'~'handleRequest.informations.js') }}></script>
+	<script src={{ asset('/js/profil/admin/'~'handleRequest.informations.js') }}></script>
 	{% else %} 
-	<script src={{ asset('js/profil/'~'handleRequest.restaurant.js') }}></script>
+	<script src={{ asset('js/profil/admin/'~'handleRequest.restaurant.js') }}></script>
 	{% endif %}
 	{% if page_down == 'carousel' %}
-	<script src={{ asset('js/profil/'~'handleRequest.carousel.js') }}></script>
+	<script src={{ asset('js/profil/admin/'~'handleRequest.carousel.js') }}></script>
 	{% elseif page_down == 'horaires' %}
-	<script src={{ asset('js/profil/'~'handleRequest.schedules.js') }}></script>
+	<script src={{ asset('js/profil/admin/'~'handleRequest.schedules.js') }}></script>
 	{% elseif page_down == 'dates' %}
-		<script src={{ asset('js/profil/'~'handleRequest.dates.js') }}></script>
+		<script src={{ asset('js/profil/admin/'~'handleRequest.dates.js') }}></script>
 	{% endif %}
 {% endblock %}

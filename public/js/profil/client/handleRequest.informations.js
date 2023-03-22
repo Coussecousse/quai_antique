@@ -40,7 +40,7 @@ emailButton.addEventListener('click', e => {
 
             switch(response.result) {
                 case "success":
-                    window.location = url + "?result=success_email";
+                    window.location = url + "?result=success";
                     break;
                 case "error_email":
                     window.location = url + "?result=error_email_email";
@@ -60,7 +60,7 @@ emailButton.addEventListener('click', e => {
         }
     }
 
-    xhr.open('POST', "/admin/profil/{page_up}/{page_down}");
+    xhr.open('POST', "/client/profil/{page_down}");
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
     let params = 'email='+ email +'&password=' + password;
@@ -140,7 +140,7 @@ passwordButton.addEventListener('click', e => {
 
             switch(response.result){
                 case 'success':
-                    window.location = url + "?result=success_password";
+                    window.location = url + "?result=success";
                     break;
                 case 'error_invalid':
                     window.location = url + "?result=error_invalid";
@@ -157,7 +157,7 @@ passwordButton.addEventListener('click', e => {
         }
     }
 
-    xhr.open('POST', "/admin/profil/{page_up}/{page_down}");
+    xhr.open('POST', "/client/profil/{page_down}");
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
     let params = 'password='+ passwordValue +'&oldPassword=' + oldPasswordValue;

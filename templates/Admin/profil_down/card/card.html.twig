@@ -30,8 +30,8 @@
     {{ parent() }}
 
 {% if page_three == 'menus' %} 
-    <script src={{ asset('js/profil/'~'handleRequest.menus.js') }}></script>
+    <script src={{ asset('js/profil/admin/'~'handleRequest.menus.js') }}></script>
 {% else %}
-    <script src={{ asset('js/profil/'~'handleRequest.food.js') }}></script>
+    <script src={{ asset('js/profil/admin/'~'handleRequest.food.js') }}></script>
 {% endif %}
 {% endblock %}
