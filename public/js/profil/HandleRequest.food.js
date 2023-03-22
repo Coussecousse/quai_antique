@@ -72,7 +72,7 @@ function deleteFood(e) {
     xhr.open('POST', '/admin/profil/{page_up}/{page_down}/{page_three}');
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-    let params = 'delete=true&id='+ id;
+    let params = 'delete=true&id_food='+ id;
 
     xhr.send(params);
 }

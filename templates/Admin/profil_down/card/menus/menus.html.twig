@@ -40,8 +40,8 @@
                                     <input minLength=2 maxLength=150  required type="text" id="{{ 'title_'~ menu.id }}" name="{{ 'title_'~ menu.id }}" value="{{ menu.title }}" class="w-full pr-2 bg-primary/20 input_whitePlaceholder input_withoutIcon" value="{{ menu.title }}">
                                 </div>
                                 <div class="self-center flex gap-2">
-                                    <button type="submit" class="bg-primary/50 button_profil" aria-label="Modifier">
-                                        <i class="fa-solid fa-pen text-secondary button-full"></i>
+                                    <button type="submit" class="bg-primary/50 button_profil bg-secondary text-primary duration-150 hover:bg-primary hover:text-secondary" aria-label="Modifier">
+                                        <i class="fa-solid fa-pen button-full"></i>
                                     </button>
                                     <button aria-label="Supprimer" id="{{ 'delete_'~ menu.id }}" onclick="deleteMenu(event)" class="bg-red-600 hover:bg-secondary hover:text-red-600 duration-150">
                                         <i class="fa-solid fa-trash button_profil button-full"></i>

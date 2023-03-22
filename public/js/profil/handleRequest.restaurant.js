@@ -1,5 +1,4 @@
 const buttons = document.querySelector('#restaurant').querySelectorAll('button[type="submit"]');
-console.log(buttons);
 
 function changeRestaurant(e, button) {
 

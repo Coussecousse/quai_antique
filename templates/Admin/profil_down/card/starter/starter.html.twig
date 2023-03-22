@@ -58,11 +58,10 @@
 					</div>
 				</div>
 				<div class="flex flex-col gap-2">
-					<button aria-label="Modifier" type="submit" class="bg-primary/50 button_profil">
+					<button aria-label="Modifier" type="submit" class="bg-secondary text-primary duration-150 hover:bg-primary hover:text-secondary button_profil">
 						<i class="fa-solid fa-pen"></i>
-
 					</button>
-					<button aria-label="Supprimer" id="{{ 'delete_'~ value.id }}" onclick="deleteFood(event)" class="bg-primary/50 button_profil">
+					<button aria-label="Supprimer" id="{{ 'delete_'~ value.id }}" onclick="deleteFood(event)" class="bg-red-600 hover:bg-secondary hover:text-red-600 button_profil">
 						<i class="fa-solid fa-trash h-full button-full"></i>
 					</button>
 				</div>
