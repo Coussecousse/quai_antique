@@ -78,7 +78,7 @@
             </nav>
             {% block profil_down %}
                 {% if page_down == 'modèles' %}
-                    {% include 'Client/profil_down/sheets.html.twig' %}
+                    {% include 'Client/profil_down/templates.html.twig' %}
                 {% else %}
                     {% include 'Client/profil_down/reservations.html.twig' %}
                 {% endif %}
@@ -92,4 +92,7 @@
 	<script src={{ asset('/js/signUp-login/'~'script.js') }}></script>
 	<script src={{ asset('js/profil/'~'handleRequest.js') }}></script>
 	<script src={{ asset('/js/profil/client/'~'handleRequest.informations.js') }}></script>
+    {% if page_down == 'modèles' %}
+    	<script src={{ asset('/js/profil/client/'~'handleRequest.templates.js') }}></script>
+    {% endif %}
 {% endblock %}

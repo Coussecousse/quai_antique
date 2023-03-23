@@ -123,13 +123,15 @@ class ClientController extends AbstractController
         // Last email use when try to to modify informations
         $last_email = $request->getSession()->get('last_email');
 
-        // Sheets
+        // Templates
         $template = new Template;
-        $form_sheet = $this->createForm(TemplateType::class, $template);
-        $form_sheet->handleRequest($request);
-        if ($form_sheet->isSubmitted() && $form_sheet->isValid()) {
+        $form_template = $this->createForm(TemplateType::class, $template);
+        $form_template->handleRequest($request);
+        $templates = $templateRepository->findBy(['client' => $user]);
+
+        if ($form_template->isSubmitted() && $form_template->isValid()) {
             try {
-                $template = $form_sheet->getData();
+                $template = $form_template->getData();
                 $template->setClient($user);
                 $templateRepository->save($template, true);
             } catch (Exception $e) {
@@ -142,7 +144,7 @@ class ClientController extends AbstractController
                 'page_down' => $page_down,
                 'result' => 'success'
             ]);
-        } else if ($form_sheet->isSubmitted() && !$form_sheet->isValid()) {
+        } else if ($form_template->isSubmitted() && !$form_template->isValid()) {
             $request->query->remove('result');
         }
 
@@ -202,7 +204,8 @@ class ClientController extends AbstractController
             'error' => $error ?? null,
             'success' => $success ?? null,
             'last_email' => $last_email ?? '',
-            'form_sheet' => $form_sheet->createView()
+            'form_sheet' => $form_template->createView(),
+            'templates' => $templates,
         ]);
     }
 }

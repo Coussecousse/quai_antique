@@ -494,7 +494,10 @@ header nav a.active::after {
 .form_allergies {
     grid-template-columns: repeat(2, 13px 1fr);
 }
-
+.form_template {
+    @apply md:grid max-w-[598px] mx-auto w-full;
+    grid-template-columns: clamp(6.25rem, 0.89rem + 11.1667vw, 10.94rem) auto;
+}
 
 @media screen and (max-width:359px) {
     .form_allergies {

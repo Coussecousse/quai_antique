@@ -1,0 +1,146 @@
+<div class="text-secondary bg-600">
+	<div class="box-shadow-lg">
+		<section class="after after:bg-secondary/50 py-6 relative">
+			{{ form_start(form_sheet, { 'attr' : { 'class' : 'w-11/12 mx-auto max-w-[598px]' }})}}
+			<fieldset class="border border-solid border-secondary p-3 bg-500/20 rounded flex flex-col gap-2">
+				<legend class="px-2">Créer un nouveau modèle :</legend>
+				<div class="form_profil items-center">
+					{{ form_label(form_sheet.title) }}
+					<div class="flex-1 bg-primary/20 flex items-center">
+						<i class="fa-solid fa-font form_icon"></i>
+						{{ form_widget(form_sheet.title, { 'attr' : { 'class' : 'bg-transparent pr-2 input_whitePlaceholder input_withoutIcon' }}) }}
+					</div>
+					<small class="form_error">
+						{{ form_errors(form_sheet.title) }}
+					</small>
+				</div>
+				<div class="form_profil items-center">
+					{{ form_label(form_sheet.name) }}
+					<div class="flex-1 bg-primary/20 flex items-center">
+						<i class="fa-solid fa-user form_icon"></i>
+						{{ form_widget(form_sheet.name, { 'attr' : { 'class' : 'bg-transparent pr-2 input_whitePlaceholder input_withoutIcon' }}) }}
+					</div>
+					<small class="form_error">
+						{{ form_errors(form_sheet.name) }}
+					</small>
+				</div>
+				<div class="form_profil items-start">
+					{{ form_label(form_sheet.place) }}
+					<div class="">
+						<div class="w-20 bg-primary/20 flex items-center">
+							<i class="fa-solid fa-utensils form_icon"></i>
+							{{ form_widget(form_sheet.place, { 'attr' : { 'class' : 'w-20 bg-transparent pr-2 input_whitePlaceholder input_withoutIcon' }}) }}
+						</div>
+						<small class="form_error">
+							{{ form_errors(form_sheet.place) }}
+						</small>
+						<small>Veuillez contacter directement le restaurant pour une réservation de plus de 20 personnes.</small>
+					</div>
+				</div>
+				<div class="mx-auto w-11/12 max-w-[598px] items-center">
+					{{ form_label(form_sheet.allergies) }}
+					<div class=" bg-primary/20 flex items-center gap-2 pt-2">
+						<i class="fa-solid fa-triangle-exclamation form_icon"></i>
+						{{ form_widget(form_sheet.allergies, { 'attr' : { 'class' : 'py-2 bg-transparent grid gap-x-2 form_allergies flex-1' }}) }}
+					</div>
+					<small class="form_error">
+						{{ form_errors(form_sheet.allergies) }}
+					</small>
+				</div>
+				<button type='submit' class="bg-secondary text-primary duration-150 hover:bg-primary hover:text-secondary px-4 py-2 w-fit mx-auto mt-4">Valider</button>
+			</fieldset>
+			{{ form_end(form_sheet) }}
+		</section>
+		<section class="py-4">
+			<p class="w-11/12 mx-auto max-w-[598px] pb-3 underline underline-offset-2">Modèles déjà créés :
+			</p>
+			<ul class="templates">
+				{% for template in templates %}
+					<li class="after after:bg-secondary/50 relative after:w-11/12 flex flex-col gap-2">
+						<form onsubmit="setTemplate(event)" method="post" class="bg-400/20 w-11/12 mx-auto max-w-[598px] flex flex-col justify-center p-2 md:p-4 text-secondary" data-inde="{{ template.id }}">
+							<div class="get_sticky top-0 relative flex md:gap-4 gap-2">
+								<div class="flex sm-600:flex-row flex-col gap-2 flex-1">
+									<div class="flex-1 flex items-center">
+										<label for="{{ 'title_'~ template.id }}" hidden>Titre :</label>     
+                                        <div class="flex-1 flex items-center bg-primary/20">
+                                            <i class="fa-solid fa-font form_icon"></i>
+										    <input minlength="2" maxlength="150" required type="text" id="{{ 'template_'~ template.id }}" name="{{ 'template_'~ template.id }}" value="{{ template.title }}" class="bg-transparent w-full pr-2 input_whitePlaceholder input_withoutIcon">
+                                        </div>                                         
+									</div>
+									<div class="self-center flex gap-2">
+										<button type="submit" class="bg-primary/50 h-8 px-2 bg-secondary text-primary duration-150 hover:bg-primary hover:text-secondary" aria-label="Modifier">
+											<p class="">Modifier</p>
+										</button>
+										<button aria-label="Supprimer" date-index="{{ template.id }}" onclick="deleteTemplate(event)" class="bg-red-600 hover:bg-secondary hover:text-red-600 duration-150">
+											<i class="fa-solid fa-trash button_profil button-full"></i>
+										</button>
+									</div>
+								</div>
+								<button class="text-2xl self-start md:self-center" onclick="showTemplate(event)">
+									<i class="fa-solid fa-caret-down text-secondary button-full"></i>
+									<i class="hide fa-solid fa-caret-up button-full"></i>
+								</button>
+							</div>
+							<div class="hide hide_template flex flex-col gap-2 mt-2">
+								<div class="form_template items-center">
+									<label for="{{ 'name_'~ template.id }}">Nom :</label>
+									<div class="flex-1 bg-primary/20 flex items-center">
+										<i class="fa-solid fa-user form_icon"></i>
+										<input required minlength="2" maxlength="100" type="text" name="{{ 'name_'~ template.id }}" value="{{ template.name }}" class="bg-transparent pr-2 input_whitePlaceholder input_withoutIcon">
+									</div>
+								</div>
+								<div class="form_template items-start">
+									<label for="{{ 'places_'~ template.id }}">Places :</label>
+									<div class="">
+										<div class="w-20 bg-primary/20 flex items-center">
+											<i class="fa-solid fa-utensils form_icon"></i>
+											<input type="number" min="1" max="20" class="w-20 bg-transparent pr-2 input_whitePlaceholder input_withoutIcon" value="{{ template.place }}">
+										</div>
+										<small>Veuillez contacter directement le restaurant pour une réservation de plus de 20 personnes.</small>
+									</div>
+								</div>
+								<div class="mx-auto w-full max-w-[598px] items-center">
+									<label for="">Allergie(s) :</label>
+									<div class=" bg-primary/20 flex items-center gap-2 pt-2">
+										<i class="fa-solid fa-triangle-exclamation form_icon"></i>
+										<div id="allergies" class="py-2 bg-transparent grid gap-x-2 form_allergies flex-1">
+                                            <input type="checkbox" name="{{ 'allergies[]_'~ template.id }}" value="gluten">
+                                            <label for="{{ 'allergies_0_'~ template.id }}">Gluten</label>
+                                            <input type="checkbox" name="{{ 'allergies[]_'~ template.id }}" value="fish">
+                                            <label for="{{ 'allergies_1_'~ template.id }}">Poisson</label>
+                                            <input type="checkbox" name="{{ 'allergies[]_'~ template.id }}" value="shellfish">
+                                            <label for="{{ 'allergies_2_'~ template.id }}">Crustacés</label>
+                                            <input type="checkbox" name="{{ 'allergies[]_'~ template.id }}" value="eggs">
+                                            <label for="{{ 'allergies_3_'~ template.id }}">Œufs</label>
+                                            <input type="checkbox" name="{{ 'allergies[]_'~ template.id }}" value="peanuts">
+                                            <label for="{{ 'allergies_4_'~ template.id }}">Arachides</label>
+                                            <input type="checkbox" name="{{ 'allergies[]_'~ template.id }}" value="mustard">
+                                            <label for="{{ 'allergies_5_'~ template.id }}">Moutarde</label>
+                                            <input type="checkbox" name="{{ 'allergies[]_'~ template.id }}" value="molluscs">
+                                            <label for="{{ 'allergies_6_'~ template.id }}">Mollusques</label>
+                                            <input type="checkbox" name="{{ 'allergies[]_'~ template.id }}" value="soy">
+                                            <label for="{{ 'allergies_7_'~ template.id }}">Soja</label>
+                                            <input type="checkbox" name="{{ 'allergies[]_'~ template.id }}" value="sulphites">
+                                            <label for="{{ 'allergies_8_'~ template.id }}">Sulfites</label>
+                                            <input type="checkbox" name="{{ 'allergies[]_'~ template.id }}" value="sesame">
+                                            <label for="{{ 'allergies_9_'~ template.id }}">Sésame</label>
+                                            <input type="checkbox"  name="{{ 'allergies[]_'~ template.id }}" value="celery">
+                                            <label for="a{{ 'llergies_10_'~ template.id }}">Céleri</label>
+                                            <input type="checkbox"  name="{{ 'allergies[]_'~ template.id }}" value="lupines">
+                                            <label for="a{{ 'llergies_11_'~ template.id }}">Lupins</label>
+                                            <input type="checkbox"  name="{{ 'allergies[]_'~ template.id }}" value="milk">
+                                            <label for="a{{ 'llergies_12_'~ template.id }}">Lait</label>
+                                            <input type="checkbox"  name="{{ 'allergies[]_'~ template.id }}" value="seafood">
+                                            <label for="allergies_13">Fruits à coque</label>
+										</div>
+									</div>
+									<small class="form_error"></small>
+								</div>
+							</div>
+						</form>
+					</li>
+				{% endfor %}
+			</ul>
+		</section>
+	</div>
+</div>

@@ -398,8 +398,7 @@ document.addEventListener('scroll', () => {
             const stickyElement = menu[0].querySelector('.get_sticky');
             if (menu[1].y < 1) {
                 stickyElement.style.position = "sticky";
-                stickyElement.style.top = 0;
-                stickyElement.style.zIndex = 10
+                stickyElement.style.zIndex = 10;
             } else {
                 stickyElement.style.position = 'block';
             }
