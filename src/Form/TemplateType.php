@@ -75,7 +75,7 @@ class TemplateType extends AbstractType
                 'Céleri' => 'celery',
                 'Lupins' => 'lupines',
                 'Lait' => 'milk',
-                'Fruits à coque' => 'seafood'
+                'Fruits à coque' => 'nuts'
             ]
             ]);
     }

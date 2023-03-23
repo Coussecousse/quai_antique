@@ -57,7 +57,7 @@
 			<ul class="templates">
 				{% for template in templates %}
 					<li class="after after:bg-secondary/50 relative after:w-11/12 flex flex-col gap-2">
-						<form onsubmit="setTemplate(event)" method="post" class="bg-400/20 w-11/12 mx-auto max-w-[598px] flex flex-col justify-center p-2 md:p-4 text-secondary" data-inde="{{ template.id }}">
+						<form onSubmit="setTemplate(event)" method="post" class="bg-400/20 w-11/12 mx-auto max-w-[598px] flex flex-col justify-center p-2 md:p-4 text-secondary" data-id="{{ template.id }}">
 							<div class="get_sticky top-0 relative flex md:gap-4 gap-2">
 								<div class="flex sm-600:flex-row flex-col gap-2 flex-1">
 									<div class="flex-1 flex items-center">
@@ -69,7 +69,7 @@
 									</div>
 									<div class="self-center flex gap-2">
 										<button type="submit" class="bg-primary/50 h-8 px-2 bg-secondary text-primary duration-150 hover:bg-primary hover:text-secondary" aria-label="Modifier">
-											<p class="">Modifier</p>
+											Modifier
 										</button>
 										<button aria-label="Supprimer" date-index="{{ template.id }}" onclick="deleteTemplate(event)" class="bg-red-600 hover:bg-secondary hover:text-red-600 duration-150">
 											<i class="fa-solid fa-trash button_profil button-full"></i>
@@ -94,7 +94,7 @@
 									<div class="">
 										<div class="w-20 bg-primary/20 flex items-center">
 											<i class="fa-solid fa-utensils form_icon"></i>
-											<input type="number" min="1" max="20" class="w-20 bg-transparent pr-2 input_whitePlaceholder input_withoutIcon" value="{{ template.place }}">
+											<input name='{{ 'places_'~ template.id }}' required type="number" min="1" max="20" class="w-20 bg-transparent pr-2 input_whitePlaceholder input_withoutIcon" value="{{ template.place }}">
 										</div>
 										<small>Veuillez contacter directement le restaurant pour une réservation de plus de 20 personnes.</small>
 									</div>
@@ -104,33 +104,89 @@
 									<div class=" bg-primary/20 flex items-center gap-2 pt-2">
 										<i class="fa-solid fa-triangle-exclamation form_icon"></i>
 										<div id="allergies" class="py-2 bg-transparent grid gap-x-2 form_allergies flex-1">
-                                            <input type="checkbox" name="{{ 'allergies[]_'~ template.id }}" value="gluten">
+                                            {% if 'gluten' in template.allergies %}
+                                            <input type="checkbox" name="{{ 'allergies[]_'~ template.id }}" value="gluten" checked>
+                                            {% else %}
+                                             <input type="checkbox" name="{{ 'allergies[]_'~ template.id }}" value="gluten">
+                                            {% endif %}
                                             <label for="{{ 'allergies_0_'~ template.id }}">Gluten</label>
+                                            {% if 'fish' in template.allergies %}
+                                            <input type="checkbox" name="{{ 'allergies[]_'~ template.id }}" value="fish" checked>
+                                            {% else %}
                                             <input type="checkbox" name="{{ 'allergies[]_'~ template.id }}" value="fish">
+                                            {% endif %}
                                             <label for="{{ 'allergies_1_'~ template.id }}">Poisson</label>
+                                            {% if 'shellfish' in template.allergies %}
+                                            <input type="checkbox" name="{{ 'allergies[]_'~ template.id }}" value="shellfish" checked>
+                                            {% else %}
                                             <input type="checkbox" name="{{ 'allergies[]_'~ template.id }}" value="shellfish">
+                                            {% endif %}
                                             <label for="{{ 'allergies_2_'~ template.id }}">Crustacés</label>
+                                            {% if 'eggs' in template.allergies %}
+                                            <input type="checkbox" name="{{ 'allergies[]_'~ template.id }}" value="eggs" checked>
+                                            {% else %}
                                             <input type="checkbox" name="{{ 'allergies[]_'~ template.id }}" value="eggs">
+                                            {% endif %}
                                             <label for="{{ 'allergies_3_'~ template.id }}">Œufs</label>
+                                            {% if 'peanuts' in template.allergies %}
+                                            <input type="checkbox" name="{{ 'allergies[]_'~ template.id }}" value="peanuts" checked>
+                                            {% else %}
                                             <input type="checkbox" name="{{ 'allergies[]_'~ template.id }}" value="peanuts">
+                                            {% endif %}
                                             <label for="{{ 'allergies_4_'~ template.id }}">Arachides</label>
+                                            {% if 'mustard' in template.allergies %}
+                                            <input type="checkbox" name="{{ 'allergies[]_'~ template.id }}" value="mustard" checked>
+                                            {% else %}
                                             <input type="checkbox" name="{{ 'allergies[]_'~ template.id }}" value="mustard">
+                                            {% endif %}
                                             <label for="{{ 'allergies_5_'~ template.id }}">Moutarde</label>
+                                            {% if 'molluscs' in template.allergies %}
+                                            <input type="checkbox" name="{{ 'allergies[]_'~ template.id }}" value="molluscs" checked>
+                                            {% else %}
                                             <input type="checkbox" name="{{ 'allergies[]_'~ template.id }}" value="molluscs">
+                                            {% endif %}
                                             <label for="{{ 'allergies_6_'~ template.id }}">Mollusques</label>
+                                            {% if 'soy' in template.allergies %}
+                                            <input type="checkbox" name="{{ 'allergies[]_'~ template.id }}" value="soy" checked>
+                                            {% else %}
                                             <input type="checkbox" name="{{ 'allergies[]_'~ template.id }}" value="soy">
+                                            {% endif %}
                                             <label for="{{ 'allergies_7_'~ template.id }}">Soja</label>
+                                            {% if 'sulphites' in template.allergies %}
+                                            <input type="checkbox" name="{{ 'allergies[]_'~ template.id }}" value="sulphites" checked>
+                                            {% else %}
                                             <input type="checkbox" name="{{ 'allergies[]_'~ template.id }}" value="sulphites">
+                                            {% endif %}
                                             <label for="{{ 'allergies_8_'~ template.id }}">Sulfites</label>
+                                            {% if 'sesame' in template.allergies %}
+                                            <input type="checkbox" name="{{ 'allergies[]_'~ template.id }}" value="sesame" checked>
+                                            {% else %}
                                             <input type="checkbox" name="{{ 'allergies[]_'~ template.id }}" value="sesame">
+                                            {% endif %}
                                             <label for="{{ 'allergies_9_'~ template.id }}">Sésame</label>
+                                            {% if 'celery' in template.allergies %}
+                                            <input type="checkbox"  name="{{ 'allergies[]_'~ template.id }}" value="celery" checked>
+                                            {% else %}
                                             <input type="checkbox"  name="{{ 'allergies[]_'~ template.id }}" value="celery">
-                                            <label for="a{{ 'llergies_10_'~ template.id }}">Céleri</label>
+                                            {% endif %}
+                                            <label for="{{ 'allergies_10_'~ template.id }}">Céleri</label>
+                                            {% if 'lupines' in template.allergies %}
+                                            <input type="checkbox"  name="{{ 'allergies[]_'~ template.id }}" value="lupines" checked>
+                                            {% else %}
                                             <input type="checkbox"  name="{{ 'allergies[]_'~ template.id }}" value="lupines">
-                                            <label for="a{{ 'llergies_11_'~ template.id }}">Lupins</label>
-                                            <input type="checkbox"  name="{{ 'allergies[]_'~ template.id }}" value="milk">
-                                            <label for="a{{ 'llergies_12_'~ template.id }}">Lait</label>
-                                            <input type="checkbox"  name="{{ 'allergies[]_'~ template.id }}" value="seafood">
+                                            {% endif %}
+                                            <label for="{{ 'allergies_11_'~ template.id }}">Lupins</label>
+                                            {% if 'milk' in template.allergies %}
+                                            <input type="checkbox"  name="{{ 'allergies[]_'~ template.id }}" value="milk" checked>
+                                            {% else %}
+                                            <input type="checkbox"  name="{{ 'allergies[]_'~ template.id }}" value="milk" checked>
+                                            {% endif %}
+                                            <label for="{{ 'allergies_12_'~ template.id }}">Lait</label>
+                                            {% if 'nuts' in template.allergies %}
+                                            <input type="checkbox"  name="{{ 'allergies[]_'~ template.id }}" value="nuts" checked>
+                                            {% else %}
+                                            <input type="checkbox"  name="{{ 'allergies[]_'~ template.id }}" value="nuts" checked>
+                                            {% endif %}
                                             <label for="allergies_13">Fruits à coque</label>
 										</div>
 									</div>

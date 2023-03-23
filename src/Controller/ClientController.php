@@ -26,6 +26,7 @@ use App\Repository\UserRepository;
 use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
+use IntlChar;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -113,6 +114,47 @@ class ClientController extends AbstractController
             'result' => 'success'
         ]);
     }
+    private function handleTemplate($request, $id, $repository) {
+        $title = json_decode($request->getContent(), true)['template_title'];
+        $name = json_decode($request->getContent(), true)['template_name'];
+        $places = json_decode($request->getContent(), true)['template_places'];
+        $allergies = json_decode($request->getContent(), true)['template_allergies'];
+
+        $authorized_allergies = ['gluten', 'fish', 'shellfish', 'eggs', 'peanuts', 'mustard',
+                                 'molluscs', 'soy', 'sulphites', 'sesame', 'celery', 'lupines', 
+                                 'milk', 'nuts'];
+
+        if (!$this->checkPattern($title, '/^[\p{L}\d\s.\'’()-]+$/u') ||
+            !$this->checkPattern($name, '/^[\p{L}\d\s.\'’()-]+$/u') || 
+            !$this->checkPattern($places, ' /^\d+$/')) 
+        {
+            return new JsonResponse([
+                'result' => 'error_pattern'
+            ]);
+        }
+        
+        if (count($allergies) > 0) {
+            foreach($allergies as $allergie){
+                if (!in_array($allergie, $authorized_allergies)){
+                    return new JsonResponse([
+                        'result' => 'error'
+                    ]);
+                }
+            }
+        }
+        try {
+            $template = $repository->find($id);
+            $template->setTitle($title)->setName($name)->setPlace($places)->setAllergies($allergies);
+            $repository->save($template, true);
+        } catch (Exception $e) {
+            return new JsonResponse([
+                'result' => 'error'
+            ]);
+        }
+        return new JsonResponse([
+            'result' => 'success'
+        ]);
+    }
     #[Route('client/profil/{page_down}', name: 'client_profil', defaults: ['page_down' => 'fiches'])]
     public function profil(string $page_down, Request $request, ManagerRegistry $doctrine, 
                            UserPasswordHasherInterface $userPasswordHasher, UserRepository $userRepository,
@@ -156,6 +198,10 @@ class ClientController extends AbstractController
             // Informations
             $email = $request->request->get('email');
             $password = $request->request->get('password');
+            
+            // Templates
+            $id_template = json_decode($request->getContent(), true)['template_id'] ?? null;; 
+            dump(json_decode($request->getContent(), true));
 
             // Change password
             if ($password && !$email) {
@@ -165,11 +211,16 @@ class ClientController extends AbstractController
             if ($email && $password) {
                 return $this->handleEmail($email, $password, $userPasswordHasher, $user, $request, $userRepository);
             } 
+
+            // Change Template
+            if ($id_template) {
+                return $this->handleTemplate($request, $id_template, $templateRepository);
+            }
+
         }
 
         $result = $request->query->get('result');
-        dump($request);
-        dump($result);
+
         switch($result) {
             case 'success' : 
                 $success = "Modification effectuée avec succès !";

@@ -255,10 +255,10 @@ function setMenu(e) {
 
     const titleMenu = form[0];
     const titleMenuValue = titleMenu.value;
-    e.preventDefault();
     if (titleMenuValue === '') {
         return;
     }
+    e.preventDefault();
 
     const offers = form.querySelector('ul.modify_offers').children;
     let offerIndex = 0;
