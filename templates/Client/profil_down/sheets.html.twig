@@ -1,0 +1,55 @@
+<div class="text-secondary bg-600">
+    <div class="box-shadow-lg">
+        <section class="after py-6 relative">
+            {{ form_start(form_sheet, { 'attr' : { 'class' : 'w-11/12 mx-auto max-w-[598px]' }})}}
+            <fieldset class="border border-solid border-secondary p-3 bg-500/20 rounded flex flex-col gap-2">
+                <legend class="px-2">Créer un nouveau modèle :</legend>
+                <div class="form_profil items-center">
+                    {{ form_label(form_sheet.title) }}
+                    <div class="flex-1 bg-primary/20 flex items-center">
+                        <i class="fa-solid fa-font form_icon"></i>
+                        {{ form_widget(form_sheet.title, { 'attr' : { 'class' : 'bg-transparent pr-2 input_whitePlaceholder input_withoutIcon' }}) }}
+                    </div>
+                    <small class="form_error">
+                        {{ form_errors(form_sheet.title) }}
+                    </small>
+                </div>
+                <div class="form_profil items-center">
+                    {{ form_label(form_sheet.name) }}
+                    <div class="flex-1 bg-primary/20 flex items-center">
+                        <i class="fa-solid fa-user form_icon"></i>
+                        {{ form_widget(form_sheet.name, { 'attr' : { 'class' : 'bg-transparent pr-2 input_whitePlaceholder input_withoutIcon' }}) }}
+                    </div>
+                    <small class="form_error">
+                        {{ form_errors(form_sheet.name) }}
+                    </small>
+                </div>
+                <div class="form_profil items-start">
+                    {{ form_label(form_sheet.place) }}
+                    <div class="">
+                        <div class="w-20 bg-primary/20 flex items-center">
+                            <i class="fa-solid fa-utensils form_icon"></i>
+                            {{ form_widget(form_sheet.place, { 'attr' : { 'class' : 'w-20 bg-transparent pr-2 input_whitePlaceholder input_withoutIcon' }}) }}
+                        </div>
+                        <small class="form_error">
+                            {{ form_errors(form_sheet.place) }}
+                        </small>
+                        <small>Veuillez contacter directement le restaurant pour une réservation de plus de 20 personnes.</small>
+                    </div>
+                </div>
+                <div class="mx-auto w-11/12 max-w-[598px] items-center">
+                    {{ form_label(form_sheet.allergies) }}
+                    <div class=" bg-primary/20 flex items-center gap-2 pt-2">
+                        <i class="fa-solid fa-triangle-exclamation form_icon"></i>
+                        {{ form_widget(form_sheet.allergies, { 'attr' : { 'class' : 'py-2 bg-transparent grid gap-x-2 form_allergies flex-1' }}) }}
+                    </div>
+                    <small class="form_error">
+                        {{ form_errors(form_sheet.allergies) }}
+                    </small>
+                </div>
+                <button type='submit' class="bg-secondary text-primary duration-150 hover:bg-primary hover:text-secondary px-4 py-2 w-fit mx-auto mt-4">Valider</button>
+            </fieldset>
+            {{ form_end(form_sheet) }}
+        </section>
+    </div>
+</div>

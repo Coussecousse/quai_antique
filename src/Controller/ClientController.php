@@ -8,10 +8,12 @@ use App\Entity\Date;
 use App\Entity\Food;
 use App\Entity\Menu;
 use App\Entity\Offer;
+use App\Entity\Template;
 use App\Form\CardType;
 use App\Form\DatesType;
 use App\Form\ImageType;
 use App\Form\MenusType;
+use App\Form\TemplateType;
 use App\ImageOptimizer;
 use App\Repository\CarouselRepository;
 use App\Repository\DateRepository;
@@ -117,6 +119,16 @@ class ClientController extends AbstractController
         // Last email use when try to to modify informations
         $last_email = $request->getSession()->get('last_email');
 
+        // Sheets
+        $template = new Template;
+        $form_sheet = $this->createForm(TemplateType::class, $template);
+        $form_sheet->handleRequest($request);
+        if ($form_sheet->isSubmitted() && $form_sheet->isValid()) {
+
+        } else {
+            $request->query->remove('result');
+        }
+
         if ($request->isMethod('POST')) {
             $em = $doctrine->getManager();
 
@@ -167,12 +179,12 @@ class ClientController extends AbstractController
                 break;
         }
 
-        
         return $this->render('Client/profil.html.twig', [
             'page_down' => $page_down ,
             'error' => $error ?? null,
             'success' => $success ?? null,
             'last_email' => $last_email ?? '',
+            'form_sheet' => $form_sheet->createView()
         ]);
     }
 }
