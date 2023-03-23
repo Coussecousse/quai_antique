@@ -21,6 +21,7 @@ use App\Repository\FoodRepository;
 use App\Repository\MenuRepository;
 use App\Repository\OfferRepository;
 use App\Repository\ScheduleRepository;
+use App\Repository\TemplateRepository;
 use App\Repository\UserRepository;
 use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
@@ -114,7 +115,10 @@ class ClientController extends AbstractController
     }
     #[Route('client/profil/{page_down}', name: 'client_profil', defaults: ['page_down' => 'fiches'])]
     public function profil(string $page_down, Request $request, ManagerRegistry $doctrine, 
-                           UserPasswordHasherInterface $userPasswordHasher, UserRepository $userRepository) {
+                           UserPasswordHasherInterface $userPasswordHasher, UserRepository $userRepository,
+                           TemplateRepository $templateRepository) {
+        
+        $user = $this->getUser();
 
         // Last email use when try to to modify informations
         $last_email = $request->getSession()->get('last_email');
@@ -124,8 +128,21 @@ class ClientController extends AbstractController
         $form_sheet = $this->createForm(TemplateType::class, $template);
         $form_sheet->handleRequest($request);
         if ($form_sheet->isSubmitted() && $form_sheet->isValid()) {
-
-        } else {
+            try {
+                $template = $form_sheet->getData();
+                $template->setClient($user);
+                $templateRepository->save($template, true);
+            } catch (Exception $e) {
+                return $this->redirectToRoute('client_profil', [
+                    'page_down' => $page_down, 
+                    'result' => 'error'
+                ]);
+            }
+            return $this->redirectToRoute('client_profil', [
+                'page_down' => $page_down,
+                'result' => 'success'
+            ]);
+        } else if ($form_sheet->isSubmitted() && !$form_sheet->isValid()) {
             $request->query->remove('result');
         }
 
@@ -149,7 +166,8 @@ class ClientController extends AbstractController
         }
 
         $result = $request->query->get('result');
-
+        dump($request);
+        dump($result);
         switch($result) {
             case 'success' : 
                 $success = "Modification effectuée avec succès !";

@@ -67,7 +67,7 @@ class TemplateType extends AbstractType
                 'Crustacés' => 'shellfish',
                 'Œufs' => 'eggs',
                 'Arachides' => 'peanuts',
-                'Moutard' => 'mustarde',
+                'Moutarde' => 'mustard',
                 'Mollusques' => 'molluscs',
                 'Soja' => 'soy', 
                 'Sulfites' => 'sulphites', 
