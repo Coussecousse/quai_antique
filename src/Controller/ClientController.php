@@ -155,6 +155,20 @@ class ClientController extends AbstractController
             'result' => 'success'
         ]);
     }
+    private function deleteTemplate($request, $repository) {
+        try {
+            $id = $request->request->get('template_id');
+            $template = $repository->find($id);
+            $repository->remove($template, true);
+        } catch (Exception $e) {
+            return new JsonResponse([
+                'result' => 'error'
+            ]);
+        }
+        return new JsonResponse([
+            'result' => 'success'
+        ]);
+    }
     #[Route('client/profil/{page_down}', name: 'client_profil', defaults: ['page_down' => 'fiches'])]
     public function profil(string $page_down, Request $request, ManagerRegistry $doctrine, 
                            UserPasswordHasherInterface $userPasswordHasher, UserRepository $userRepository,
@@ -201,7 +215,7 @@ class ClientController extends AbstractController
             
             // Templates
             $id_template = json_decode($request->getContent(), true)['template_id'] ?? null;; 
-            dump(json_decode($request->getContent(), true));
+            $delete_template = $request->request->get('template_delete');            
 
             // Change password
             if ($password && !$email) {
@@ -215,6 +229,9 @@ class ClientController extends AbstractController
             // Change Template
             if ($id_template) {
                 return $this->handleTemplate($request, $id_template, $templateRepository);
+            }
+            if ($delete_template) {
+                return $this->deleteTemplate($request, $templateRepository);
             }
 
         }
