@@ -14,13 +14,17 @@
                             <i class="fa-solid fa-user form_icon form_icon"></i>
                             <input type="text" name="name" minLength=2 maxLength=100 required class="pl-2 w-full bg-500 placeholder:text-secondary/50" placeholder="Nom de la réservation...">
                         </div>
+                        <small class="form_error" id="error_name">
+                        </small>
                     </div>
                     <div>
                         <label class="text-lg" for="places">Couverts :<label></legend>
                         <div class="w-20 flex items-center bg-500">
                             <i class="fa-solid fa-utensils form_icon"></i>
                             <input type="text" name="places" minLength=2 maxLength=100 required class="pl-2 w-full bg-500 placeholder:text-secondary/50" placeholder="1">
-                        </div>
+                        </div>                        
+                        <small class="form_error" id="error_places">
+                        </small>
                     </div>
                     <div>
                         <label for="allergies" class="text-lg">Allergie(s) :</label>
@@ -58,7 +62,7 @@
                             </div>
                         </div>
                     </div>
-                    <button onclick="nextSlide" class="mt-8 rounded-full bg-secondary text-primary hover:text-secondary hover:bg-500 duration-150 h-10 w-10 mx-auto"><i class="fa-solid fa-arrow-right form_icon text-xl"></i></button>
+                    <button onclick="nextSlide(event)" data-card=1 class="mt-8 rounded-full bg-secondary text-primary hover:text-secondary hover:bg-500 duration-150 h-10 w-10 mx-auto"><i class="fa-solid fa-arrow-right form_icon text-xl"></i></button>
                 </form>
             </div>
         </div>
