@@ -179,18 +179,17 @@
                                             {% if 'milk' in template.allergies %}
                                             <input type="checkbox"  name="{{ 'allergies[]_'~ template.id }}" value="milk" checked>
                                             {% else %}
-                                            <input type="checkbox"  name="{{ 'allergies[]_'~ template.id }}" value="milk" checked>
+                                            <input type="checkbox"  name="{{ 'allergies[]_'~ template.id }}" value="milk">
                                             {% endif %}
                                             <label for="{{ 'allergies_12_'~ template.id }}">Lait</label>
                                             {% if 'nuts' in template.allergies %}
                                             <input type="checkbox"  name="{{ 'allergies[]_'~ template.id }}" value="nuts" checked>
                                             {% else %}
-                                            <input type="checkbox"  name="{{ 'allergies[]_'~ template.id }}" value="nuts" checked>
+                                            <input type="checkbox"  name="{{ 'allergies[]_'~ template.id }}" value="nuts">
                                             {% endif %}
                                             <label for="allergies_13">Fruits à coque</label>
 										</div>
 									</div>
-									<small class="form_error"></small>
 								</div>
 							</div>
 						</form>

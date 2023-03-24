@@ -498,7 +498,13 @@ header nav a.active::after {
     @apply md:grid max-w-[598px] mx-auto w-full;
     grid-template-columns: clamp(6.25rem, 0.89rem + 11.1667vw, 10.94rem) auto;
 }
-
+/* Réservation */
+.reservation_container {
+    min-height : calc(100vh - 113px);
+}
+.reservation_image {
+    background: linear-gradient(90deg, rgba(23,21,21,1) 0%, rgba(23,21,21,0) 25%), linear-gradient(0deg, rgba(23,21,21,0) 75%, rgba(23,21,21,1) 100%), center / cover no-repeat url('../../public/images/reservation/reservation-medium.jpg'),  linear-gradient(rgba(23,21,21,0) 75%, rgb(23, 21, 21));
+}
 @media screen and (max-width:359px) {
     .form_allergies {
         grid-template-columns:  13px 1fr;
@@ -525,6 +531,9 @@ header nav a.active::after {
     footer, footer div:nth-child(2), footer div:nth-child(2) div {
         gap : clamp(1rem, -3.215rem + 8.781vw, 4.688rem);
     }
+    .reservation_image {
+        background:  linear-gradient(90deg, rgba(23,21,21,1) 0%, linear-gradient(0deg, rgba(23,21,21,0) 75%, rgba(23,21,21,1) 100%), rgba(23,21,21,0) 25%), linear-gradient(rgba(23,21,21,0) 75%, rgb(23, 21, 21)), center / cover no-repeat url('../../public/images/reservation/reservation-medium.jpg');
+    }
     .image {
         background:  linear-gradient(rgba(23,21,21,0) 50%, rgb(23, 21, 21)) , center 61% / cover no-repeat url('../../public/images/home/home-medium.webp');
     }
@@ -539,6 +548,9 @@ header nav a.active::after {
     .image_sign-up {
         background: center / cover no-repeat url('../../public/images/sign-up/sign_up-large.jpg')
     }
+    .reservation_image {
+        background: linear-gradient(90deg, rgba(23,21,21,1) 0%, linear-gradient(0deg, rgba(23,21,21,0) 75%, rgba(23,21,21,1) 100%),  rgba(23,21,21,0) 25%), linear-gradient(rgba(23,21,21,0) 75%, rgb(23, 21, 21)), center / cover no-repeat url('../../public/images/reservation/reservation-large.jpg');
+    }
 }
 @media screen and (min-width: 1300px) {
     .image {
@@ -547,4 +559,8 @@ header nav a.active::after {
     .image_sign-up {
         background: center / cover no-repeat url('../../public/images/sign-up/sign_up-extraLarge.jpg')
     }
+    .reservation_image {
+        background: linear-gradient(90deg, rgba(23,21,21,1) 0%, linear-gradient(0deg, rgba(23,21,21,0) 75%, rgba(23,21,21,1) 100%), rgba(23,21,21,0) 25%), linear-gradient(rgba(23,21,21,0) 75%, rgb(23, 21, 21)), center / cover no-repeat url('../../public/images/reservation/reservation-extraLarge.jpg');
+    }
 }
+

@@ -47,8 +47,6 @@ document.addEventListener('scroll', () => {
 })
 
 function setTemplate(e) {
-    console.log('click')
-
     const form = e.target;
     const id = form.dataset.id;
     
@@ -101,8 +99,6 @@ function setTemplate(e) {
         template_places : places,
         template_allergies : allergies
     }
-    console.log(xhr);
-    console.log('send')
     xhr.send(JSON.stringify(data));
 }
 

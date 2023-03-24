@@ -85,8 +85,6 @@ class PostController extends AbstractController
     #[Route('/contact/{result}', name:'contact-result')]
     public function contactResult($result) {
 
-        dump($result);
-
         return $this->render('Contact/contact.result.html.twig', [
             "result" => $result
         ]);

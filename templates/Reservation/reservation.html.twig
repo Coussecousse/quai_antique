@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réservation{% endblock %}
+
+{% block body %}
+    <main class="pt-28 flex justify-evenly text-secondary">
+        <div class="w-full md:w-[45%] reservation_container my-8 mx-4 md:mx-8">
+            <div class="w-fit mx-auto relative top-1/2 -translate-y-1/2 ">
+                <h1 class="font-primary text-3xl mb-11">Faites votre réservation</h1>
+                <form method="POST" class="max-w-[589px] font-secondary border border-solid border-500 p-3 flex flex-col gap-2">
+                    <div>
+                        <label class="text-lg" for="name">Nom :<label>
+                        <div class="h-8 flex items-center bg-500">
+                            <i class="fa-solid fa-user form_icon form_icon"></i>
+                            <input type="text" name="name" minLength=2 maxLength=100 required class="pl-2 w-full bg-500 placeholder:text-secondary/50" placeholder="Nom de la réservation...">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-lg" for="places">Couverts :<label></legend>
+                        <div class="w-20 flex items-center bg-500">
+                            <i class="fa-solid fa-utensils form_icon"></i>
+                            <input type="text" name="places" minLength=2 maxLength=100 required class="pl-2 w-full bg-500 placeholder:text-secondary/50" placeholder="1">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="allergies" class="text-lg">Allergie(s) :</label>
+                        <div class=" bg-500 flex items-center gap-2 pt-2">
+                            <i class="fa-solid fa-triangle-exclamation form_icon"></i>
+                            <div id="allergies" class="py-2 bg-transparent grid gap-x-2 form_allergies flex-1">
+                                <input type="checkbox" name="allergies_0" value="gluten">
+                                <label for="allergies_0">Gluten</label>
+                                <input type="checkbox" name="allergies_1" value="fish">
+                                <label for="allergies_1">Poisson</label>
+                                <input type="checkbox" name="allergies_2" value="shellfish">
+                                <label for="allergies_2">Crustacés</label>
+                                <input type="checkbox" name="allergies_3" value="eggs">
+                                <label for="allergies_3">Œufs</label>
+                                <input type="checkbox" name="allergies_4" value="peanuts">
+                                <label for="allergies_4">Arachides</label>
+                                <input type="checkbox" name="allergies_5" value="mustard">
+                                <label for="allergies_5">Moutarde</label>
+                                <input type="checkbox" name="allergies_6" value="molluscs">
+                                <label for="allergies_6">Mollusques</label>
+                                <input type="checkbox" name="allergies_7" value="soy">
+                                <label for="allergies_7">Soja</label>
+                                <input type="checkbox" name="allergies_8" value="sulphites">
+                                <label for="allergies_8">Sulfites</label>
+                                <input type="checkbox" name="allergies_9" value="sesame">
+                                <label for="allergies_9">Sésame</label>
+                                <input type="checkbox"  name="allergies_10" value="celery">
+                                <label for="allergies_10">Céleri</label>
+                                <input type="checkbox"  name="allergies_11" value="lupines">
+                                <label for="allergies_11">Lupins</label>
+                                <input type="checkbox"  name="allergies_12" value="milk">
+                                <label for="allergies_12">Lait</label>
+                                <input type="checkbox"  name="allergies_13" value="nuts">
+                                <label for="allergies_13">Fruits à coque</label>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="nextSlide" class="mt-8 rounded-full bg-secondary text-primary hover:text-secondary hover:bg-500 duration-150 h-10 w-10 mx-auto"><i class="fa-solid fa-arrow-right form_icon text-xl"></i></button>
+                </form>
+            </div>
+        </div>
+        <div class="2xl:w-[70%] hidden lg:block w-[55%] reservation_container reservation_image relative">
+            {# <div class="relative top-full -translate-y-full w-full h-1/5 bg-600"></div> #}
+        </div>
+    </main>
+{% endblock %}
+{% block scripts %}
+    <script src={{ asset('/js/reservation/'~'script.js') }}></script>
+{% endblock %}

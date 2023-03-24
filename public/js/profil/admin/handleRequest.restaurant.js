@@ -40,7 +40,6 @@ function changeRestaurant(e, button) {
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
     let params = nameElement+'='+valueElement;
-    console.log(params);
     xhr.send(params);
 
 }

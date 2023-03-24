@@ -5,7 +5,6 @@ button = document.querySelector("#card-booking");
 aArray.forEach(a => {
     a.addEventListener("click", e => {
         e.preventDefault();
-        console.log(a);
         for (let element of aArray) {
             if (element !== a ){
                 switch (a.parentElement.id) {

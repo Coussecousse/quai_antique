@@ -2,40 +2,17 @@
 
 namespace App\Controller;
 
-
-use App\Entity\Carousel;
-use App\Entity\Date;
-use App\Entity\Food;
-use App\Entity\Menu;
-use App\Entity\Offer;
 use App\Entity\Template;
-use App\Form\CardType;
-use App\Form\DatesType;
-use App\Form\ImageType;
-use App\Form\MenusType;
 use App\Form\TemplateType;
-use App\ImageOptimizer;
-use App\Repository\CarouselRepository;
-use App\Repository\DateRepository;
-use App\Repository\FoodRepository;
-use App\Repository\MenuRepository;
-use App\Repository\OfferRepository;
-use App\Repository\ScheduleRepository;
 use App\Repository\TemplateRepository;
 use App\Repository\UserRepository;
-use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
-use IntlChar;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\String\Slugger\SluggerInterface;
-use Symfony\Component\Yaml\Yaml;
-
 
 class ClientController extends AbstractController 
 {

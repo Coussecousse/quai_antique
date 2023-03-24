@@ -4,7 +4,6 @@ let square = document.querySelector(".box");
 
 window.addEventListener("load", () => {
     let time = 0;
-    console.log(square.scrollHeight);
     window.scroll(0, square.scrollHeight)
     setTimeout(() => {
         square.classList.add('growing');
