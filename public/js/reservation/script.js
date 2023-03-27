@@ -290,9 +290,6 @@ function nextSlide(e) {
     let index = activeCard.dataset.index;
     
     if (index == 0) {
-        let error = false;
-        const button = e.target.parentElement;
-        const slide = button.dataset.card;
     
         const name = document.querySelector('input[name=name]').value;
         const places = document.querySelector("input[name=places]").value;
@@ -322,7 +319,7 @@ function nextSlide(e) {
     if (index == 1)
     {
         // Date
-        const date = document.querySelector("#date").value;
+        let date = document.querySelector("#date").value;
         
         // Hour
         const hour = document.querySelector("#schedules").value;
@@ -330,6 +327,14 @@ function nextSlide(e) {
         if (checkEmpty(date, "#error_date", "Veuillez selectionner une date.") ||
             checkEmpty(hour, "#error_schedule", "Veuillez selectionner une heure.")){
             return;
+        }
+        
+        activeCard.classList.remove('active');
+        const newActiveCard = activeCard.nextElementSibling;
+        newActiveCard.classList.add('active');
+        const buttons = newActiveCard.querySelector('.buttons').children;
+        for (let button of buttons) {
+            button.disabled = false;
         }
 
         const summaryName = document.querySelector("#summary_name");
@@ -345,6 +350,8 @@ function nextSlide(e) {
             } else if (element.id === "summary_places") {
                 value = document.querySelector("#places").value;
             } else if (element.id === "summary_date") {
+                date = date.split('-');
+                date = date[2]+ '/' + date[1] + '/' + date[0];
                 value = date;
             } else {
                 value = hour;
@@ -396,7 +403,8 @@ function previousSlide(e) {
     e.preventDefault();
     const gridContainer = document.querySelector("#grid_reservation");
     const cards = gridContainer.children;
-    const widthForm = document.querySelector("form").offerWidth + 'px';
+    const widthForm = document.querySelector("form").offsetWidth;
+    console.log(widthForm)
     let activeCard;
 
     for (let card of cards) {
@@ -415,6 +423,69 @@ function previousSlide(e) {
         return;
     }
     if (index == 2) {
-
+        gridContainer.style.transform = 'translateX(-'+ widthForm + 'px)';
+        activeCard.classList.remove('active');
+        const newActiveCard = activeCard.previousElementSibling;
+        newActiveCard.classList.add('active');  
     }
+}
+
+function sendReservation(e) {
+    e.preventDefault();
+
+    const name = document.querySelector("#summary_name").textContent;
+    const places = document.querySelector("#summary_places").textContent;
+    const schedule = document.querySelector("#summary_schedule").textContent;
+    
+    let date = document.querySelector("#summary_date").textContent;
+    date = date.split('/');
+    date = date[2] + '-' + date[1] + '-' + date[0];
+    
+    let allergiesElement = document.querySelector("#summary_allergies").children;
+    const allergies = [];
+    for (let allergie of allergiesElement) {
+        allergies.push(allergie.dataset.value);
+    }
+
+    let service = document.querySelector("#summary_service");
+    if (service.querySelector("p").textContent === "Midi") {
+        service = "evening";
+    } else {
+        service = "noon";
+    }
+
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+        let url = window.location.origin + window.location.pathname;
+
+        if (this.readyState == 4 && this.status == 200) {
+            const response = JSON.parse(xhr.responseText);
+
+            // switch(response.result){
+            //     case 'success':
+            //         window.location = url + "?result=success";
+            //         break;
+            //     case 'error_pattern' :
+            //         window.location = url + "?result=error_pattern";
+            //         break;
+            //     default : 
+            //         window.location = url + "?result=error";
+            //         break;
+            // }
+        } else {
+            window.location = url + "?result=error";
+        }
+    }
+    xhr.open('POST', '/reservation');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    const data = {
+        name : name,
+        places : places,
+        allergies : allergies,
+        date : date,
+        service : service,
+        schedule : schedule
+    }
+    xhr.send(JSON.stringify(data));
 }

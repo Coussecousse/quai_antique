@@ -7,7 +7,7 @@
         <div class="w-full lg:w-[45%] reservation_container my-8 mx-4 md:mx-8">
             <div class="w-full mx-auto relative top-1/2 -translate-y-1/2 ">
                 <h1 class="font-primary text-3xl mb-11 max-w-[589px] w-11/12 mx-auto lg:mx-auto lg:w-5/6">Faites votre réservation</h1>
-                <form method="POST"  class="max-w-[589px] w-11/12 mx-auto lg:mx-auto lg:w-5/6 font-secondary border border-solid border-500 overflow-hidden">
+                <form method="POST" onSubmit="sendReservation(event)" class="max-w-[589px] w-11/12 mx-auto lg:mx-auto lg:w-5/6 font-secondary border border-solid border-500 overflow-hidden">
                     <div class="grid duration-500" id="grid_reservation">
                         <div class="active flex flex-col gap-2 p-3" data-index=0>
                             <div>
@@ -64,7 +64,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button onclick="nextSlide(event)" data-card=0 class="mt-8 rounded-full bg-secondary text-primary hover:text-secondary hover:bg-500 duration-150 h-10 w-10 mx-auto"><i class="fa-solid fa-arrow-right form_icon text-xl"></i></button>
+                            <button aria-label="Suivant" onclick="nextSlide(event)" data-card=0 class="mt-8 rounded-full bg-secondary text-primary hover:text-secondary hover:bg-500 duration-150 h-10 w-10 mx-auto"><i class="fa-solid fa-arrow-right form_icon text-xl"></i></button>
                         </div>
                         <div class="flex flex-col gap-2 p-3" data-index=1>
                             <div class="">
@@ -97,11 +97,11 @@
                                 </small>
                             </div>
                             <div class="flex gap-8 mx-auto flex-1 items-end buttons">
-                                <button disabled onclick="previousSlide(event)" data-card=1 class="rounded-full bg-secondary text-primary hover:text-secondary hover:bg-500 duration-150 h-10 w-10"><i class="fa-solid fa-arrow-left form_icon text-xl"></i></button>
-                                <button disabled onclick="nextSlide(event)" data-card=1 class="rounded-full bg-secondary text-primary hover:text-secondary hover:bg-500 duration-150 h-10 w-10"><i class="fa-solid fa-arrow-right form_icon text-xl"></i></button>
+                                <button aria-label="Précédent" disabled onclick="previousSlide(event)" data-card=1 class="rounded-full bg-secondary text-primary hover:text-secondary hover:bg-500 duration-150 h-10 w-10"><i class="fa-solid fa-arrow-left form_icon text-xl"></i></button>
+                                <button aria-label="Suivant" disabled onclick="nextSlide(event)" data-card=1 class="rounded-full bg-secondary text-primary hover:text-secondary hover:bg-500 duration-150 h-10 w-10"><i class="fa-solid fa-arrow-right form_icon text-xl"></i></button>
                             </div>
                         </div>
-                        <div class="p-3 flex flex-col" data-index=2>
+                        <div class="p-3 flex flex-col" data-index=2 id="summary">
                             <h2 class="font-primary text-xl text-center underline underline-offset-4 mb-8">Récapitulatif</h2>
                             <div class="flex-1 flex flex-col gap-2">
                                 <div class="summary_container">
@@ -123,7 +123,6 @@
                                     <div class="flex items-center bg-500 h-fit">
                                         <i class="fa-solid fa-triangle-exclamation form_icon"></i>
                                         <ul id="summary_allergies" class="flex flex-wrap gap-x-2 list-disc list-inside flex-1">
-                                            <li><span>Test</span></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -149,8 +148,8 @@
                                     </div>
                                 </div>
                             <div class="flex gap-8 mx-auto flex-1 items-end buttons">
-                                <button disabled onclick="previousSlide(event)" data-card=1 class="rounded-full bg-secondary text-primary hover:text-secondary hover:bg-500 duration-150 h-10 w-10"><i class="fa-solid fa-arrow-left form_icon text-xl"></i></button>
-                                <button disabled onclick="nextSlide(event)" data-card=1 class="rounded-full bg-secondary text-primary hover:text-secondary hover:bg-500 duration-150 h-10 w-10"><i class="fa-solid fa-check form_icon text-xl"></i></button>
+                                <button aria-label="Précédent" disabled onclick="previousSlide(event)" data-card=1 class="rounded-full bg-secondary text-primary hover:text-secondary hover:bg-500 duration-150 h-10 w-10"><i class="fa-solid fa-arrow-left form_icon text-xl"></i></button>
+                                <button aria-label="Valider" disabled type="submit" data-card=1 class="rounded-full bg-secondary text-primary hover:text-secondary hover:bg-500 duration-150 h-10 w-10"><i class="fa-solid fa-check form_icon text-xl"></i></button>
                             </div>
                             </div>
                         </div>
