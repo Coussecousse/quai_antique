@@ -409,14 +409,14 @@ header nav a.active::after {
 .slow-opacity-in {
   animation: linear 150ms forwards fade-in;
 }
-.recap_container {
+.summary_container {
   @apply grid gap-2;
   grid-template-columns: 100px auto;
 }
-.recap_container li {
+.summary_container li {
   @apply whitespace-nowrap;
 }
-.recap_container span {
+.summary_container span {
   @apply relative -left-2;
 }
 #all_special_dates input[type="checkbox"]:checked,
@@ -514,7 +514,7 @@ header nav a.active::after {
 #schedules input[type="time"]::-webkit-calendar-picker-indicator,
 #special_dates input[type="time"]::-webkit-calendar-picker-indicator,
 #special_dates input[type="date"]::-webkit-calendar-picker-indicator,
-#reservation_date::-webkit-calendar-picker-indicator {
+#date::-webkit-calendar-picker-indicator {
   filter: invert(100%);
 }
 /* CLIENT */

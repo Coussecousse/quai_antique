@@ -14,7 +14,7 @@
                                 <label class="text-lg" for="name">Nom :<label>
                                 <div class="h-8 flex items-center bg-500">
                                     <i class="fa-solid fa-user form_icon"></i>
-                                    <input type="text" name="name" minLength=2 maxLength=100 required class="pl-2 w-full bg-500 placeholder:text-secondary/50" placeholder="Nom de la réservation...">
+                                    <input type="text" id="name" name="name" minLength=2 maxLength=100 required class="pl-2 w-full bg-500 placeholder:text-secondary/50" placeholder="Nom de la réservation...">
                                 </div>
                                 <small class="form_error" id="error_name">
                                 </small>
@@ -23,7 +23,7 @@
                                 <label class="text-lg" for="places">Couverts :<label></legend>
                                 <div class="w-20 flex items-center bg-500">
                                     <i class="fa-solid fa-utensils form_icon"></i>
-                                    <input type="text" name="places" minLength=2 maxLength=100 required class="pl-2 w-full bg-500 placeholder:text-secondary/50" placeholder="1">
+                                    <input type="text" id="places" name="places" min=2 max=100 required class="pl-2 w-full bg-500 placeholder:text-secondary/50" placeholder="1">
                                 </div>
                                 <small class="form_error" id="error_places">
                                 </small>
@@ -33,33 +33,33 @@
                                 <div class=" bg-500 flex items-center gap-2 pt-2">
                                     <i class="fa-solid fa-triangle-exclamation form_icon"></i>
                                     <div id="allergies" class="py-2 bg-transparent grid gap-x-2 items-center form_allergies flex-1">
-                                        <input type="checkbox" name="allergies_0" value="gluten">
+                                        <input type="checkbox" name="allergies_0" value="gluten" data-text="Gluten">
                                         <label for="allergies_0">Gluten</label>
-                                        <input type="checkbox" name="allergies_1" value="fish">
+                                        <input type="checkbox" name="allergies_1" value="fish" data-text="Poisson">
                                         <label for="allergies_1">Poisson</label>
-                                        <input type="checkbox" name="allergies_2" value="shellfish">
+                                        <input type="checkbox" name="allergies_2" value="shellfish" data-text="Poisson">
                                         <label for="allergies_2">Crustacés</label>
-                                        <input type="checkbox" name="allergies_3" value="eggs">
+                                        <input type="checkbox" name="allergies_3" value="eggs" data-text="Œufs">
                                         <label for="allergies_3">Œufs</label>
-                                        <input type="checkbox" name="allergies_4" value="peanuts">
+                                        <input type="checkbox" name="allergies_4" value="peanuts" data-text="Arachides">
                                         <label for="allergies_4">Arachides</label>
-                                        <input type="checkbox" name="allergies_5" value="mustard">
+                                        <input type="checkbox" name="allergies_5" value="mustard" data-text="Moutarde">
                                         <label for="allergies_5">Moutarde</label>
-                                        <input type="checkbox" name="allergies_6" value="molluscs">
+                                        <input type="checkbox" name="allergies_6" value="molluscs" data-text="Mollusques">
                                         <label for="allergies_6">Mollusques</label>
-                                        <input type="checkbox" name="allergies_7" value="soy">
+                                        <input type="checkbox" name="allergies_7" value="soy" data-text="Soja">
                                         <label for="allergies_7">Soja</label>
-                                        <input type="checkbox" name="allergies_8" value="sulphites">
+                                        <input type="checkbox" name="allergies_8" value="sulphites" data-text="Sulfites">
                                         <label for="allergies_8">Sulfites</label>
-                                        <input type="checkbox" name="allergies_9" value="sesame">
+                                        <input type="checkbox" name="allergies_9" value="sesame" data-text="Sésame">
                                         <label for="allergies_9">Sésame</label>
-                                        <input type="checkbox"  name="allergies_10" value="celery">
+                                        <input type="checkbox"  name="allergies_10" value="celery" data-text="Céleri">
                                         <label for="allergies_10">Céleri</label>
-                                        <input type="checkbox"  name="allergies_11" value="lupines">
+                                        <input type="checkbox"  name="allergies_11" value="lupines" data-text="Lupins">
                                         <label for="allergies_11">Lupins</label>
-                                        <input type="checkbox"  name="allergies_12" value="milk">
+                                        <input type="checkbox"  name="allergies_12" value="milk" data-text="Lait">
                                         <label for="allergies_12">Lait</label>
-                                        <input type="checkbox"  name="allergies_13" value="nuts">
+                                        <input type="checkbox"  name="allergies_13" value="nuts" data-text="Fruits à coque">
                                         <label for="allergies_13">Fruits à coque</label>
                                     </div>
                                 </div>
@@ -69,7 +69,7 @@
                         <div class="flex flex-col gap-2 p-3" data-index=1>
                             <div class="">
                                 <label class="text-lg block" for="date">Date :</label>
-                                <input type="date" name="date" id='reservation_date' class="bg-500 h-8 px-2" placeholder="dd-mm-YYYY" max={{ "now"|date_modify("+1 year")|date("m/d/Y", "Europe/Paris") }} >
+                                <input type="date" name="date" id='date' class="bg-500 h-8 px-2" placeholder="dd-mm-YYYY" max={{ "now"|date_modify("+1 year")|date("m/d/Y", "Europe/Paris") }} >
                                 <small class="form_error block" id="error_date">
                                 </small>
                             </div>
@@ -93,7 +93,7 @@
                                 <select disabled required name="schedules" id="schedules" class="h-8 px-4 bg-500">
                                     <option value="">--Selectionner une heure--</option>
                                 </select>
-                                <small class="form_error" id="error_name">
+                                <small class="form_error" id="error_schedule">
                                 </small>
                             </div>
                             <div class="flex gap-8 mx-auto flex-1 items-end buttons">
@@ -101,9 +101,9 @@
                                 <button disabled onclick="nextSlide(event)" data-card=1 class="rounded-full bg-secondary text-primary hover:text-secondary hover:bg-500 duration-150 h-10 w-10"><i class="fa-solid fa-arrow-right form_icon text-xl"></i></button>
                             </div>
                         </div>
-                        <div class="p-3" data-index=2>
-                            <h2 class="font-primary text-xl text-center underline underline-offset-4 my-8">Récapitulatif</h2>
-                            <div class="flex flex-col gap-2">
+                        <div class="p-3 flex flex-col" data-index=2>
+                            <h2 class="font-primary text-xl text-center underline underline-offset-4 mb-8">Récapitulatif</h2>
+                            <div class="flex-1 flex flex-col gap-2">
                                 <div class="summary_container">
                                     <p>Nom :</p>
                                     <div class="h-8 flex items-center bg-500">
@@ -136,18 +136,22 @@
                                 </div>
                                 <div class="summary_container">
                                     <p>Service :</p>
-                                    <div class="h-8 flex items-center bg-500">
+                                    <div class="h-8 flex items-center bg-500" id="summary_service">
                                         <i class="fa-solid form_icon"></i>
-                                        <p id="summary_service"></p>
+                                        <p></p>
                                     </div>
                                 </div>
                                 <div class="summary_container">
                                     <p>Horaire :</p>
                                     <div class="h-8 flex items-center bg-500">
                                         <i class="fa-solid fa-clock form_icon"></i>
-                                        <p id="summary_clock"></p>
+                                        <p id="summary_schedule"></p>
                                     </div>
                                 </div>
+                            <div class="flex gap-8 mx-auto flex-1 items-end buttons">
+                                <button disabled onclick="previousSlide(event)" data-card=1 class="rounded-full bg-secondary text-primary hover:text-secondary hover:bg-500 duration-150 h-10 w-10"><i class="fa-solid fa-arrow-left form_icon text-xl"></i></button>
+                                <button disabled onclick="nextSlide(event)" data-card=1 class="rounded-full bg-secondary text-primary hover:text-secondary hover:bg-500 duration-150 h-10 w-10"><i class="fa-solid fa-check form_icon text-xl"></i></button>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -155,7 +159,6 @@
             </div>
         </div>
         <div class="-z-10 2xl:w-[70%] hidden lg:block w-[55%] reservation_container reservation_image relative">
-            {# <div class="relative top-full -translate-y-full w-full h-1/5 bg-600"></div> #}
         </div>
     </main>
 {% endblock %}

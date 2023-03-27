@@ -6,6 +6,16 @@ function removeError(element) {
     const errorContainer = document.querySelector(element);
     errorContainer.innerHTML = '';
 }
+function checkEmpty(element, errorContainer, message) {
+    console.log(errorContainer)
+    if (element === '') {
+        addError(errorContainer, message);
+        return true;
+    } else {
+        removeError(errorContainer);
+    }
+}
+
 function checkIfError(element, min, max, errorContainer) {
     let error=false;
     
@@ -21,12 +31,8 @@ function checkIfError(element, min, max, errorContainer) {
     }  else {
         removeError(errorContainer);
     } 
-    if (element === '') {
-        addError(errorContainer, 'Ne peut pas être vide.');
-        error = true;
-    } else {
-        removeError(errorContainer);
-    }
+    error = checkEmpty(element, errorContainer, "Ne peut pas être vide");
+
     return error;
 }
 
@@ -272,7 +278,7 @@ function nextSlide(e) {
     e.preventDefault();
     const gridContainer = document.querySelector('#grid_reservation');
     const cards = gridContainer.children;
-    const widthForm = document.querySelector('form').offsetWidth + 'px';
+    const widthForm = document.querySelector('form').offsetWidth;
     let activeCard;
 
     for (let card of cards) {
@@ -304,7 +310,7 @@ function nextSlide(e) {
             }
         }
         
-        gridContainer.style.transform = 'translateX(-'+ widthForm + ')';
+        gridContainer.style.transform = 'translateX(-'+ widthForm + 'px)';
 
         activeCard.classList.remove('active');
         const newActiveCard = activeCard.nextElementSibling;
@@ -315,7 +321,74 @@ function nextSlide(e) {
     }
     if (index == 1)
     {
+        // Date
+        const date = document.querySelector("#date").value;
         
+        // Hour
+        const hour = document.querySelector("#schedules").value;
+        
+        if (checkEmpty(date, "#error_date", "Veuillez selectionner une date.") ||
+            checkEmpty(hour, "#error_schedule", "Veuillez selectionner une heure.")){
+            return;
+        }
+
+        const summaryName = document.querySelector("#summary_name");
+        const summaryPlaces = document.querySelector("#summary_places");
+        const summaryDate = document.querySelector("#summary_date");
+        const summarySchedule = document.querySelector("#summary_schedule");
+        
+        const elements = [summaryName, summaryPlaces, summaryDate, summarySchedule];
+        for (let element of elements) {
+            let value;
+            if (element.id === "summary_name") {
+                value = document.querySelector("#name").value;
+            } else if (element.id === "summary_places") {
+                value = document.querySelector("#places").value;
+            } else if (element.id === "summary_date") {
+                value = date;
+            } else {
+                value = hour;
+            }
+            element.textContent = value;
+        }
+        
+        const summaryAllergies = document.querySelector("#summary_allergies");
+        const allergies = document.querySelector('#allergies').querySelectorAll('input');
+        const allergiesList = [];
+        allergies.forEach(allergie => {
+            if (allergie.checked) {
+                allergiesList.push(allergie);
+            }
+        })
+
+        for (let child of summaryAllergies.children) {
+            child.remove();
+        }
+        for (let allergie of allergiesList) {
+            const li = document.createElement("li");
+            li.innerHTML = "<span>"+allergie.dataset.text+"</span>";
+            li.dataset.value = allergie.value;
+            summaryAllergies.appendChild(li);
+        }
+
+        const summaryService = document.querySelector("#summary_service");
+        const services = document.querySelectorAll('input[name=service]');
+
+        services.forEach(service => {
+            if (service.checked) {
+                if (service.value === 'evening') {
+                    summaryService.innerHTML=`
+                    <i class='fa-solid fa-sun form_icon'></i>
+                    <p>Midi</p>`
+                } else {
+                    summaryService.innerHTML=`
+                    <i class='fa-solid fa-moon form_icon'></i>
+                    <p>Soir</p>`
+                }
+            }
+        })
+
+        gridContainer.style.transform = 'translateX(-'+ widthForm * 2 + 'px)';
     }
 }
 
