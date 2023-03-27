@@ -103,7 +103,7 @@
 									<label for="">Allergie(s) :</label>
 									<div class=" bg-primary/20 flex items-center gap-2 pt-2">
 										<i class="fa-solid fa-triangle-exclamation form_icon"></i>
-										<div id="allergies" class="py-2 bg-transparent grid gap-x-2 form_allergies flex-1">
+										<div id="allergies" class="py-2 bg-transparent grid items-center gap-x-2 form_allergies flex-1">
                                             {% if 'gluten' in template.allergies %}
                                             <input type="checkbox" name="{{ 'allergies[]_'~ template.id }}" value="gluten" checked>
                                             {% else %}

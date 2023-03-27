@@ -453,7 +453,6 @@ class AdminController extends AbstractController
         } catch (Exception $e) {
             return 'error';
         }
-
         if (count($schedule_evening) == 3) {
             $close = $schedule_evening['close'];
             if ($close != 'on') {
@@ -524,7 +523,7 @@ class AdminController extends AbstractController
                     if ($key == 0)  {
                         $newDay->setEveningStart(new DateTime($service[0]))->setEveningEnd(new DateTime($service[1]))->setEveningClose(false);
                     } else {
-                        $newDay->setNoonStart(new DateTime($service[0]))->setEveningEnd(new DateTime($service[1]))->setNoonClose(false);
+                        $newDay->setNoonStart(new DateTime($service[0]))->setNoonEnd(new DateTime($service[1]))->setNoonClose(false);
                     }
                 } else {
                     if ($key == 0) {

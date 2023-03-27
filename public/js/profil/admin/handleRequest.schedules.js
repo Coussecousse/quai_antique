@@ -66,3 +66,5 @@ function submitAllTheDays(event) {
 
     xhr.send(JSON.stringify(datas));
 }
+
+
