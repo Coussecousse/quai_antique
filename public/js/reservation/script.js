@@ -29,15 +29,7 @@ function checkIfError(element, min, max, errorContainer) {
     }
     return error;
 }
-function handleSecondCard(card) {
-    const buttons = card.querySelector('.buttons').children;
-    for (let button of buttons) {
-        button.disabled = false;
-    }
 
-    const inputDate = card.querySelector('input[name=date]');
-    inputDate.addEventListener( 'change' , () => changeDate(inputDate, card))
-}
 function seeSchedules(schedule) {
     const container = document.querySelector("#reservation_schedules");
     container.classList.replace('slow-opacity-reverse', 'slow-opacity-in');
@@ -62,6 +54,17 @@ function seeSchedules(schedule) {
     }
 }
 function sendDate(date, service) {
+    function handleDisableInput(element, statue) {
+        if (statue) {
+            element.classList.add('invisible', 'opacity-0');
+            element.querySelector('input').disabled = statue;
+        } else {
+            element.classList.remove("invisible", "opacity-0");
+            element.querySelector('input').disabled = statue;
+        }
+    }
+
+
     const xhr = new XMLHttpRequest();
     
     const errorContainer = document.querySelector('#error_service');
@@ -146,23 +149,20 @@ function sendDate(date, service) {
         const noonContainer = document.querySelector('#service_noon');
 
         if (evening.length == 0) {
-            eveningContainer.classList.add('invisible', 'opacity-0');
-            eveningContainer.querySelector('input').disabled = true;
+            handleDisableInput(eveningContainer, true);
             noonContainer.querySelector('input').checked = true;
         } else {
-            eveningContainer.classList.remove('invisible', 'opacity-0');
-            eveningContainer.querySelector('input').disabled = false;
+            handleDisableInput(eveningContainer, false); 
             eveningContainer.querySelector('input').checked = true;
             noonContainer.querySelector('input').checked = false;
             seeSchedules(evening);
         }
         if (noon.length == 0) {
-            noonContainer.classList.add('invisible', 'opacity-0');
-            noonContainer.querySelector('input').disabled = true;
+            handleDisableInput(noonContainer, true);
         } else {
-            noonContainer.classList.remove('invisible', 'opacity-0');
-            noonContainer.querySelector('input').disabled = false;
+            handleDisableInput(noonContainer, false);
         }
+        
         if (noon.length == 0 && evening.length == 0) {
             errorContainer.innerHTML = 'Nous sommes fermés à cette date.'
         } else {
@@ -183,8 +183,8 @@ function sendDate(date, service) {
         }
 
     }
-
 }
+
 function changeDate(input, card) { 
     const service = card.querySelector('#reservation_service');
     const dateRegex = new RegExp("^\\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$");
@@ -207,6 +207,7 @@ function changeDate(input, card) {
         }
         return;
     }
+
     // Today
     let today = new Date();
     const dd = String(today.getDate()).padStart(2, '0');
@@ -228,6 +229,8 @@ function changeDate(input, card) {
     let todayInAYear = yyyy+1 + '-' + mm + '-' + dd + ' '+ hh + ':' + ii + ':00';
     
     todayInAYear = new Date(todayInAYear);
+
+
     // Error with date
     const errorContainer = card.querySelector('#error_date');
     if (date.getTime() < today.getTime() || date.getTime() > todayInAYear.getTime()) {
@@ -245,12 +248,24 @@ function changeDate(input, card) {
         return;
     } 
     errorContainer.innerHTML = "";
+
     service.querySelectorAll('input[name=service]').forEach(input => {
         input.disabled = false;
     });
 
     sendDate(date, service);
 }
+// Second cards
+function handleSecondCard(card) {
+    const buttons = card.querySelector('.buttons').children;
+    for (let button of buttons) {
+        button.disabled = false;
+    }
+
+    const inputDate = card.querySelector('input[name=date]');
+    inputDate.addEventListener( 'change' , () => changeDate(inputDate, card))
+}
+
 function nextSlide(e) {
     e.preventDefault();
     const gridContainer = document.querySelector('#grid_reservation');
