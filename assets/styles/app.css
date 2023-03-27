@@ -409,7 +409,16 @@ header nav a.active::after {
 .slow-opacity-in {
   animation: linear 150ms forwards fade-in;
 }
-
+.recap_container {
+  @apply grid gap-2;
+  grid-template-columns: 100px auto;
+}
+.recap_container li {
+  @apply whitespace-nowrap;
+}
+.recap_container span {
+  @apply relative -left-2;
+}
 #all_special_dates input[type="checkbox"]:checked,
 #all_special_dates input[type="checkbox"]:not(:checked) {
   position: absolute;

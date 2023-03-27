@@ -13,7 +13,7 @@
                             <div>
                                 <label class="text-lg" for="name">Nom :<label>
                                 <div class="h-8 flex items-center bg-500">
-                                    <i class="fa-solid fa-user form_icon form_icon"></i>
+                                    <i class="fa-solid fa-user form_icon"></i>
                                     <input type="text" name="name" minLength=2 maxLength=100 required class="pl-2 w-full bg-500 placeholder:text-secondary/50" placeholder="Nom de la réservation...">
                                 </div>
                                 <small class="form_error" id="error_name">
@@ -99,6 +99,55 @@
                             <div class="flex gap-8 mx-auto flex-1 items-end buttons">
                                 <button disabled onclick="previousSlide(event)" data-card=1 class="rounded-full bg-secondary text-primary hover:text-secondary hover:bg-500 duration-150 h-10 w-10"><i class="fa-solid fa-arrow-left form_icon text-xl"></i></button>
                                 <button disabled onclick="nextSlide(event)" data-card=1 class="rounded-full bg-secondary text-primary hover:text-secondary hover:bg-500 duration-150 h-10 w-10"><i class="fa-solid fa-arrow-right form_icon text-xl"></i></button>
+                            </div>
+                        </div>
+                        <div class="p-3" data-index=2>
+                            <h2 class="font-primary text-xl text-center underline underline-offset-4 my-8">Récapitulatif</h2>
+                            <div class="flex flex-col gap-2">
+                                <div class="summary_container">
+                                    <p>Nom :</p>
+                                    <div class="h-8 flex items-center bg-500">
+                                        <i class="fa-solid fa-user form_icon"></i>
+                                        <p id="summary_name">Test</p>
+                                    </div>
+                                </div>
+                                <div class="summary_container">
+                                    <p>Couverts :</p>
+                                    <div class="h-8 flex items-center bg-500">
+                                        <i class="fa-solid fa-utensils form_icon"></i>
+                                        <p id="summary_places"></p>
+                                    </div>
+                                </div>
+                                <div class="summary_container">
+                                    <p>Allergies :</p>
+                                    <div class="flex items-center bg-500 h-fit">
+                                        <i class="fa-solid fa-triangle-exclamation form_icon"></i>
+                                        <ul id="summary_allergies" class="flex flex-wrap gap-x-2 list-disc list-inside flex-1">
+                                            <li><span>Test</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="summary_container">
+                                    <p>Date :</p>
+                                    <div class="h-8 flex items-center bg-500">
+                                        <i class="fa-solid fa-calendar form_icon"></i>
+                                        <p id="summary_date"></p>
+                                    </div>
+                                </div>
+                                <div class="summary_container">
+                                    <p>Service :</p>
+                                    <div class="h-8 flex items-center bg-500">
+                                        <i class="fa-solid form_icon"></i>
+                                        <p id="summary_service"></p>
+                                    </div>
+                                </div>
+                                <div class="summary_container">
+                                    <p>Horaire :</p>
+                                    <div class="h-8 flex items-center bg-500">
+                                        <i class="fa-solid fa-clock form_icon"></i>
+                                        <p id="summary_clock"></p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

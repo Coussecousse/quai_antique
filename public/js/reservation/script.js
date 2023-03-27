@@ -126,6 +126,7 @@ function sendDate(date, service) {
     
     errorContainer.classList.add('flash');
     errorContainer.innerHTML ="Chargement...";
+    // Reset
     !eveningContainer.classList.contains('invisible') ?
         eveningContainer.classList.add('invisible', 'opacity-0')
         : null ;
@@ -136,7 +137,8 @@ function sendDate(date, service) {
 
     const schedulesContainer = document.querySelector("#reservation_schedules") ;
     schedulesContainer.classList.contains('slow-opacity-in') ? 
-        schedulesContainer.classList.replace('slow-opacity-in', 'slow-opacity-reverse') : null;
+        schedulesContainer.classList.replace('slow-opacity-in', 'slow-opacity-reverse') 
+        : null;
 
     sendPromise.then(response => successSend(response))
     function successSend(response) {
@@ -162,7 +164,7 @@ function sendDate(date, service) {
         } else {
             handleDisableInput(noonContainer, false);
         }
-        
+
         if (noon.length == 0 && evening.length == 0) {
             errorContainer.innerHTML = 'Nous sommes fermés à cette date.'
         } else {
@@ -280,7 +282,7 @@ function nextSlide(e) {
     }
 
     let index = activeCard.dataset.index;
-
+    
     if (index == 0) {
         let error = false;
         const button = e.target.parentElement;
@@ -313,5 +315,33 @@ function nextSlide(e) {
     }
     if (index == 1)
     {
+        
+    }
+}
+
+function previousSlide(e) {
+    e.preventDefault();
+    const gridContainer = document.querySelector("#grid_reservation");
+    const cards = gridContainer.children;
+    const widthForm = document.querySelector("form").offerWidth + 'px';
+    let activeCard;
+
+    for (let card of cards) {
+        if (card.classList.contains("active")) {
+            activeCard = card;
+        }
+    }
+
+    let index = activeCard.dataset.index;
+
+    if (index == 1) {
+        gridContainer.style.transform = "translateX(0)";
+        activeCard.classList.remove('active');
+        const newActiveCard = activeCard.previousElementSibling;
+        newActiveCard.classList.add('active');   
+        return;
+    }
+    if (index == 2) {
+
     }
 }
