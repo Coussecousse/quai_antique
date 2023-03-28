@@ -219,15 +219,6 @@ class ClientController extends AbstractController
             case 'success' : 
                 $success = "Modification effectuée avec succès !";
                 break;
-            case 'success_delete_past_dates':
-                $success = "Les dates passées ont bien été supprimées.";
-                break;
-            case 'error_no_date':
-                $error = "Aucune date n'a été trouvé.";
-                break;
-            case 'error_date_already_exist':
-                $error = 'La date donnée existe déjà.';
-                break;
             case 'error_email_email' : 
                 $error = "Email invalide.";
                 break;

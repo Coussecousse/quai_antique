@@ -16,15 +16,15 @@ class Client extends User
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToMany(mappedBy: 'client', targetEntity: Booking::class)]
-    private Collection $booking;
+    #[ORM\OneToMany(mappedBy: 'client', targetEntity: Reservation::class)]
+    private Collection $reservation;
 
     #[ORM\OneToMany(mappedBy: 'client', targetEntity: Template::class, orphanRemoval: true)]
     private Collection $template;
 
     public function __construct(UserRepository $userRepository)
     {
-        $this->booking = new ArrayCollection();
+        $this->reservation = new ArrayCollection();
         $this->template = new ArrayCollection();
         $this->userRepository = $userRepository;
     }
@@ -35,29 +35,29 @@ class Client extends User
     }
 
     /**
-     * @return Collection<int, Booking>
+     * @return Collection<int, Reservation>
      */
-    public function getBooking(): Collection
+    public function getReservation(): Collection
     {
-        return $this->booking;
+        return $this->reservation;
     }
 
-    public function addBooking(Booking $booking): self
+    public function addReservation(Reservation $reservation): self
     {
-        if (!$this->booking->contains($booking)) {
-            $this->booking->add($booking);
-            $booking->setClient($this);
+        if (!$this->reservation->contains($reservation)) {
+            $this->reservation->add($reservation);
+            $reservation->setClient($this);
         }
 
         return $this;
     }
 
-    public function removeBooking(Booking $booking): self
+    public function removeReservation(Reservation $reservation): self
     {
-        if ($this->booking->removeElement($booking)) {
+        if ($this->reservation->removeElement($reservation)) {
             // set the owning side to null (unless already changed)
-            if ($booking->getClient() === $this) {
-                $booking->setClient(null);
+            if ($reservation->getClient() === $this) {
+                $reservation->setClient(null);
             }
         }
 

@@ -169,6 +169,7 @@ function sendDate(date, service) {
             handleDisableInput(noonContainer, true);
         } else {
             handleDisableInput(noonContainer, false);
+            seeSchedules(noon);
         }
 
         if (noon.length == 0 && evening.length == 0) {
@@ -460,18 +461,18 @@ function sendReservation(e) {
 
         if (this.readyState == 4 && this.status == 200) {
             const response = JSON.parse(xhr.responseText);
-
-            // switch(response.result){
-            //     case 'success':
-            //         window.location = url + "?result=success";
-            //         break;
-            //     case 'error_pattern' :
-            //         window.location = url + "?result=error_pattern";
-            //         break;
-            //     default : 
-            //         window.location = url + "?result=error";
-            //         break;
-            // }
+            console.log(response.result)
+            switch(response.result){
+                case 'success':
+                    window.location = url + "?result=success";
+                    break;
+                case 'error_pattern' :
+                    window.location = url + "?result=error_pattern";
+                    break;
+                default : 
+                    window.location = url + "?result=error";
+                    break;
+            }
         } else {
             window.location = url + "?result=error";
         }
@@ -484,7 +485,6 @@ function sendReservation(e) {
         places : places,
         allergies : allergies,
         date : date,
-        service : service,
         schedule : schedule
     }
     xhr.send(JSON.stringify(data));

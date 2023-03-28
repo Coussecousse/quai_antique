@@ -761,7 +761,7 @@ class AdminController extends AbstractController
         $form_dates->handleRequest($request);
         $special_dates = $dateRepository->findAllByDate();        
         if ($form_dates->isSubmitted() && $form_dates->isValid()) {
-            if ($this->handleFormDates($form_dates, $dateRepository) == 'successs'){
+            if ($this->handleFormDates($form_dates, $dateRepository) == 'success'){
                 return $this->redirectToRoute('admin_profil', [
                     'page_up' => $page_up,
                     'page_down' => $page_down, 
