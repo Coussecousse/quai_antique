@@ -292,6 +292,17 @@ class ReservationController extends AbstractController
                     }
                 }
 
+                if ($this->getUser()) {
+                    $user = $userRepository->find($this->getUser());
+                    if (!in_array('ROLE_ADMIN', $user->getRoles())) {
+                        dump($date);
+                        if ($reservationRepository->findByDate(new Datetime($date), $user))  {
+                            return new JsonResponse([
+                                'result' => 'error_date_exist'
+                            ]);
+                        }
+                    }
+                }
                 $date = new DateTime($date.' '.$schedule);
                 $new_res = new Reservation();
                 $new_res->setName($name)->setPlaces($places)->setDate($date)->setAllergies($allergies);
@@ -317,6 +328,9 @@ class ReservationController extends AbstractController
                 break;
             case 'error' : 
                 $error = "Un problème est survenu. Veuillez nous excuser pour la gêne occasionnée. Si le problème persiste, n'hésitez pas à nous contacter directement.";
+                break;
+            case 'error_date_exist':
+                $error = "Vous avez déjà réservé chez nous à cette date.";
                 break;
             default : 
                 break;

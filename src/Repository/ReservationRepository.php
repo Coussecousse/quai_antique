@@ -3,8 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Reservation;
+use App\Entity\User;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use phpDocumentor\Reflection\PseudoTypes\False_;
 
 /**
  * @extends ServiceEntityRepository<Reservation>
@@ -37,6 +40,28 @@ class ReservationRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+    public function findByDate(DateTime $date, User $client) {
+        $reservationsOfTheClient = $this->createQueryBuilder('r')
+                            ->andWhere('r.client = :client')
+                            ->setParameter('client', $client)
+                            ->getQuery()
+                            ->getResult();
+
+        $dates = [];
+        foreach($reservationsOfTheClient as $reservation) {
+            array_push($dates, $reservation->getDate());
+        }
+        foreach($dates as $dateReservation) {
+            $dateReservation = new Datetime(date('Y-m-d',  date_timestamp_get($dateReservation)));
+            dump($dateReservation);
+            dump($date);
+            if ($dateReservation == $date)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
 //    /**

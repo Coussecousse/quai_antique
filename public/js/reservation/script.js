@@ -469,6 +469,9 @@ function sendReservation(e) {
                 case 'error_pattern' :
                     window.location = url + "?result=error_pattern";
                     break;
+                case 'error_date_exist':
+                    window.location = url + "?result=error_date_exist";
+                    break;
                 default : 
                     window.location = url + "?result=error";
                     break;

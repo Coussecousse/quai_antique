@@ -78,6 +78,7 @@
                                 <input type="date" name="date" id='date' class="bg-500 h-8 px-2" placeholder="dd-mm-YYYY" max={{ "now"|date_modify("+1 year")|date("m/d/Y", "Europe/Paris") }} >
                                 <small class="form_error block" id="error_date">
                                 </small>
+                                <small class="block">Il peut arriver que certains jours nous soyons fermés exceptionnellement.</small>
                             </div>
                             <div class="slow-opacity-reverse" id="reservation_service">
                                 <label for="service" class="text-lg">Service :</label>
