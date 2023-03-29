@@ -6,8 +6,10 @@ use App\Entity\Reservation;
 use App\Repository\DateRepository;
 use App\Repository\ReservationRepository;
 use App\Repository\ScheduleRepository;
+use App\Repository\TemplateRepository;
 use App\Repository\UserRepository;
 use DateTime;
+use Exception;
 use PHPUnit\Util\Json;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -61,12 +63,17 @@ class ReservationController extends AbstractController
 
     #[Route('/reservation', name:'reservation')]
     public function reservation(Request $request, ScheduleRepository $scheduleRepository, 
-        ReservationRepository $reservationRepository, UserRepository $userRepository, DateRepository $dateRepository)
+        ReservationRepository $reservationRepository, UserRepository $userRepository, DateRepository $dateRepository,
+        TemplateRepository $templateRepository)
     {
-
+        if ($this->getUser()) {
+            $user = $this->getUser();
+            $templates = $user->getTemplate();
+        }
         if ($request->isMethod('POST')) {
             $date = $request->get('date');
             $reservation = json_decode($request->getContent(), true);
+            $template = $request->get('template');
 
             if ($date) {
                 $date = date_create_from_format('D M d Y H:i:s e+',$date);
@@ -256,6 +263,28 @@ class ReservationController extends AbstractController
                     'result' => 'success'
                 ]);
             }
+            if ($template) {
+                try {
+                    $template = $templateRepository->find($template);
+                    dump($template);
+                    foreach ($templates as $userTemplate) {
+                        if ($template == $userTemplate) {
+                            return new JsonResponse([
+                                'name' => $template->getName(),
+                                'places' => $template->getPlace(),
+                                'allergies' => $template->getAllergies()
+                            ]);
+                        }
+                    }
+                    return new JsonResponse([
+                        'result' => 'error'
+                    ]);
+                } catch (Exception $e) {
+                    return new JsonResponse([
+                        'result' => 'error'
+                    ]);
+                }
+            }
         }
 
         $result = $request->query->get('result');
@@ -277,10 +306,12 @@ class ReservationController extends AbstractController
                 break;
         }
 
+        dump($templates);
 
         return $this->render('Reservation/reservation.html.twig', [
             'error' => $error ?? null,
             'success' => $success ?? null,
+            'user_templates' => $templates
         ]);
     }
 }

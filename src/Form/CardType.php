@@ -43,6 +43,7 @@ class CardType extends AbstractType{
                 ]
             ])
             ->add('price', NumberType::class, [
+                'html5' => true,
                 "label" => "Prix :",
                 "scale" => 2,
                 "attr" => ['placeholder'=> "Prix...", "value" => ''],

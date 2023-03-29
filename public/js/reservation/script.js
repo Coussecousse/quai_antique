@@ -495,3 +495,60 @@ function sendReservation(e) {
     }
     xhr.send(JSON.stringify(data));
 }
+
+function handleTemplate(e) {
+    const templateId = e.target.value;
+    if (templateId == "") {
+        return;
+    }
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', "/reservation");
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded'); 
+    
+    let params = 'template='+ templateId;
+    const sendTemplatePromise = new Promise((resolve, reject) => {
+        xhr.send(params);
+        xhr.onload = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                const response = JSON.parse(xhr.response);
+                resolve(response)
+            } else {
+                reject();
+            }
+        }
+    })
+    const templateSpinner = document.querySelector("#spinner_template");
+    templateSpinner.classList.add('lds-ring');
+
+
+    sendTemplatePromise.then( response => {
+        templateSpinner.classList.remove('lds-ring');
+            if (response.result === 'error') {
+                const errorTemplate = document.querySelector('#error_template');
+                errorTemplate.textContent = "Une erreur est survenue.";
+            } else {
+                const templateName = response.name;
+                const formName = document.querySelector("#name");
+                formName.value = templateName;
+                
+                const templacePlaces = response.places;
+                const formPlaces = document.querySelector("#places");
+                formPlaces.value = templacePlaces;
+                
+                const templateAllergies = response.allergies;
+                const formAllergies = document.querySelector("#allergies").querySelectorAll('input');
+                for (let templateAllergie of templateAllergies) {
+                    formAllergies.forEach(formAllergie => {
+                        if (templateAllergie === formAllergie.value) {
+                            formAllergie.checked = true;
+                            return;
+                        }
+                    });
+                }
+            }
+        })
+        .catch( () => {
+            let url = window.location.origin + window.location.pathname;
+            window.location = url + "?result=error";
+        })
+}

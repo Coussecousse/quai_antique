@@ -16,6 +16,24 @@
                 <form method="POST" onSubmit="sendReservation(event)" class="max-w-[589px] w-11/12 mx-auto lg:mx-auto lg:w-5/6 font-secondary border border-solid border-500 overflow-hidden">
                     <div class="grid duration-500" id="grid_reservation">
                         <div class="active flex flex-col gap-2 p-3" data-index=0>
+                        {% if app.user and user_templates|length > 0 %}
+                        <div>
+                            <label for="template" class="text-lg">Fiches de pré-révervation : </label>
+                            <div class="h-8 flex items-center bg-500 relative">
+                                <i class="fa-solid fa-file-lines form_icon"></i>
+                                <div class="absolute right-8">
+                                    <div class="" id="spinner_template"><div></div><div></div><div></div><div></div></div>
+                                </div>
+                                <select onChange="handleTemplate(event)" name="template" id="template" class="flex-1 h-full bg-transparent">
+                                    <option class="bg-500" value="">-- Pré-remplir les informations --</option>
+                                    {% for template in user_templates %}
+                                    <option class="bg-500" value="{{ template.id }}">{{ template.title }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <small class="form_error" id="error_template"></small>
+                        </div>
+                        {% endif %}
                             <div>
                                 <label class="text-lg" for="name">Nom :<label>
                                 <div class="h-8 flex items-center bg-500">

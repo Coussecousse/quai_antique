@@ -160,6 +160,7 @@ class ClientController extends AbstractController
         $template = new Template;
         $form_template = $this->createForm(TemplateType::class, $template);
         $form_template->handleRequest($request);
+        dump($user);
         $templates = $templateRepository->findBy(['client' => $user]);
 
         if ($form_template->isSubmitted() && $form_template->isValid()) {

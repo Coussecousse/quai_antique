@@ -52,8 +52,10 @@
 			{{ form_end(form_sheet) }}
 		</section>
 		<section class="py-4">
+			{% if templates|length > 0 %}
 			<p class="w-11/12 mx-auto max-w-[598px] pb-3 underline underline-offset-2">Modèles déjà créés :
 			</p>
+			{% endif %}
 			<ul class="templates">
 				{% for template in templates %}
 					<li class="after after:bg-secondary/50 relative after:w-11/12 flex flex-col gap-2">

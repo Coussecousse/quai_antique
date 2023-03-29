@@ -13,6 +13,7 @@ use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\LessThanOrEqual;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Range;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\Type;
 
@@ -46,10 +47,12 @@ class TemplateType extends AbstractType
             ]
         ])
         ->add('place', NumberType::class, [
+            'html5' => true,
             'label' => 'Couverts :',
             'required' => true,
             'attr' => ['placeholder' => '1', 'value' => ''],
             'constraints' => [
+                new Range(['min' => 1, 'max' => 20, 'notInRangeMessage' => "Le nombre donné n'est pas dans la range autorisée."]),
                 new NotBlank(["message" => "Ne peut pas être vide."]),
                 new Type(['type' => 'float', 'message' => 'Doit être un chiffre.']),
                 new LessThanOrEqual(['value' => 20, 'message' => 'Contactez directement le restaurant pour des réservations de plus de 20 personnes.']),
