@@ -162,6 +162,17 @@
                         </div>
                     </div>
                 </form>
+                {% if not app.user %}
+                <div class="mt-8 py-4 max-w-[589px] w-11/12 mx-auto lg:mx-auto lg:w-5/6 font-secondary border border-solid border-400 flex flex-col gap-8 items-center">
+                    <h2 class="text-lg font-primary">Envie d'aller plus vite ? </h2>
+                    <div class="flex flex-col gap-2 items-center">
+                        <button class="px-4 py-2 bg-400 text-primary duration-150 hover:bg-500 group"><a href="{{ path('sign_up') }}" class="group-hover:text-secondary duration-150">Inscrivez vous</a></button>
+                        <span>ou</span>
+                        <button class="px-4 py-2 bg-400 text-primary duration-150 hover:bg-500 group"><a href="{{ path('login') }}" class="group-hover:text-secondary duration-150">Connectez vous</a></button>
+                    </div>
+
+                </div>
+                {% endif %}
             </div>
         </div>
         <div class="-z-10 2xl:w-[70%] hidden lg:block w-[55%] reservation_container reservation_image relative">
