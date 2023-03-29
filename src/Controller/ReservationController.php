@@ -20,6 +20,44 @@ class ReservationController extends AbstractController
     {
         return preg_match($pattern, $expression);
     }
+    private function addTime($time, $schedule, $timestamp, $array = []) {
+        if ( $time == 'evening') {
+            $end = strtotime('-30 minutes', date_timestamp_get($schedule->getEveningEnd()));
+            $start = date_timestamp_get($schedule->getEveningStart());                     
+        } else {
+            $end = strtotime('-30 minutes', date_timestamp_get($schedule->getNoonEnd()));
+            $start = date_timestamp_get($schedule->getNoonStart());     
+        }
+        
+        $time = $start;
+        
+        if ($timestamp < $end) {
+            if ($timestamp > $start){
+                while ($time <= $timestamp) {
+                    $time = strtotime('+15 minutes', $time);
+                }
+            }
+            while ($time <= $end) {
+                array_push($array, $time);
+                $time = strtotime('+15 minutes', $time);
+            }
+        } 
+        return $array;
+    }
+    private function getAndDisplaySchedulesSpecialDate($time, $schedule, $repository, $timestamp, $array= []) {
+        $day = date('N', date_timestamp_get($schedule->getDate()));
+                            
+        $scheduleDay = $repository->findOneBy(['day' => $day]);
+        if ($time == 'evening') {
+            if (!$scheduleDay->getEveningClose()){
+                return $array = $this->addTime($time, $scheduleDay, $timestamp);
+            }
+        } else {
+            if (!$scheduleDay->getNoonClose()){
+                return $array = $this->addTime($time, $scheduleDay, $timestamp);
+            }
+        }
+    }
 
     #[Route('/reservation', name:'reservation')]
     public function reservation(Request $request, ScheduleRepository $scheduleRepository, 
@@ -47,87 +85,17 @@ class ReservationController extends AbstractController
                     if (!$scheduleSpecialDate->getEvening_Close()) {   
                         // Evening
                         if ($scheduleSpecialDate->getEvening_normal()) {
-                            $daySpecialDate = date('N', date_timestamp_get($scheduleSpecialDate->getDate()));
-                            
-                            $scheduleDay = $scheduleRepository->findOneBy(['day' => $daySpecialDate]);
-                            if (!$scheduleDay->getEveningClose()) {   
-                                // Evening
-                                $evening_end = strtotime('-30 minutes', date_timestamp_get($scheduleDay->getEveningEnd()));
-                                $evening_start = date_timestamp_get($scheduleDay->getEveningStart());                     
-                                
-                                $time = $evening_start;
-                                
-                                if ($timestamp < $evening_end) {
-                                    if ($timestamp > $evening_start){
-                                        while ($time <= $timestamp) {
-                                            $time = strtotime('+15 minutes', $time);
-                                        }
-                                    }
-                                    while ($time <= $evening_end) {
-                                        array_push($schedules_evening, $time);
-                                        $time = strtotime('+15 minutes', $time);
-                                    }
-                                } 
-                            }
+                            $schedules_evening = $this->getAndDisplaySchedulesSpecialDate('evening', $scheduleSpecialDate, $scheduleRepository, $timestamp);
                         } else {
-                            $evening_end = strtotime('-30 minutes', date_timestamp_get($scheduleSpecialDate->getEveningEnd()));
-                            $evening_start = date_timestamp_get($scheduleSpecialDate->getEveningStart());                     
-                            
-                            $time = $evening_start;
-                            
-                            if ($timestamp < $evening_end) {
-                                if ($timestamp > $evening_start){
-                                    while ($time <= $timestamp) {
-                                        $time = strtotime('+15 minutes', $time);
-                                    }
-                                }
-                                while ($time <= $evening_end) {
-                                    array_push($schedules_evening, $time);
-                                    $time = strtotime('+15 minutes', $time);
-                                }
-                            } 
+                            $schedules_evening = $this->addTime('evening', $scheduleSpecialDate, $timestamp);
                         }
                     }
                     if (!$scheduleSpecialDate->getNoon_Close()) {
                         // Night
                         if ($scheduleSpecialDate->getNoon_normal()) {
-                            $daySpecialDate = date('N', date_timestamp_get($scheduleSpecialDate->getDate()));
-                            
-                            $scheduleDay = $scheduleRepository->findOneBy(['day' => $daySpecialDate]);
-                            if (!$scheduleDay->getEveningClose()) {   
-                                // Evening
-                                $evening_end = strtotime('-30 minutes', date_timestamp_get($scheduleDay->getEveningEnd()));
-                                $evening_start = date_timestamp_get($scheduleDay->getEveningStart());                     
-                                
-                                $time = $evening_start;
-                                
-                                if ($timestamp < $evening_end) {
-                                    if ($timestamp > $evening_start){
-                                        while ($time <= $timestamp) {
-                                            $time = strtotime('+15 minutes', $time);
-                                        }
-                                    }
-                                    while ($time <= $evening_end) {
-                                        array_push($schedules_evening, $time);
-                                        $time = strtotime('+15 minutes', $time);
-                                    }
-                                } 
-                            }
+                            $schedules_noon = $this->getAndDisplaySchedulesSpecialDate('noon', $scheduleSpecialDate, $scheduleRepository, $timestamp);
                         } else {
-                            $noon_end = strtotime('-30 minutes', date_timestamp_get($scheduleSpecialDate->getNoonEnd()));
-                            $noon_start = date_timestamp_get($scheduleSpecialDate->getNoonStart());
-                            
-                            $time = $noon_start;
-        
-                            if ($timestamp > $noon_start) {
-                                while ($time <= $timestamp) {
-                                    $time = strtotime('15 minutes', $time);
-                                }
-                            }
-                            while($time <= $noon_end) {
-                                array_push($schedules_noon,$time);
-                                $time = strtotime('+15 minutes', $time);
-                            }
+                            $schedules_noon = $this->addTime('noon', $scheduleSpecialDate, $timestamp);
                         }
                     }
                 } else {
@@ -141,39 +109,11 @@ class ReservationController extends AbstractController
                     //      ->Ajout de 15 minutes
                     if (!$scheduleDay->getEveningClose()) {   
                         // Evening
-                        $evening_end = strtotime('-30 minutes', date_timestamp_get($scheduleDay->getEveningEnd()));
-                        $evening_start = date_timestamp_get($scheduleDay->getEveningStart());                     
-                        
-                        $time = $evening_start;
-                        
-                        if ($timestamp < $evening_end) {
-                            if ($timestamp > $evening_start){
-                                while ($time <= $timestamp) {
-                                    $time = strtotime('+15 minutes', $time);
-                                }
-                            }
-                            while ($time <= $evening_end) {
-                                array_push($schedules_evening, $time);
-                                $time = strtotime('+15 minutes', $time);
-                            }
-                        } 
+                        $schedules_evening = $this->addTime('evening', $scheduleDay, $timestamp);
                     }
                     if (!$scheduleDay->getNoonClose()) {
                         // Night
-                        $noon_end = strtotime('-30 minutes', date_timestamp_get($scheduleDay->getNoonEnd()));
-                        $noon_start = date_timestamp_get($scheduleDay->getNoonStart());
-                        
-                        $time = $noon_start;
-    
-                        if ($timestamp > $noon_start) {
-                            while ($time <= $timestamp) {
-                                $time = strtotime('15 minutes', $time);
-                            }
-                        }
-                        while($time <= $noon_end) {
-                            array_push($schedules_noon,$time);
-                            $time = strtotime('+15 minutes', $time);
-                        }
+                        $schedules_noon = $this->addTime('noon', $scheduleDay, $timestamp);
                     }
                 }
                 
@@ -195,7 +135,7 @@ class ReservationController extends AbstractController
                 )
                 {
                     return new JsonResponse([
-                        'result' => 'error_patterntest'
+                        'result' => 'error_pattern'
                     ]);
                 }
                 $allergies = $reservation['allergies'];
@@ -204,7 +144,7 @@ class ReservationController extends AbstractController
                         if (!$this->checkPattern($allergie, '/^(gluten|fish|shellfish|eggs|peanuts|mustard|molluscs|soy|sulphites|sesame|celery|lupines|milk|nuts|)$/'))
                         {
                             return new JsonResponse([
-                                'result' => 'error_patterntest2'
+                                'result' => 'error_pattern'
                             ]);
                         }
                     }
@@ -248,6 +188,7 @@ class ReservationController extends AbstractController
                         if ($scheduleSpecialDate->getEvening_normal()) {
                             $daySpecialDate = date('N', date_timestamp_get($scheduleSpecialDate->getDate()));
                             $scheduleDay = $scheduleRepository->findOneBy(['day' => $daySpecialDate]);
+                            
                             if ($fictiveHour > $scheduleDay->getEveningEnd()) {
                                 return new JsonResponse([
                                     'result' => 'error'

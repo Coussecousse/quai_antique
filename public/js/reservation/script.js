@@ -169,7 +169,10 @@ function sendDate(date, service) {
             handleDisableInput(noonContainer, true);
         } else {
             handleDisableInput(noonContainer, false);
-            seeSchedules(noon);
+            if (evening.length == 0)
+            {
+                seeSchedules(noon); 
+            }
         }
 
         if (noon.length == 0 && evening.length == 0) {
