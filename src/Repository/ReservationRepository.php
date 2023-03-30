@@ -63,7 +63,13 @@ class ReservationRepository extends ServiceEntityRepository
         }
         return false;
     }
-
+    public function findAfterDateReservation(Datetime $date) {
+        return $this->createQueryBuilder('r')
+                ->where('r.date >= :date')
+                ->setParameter('date', $date)
+                ->getQuery()
+                ->getResult();
+    }
 //    /**
 //     * @return Reservation[] Returns an array of Reservation objects
 //     */

@@ -94,5 +94,7 @@
 	<script src={{ asset('/js/profil/client/'~'handleRequest.informations.js') }}></script>
     {% if page_down == 'modèles' %}
     	<script src={{ asset('/js/profil/client/'~'handleRequest.templates.js') }}></script>
+    {% else %}
+        <script src={{ asset('/js/profil/client/'~'handleRequest.reservations.js') }}></script>
     {% endif %}
 {% endblock %}

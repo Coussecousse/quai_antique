@@ -156,6 +156,8 @@ class ClientController extends AbstractController
         
         // Reservations 
         $reservations = $reservationRepository->findBy(['client' => $user]);
+        $delete_reservation = $request->request->get('delete_reservation');
+        $search_reservation = $request->query->get('search_reservation');
         // Last email use when try to to modify informations
         $last_email = $request->getSession()->get('last_email');
 
@@ -183,6 +185,20 @@ class ClientController extends AbstractController
             ]);
         } else if ($form_template->isSubmitted() && !$form_template->isValid()) {
             $request->query->remove('result');
+        }
+
+        // If search in reservations
+        if ($search_reservation) {
+            $reservations_search = $reservationRepository->findAfterDateReservation(new \DateTime($search_reservation));
+            
+            if (count($reservations_search) == 0) {
+                return $this->redirectToRoute('client_profil', [
+                    'page_down' => $page_down,
+                    'result' => "error_no_reservation"
+                ]);
+            } 
+            
+            $reservations = $reservations_search;
         }
 
         if ($request->isMethod('POST')) {
@@ -215,6 +231,21 @@ class ClientController extends AbstractController
                 return $this->deleteTemplate($request, $templateRepository);
             }
 
+            // Delete reservation
+            if ($delete_reservation) {
+                $id = $request->request->get('id');
+                try {
+                    $reservation = $reservationRepository->find($id);
+                    $reservationRepository->remove($reservation, true);
+                } catch (Exception $e) {
+                    return new JsonResponse([
+                        'result' => 'error'
+                    ]);
+                }
+                return new JsonResponse([
+                    'result' => 'success'
+                ]);
+            }
         }
 
         $result = $request->query->get('result');
@@ -229,6 +260,9 @@ class ClientController extends AbstractController
             case 'error_invalid':
                 $error = "Mot de passe incorrect.";
                 break;
+            case 'error_no_reservation':
+                $error = "Aucune réservation n'a été trouvé.";
+                break;
             case 'error_pattern':
                 $error = "L'entrée fournie ne correspond pas au format requis.";
                 break;
@@ -238,7 +272,9 @@ class ClientController extends AbstractController
             default : 
                 break;
         }
-
+        if (isset($date_search)) {
+            dump($date_search);
+        }
         return $this->render('Client/profil.html.twig', [
             'page_down' => $page_down ,
             'error' => $error ?? null,
@@ -246,7 +282,7 @@ class ClientController extends AbstractController
             'last_email' => $last_email ?? '',
             'form_sheet' => $form_template->createView(),
             'templates' => $templates,
-            'reservations' => $reservations
+            'reservations' => $reservations,
         ]);
     }
 }
