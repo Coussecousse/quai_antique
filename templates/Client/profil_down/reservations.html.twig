@@ -1,0 +1,60 @@
+<div class="text-primary bg-400">
+    <div class="box-shadow-lg">
+        <section>
+            
+        </section>
+        <section class="py-6 flex flex-col gap-6">
+        {% for key,reservation in reservations %}
+            <fieldset class="w-11/12 mx-auto max-w-[598px] border border-solid border-600 p-3 bg-secondary/10 rounded">
+                <legend class="px-2 text-lg">{{ reservation.date|date('l', 'Europe/Paris')|trans({'%day%' : reservation.date|date('l', 'Europe/Paris')}, 'days') }} {{ reservation.date|date('d/m/Y', 'Europe/Paris') }}</legend>
+                <div class="flex gap-2">
+                    <div class="flex-1 flex flex-col gap-2">
+                        <div class="flex gap-8">
+                            <div>
+                                <label for="schedule-[]">Heure :</label>
+                                <div class="w-20 flex bg-500/20">
+                                    <i class="fa-solid fa-clock form_icon"></i>
+                                    <input class="w-full bg-transparent" disabled type="text" id="schedule_{{ key }}" name="schedule" value="{{ reservation.date|date('H:i', 'Europe/Paris') }}">
+                                </div>
+                            </div>
+                            <div>
+                                <label for="places-[]">Couverts :</label>
+                                <div class="flex bg-500/20 w-20">
+                                    <i class="fa-solid fa-utensils form_icon"></i>
+                                    <input class="w-full bg-transparent" disabled type="text" id="places_{{ key }}" places="name" value="{{ reservation.places }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="name-[]">Nom :</label>
+                            <div class="flex bg-500/20">
+                                <i class="fa-solid fa-user form_icon"></i>
+                                <input class="flex-1 bg-transparent" disabled type="text" id="name_{{ key }}" name="name" value="{{ reservation.name }}">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="allergie_[]">Allergie(s) :</label>
+                            <div class="flex bg-500/20">
+                                <i class="fa-solid fa-triangle-exclamation form_icon"></i>
+                                <ul id="allergies_{{ key }}" class="flex items-center flex-wrap gap-x-2 list-disc list-inside flex-1">
+                                    {% for allergie in reservation.allergies %}
+                                        <li>{{ allergie|trans({'%allergie%': allergie}, 'allergies') }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        <div>
+                        <small>En cas de désistement vous vous êtes engagés à nous prévenir le plus tôt possible.</small>
+                        </div>
+                    </div>
+                    <div>
+                        <button aria-label="Supprimer" id="{{ 'delete_'~ key }}" onclick="deleteReservation(event)" class="bg-red-600 hover:bg-secondary hover:text-red-600 duration-150">
+                            <i class="fa-solid fa-trash button_profil button-full"></i>
+                        </button>
+                    </div>
+                </div>
+            </fieldset>
+        {% endfor %}
+        </section>
+    </div>
+</div>

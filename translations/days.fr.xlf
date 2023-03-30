@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="monday" resname="Monday">
+        <source>Monday</source>
+        <target>Lundi</target>
+      </trans-unit>
+      <trans-unit id="tuesday" resname="Tuesday">
+        <source>Tuesday</source>
+        <target>Mardi</target>
+      </trans-unit>
+      <trans-unit id="wednesday" resname="Wednesday">
+        <source>Wednesday</source>
+        <target>Mercredi</target>
+      </trans-unit>
+      <trans-unit id="thursday" resname="Thursday">
+        <source>Thursday</source>
+        <target>Jeudi</target>
+      </trans-unit>
+      <trans-unit id="friday" resname="Friday">
+        <source>Friday</source>
+        <target>Vendredi</target>
+      </trans-unit>
+      <trans-unit id="saturday" resname="Saturday">
+        <source>saturday</source>
+        <target>Samedi</target>
+      </trans-unit>
+      <trans-unit id="Sunday" resname="Sunday">
+        <source>Sunday</source>
+        <target>Dimanche</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

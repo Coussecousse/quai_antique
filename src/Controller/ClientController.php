@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Template;
 use App\Form\TemplateType;
+use App\Repository\ReservationRepository;
 use App\Repository\TemplateRepository;
 use App\Repository\UserRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -149,10 +150,12 @@ class ClientController extends AbstractController
     #[Route('client/profil/{page_down}', name: 'client_profil', defaults: ['page_down' => 'fiches'])]
     public function profil(string $page_down, Request $request, ManagerRegistry $doctrine, 
                            UserPasswordHasherInterface $userPasswordHasher, UserRepository $userRepository,
-                           TemplateRepository $templateRepository) {
+                           TemplateRepository $templateRepository, ReservationRepository $reservationRepository) {
         
         $user = $this->getUser();
-
+        
+        // Reservations 
+        $reservations = $reservationRepository->findBy(['client' => $user]);
         // Last email use when try to to modify informations
         $last_email = $request->getSession()->get('last_email');
 
@@ -243,6 +246,7 @@ class ClientController extends AbstractController
             'last_email' => $last_email ?? '',
             'form_sheet' => $form_template->createView(),
             'templates' => $templates,
+            'reservations' => $reservations
         ]);
     }
 }

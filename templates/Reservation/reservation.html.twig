@@ -4,8 +4,8 @@
 
 {% block body %}
     <main class="pt-28 flex justify-evenly text-secondary">
-        <div class="w-full lg:w-[45%] reservation_container my-8 mx-4 md:mx-8">
-            <div class="w-full mx-auto relative top-1/2 -translate-y-1/2 ">
+        <div class="w-full lg:w-[45%] reservation_container my-8 mx-4 md:mx-8 ">
+            <div class="w-full mx-auto relative top-1/2 -translate-y-1/2 pb-16">
                 <h1 class="font-primary text-3xl mb-11 max-w-[589px] w-11/12 mx-auto lg:mx-auto lg:w-5/6">Faites votre réservation</h1>
                 {% if error %}
                     <div class="error_container text-sm">{{ error }}</div>
@@ -189,6 +189,11 @@
                         <button class="px-4 py-2 bg-400 text-primary duration-150 hover:bg-500 group"><a href="{{ path('login') }}" class="group-hover:text-secondary duration-150">Connectez vous</a></button>
                     </div>
 
+                </div>
+                {% else %}
+                <div class="mt-8 py-4 max-w-[589px] w-11/12 mx-auto lg:mx-auto lg:w-5/6 font-secondary border border-solid border-400 flex flex-col gap-8 items-center">
+                    <h2 class="text-lg font-primary">Envie d'aller plus vite ? </h2>
+                    <p class="text-center w-11/12 mx-auto">Vous pouvez créer des fiches de pré-remplissage personnalisés juste <a href="{{ url('client_profil', {'page_down' : 'modèles' }) }}" class="underline underline-offset-2">ici</a> !</p>
                 </div>
                 {% endif %}
             </div>

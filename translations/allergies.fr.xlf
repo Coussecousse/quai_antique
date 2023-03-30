@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="gluten" resname="gluten">
+        <source>gluten</source>
+        <target>Gluten</target>
+      </trans-unit>
+      <trans-unit id="fish" resname="fish">
+        <source>fish</source>
+        <target>Poisson</target>
+      </trans-unit>
+      <trans-unit id="shellfish" resname="shellfish">
+        <source>shellfish</source>
+        <target>Crustacés</target>
+      </trans-unit>
+      <trans-unit id="eggs" resname="eggs">
+        <source>eggs</source>
+        <target>Œufs</target>
+      </trans-unit>
+      <trans-unit id="peanuts" resname="peanuts">
+        <source>peanuts</source>
+        <target>Arachides</target>
+      </trans-unit>
+      <trans-unit id="mustard" resname="mustard">
+        <source>mustard</source>
+        <target>Moutarde</target>
+      </trans-unit>
+      <trans-unit id="molluscs" resname="molluscs">
+        <source>molluscs</source>
+        <target>Mollusques</target>
+      </trans-unit>
+      <trans-unit id="soy" resname="soy">
+        <source>soy</source>
+        <target>Soja</target>
+      </trans-unit>
+      <trans-unit id="sulphites" resname="sulphites">
+        <source>sulphites</source>
+        <target>Sulfites</target>
+      </trans-unit>
+      <trans-unit id="sesame" resname="sesame">
+        <source>sesame</source>
+        <target>Sésame</target>
+      </trans-unit>
+      <trans-unit id="celery" resname="celery">
+        <source>celery</source>
+        <target>Céleri</target>
+      </trans-unit>
+      <trans-unit id="lupines" resname="lupines">
+        <source>lupines</source>
+        <target>Lupins</target>
+      </trans-unit>
+      <trans-unit id="milk" resname="milk">
+        <source>milk</source>
+        <target>Lait</target>
+      </trans-unit>
+      <trans-unit id="nuts" resname="nuts">
+        <source>nuts</source>
+        <target>Fruits à coque</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
