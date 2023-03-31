@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Yaml\Yaml;
 
 class ReservationController extends AbstractController 
 {
@@ -21,13 +22,19 @@ class ReservationController extends AbstractController
     {
         return preg_match($pattern, $expression);
     }
-    private function addTime($time, $schedule, $timestamp, $array = []) {
+    private function addTime($time, $schedule, $timestamp, $places, $repository, $date, $array = []) {
         if ( $time == 'evening') {
             $end = strtotime('-30 minutes', date_timestamp_get($schedule->getEveningEnd()));
-            $start = date_timestamp_get($schedule->getEveningStart());                     
+            $start = date_timestamp_get($schedule->getEveningStart());     
+            if (!$this->checkPlaces($places, $time, $end, $date, $repository)) {
+                return false;
+            }                
         } else {
             $end = strtotime('-30 minutes', date_timestamp_get($schedule->getNoonEnd()));
-            $start = date_timestamp_get($schedule->getNoonStart());     
+            $start = date_timestamp_get($schedule->getNoonStart());   
+            if (!$this->checkPlaces($places, $time, $start, $date, $repository)) {
+                return false;
+            }     
         }
         
         $time = $start;
@@ -45,17 +52,56 @@ class ReservationController extends AbstractController
         } 
         return $array;
     }
-    private function getAndDisplaySchedulesSpecialDate($time, $schedule, $repository, $timestamp, $array= []) {
+    private function getAndDisplaySchedulesSpecialDate($time, $schedule, $repository, $timestamp, $places, $reservationRepository, $date, $array= []) {
         $day = date('N', date_timestamp_get($schedule->getDate()));
         $scheduleDay = $repository->findOneBy(['day' => $day]);
         if ($time == 'evening') {
             if (!$scheduleDay->getEveningClose()){
-                return $array = $this->addTime($time, $scheduleDay, $timestamp);
+                return $array = $this->addTime($time, $scheduleDay, $timestamp, $places, $reservationRepository, $date);
             }
         } else {
             if (!$scheduleDay->getNoonClose()){
-                return $array = $this->addTime($time, $scheduleDay, $timestamp);
+                return $array = $this->addTime($time, $scheduleDay, $timestamp, $places, $reservationRepository, $date);
             }
+        }
+    }
+    function checkPlaces(string $places, string $service, int $hourToCompare ,Datetime $date, ReservationRepository $repository) {
+        $places = intval($places);
+        $allReservations = $repository->findAll();
+        $reservations = [];
+        foreach($allReservations as $reservation) {
+            $dateReservation = $reservation->getDate();
+            $dateReservation = $dateReservation->format('Y-m-d');
+            $dateReservation = new DateTime($dateReservation);
+            if ($date == $dateReservation) {
+                array_push($reservations, $reservation);
+            }
+        }   
+        $currentPlaces = 0;
+        if (count($reservations) > 0 ) {
+            foreach($reservations as $reservation) {
+                $schedule = $reservation->getDate();
+                $schedule = $schedule->format('H:i');
+                $schedule = date_timestamp_get(new DateTime('1970-01-01 '.$schedule));
+                if ($service == 'evening') {
+                    if ($schedule <= $hourToCompare) {
+                        $currentPlaces += $reservation->getPlaces();
+                    }
+                } else {
+                    if ($schedule >= $hourToCompare) {
+                        $currentPlaces += $reservation->getPlaces();
+                    }
+                }
+            }
+        }
+        $currentPlaces += $places;
+
+        $datas = Yaml::parseFile($this->getParameter('data'));
+        $max = $datas['places'];
+        if ($currentPlaces > intval($max)) {
+            return false;
+        } else {
+            return true;
         }
     }
 
@@ -64,7 +110,6 @@ class ReservationController extends AbstractController
         ReservationRepository $reservationRepository, UserRepository $userRepository, DateRepository $dateRepository,
         TemplateRepository $templateRepository)
     {
-        dump('coucou');
         if ($this->getUser() && !in_array('ROLE_ADMIN', $this->getUser()->getRoles())) {
             $user = $this->getUser();
             $templates = $user->getTemplate();
@@ -75,7 +120,11 @@ class ReservationController extends AbstractController
             $template = $request->get('template');
 
             if ($date) {
+                $places = $request->request->get('places');
+
                 $date = date_create_from_format('D M d Y H:i:s e+',$date);
+                $date = $date->format('Y-m-d');
+                $date = new DateTime($date);
                 $hour = date_format($date, 'H:i');
                 $hour = new DateTime('1970-01-01 '.$hour);
                 $timestamp = date_timestamp_get($hour);
@@ -91,17 +140,20 @@ class ReservationController extends AbstractController
                     if (!$scheduleSpecialDate->getEvening_Close()) {   
                         // Evening
                         if ($scheduleSpecialDate->getEvening_normal()) {
-                            $schedules_evening = $this->getAndDisplaySchedulesSpecialDate('evening', $scheduleSpecialDate, $scheduleRepository, $timestamp);
+                            $schedules_evening = $this->getAndDisplaySchedulesSpecialDate('evening', $scheduleSpecialDate, $scheduleRepository, 
+                                                    $timestamp, $places, $reservationRepository, $date);
                         } else {
-                            $schedules_evening = $this->addTime('evening', $scheduleSpecialDate, $timestamp);
+                            $schedules_evening = $this->addTime('evening', $scheduleSpecialDate, $timestamp, $places, $reservationRepository, $date);
                         }
+                        
                     }
                     if (!$scheduleSpecialDate->getNoon_Close()) {
                         // Night
                         if ($scheduleSpecialDate->getNoon_normal()) {
-                            $schedules_noon = $this->getAndDisplaySchedulesSpecialDate('noon', $scheduleSpecialDate, $scheduleRepository, $timestamp);
+                            $schedules_noon = $this->getAndDisplaySchedulesSpecialDate('noon', $scheduleSpecialDate, $scheduleRepository, $timestamp, 
+                                                    $places, $reservationRepository, $date);
                         } else {
-                            $schedules_noon = $this->addTime('noon', $scheduleSpecialDate, $timestamp);
+                            $schedules_noon = $this->addTime('noon', $scheduleSpecialDate, $timestamp, $places, $reservationRepository, $date);
                         }
                     }
                 } else {
@@ -115,11 +167,11 @@ class ReservationController extends AbstractController
                     //      ->Ajout de 15 minutes
                     if (!$scheduleDay->getEveningClose()) {   
                         // Evening
-                        $schedules_evening = $this->addTime('evening', $scheduleDay, $timestamp);
+                        $schedules_evening = $this->addTime('evening', $scheduleDay, $timestamp, $places, $reservationRepository, $date);
                     }
                     if (!$scheduleDay->getNoonClose()) {
                         // Night
-                        $schedules_noon = $this->addTime('noon', $scheduleDay, $timestamp);
+                        $schedules_noon = $this->addTime('noon', $scheduleDay, $timestamp, $places, $reservationRepository, $date);
                     }
                 }
                 
@@ -241,8 +293,7 @@ class ReservationController extends AbstractController
 
                 if ($this->getUser() && !in_array('ROLE_ADMIN', $this->getUser()->getRoles())) {
                     $user = $userRepository->find($this->getUser());
-                    dump($date);
-                    if ($reservationRepository->findByDate(new Datetime($date), $user))  {
+                    if ($reservationRepository->checkIfAlreadyReservation(new Datetime($date), $user))  {
                         return new JsonResponse([
                             'result' => 'error_date_exist'
                         ]);
@@ -264,7 +315,6 @@ class ReservationController extends AbstractController
             if ($template) {
                 try {
                     $template = $templateRepository->find($template);
-                    dump($template);
                     foreach ($templates as $userTemplate) {
                         if ($template == $userTemplate) {
                             return new JsonResponse([

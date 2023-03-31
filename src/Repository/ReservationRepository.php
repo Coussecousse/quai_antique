@@ -41,7 +41,7 @@ class ReservationRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-    public function findByDate(DateTime $date, User $client) {
+    public function checkIfAlreadyReservation(DateTime $date, User $client) {
         $reservationsOfTheClient = $this->createQueryBuilder('r')
                             ->andWhere('r.client = :client')
                             ->setParameter('client', $client)
@@ -54,8 +54,6 @@ class ReservationRepository extends ServiceEntityRepository
         }
         foreach($dates as $dateReservation) {
             $dateReservation = new Datetime(date('Y-m-d',  date_timestamp_get($dateReservation)));
-            dump($dateReservation);
-            dump($date);
             if ($dateReservation == $date)
             {
                 return true;

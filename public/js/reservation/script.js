@@ -7,7 +7,6 @@ function removeError(element) {
     errorContainer.innerHTML = '';
 }
 function checkEmpty(element, errorContainer, message) {
-    console.log(errorContainer)
     if (element === '') {
         addError(errorContainer, message);
         return true;
@@ -70,56 +69,18 @@ function sendDate(date, service) {
         }
     }
 
+    const places = document.querySelector('input[name=places]').value;
 
-    const xhr = new XMLHttpRequest();
     
     const errorContainer = document.querySelector('#error_service');
     const eveningContainer = document.querySelector('#service_evening');
     const noonContainer = document.querySelector('#service_noon');
-
-    xhr.onload = function() {
-        const url = window.location.origin + window.location.pathname;
-
-        if (this.readyState == 4 && this.status == 200) {
-            const response = JSON.parse(xhr.responseText);
-            (response);
-            const evening = response.evening;
-            const noon = response.noon;
-            (noon);
-            (evening);
-
-            if (evening.length == 0) {
-                eveningContainer.classList.add('invisible', 'opacity-0');
-                eveningContainer.querySelector('input').disabled = true;
-                noonContainer.querySelector('input').checked = true;
-            } else {
-                eveningContainer.classList.remove('invisible', 'opacity-0');
-                eveningContainer.querySelector('input').disabled = false;
-                eveningContainer.querySelector('input').checked = true;
-                noonContainer.querySelector('input').checked = false;
-            }
-            if (noon.length == 0) {
-                noonContainer.classList.add('invisible', 'opacity-0');
-                noonContainer.querySelector('input').disabled = true;
-            } else {
-                noonContainer.classList.remove('invisible', 'opacity-0');
-                noonContainer.querySelector('input').disabled = false;
-            }
-            if (noon.length == 0 && evening.length == 0) {
-                errorContainer.innerHTML = 'Nous sommes fermés à cette date.'
-            } else {
-                errorContainer.innerHTML = ''
-            }
-
-        } else {
-        window.location = url + "?result=error";
-        }
-    }
     
+    const xhr = new XMLHttpRequest();
     xhr.open('POST', '/reservation');
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     
-    let params = 'date=' + date ;
+    let params = 'date=' + date + '&places=' + places ;
     const sendPromise = new Promise((resolve,reject) => {
         xhr.send(params);
         xhr.onload = function() {
@@ -132,6 +93,7 @@ function sendDate(date, service) {
     
     errorContainer.classList.add('flash');
     errorContainer.innerHTML ="Chargement...";
+
     // Reset
     !eveningContainer.classList.contains('invisible') ?
         eveningContainer.classList.add('invisible', 'opacity-0')
@@ -156,7 +118,7 @@ function sendDate(date, service) {
         const eveningContainer = document.querySelector('#service_evening');
         const noonContainer = document.querySelector('#service_noon');
 
-        if (evening.length == 0) {
+        if (evening.length == 0 || !evening) {
             handleDisableInput(eveningContainer, true);
             noonContainer.querySelector('input').checked = true;
         } else {
@@ -165,7 +127,7 @@ function sendDate(date, service) {
             noonContainer.querySelector('input').checked = false;
             seeSchedules(evening);
         }
-        if (noon.length == 0) {
+        if (noon.length == 0 || !noon) {
             handleDisableInput(noonContainer, true);
         } else {
             handleDisableInput(noonContainer, false);
@@ -174,9 +136,11 @@ function sendDate(date, service) {
                 seeSchedules(noon); 
             }
         }
-
-        if (noon.length == 0 && evening.length == 0) {
-            errorContainer.innerHTML = 'Nous sommes fermés à cette date.'
+        
+        if (!noon && !evening) {
+            errorContainer.innerHTML = 'Nous sommes complets pour cette date.';
+        } else if (noon.length == 0 && evening.length == 0) {
+            errorContainer.innerHTML = 'Nous sommes fermés à cette date.';
         } else {
             errorContainer.innerHTML = '';
         }
@@ -408,7 +372,6 @@ function previousSlide(e) {
     const gridContainer = document.querySelector("#grid_reservation");
     const cards = gridContainer.children;
     const widthForm = document.querySelector("form").offsetWidth;
-    console.log(widthForm)
     let activeCard;
 
     for (let card of cards) {
@@ -438,7 +401,7 @@ function sendReservation(e) {
     e.preventDefault();
 
     const name = document.querySelector("#summary_name").textContent;
-    const places = document.querySelector("#summary_places").textContent;
+    const places = document.querySelector("input[name=places").value;
     const schedule = document.querySelector("#summary_schedule").textContent;
     
     let date = document.querySelector("#summary_date").textContent;
