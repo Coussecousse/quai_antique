@@ -1,12 +1,12 @@
 <div class="text-primary bg-400">
     <div class="box-shadow-lg">
-        <section class="py-6 relative flex after mx-auto">
+        <section class="py-4 relative flex after mx-auto">
             <form class="mx-auto text-sm sm-600:text-base flex items-center justify-center">
                 <input type="date" name="search_reservation" class="bg-secondary text-primary input_withoutIcon">
                 <button type="submit" class="px-2 bg-600 text-secondary hover:bg-primary duration-150 h-8 flex justify-center items-center gap-2 min-w-[2rem] sm-600:min-w-fit"><p class="hidden sm-600:block">Rechercher</p><i class="fa-solid fa-magnifying-glass icon_profil"></i></button>
             </form>
         </section>
-        <section class="py-6 flex flex-col gap-6">
+        <section class="py-4 flex flex-col gap-6">
         {% for key,reservation in reservations %}
             <fieldset class="w-11/12 mx-auto max-w-[598px] border border-solid border-600 p-3 bg-secondary/10 rounded">
                 <legend class="px-2 text-lg">{{ reservation.date|date('l', 'Europe/Paris')|trans({'%day%' : reservation.date|date('l', 'Europe/Paris')}, 'days') }} {{ reservation.date|date('d/m/Y', 'Europe/Paris') }}</legend>

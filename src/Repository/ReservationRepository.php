@@ -70,6 +70,29 @@ class ReservationRepository extends ServiceEntityRepository
                 ->getQuery()
                 ->getResult();
     }
+    public function adminFindByDate(DateTime $date, string $service, int $hourToCompare) {
+        $allReservations = $this->findAll();
+        $reservations = [];
+        foreach($allReservations as $reservation) {
+            $date_reservation = $reservation->getDate();
+            $day = $date_reservation->format('Y-m-d');
+            $hour = $date_reservation->format('H:i');
+            $hour = date_timestamp_get(new DateTime('1970-01-01 '.$hour));
+            $day = new DateTime($day);
+            if ($day == $date) {
+                if ($service == 'evening') {
+                    if ($hour <= $hourToCompare) {
+                        array_push($reservations, $reservation);
+                    }
+                } else {
+                    if ($hour >= $hourToCompare) {
+                        array_push($reservations, $reservation);
+                    }   
+                }
+            }
+        }
+        return $reservations;
+    }
 //    /**
 //     * @return Reservation[] Returns an array of Reservation objects
 //     */

@@ -17,14 +17,18 @@
     <body class="bg-primary min-h-screen w-full overflow-x-hidden">
         {# IF NOT CONNECTED #}
         {% block header %}
-            <header class="z-10 h-[110px] w-full absolute flex justify-between px-6 py-3 md:px-12">
+            <header class="no_print z-10 h-[110px] w-full absolute flex justify-between px-6 py-3 md:px-12">
                 <a href="{{ path('home') }}" class=""><img src={{ asset('/images/svg/'~ "logo-white.svg")}} alt="Logo Quai Antique blanc" class="h-full"></a>
                 <button class="md.5:hidden"><img src={{ asset('/images/svg/'~ "hamburger-open.svg") }} alt="Open menu"></button>
                 <nav class="hidden md.5:block uppercase"> 
                     <ul class="md.5:inline-flex md.5:gap-6 lg:gap-12 text-secondary font-secondary relative top-[57px] xl:text-lg">
                         <li><a href={{ path('home') }} class="active">Accueil</a></li>
                         <li><a href={{ path('card') }}>Carte</a></li>
-                        <li><a href={{ path('reservation') }}>Réserver</a></li>
+                        {% if app.user and 'ROLE_ADMIN' in app.user.roles %}
+                            <li><a class="" href="{{ url('admin_reservations', { 'service' : 'midi' }) }}">Réservations</a></li>
+                        {% else %}
+                            <li><a href={{ path('reservation') }}>Réserver</a></li>
+                        {% endif %}
                         <li><a href={{ path('contact') }}>Contact</a></li>
                         {% if app.user %}
                                 {% if 'ROLE_ADMIN' in app.user.roles %}
@@ -43,7 +47,7 @@
         {% endblock %}
         {% block body %}{% endblock %}
         {% block footer %}
-            <footer class="bg-500 text-secondary font-third py-4 px-5 w-full md:flex md:justify-center text-sm">
+            <footer class="no_print bg-500 text-secondary font-third py-4 px-5 w-full md:flex md:justify-center text-sm">
                 <div class="grid max-w-[440px] mx-auto md:w-fit md:max-w-[340px] md:min-w-[300px] md:mx-0 lg:w-[400px]">
                     <p class="footer_title">Horaires</p>
                     <ul class = "scedules text-xs">

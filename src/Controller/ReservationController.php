@@ -10,7 +10,6 @@ use App\Repository\TemplateRepository;
 use App\Repository\UserRepository;
 use DateTime;
 use Exception;
-use PHPUnit\Util\Json;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,7 +47,6 @@ class ReservationController extends AbstractController
     }
     private function getAndDisplaySchedulesSpecialDate($time, $schedule, $repository, $timestamp, $array= []) {
         $day = date('N', date_timestamp_get($schedule->getDate()));
-                            
         $scheduleDay = $repository->findOneBy(['day' => $day]);
         if ($time == 'evening') {
             if (!$scheduleDay->getEveningClose()){
@@ -66,7 +64,8 @@ class ReservationController extends AbstractController
         ReservationRepository $reservationRepository, UserRepository $userRepository, DateRepository $dateRepository,
         TemplateRepository $templateRepository)
     {
-        if ($this->getUser()) {
+        dump('coucou');
+        if ($this->getUser() && !in_array('ROLE_ADMIN', $this->getUser()->getRoles())) {
             $user = $this->getUser();
             $templates = $user->getTemplate();
         }
@@ -240,21 +239,20 @@ class ReservationController extends AbstractController
                     }
                 }
 
-                if ($this->getUser()) {
+                if ($this->getUser() && !in_array('ROLE_ADMIN', $this->getUser()->getRoles())) {
                     $user = $userRepository->find($this->getUser());
-                    if (!in_array('ROLE_ADMIN', $user->getRoles())) {
-                        dump($date);
-                        if ($reservationRepository->findByDate(new Datetime($date), $user))  {
-                            return new JsonResponse([
-                                'result' => 'error_date_exist'
-                            ]);
-                        }
+                    dump($date);
+                    if ($reservationRepository->findByDate(new Datetime($date), $user))  {
+                        return new JsonResponse([
+                            'result' => 'error_date_exist'
+                        ]);
+                    
                     }
                 }
                 $date = new DateTime($date.' '.$schedule);
                 $new_res = new Reservation();
                 $new_res->setName($name)->setPlaces($places)->setDate($date)->setAllergies($allergies);
-                if ($this->getUser()) {
+                if ($this->getUser() && !in_array('ROLE_ADMIN', $this->getUser()->getRoles())) {
                     $new_res->setClient($userRepository->find($this->getUser()));
                 }
                 $reservationRepository->save($new_res, true);
@@ -306,12 +304,10 @@ class ReservationController extends AbstractController
                 break;
         }
 
-        dump($templates);
-
-        return $this->render('Reservation/reservation.html.twig', [
+        return $this->render('Reservation/user/reservation.user.html.twig', [
             'error' => $error ?? null,
             'success' => $success ?? null,
-            'user_templates' => $templates
+            'user_templates' => $templates ?? null
         ]);
     }
 }

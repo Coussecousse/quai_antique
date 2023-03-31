@@ -8,6 +8,7 @@ parameters:
     resize: '%kernel.project_dir%/public/images/resize/'
     build-uploads: '%kernel.project_dir%/public/build/images/uploads/'
     build-resize: '%kernel.project_dir%/public/build/images/resize/'
+    data : '%kernel.project_dir%/config/data/restaurant.yaml'
 
 services:
     # default configuration for services in *this* file

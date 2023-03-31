@@ -1,0 +1,91 @@
+<div class="bg-500 text-secondary profil_up drop-shadow-lg">
+    <section class="relative after w-full py-4 px-2 sm:px-4 flex justify-around sm-650:justify-between">
+        <div class="flex flex-col sm-650:flex-row sm-650:flex-1">
+            <div class="print_black w-1/2">
+                <div class="flex gap-2">
+                    <p class="whitespace-nowrap min-w-[100px]">Réservations :</p>
+                    {% if (reservations) %}
+                        <p>{{ reservations|length }}</p>
+                    {% else %}
+                        <p>0</p>
+                    {% endif %}
+                </div>
+                <div class="flex gap-2">
+                    <p class="whitespace-nowrap min-w-[100px]">Couverts :</p>
+                    <p>{{ places }}</p>
+                </div>
+            </div>
+            <div class="print_black w-1/2">
+                <div class="flex gap-2">
+                    <p class="whitespace-nowrap min-w-[127px]">Début du service : </p>
+                    <p>{{ start }}</p>
+                </div>
+                <div class="flex gap-2">
+                    <p class="whitespace-nowrap min-w-[127px]">Fin du service : </p>
+                    <p>{{ end }}</p>
+                </div>
+            </div>
+        </div>
+        <svg viewbox="0 0 33.83098862 33.83098862" width="70" height="70" xmlns="http://www.w3.org/2000/svg">
+            <circle class="print_black" stroke="#F9F6F0" stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+            <circle class="print_gray -rotate-90 origin-center" stroke="#C4AE78" stroke-width="2" stroke-dasharray="{{ percentage ~',100'}}" stroke-linecap="round" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+            <g>
+                <text class="print_black" fill="#F9F6F0" class="" x="16.91549431" y="15.5" alignment-baseline="central" text-anchor="middle" font-size="8">{{ percentage|round(1, 'floor') }}%</text>
+            </g>
+        </svg>
+    </section>
+    <section class="py-4 px-2 sm:px-4">
+        {% if close %}
+            <p class="text-center">Nous sommes fermés</p>
+        {% else %}
+            <button class="no_print px-4 py-2 bg-600 text-secondary my-2 duration-150 hover:bg-secondary hover:text-primary" onClick="window.print();return false;">Imprimer</button>
+        <div class="grid ">
+            <div class="admin_reservations_grid grid">
+                <div class="bg-600 text-secondary">
+                </div>
+                <div class="bg-600 text-secondary">
+                    <div class="no_print sm-650:hidden"><i class="fa-solid fa-clock" aria-label="Heure"></i></div>
+                    <p class="print_visible print_black hidden sm-650:block">Heure</p>
+                </div>
+                <div class="bg-600 text-secondary">
+                    <div class="no_print sm-650:hidden"><i class="fa-solid fa-user" aria-label="Nom"></i></div>
+                    <p class="print_visible print_black hidden sm-650:block">Nom</p>
+                </div>
+                <div class="bg-600 text-secondary">
+                    <div class="no_print sm-650:hidden"><i class="fa-solid fa-utensils" aria-label="Couverts"></i></div>
+                    <p class="print_visible print_black hidden sm-650:block">Couverts</p>
+                </div>
+                <div class="bg-600 text-secondary">
+                    <div class="no_print sm-650:hidden"><i class="fa-solid fa-triangle-exclamation" aria-label="Allergie(s)"></i></div>
+                    <p class="print_visible print_black hidden sm-650:block">Allergie(s)</p>
+                </div>
+            </div>
+            {% for key, reservation in reservations %}
+                <div class="admin_reservations_grid grid">
+                    <div class="bg-secondary text-primary">
+                        <p>{{ key + 1 }}</p>
+                    </div>
+                    <div class="bg-secondary text-primary">
+                        <p>{{ reservation.date|date('H:i', 'Europe/Paris') }}</p>
+                    </div>
+                    <div class="bg-secondary text-primary">
+                        <p>{{ reservation.name }}</p>
+                    </div>
+                    <div class="bg-secondary text-primary">
+                        <p>{{ reservation.places }}</p>
+                    </div>
+                    <div class="bg-secondary text-primary">
+                        {% if reservation.allergies|length > 0 %}
+                            <ul class="flex gap-x-2 flex-wrap pl-2">
+                                {% for allergie in reservation.allergies %}
+                                    <li>{{ allergie|trans({'%allergie%': allergie}, 'allergies') }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </section>
+</div>

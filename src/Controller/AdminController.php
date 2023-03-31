@@ -33,7 +33,7 @@ use Symfony\Component\Yaml\Yaml;
 
 class AdminController extends AbstractController
 {
-    private function checkPattern($expression, $pattern) 
+    private function checkPattern($expression, $pattern)
     {
         return preg_match($pattern, $expression);
     }
@@ -41,7 +41,7 @@ class AdminController extends AbstractController
 
         $restaurant = array_replace($restaurant, array($id => $element));
         $yaml = Yaml::dump($restaurant);
-        
+
         file_put_contents($path, $yaml);
 
         return new JsonResponse([
@@ -86,7 +86,7 @@ class AdminController extends AbstractController
                     unlink($this->getParameter('resize').$name[0].$size.$name[1]);
                 }
             }
-    
+
             if (file_exists($this->getParameter('uploads').implode('.', $name)))
             {
                 unlink($this->getParameter('uploads').implode('.', $name));
@@ -112,18 +112,18 @@ class AdminController extends AbstractController
     {
         $sizes = ['small' => 420, 'medium' => 735,'large' => 950, 'extraLarge' => 1200];
         $path = $this->getParameter('uploads') .'/'. $imageName;
-        
+
         $em = $doctrine->getManager();
-        
+
         $carousel = new Carousel();
         $carousel->setPath('/images/resize/'.$imageName)->setTitle($title)->setDescription($description);
-        
+
         $imageName = explode('.', $imageName);
 
         $em->persist($carousel);
-        $em->flush();        
+        $em->flush();
         foreach($sizes as $key => $size) {
-            
+
             $newNameImageSize = $imageName;
             array_splice($newNameImageSize, -1, 0, '-'.$key.'.');
             $newNameImageSize = implode('', $newNameImageSize);
@@ -149,7 +149,7 @@ class AdminController extends AbstractController
         if ($time_close && $time_normal) {
             return false;
         }
-       
+
         $time_start = $form->get($service. '_start')->getData();
         $time_end = $form->get($service. '_end')->getData();
 
@@ -158,7 +158,7 @@ class AdminController extends AbstractController
                 return true;
             }
             return false;
-        } 
+        }
         return true;
 
     }
@@ -204,7 +204,7 @@ class AdminController extends AbstractController
             $food->setTitle($title)->setDescription($description)->setprice($price);
 
             switch($page) {
-                case 'entrées': 
+                case 'entrées':
                     $food->setCategory('starter');
                     break;
                 case 'plats':
@@ -234,8 +234,8 @@ class AdminController extends AbstractController
         $title = $request->request->get('title');
         $description = $request->request->get('description');
         $price = $request->request->get('price');
-        if (!$this->checkPattern($title, "/^[\p{L}\d\s.\'’()-]+$/u") 
-            || !$this->checkPattern($description, "/^[\p{L}\d\s.,()'’-]{0,255}$/u")) 
+        if (!$this->checkPattern($title, "/^[\p{L}\d\s.\'’()-]+$/u")
+            || !$this->checkPattern($description, "/^[\p{L}\d\s.,()'’-]{0,255}$/u"))
         {
             return 'error_pattern';
         }
@@ -308,7 +308,7 @@ class AdminController extends AbstractController
         }
 
         $newDate = new Date();
-        if (!$this->getErrorScheduleDate($form, 'evening', $repository) 
+        if (!$this->getErrorScheduleDate($form, 'evening', $repository)
             || !$this->getErrorScheduleDate($form, 'noon', $repository)) {
             return 'error_pattern';
         } else {
@@ -324,7 +324,7 @@ class AdminController extends AbstractController
         $originalFileName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
         $safeFilename = $slugger->slug($originalFileName);
         $newFileName = $safeFilename . '-' .uniqid() . '.' . $image->guessExtension();
-    
+
         try {
             $image->move(
                 $this->getParameter('uploads'),
@@ -464,7 +464,7 @@ class AdminController extends AbstractController
                 ->setEveningEnd(null);
             } catch (Exception $e) {
                 return 'error';
-            } 
+            }
         } else if (count($schedule_evening) == 2) {
             foreach($schedule_evening as $time) {
                 if (!$this->checkPattern($time, '/^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/')) {
@@ -490,7 +490,7 @@ class AdminController extends AbstractController
                 ->setNoonEnd(null);
             } catch (Exception $e) {
                 return 'error';
-            } 
+            }
         } else if (count($schedule_noon) == 2) {
             foreach($schedule_noon as $time) {
                 if (!$this->checkPattern($time, '/^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/')) {
@@ -584,7 +584,7 @@ class AdminController extends AbstractController
         // Get data from restaurant.yaml file
         $path = $this->getParameter('kernel.project_dir') . '/config/data/restaurant.yaml';
         $restaurant = Yaml::parseFile($path);
-        
+
         $form_card = $this->createForm(CardType::class);
         $form_card->handleRequest($request);
 
@@ -607,19 +607,19 @@ class AdminController extends AbstractController
         } else if ($form_card->isSubmitted() && !$form_card->isValid()) {
             $request->query->remove('result');
         }
-        
+
         $menu = new Menu();
         $offer = new Offer();
         $offer->setTitle('Offre 1')->setConditions('Condition 1')->setDescription(['Entrée', 'Plat']);
         $menu->addOffer($offer);
-        
+
         $form_menu = $this->createForm(MenusType::class, $menu);
         $form_menu->handleRequest($request);
-        
+
         if ($form_menu->isSubmitted() && $form_menu->isValid()) {
-            
+
             try {
-                $menu = $form_menu->getData(); 
+                $menu = $form_menu->getData();
                 $menuRepository->save($menu, true);
             } catch (Exception $e) {
                 return $this->redirectToRoute('admin_card', [
@@ -684,19 +684,19 @@ class AdminController extends AbstractController
                     'result' => 'error'
                 ]);
             }
-            
-        } 
+
+        }
         if ($request->isMethod('POST') && !$form_card->isSubmitted() && !$form_menu->isSubmitted()) {
             return $this->handleMenu($request, $menuRepository);
         }
 
         $result = $request->query->get('result');
-        
+
         switch($result) {
-            case 'success' : 
+            case 'success' :
                 $success = "Modification effectuée avec succès !";
                 break;
-            case 'error_email_email' : 
+            case 'error_email_email' :
                 $error = "Email invalide.";
                 break;
             case 'error_invalid':
@@ -721,16 +721,16 @@ class AdminController extends AbstractController
                 break;
             case 'desserts':
                 $values = $foodRepository->findBy(['category' => 'dessert']);
-                break;                
-            default: 
+                break;
+            default:
                 $values = $foodRepository->findBy(['category' => "starter"]);
                 break;
         }
         $menus = $menuRepository->findAll();
 
         return $this->render('Admin/profil_down/card/card.html.twig', [
-            'page_up' => $page_up, 
-            'page_down' => $page_down, 
+            'page_up' => $page_up,
+            'page_down' => $page_down,
             'page_three'=> $page_three,
             'form_card' => $form_card->createView(),
             'form_menu' => $form_menu,
@@ -759,24 +759,24 @@ class AdminController extends AbstractController
         // Dates
         $form_dates = $this->createForm(DatesType::class);
         $form_dates->handleRequest($request);
-        $special_dates = $dateRepository->findAllByDate();        
+        $special_dates = $dateRepository->findAllByDate();
         if ($form_dates->isSubmitted() && $form_dates->isValid()) {
             if ($this->handleFormDates($form_dates, $dateRepository) == 'success'){
                 return $this->redirectToRoute('admin_profil', [
                     'page_up' => $page_up,
-                    'page_down' => $page_down, 
+                    'page_down' => $page_down,
                     'result' => 'success'
                 ]);
             } else if (($this->handleFormDates($form_dates, $dateRepository) == 'error_pattern')) {
                 return $this->redirectToRoute('admin_profil', [
                     'page_up' => $page_up,
-                    'page_down' => $page_down, 
+                    'page_down' => $page_down,
                     'result' => 'error_pattern'
                 ]);
             } else {
                 return $this->redirectToRoute('admin_profil', [
                     'page_up' => $page_up,
-                    'page_down' => $page_down, 
+                    'page_down' => $page_down,
                     'result' => 'error_date_already_exist'
                 ]);
             }
@@ -793,7 +793,7 @@ class AdminController extends AbstractController
                     'page_down' => $page_down,
                     'result' => "error_no_date"
                 ]);
-            } 
+            }
             $special_dates = $dates;
         }
 
@@ -804,20 +804,20 @@ class AdminController extends AbstractController
             if ($this->handleFormImage($form_image, $slugger, $doctrine) == 'success') {
                 return $this->redirectToRoute('admin_profil', [
                     'page_up' => $page_up,
-                    'page_down' => $page_down, 
+                    'page_down' => $page_down,
                     'result' => 'success'
                 ]);
             } else {
                 return $this->redirectToRoute('admin_profil', [
                     'page_up' => $page_up,
-                    'page_down' => $page_down, 
+                    'page_down' => $page_down,
                     'result' => 'error'
                 ]);
             }
         } else if ($form_image->isSubmitted() && !$form_image->isValid()) {
             $request->query->remove('result');
         }
-        
+
 
         if ($request->isMethod('POST')) {
             $em = $doctrine->getManager();
@@ -827,7 +827,7 @@ class AdminController extends AbstractController
             $password = $request->request->get('password');
 
             // Restaurant
-            $telRestaurant = $request->request->get('tel'); 
+            $telRestaurant = $request->request->get('tel');
             $emailRestaurant = $request->request->get('emailRestaurant');
             $cityRestaurant =  $request->request->get('city');
             $streetRestaurant = $request->request->get('street');
@@ -845,7 +845,7 @@ class AdminController extends AbstractController
             $schedule_evening = $request->request->all()['schedule_evening'] ?? null;
             $schedule_noon = $request->request->all()['schedule_noon'] ?? null;
             $schedulesAllDays = json_decode($request->getContent(), true)['schedules'] ?? null;
-            
+
             // Dates
             $delete_date = $request->request->get('delete_date');
             $delete_pastDates = $request->request->get('delete_pastDates');
@@ -858,7 +858,7 @@ class AdminController extends AbstractController
             // Change email
             if ($email && $password) {
                 return $this->handleEmail($email, $password, $userPasswordHasher, $user, $request, $repository);
-            } 
+            }
             // Change Restaurant
             //  Tel :
             if ($telRestaurant) {
@@ -910,20 +910,20 @@ class AdminController extends AbstractController
             if ($schedule_id) {
                 if ($this->handleSchedules($schedule_id, $scheduleRepository, $schedule_evening, $schedule_noon) == 'success') {
                     return $this->redirectToRoute('admin_profil', [
-                        'page_up' => $page_up, 
-                        'page_down' => $page_down, 
+                        'page_up' => $page_up,
+                        'page_down' => $page_down,
                         'result' => 'success'
                     ]);
                 } else if ($this->handleSchedules($schedule_id, $scheduleRepository, $schedule_evening, $schedule_noon) == 'error_pattern') {
                     return $this->redirectToRoute('admin_profil', [
-                        'page_up' => $page_up, 
-                        'page_down' => $page_down, 
+                        'page_up' => $page_up,
+                        'page_down' => $page_down,
                         'result' => 'error_pattern'
                     ]);
                 } else {
                     return $this->redirectToRoute('admin_profil', [
-                        'page_up' => $page_up, 
-                        'page_down' => $page_down, 
+                        'page_up' => $page_up,
+                        'page_down' => $page_down,
                         'result' => 'error'
                     ]);
                 }
@@ -945,7 +945,7 @@ class AdminController extends AbstractController
         $result = $request->query->get('result');
 
         switch($result) {
-            case 'success' : 
+            case 'success' :
                 $success = "Modification effectuée avec succès !";
                 break;
             case 'success_delete_past_dates':
@@ -957,7 +957,7 @@ class AdminController extends AbstractController
             case 'error_date_already_exist':
                 $error = 'La date donnée existe déjà.';
                 break;
-            case 'error_email_email' : 
+            case 'error_email_email' :
                 $error = "Email invalide.";
                 break;
             case 'error_invalid':
@@ -966,10 +966,10 @@ class AdminController extends AbstractController
             case 'error_pattern':
                 $error = "L'entrée fournie ne correspond pas au format requis.";
                 break;
-            case 'error' : 
+            case 'error' :
                 $error = "Un problème est survenu. Veuillez nous excuser pour la gêne occasionnée. Si le problème persiste, n'hésitez pas à nous contacter directement.";
                 break;
-            default : 
+            default :
                 break;
         }
 

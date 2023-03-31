@@ -585,8 +585,14 @@ header nav a.active::after {
   }
 }
 
-
-
+/* ADMIN RESERVATIONS */
+.admin_reservations_grid {
+  @apply grid;
+  grid-template-columns: clamp(15px, 3%, 30px)  clamp(45px,12%, 122px) 30% 15% auto;
+}
+.admin_reservations_grid > * {
+  @apply border border-solid border-primary text-center;
+}
 
 @keyframes flash {
   from { 
@@ -703,5 +709,22 @@ header nav a.active::after {
       linear-gradient(rgba(23, 21, 21, 0) 75%, rgb(23, 21, 21)),
       center / cover no-repeat
         url("../../public/images/reservation/reservation-extraLarge.jpg");
+  }
+}
+
+
+@media print {
+  .no_print {
+    display: none !important;
+  }
+  .print_visible {
+    display: block !important;
+  }
+  .print_black {
+    color: black;
+    stroke: black;
+  }
+  .print_gray {
+    stroke: gray;
   }
 }
