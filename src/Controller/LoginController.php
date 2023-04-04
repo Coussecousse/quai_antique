@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\LoginType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,6 +15,7 @@ class LoginController extends AbstractController
     #[Route('/login/{login}', name: 'login')]
     public function index(AuthenticationUtils $authenticationUtils, Request $request, $login = 0): Response
     {
+        dump($this->getUser());
         // get the login error if there's one 
         $error = $authenticationUtils->getLastAuthenticationError();
 

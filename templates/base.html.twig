@@ -15,7 +15,6 @@
         {% endblock %}
     </head>
     <body class="bg-primary min-h-screen w-full overflow-x-hidden">
-        {# IF NOT CONNECTED #}
         {% block header %}
             <header class="no_print z-10 h-[110px] w-full absolute flex justify-between px-6 py-3 md:px-12">
                 <a href="{{ path('home') }}" class=""><img src={{ asset('/images/svg/'~ "logo-white.svg")}} alt="Logo Quai Antique blanc" class="h-full"></a>
