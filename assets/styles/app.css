@@ -77,19 +77,33 @@ header nav a.active::after {
 }
 
 .carousel_pics {
-  grid-template-columns: repeat(
-    4,
-    clamp(13.375rem, 7.107rem + 31.339vw, 35.313rem)
-  );
-  /* transform: translateX(calc(-33.33% + (16px * 2))); */
-  transform: translate3d(calc((359px / 2) - 359px + 8px), 0, 0);
+  @apply overflow-hidden flex w-max gap-12 relative   ;
+  height: clamp(12.5rem, 6.2500rem + 31.2500vw, 34.375rem);
 }
-.carousel_image {
+.carousel_pics > div {
+  @apply relative max-w-[500px] h-full;
+  flex: 1 0 auto;
+}
+.carousel_pics img {
+  @apply object-cover drop-shadow-lg h-full relative;
+  z-index: -1;
+}
+.carousel_pics picture {
+  @apply block h-full mx-auto w-fit;
+}
+
+.carousel_pics > div:first-child {
+  order: 2 !important;
+}
+.carousel_pics  > div:last-child {
+  order: 1 !important;
+}
+.carousel_pics > div:not([data-active="true"]) {
   opacity: 0.2;
   -webkit-transform: scale3d(0.8, 0.8, 1);
   transform: scale3d(0.8, 0.8, 1);
 }
-.carousel_image.active {
+.carousel_pics > div:has([data-active="false"])  {
   opacity: 1;
   -webkit-transform: scale3d(1, 1, 1);
   transform: scale3d(1, 1, 1);
@@ -98,10 +112,10 @@ header nav a.active::after {
   transform-style: preserve-3d;
 }
 .carousel_button {
-  @apply h-[15px] w-[15px] bg-400 rounded-full hover:scale-125 ease-in duration-75 drop-shadow-lg;
+  @apply h-[15px] w-[15px] bg-500  rounded-full hover:scale-125 ease-in duration-75 drop-shadow-lg;
 }
 .carousel_button.active {
-  @apply bg-500;
+  @apply bg-400;
 }
 /* CARD */
 .section_card {

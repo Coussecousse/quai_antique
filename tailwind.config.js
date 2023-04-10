@@ -32,10 +32,10 @@ module.exports = {
         md : '4px',
       },
       fontSize : {
-        'home-title' : 'clamp(2rem, 1.282rem + 3.59vw, 3.75rem)',
-        'home-quai' : 'clamp(2.25rem, 1.224rem + 5.128vw, 4.75rem)',
+        'home-title' : 'clamp(1.75rem, 1.6rem + 0.75vw, 2.5rem)',
+        'home-quai' : 'clamp(2rem, 1.423rem + 2.883vw, 4rem)',
+        'home-2' : 'clamp(1.5rem, 1.35rem + 0.75vw, 2.25rem)',
         'home-carousel' : 'clamp(1rem, 0.857rem + 0.714vw, 1.625rem)',
-        'home-title-moving' : 'clamp(2rem, 1.795rem + 1.026vw, 2.5rem)',
         'lg' : "1.125rem",
         'xl' : '1.25rem',
         '1.5xl' : '1.375rem',
