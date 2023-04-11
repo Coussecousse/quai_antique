@@ -81,7 +81,7 @@ header nav a.active::after {
   height: clamp(12.5rem, 6.2500rem + 31.2500vw, 34.375rem);
 }
 .carousel_pics > div {
-  @apply relative max-w-[500px] h-full;
+  @apply relative max-w-[500px] h-full overflow-hidden;
   flex: 1 0 auto;
 }
 .carousel_pics img {
@@ -91,7 +91,6 @@ header nav a.active::after {
 .carousel_pics picture {
   @apply block h-full mx-auto w-fit;
 }
-
 .carousel_pics > div:first-child {
   order: 2 !important;
 }
@@ -112,10 +111,10 @@ header nav a.active::after {
   transform-style: preserve-3d;
 }
 .carousel_button {
-  @apply h-[15px] w-[15px] bg-500  rounded-full hover:scale-125 ease-in duration-75 drop-shadow-lg;
+  @apply h-[15px] w-[15px] bg-500  rounded-full hover:scale-110 ease-in duration-75 drop-shadow-lg;
 }
 .carousel_button.active {
-  @apply bg-400;
+  @apply bg-400 scale-110;
 }
 /* CARD */
 .section_card {

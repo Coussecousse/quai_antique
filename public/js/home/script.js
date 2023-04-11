@@ -15,9 +15,6 @@ const soustraction = middleElement - middleScreen;
 const carousel = document.querySelector(".carousel_pics");
 carousel.style.transform = soustraction > 0 ? "translateX(-" + soustraction + 'px)': "translateX(" + (soustraction * -1)  + 'px)';
 
-// for (let child of carousel.children) {
-//     child.classList.add('duration-150');
-// }
 window.addEventListener("resize", () => {
     setTimeout(() => {
         const carousel = document.querySelector(".carousel_pics");
@@ -32,7 +29,6 @@ window.addEventListener("resize", () => {
         const leftPosition = rect.left;
     
         const widthElement = activePic.clientWidth;
-        console.log(widthElement)
     
         const middleElement = leftPosition + widthElement/2;
     
@@ -45,6 +41,63 @@ window.addEventListener("resize", () => {
     }, 500);
     
 });
+function getElement(image) {
+    const carousel = document.querySelector(".carousel_pics");
+    
+    const style = window.getComputedStyle(carousel);
+    const transform = new WebKitCSSMatrix(style.transform);
+
+    let activePic;
+    for (let pic of carousel.children) {
+        if (pic.dataset.image == image) {
+            activePic = pic;
+            activePic.dataset.active = 'true';
+            activePic.classList.contains('invisible') ? activePic.classList.remove('invisible', 'opacity-0') : null;
+        } else {
+            pic.dataset.active = 'false';
+            if (!pic.classList.contains('invisible')) {
+                if (activePic) {
+                    if (pic == activePic.previousElementSibling || pic == activePic.nextElementSibling) {
+                        continue;
+                    }
+                }
+                pic.classList.add('invisible', 'opacity-0');
+            }
+            !pic.classList.contains('invisible') && (pic != activePic.previousElementSibling || pic != activePic.nextElementSibling) ?
+                pic.classList.add('invisible', 'opacity-0')
+                : null; 
+        }
+    }
+    
+    activePic.previousElementSibling ?
+        activePic.previousElementSibling.classList.remove('invisible', 'opacity-0')
+        : carousel.children[carousel.children.length - 1].classList.remove('invisible', 'opacity-0');
+    activePic.nextElementSibling ? 
+        activePic.nextElementSibling.classList.remove("invisible", "opacity-0")
+        : carousel.children[0].classList.remove('invisible', 'opacity-0');
+    const rect = activePic.getBoundingClientRect();
+
+    const leftPosition = rect.left;
+
+    const widthElement = activePic.clientWidth;
+
+    const middleElement = leftPosition + widthElement/2;
+
+    const screenWidth = window.innerWidth;
+
+    const middleScreen = screenWidth/2;
+
+    const soustraction = middleScreen - middleElement ;
+    carousel.style.transform = "translateX(" + (transform.e + soustraction) + 'px)';
+}
+function alignButtonWithImage(image) {
+    const buttons = document.querySelectorAll(".carousel_button");
+    buttons.forEach(button => {
+        (button.classList.contains('active') && button.dataset.button != image) ? button.classList.remove('active') : null;
+        button.dataset.button == image ? button.classList.add("active") : null;
+    })
+}
+
 function centerNextElement() {
     const carousel = document.querySelector(".carousel_pics");
     
@@ -96,7 +149,7 @@ function centerNextElement() {
         const nextToNewActive = next.nextElementSibling;
         nextToNewActive.classList.remove("invisible", "opacity-0");
     }
-
+    alignButtonWithImage(next.dataset.image);
 }
 
 function centerPreviousElement() {
@@ -150,17 +203,22 @@ function centerPreviousElement() {
         previousToNewActive.classList.remove("invisible", "opacity-0");
     }
 
+    alignButtonWithImage(previous.dataset.image);
 }
 
 const buttons = document.querySelector("#home_buttons");
 
 buttons.addEventListener("click", e => {
-
     if (e.target.parentElement.ariaLabel == "gauche") {
         centerPreviousElement();
     } else if (e.target.parentElement.ariaLabel == "droite") {
         centerNextElement();
-    } else  {
-
+    } else if (e.target.classList.contains('carousel_button')) {
+        for (let button of buttons.children ) {
+            button.classList.contains('active') ? button.classList.remove('active') : null; 
+        }
+        e.target.classList.add('active');
+        const image = e.target.dataset.button;
+        getElement(image);
     }
 });
