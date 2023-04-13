@@ -31,31 +31,31 @@
 				<nav class="hidden md/5:flex md/5:items-center uppercase duration bg-primary" id="header-menu">
 					<ul class="md/5:inline-flex text-secondary font-secondary relative top-[57px] text-sm xl:text-lg">
 						<li>
-							<a href={{ path('home') }} class="active">Accueil</a>
+							<a href={{ path('home') }} class="{{ app.request.attributes.get('_route') == 'home' ? 'active' : null }}">Accueil</a>
 						</li>
 						<li>
-							<a href={{ path('card') }}>Carte</a>
+							<a href={{ path('card') }} class="{{ app.request.attributes.get('_route') == 'card' ? 'active' : null }}">Carte</a>
 						</li>
 						{% if app.user and 'ROLE_ADMIN' in app.user.roles %}
 							<li>
-								<a class="" href="{{ url('admin_reservations', { 'service' : 'midi' }) }}">Réservations</a>
+								<a class="{{ app.request.attributes.get('_route') == 'admin_reservation' ? 'active' : null }}" href="{{ url('admin_reservations', { 'service' : 'midi' }) }}">Réservations</a>
 							</li>
 						{% else %}
 							<li>
-								<a href={{ path('reservation') }}>Réserver</a>
+								<a href={{ path('reservation') }} class="{{ app.request.attributes.get('_route') == 'reservation' ? 'active' : null }}">Réserver</a>
 							</li>
 						{% endif %}
 						<li>
-							<a href={{ path('contact') }}>Contact</a>
+							<a href={{ path('contact') }} class="{{ app.request.attributes.get('_route') == 'contact' ? 'active' : null }}">Contact</a>
 						</li>
 						{% if app.user %}
 							{% if 'ROLE_ADMIN' in app.user.roles %}
 								<li>
-									<a class="" href="{{ url('admin_profil', {'page_up':'informations', 'page_down' : 'carousel'}) }}">Profil</a>
+									<a class="{{ app.request.attributes.get('_route') == 'home' ? 'admin_profil' : null }}" href="{{ url('admin_profil', {'page_up':'informations', 'page_down' : 'carousel'}) }}">Profil</a>
 								</li>
 							{% else %}
 								<li>
-									<a class="" href="{{ url('client_profil', {'page_down' : 'modèles' }) }}">Profil</a>
+									<a class="{{ app.request.attributes.get('_route') == 'client_profil' ? 'active' : null }}" href="{{ url('client_profil', {'page_down' : 'modèles' }) }}">Profil</a>
 								</li>
 							{% endif %}
 							<li>
@@ -63,10 +63,10 @@
 							</li>
 						{% else %}
 							<li>
-								<a href={{ path('login') }}>Connexion</a>
+								<a href={{ path('login') }} class="{{ app.request.attributes.get('_route') == 'login' ? 'active' : null }}">Connexion</a>
 							</li>
 							<li>
-								<a href={{ path('sign_up') }}>Inscription</a>
+								<a href={{ path('sign_up') }} class="{{ app.request.attributes.get('_route') == 'sign_up' ? 'active' : null }}">Inscription</a>
 							</li>
 						{% endif %}
 					</ul>
