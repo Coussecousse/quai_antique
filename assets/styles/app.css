@@ -75,7 +75,19 @@ header nav a.active::after {
   background: linear-gradient(rgba(23, 21, 21, 0) 50%, rgb(23, 21, 21)),
     center / cover no-repeat url("../../public/images/home/home-small.webp");
 }
+#text-move > li {
+  @apply opacity-0 invisible duration-200;
+}
+#text-move > li.down {
+  @apply translate-y-full;
+}
+#text-move > li.up {
+  @apply translate-y-0;
+}
 
+#text-move > li.active {
+  @apply opacity-100 visible;
+}
 .carousel_pics {
   @apply overflow-hidden flex w-max gap-12 relative   ;
   height: clamp(12.5rem, 6.2500rem + 31.2500vw, 34.375rem);

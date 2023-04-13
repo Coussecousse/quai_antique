@@ -1,3 +1,33 @@
+function changeText() {
+  const list = document.querySelector("#text-move");
+  let active;
+  for (let children of list.children) {
+    if (children.classList.contains('active')){
+      active = children;
+      break;
+    }
+  }
+  let next;
+  if (active == list.children[2]) {
+    next = list.children[0];
+  } else {
+    next = active.nextElementSibling;
+  }
+
+  active.classList.remove('active');
+  
+  active.classList.contains('down') ? active.classList.replace('up', 'down') : active.classList.add('down');
+  setTimeout(() => {
+    next.classList.add('active');
+    next.classList.add("up");
+  }, 200);
+}
+
+setInterval(() => {
+  changeText();
+}, 2500);
+
+// ____ CAROUSEL ____
 function giveSoustraction(activePic, last = false, previous = false) {
   const rect = activePic.getBoundingClientRect();
 
