@@ -53,7 +53,7 @@ module.exports = {
         "sm-cardButton" : '708px',
         "md" : "768px",
         "md-cardButton" : "806px",
-        "md.5" : "900px",
+        "md/5" : "900px",
         "lg" : "992px",
       },
       placeholderColors : {

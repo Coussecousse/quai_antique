@@ -75,6 +75,46 @@ header nav a.active::after {
   background: linear-gradient(rgba(23, 21, 21, 0) 50%, rgb(23, 21, 21)),
     center / cover no-repeat url("../../public/images/home/home-small.webp");
 }
+.hamburger-lines {
+  @apply h-[26px] w-8 flex flex-col justify-between;
+}
+.hamburger-lines .line {
+  @apply block h-[3px] w-full rounded-[10px] bg-secondary;
+}
+.hamburger-lines .line1 {
+  transform-origin: 0% 0%;
+  transition: transform 0.4s ease-in-out;
+}
+.hamburger-lines .line2 {
+  transition: transform 0.2s ease-in-out;
+}
+.hamburger-lines .line3 {
+  transform-origin: 0% 100%;
+  transition: transform 0.4s ease-in-out;
+}
+.hamburger-lines.open .line1 {
+  transform: rotate(50deg);
+}
+.hamburger-lines.open .line2 {
+  transform: scale(0);
+}
+.hamburger-lines.open .line3 {
+  transform: rotate(-50deg);
+}
+#header-menu {
+  @apply absolute w-screen h-screen top-0 z-10 duration-1000 left-0 translate-x-full
+  md/5:static md/5:bg-transparent md/5:z-0 md/5:translate-x-0 md/5:w-auto md/5:h-auto;
+}
+#header-menu ul {
+  @apply w-fit mx-auto gap-4 flex flex-col items-center top-1/2 -translate-y-1/2
+  md/5:w-auto md/5:mx-0 md/5:flex-row md/5:items-start md/5:top-0 md/5:translate-y-0 lg:gap-10;
+}
+#header-menu.open {
+  @apply translate-x-0;
+}
+.header-fixed {
+  @apply fixed bg-primary;
+}
 #text-move > li {
   @apply opacity-0 invisible duration-200;
 }
