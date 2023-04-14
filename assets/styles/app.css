@@ -169,95 +169,34 @@ header nav a.active::after {
   @apply bg-400 scale-110;
 }
 /* CARD */
-.section_card {
-  margin: clamp(5rem, 3.839rem + 5.804vw, 9.063rem) auto;
-}
-.title_section {
-  @apply text-home-title text-center text-secondary font-primary pt-4;
-}
-.title_container img {
-  @apply mx-auto -top-[5px] relative;
-  width: clamp(6.25rem, -1.25rem + 20vw, 12.5rem);
-}
-.diamonds a {
-  @apply w-full h-full flex justify-center items-center;
-}
-.diamonds li:hover img {
-  @apply lg:blur-sm;
-}
-.diamonds li {
-  @apply flex justify-center items-center overflow-hidden relative text-xl shadow-md md:text-2xl lg:text-3xl cursor-pointer lg:hover:scale-105 ease-in duration-150;
-  width: clamp(6.25rem, 0.134rem + 16.31vw, 14.813rem);
-  height: clamp(6.25rem, 0.134rem + 16.31vw, 14.813rem);
-}
-.diamonds li:hover h2,
-.diamonds li:hover a > div {
-  @apply lg:visible ease-in duration-100 lg:opacity-100;
-}
-.diamonds h2 {
-  @apply lg:invisible lg:opacity-0;
-}
-.diamonds h2,
-.diamonds img {
-  @apply -rotate-45;
-}
-.diamonds img {
-  @apply blur blur-[1px] md:blur-sm lg:blur-0;
-}
-.diamonds img,
-.diamonds li > div {
-  @apply absolute -z-20 max-w-none object-cover top-0 left-0 -translate-y-[15.5%] -translate-x-[15.5%];
-  width: calc(144% * 100 / 100);
-  height: calc(144% * 100 / 100);
-}
-.diamonds li a > div {
-  @apply bg-500/50 -z-10 lg:invisible lg:opacity-0 absolute w-full h-full;
-}
-.diamonds li.bottom {
-  @apply translate-x-full translate-y-full duration-300 opacity-0 invisible;
-}
-.diamonds #card-dessert.bottom {
-  @apply translate-x-0;
-}
-.diamonds li.right {
-  @apply -translate-x-[300%] translate-y-[200%] duration-300 opacity-0 invisible;
-}
-.diamonds li.left {
-  @apply translate-x-[200%] -translate-y-[200%] duration-300 opacity-0 invisible;
-}
-.diamonds #card-starter.left {
-  @apply -translate-y-[300%];
-}
-.diamonds li.top {
-  @apply -translate-y-full -translate-x-[200%] duration-300 opacity-0 invisible;
-}
-.diamonds #card-main.top {
-  @apply -translate-x-full;
-}
-.diamonds li.black {
-  @apply drop-shadow-none;
-}
-.diamonds li.active a > div {
-  @apply bg-500 opacity-100 visible ease-in duration-300;
-}
-.diamonds li.active a > h2 {
-  @apply opacity-0 duration-300;
-}
-.diamonds li.moving {
-  @apply rotate-90 ease-in duration-500 -translate-x-1/2 translate-y-1/2;
-}
-.diamonds #card-dessert.moving,
-#card-menus.moving {
-  @apply -translate-y-1/2;
-}
-
-/*  CARD - OPTIONS */
 .main-content {
-  @apply ease-in duration-500 min-h-full flex-1 flex mt-5 flex-col;
+  @apply min-h-full flex-1 flex flex-col mb-8;
 }
 .main-content section {
-  @apply text-secondary font-primary section_card w-full flex-1 relative max-w-[515px];
+  @apply text-secondary font-primary w-full relative flex-1 flex items-center;
+} 
+.card_grid {
+  @apply grid gap-6 mx-auto justify-center flex-1;
+  grid-template-columns: repeat(auto-fit, minmax(135px, 237px) );
 }
+.card_grid li {
+  @apply overflow-hidden h-[280px];
+}
+.card_grid a {
+  @apply relative;
+}
+.card_grid img {
+  @apply h-full w-full object-cover;
+}
+.card_title-container {
+  @apply text-lg duration-500 h-full w-full absolute top-0 bg-500/50 lg:scale-0 lg:rounded-full;
+}
+.card_title-container h2{
+  @apply relative top-1/2 text-center -translate-y-1/2;
+}
+/*  CARD - OPTIONS */
+
+
 .box {
   @apply bg-500 rotate-45 absolute left-1/2 -translate-x-1/2 translate-y-[64%] duration-500 ease-in -z-10 shadow-md;
 
@@ -265,10 +204,9 @@ header nav a.active::after {
   height: clamp(6.25rem, 0.134rem + 16.31vw, 14.813rem);
 }
 .box.growing {
-  @apply h-[102%] w-fit top-0 translate-y-0 translate-y-0;
+  @apply h-[102%] w-fit top-0 translate-y-0;
 }
 .box.shrink {
-  /* width: clamp(6.25rem, 0.134rem + 16.31vw, 14.813rem); */
   height: clamp(6.25rem, 0.134rem + 16.31vw, 14.813rem);
 }
 .box img {
@@ -429,6 +367,9 @@ header nav a.active::after {
   @apply w-full h-full flex justify-center items-center;
 }
 /* GENERAL */
+.title_section {
+  @apply text-2.25xl lg:text-3xl font-primary mb-16 max-w-[589px] w-11/12 mx-auto lg:mx-auto lg:w-5/6;
+}
 .input_withoutIcon {
   @apply px-2 h-8 w-full;
 }
