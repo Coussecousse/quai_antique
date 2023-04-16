@@ -3,59 +3,26 @@
 {% block subTitle %} - Plats{% endblock %}
 
 {% block section %}
-<div class="main-content">
+<div class="main-content flex-col">
     <section class="" id="section-starter">
-        <div class="box"><img src={{ asset('/images/svg/'~'Rectangle.svg') }} alt=""></img></div>
-        <div class="container-card blank sm-cardButton:flex">
-            <div class="pb-4">
-                <div class="card_titles">
-                    <h2 class="">Desserts</h2>
-                    <img src={{ asset('/images/svg/'~ "line-sub.svg") }} alt="un point entouré de deux traits de longeur égales" class="w-[100px] -mt-2 md:w-[150px]">
-                </div>
+        <fieldset class="w-11/12 mx-auto max-w-[598px] border border-solid border-500 p-3 ">
+            <legend>
+                <h2 class="px-2 text-xl">Desserts</h2>
+            </legend>
                 <ul class="card-items">
-                    <li>
-                        <div>
-                            <h3>Nougat glace et son coulis de myrtilles</h3>
-                            <p class="comment" ></p>
-                        </div>
-                        <p class="price">8,90</p>
-                    </li>
-                    <li>
-                        <div>
-                            <h3>Coupe des montagnes</h3>
-                            <p class="comment" >Glace yaourt, coulis de myrtiles, myrtilles, chantilly</p>
-                        </div>
-                        <p class="price">10,50</p>
-                    </li>
-                    <li>
-                        <div>
-                            <h3>Assortiment de fromages secs de Savoie</h3>
-                            <p class="comment" >Beaufort et Roblochon</p>
-                        </div>
-                        <p class="price">10,80</p>
-                    </li>
-                    <li>
-                        <div>
-                            <h3>Camembert au lait cru flambé</h3>
-                            <p class="comment" ></p>
-                        </div>
-                        <p class="price">19,80</p>
-                    </li>
-                    <li>
-                        <div>
-                            <h3>Fondue Royale</h3>
-                            <p class="comment" >Fondue aux cèpes et Jambon sec de Savoie, mini 2pers, prix par pers</p>
-                        </div>
-                        <p class="price">37,90</p>
-                    </li>
+                    {% for food in foods %}
+                        <li>
+                            <div>
+                                <h3>{{ food.title }}</h3>
+                                <p class="comment" >{{ food.description}}</p>
+                            </div>
+                            <p class="price">{{ food.price|number_format(2, '.', ',') }}</p>
+                        </li>
+                    {% endfor %}
                 </ul>
-            </div>
-            <div class="button-change group sm-cardButton:absolute sm-cardButton:top-1/2 sm-cardButton:-translate-y-1/2 sm-cardButton:-right-[80px] md-cardButton:-right-[135px]" id="back-button"><a href="{{ path('card') }}" class="group-hover:text-secondary"><i class="fa-solid fa-arrow-right"></i></a></button>
-    </div>
+        </fieldset>
     </section>
+    <div class="my-12 h-12 w-[200px] bg-secondary drop-shadow-lg m-auto cursor-pointer flex items-center justify-center hover:bg-400 group duration-150 md:w-[280px] md:h-[70px]" id="card-booking"><a href="" class="text-primary font-secondary group-hover:text-secondary duration-150 text-lg lg:text-xl">Réservez maintenant !</a></div>
+    <a href="{{ path('card') }}" class="card_backLink"><i class="fa-solid fa-arrow-left px-2"></i>Revenir à la sélection</a>
 </div>
-{% endblock %}
-
-{% block scripts %}
-    <script src={{ asset('/js/card/'~'script-options.js') }}></script>
 {% endblock %}

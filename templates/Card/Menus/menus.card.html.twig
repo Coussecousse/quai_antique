@@ -3,68 +3,38 @@
 {% block subTitle %} - Plats{% endblock %}
 
 {% block section %}
-<div class="main-content">
-    <section class="" id="section-starter">
-        <div class="box"><img src={{ asset('/images/svg/'~'Rectangle.svg') }} alt=""></img></div>
-        <div class="container-card blank sm-cardButton:flex sm-cardButton:flex-row">
-            <div class="sm-cardButton:order-last">
-                <div class="card_titles">
-                    <h2 class="">Menus</h2>
-                    <img src={{ asset('/images/svg/'~ "line-sub.svg") }} alt="un point entouré de deux traits de longeur égales" class="w-[100px] -mt-2 md:w-[150px]">
-                </div>
-                <ul class="card-items_menus grid gap-7">
-                    <li>
-                        <h3>Menu du jour</h3>
-                        <ul class="grid gap-4">
-                            <li class="menu-formula">
-                                <div>
-                                    <h4>Formule du travailleur</h4>
-                                    <p class="condition">- Du lundi au samedi midi -</p>
-                                    <p class="content">Entrée du jour, plat du jour, dessert du jour</p>
-                                </div>
-                                <p class="price">30</p>
-                            </li>
-                            <li class="menu-formula">
-                                <div>
-                                    <h4>Formule complète du travailleur</h4>
-                                    <p class="condition">- Du lundi au samedi midi -</p>
-                                    <p class="content">Apéritif, entrée du jour, plat du jour, dessert du jour, vin 38cl, café</p>
-                                </div>
-                                <p class="price">42</p>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <h3>Menu du touriste</h3>
-                        <ul class="grid gap-4">
-                            <li class="menu-formula">
-                                <div>
-                                    <h4>Formule découverte</h4>
-                                    <p class="content">- Assiette de cochonailles</p>
-                                    <p class="content">- L'authentique farçon savoyard maison</p>
-                                    <p class="content">- Assortiment de fromages secs de Savoie</p>
-                                </div>
-                                <p class="price">48</p>
-                            </li>
-                            <li class="menu-formula">
-                                <div>
-                                    <h4>Formule Royale</h4>
-                                    <p class="content">- Escalope de foie gras poêlée au miel</p>
-                                    <p class="content">- Fondue Royale</p>
-                                    <p class="content">- Coupe des montagnes</p>
-                                </div>
-                                <p class="price">67</p>
-                            </li>
-                        </ul>
-                    </li>
+<div class="main-content" id="menu">
+    <section class="flex-col" id="section-starter">
+        <fieldset class="w-11/12 mx-auto max-w-[598px] border border-solid border-500 p-3 ">
+            <legend>
+                <h2 class="px-2 text-xl">Menus</h2>
+            </legend>
+                <ul class="card-items">
+                    {% for key, menu in menus %}
+                        <li class="{{ key > 0 ? "flex-col before:content-[''] before:w-1/2 before:h-px before:bg-500 before:mx-auto" : "flex-col" }}">
+                            <h3 class="text-center text-lg font-primary">{{ menu.title }}</h3>
+                            <ul class="gap-2 flex flex-col">
+                                {% for offer in menu.offers %}
+                                <li class="offer-items">
+                                    <div>
+                                        <h4 class="text-lg font-secondary">{{ offer.title }}</h4>
+                                        <small class="">{{ offer.conditions }}</small>
+                                        <ol class="list-disc list-inside ">
+                                        {% for description in offer.description %}
+                                            <li class="comment">{{ description }}</li>
+                                        {% endfor %}
+                                        </ol>
+                                    </div>
+                                    <p class="price">{{ offer.price|number_format(2, '.', ',') }}</p>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% endfor %}
                 </ul>
-            </div>
-            <div class="button-change group sm-cardButton:absolute sm-cardButton:-top-[30px] md-cardButton:-top-[80px] sm-cardButton:-translate-x-1/2 sm-cardButton:left-1/2" id="back-button"><a href="{{ path('card') }}" class="group-hover:text-secondary"><i class="fa-solid fa-arrow-up"></i></a></button>
-    </div>
-    </section>
+        </fieldset>
+        <div class="my-12 h-12 w-[200px] bg-secondary drop-shadow-lg m-auto cursor-pointer flex items-center justify-center hover:bg-400 group duration-150 md:w-[280px] md:h-[70px]" id="card-booking"><a href="" class="text-primary font-secondary group-hover:text-secondary duration-150 text-lg lg:text-xl">Réservez maintenant !</a></div>
+        <a href="{{ path('card') }}" class="card_backLink"><i class="fa-solid fa-arrow-left px-2"></i>Revenir à la sélection</a>
+    </section> 
 </div>
-{% endblock %}
-
-{% block scripts %}
-    <script src={{ asset('/js/card/'~'script-options.js') }}></script>
 {% endblock %}
