@@ -2,32 +2,31 @@
 
 {% block content_subtitle %}
     <div class="font-secondary text-secondary text-center my-5 text-lg px-4 md:text-xl">
-        <h2 class="">Réinitialiser le mot de passe</h2>
+        <h2 class=""></h2>
     </div>
 {% endblock %}
 
 {% block content %}
+<h1 class="title_section">Réinitialiser le mot de passe</h1>
     {% for flash_error in app.flashes('reset_password_error') %}
         <div class="alert alert-danger error_container" role="alert">{{ flash_error }}</div>
     {% endfor %}
-    <div class="text-secondary font-secondary drop-shadow-lg max-w-[380px] mx-auto bg-500 w-11/12 p-4">
-        {{ form_start(requestForm, {'attr' : { 'class' : ' grid gap-6 p-4'}}) }}
-            <div class="form_container">
-                {{ form_label(requestForm.email) }}
-                <div class="form_inputContainer">
-                    <i class="fa-solid fa-at form_icon"></i>
-                    {{ form_widget(requestForm.email) }}
-                </div>
-                <small class="form_error">
-                    {{ form_errors(requestForm.email)}}
-                </small>
+    {{ form_start(requestForm, {'attr' : { 'class' : 'text-secondary max-w-[589px] w-11/12 mx-auto lg:mx-auto lg:w-5/6 font-secondary border border-solid border-500 p-3 flex flex-col gap-2'}}) }}
+        <div class="label-lg">
+            {{ form_label(requestForm.email) }}
+            <div class="form_inputContainer_2">
+                <i class="fa-solid fa-at form_icon"></i>
+                {{ form_widget(requestForm.email, {'attr' : { 'class' : 'form_input', 'placeholder' : 'Email' }}) }}
             </div>
-            <div>
-                <small class="text-sm leading-3">
+            <small class="form_error">
+                {{ form_errors(requestForm.email)}}
+            </small>
+        </div>
+        <div class="mt-8">
+            <small class="text-sm leading-3">
                 Entrez votre adresse mail pour qu'un lien pour réinitialiser votre mot de passe puisse vous être envoyé.
-                </small>
-            </div>
-            <button class="bg-secondary text-primary mt-4 mb-2 py-2 px-4 w-fit justify-self-center hover:bg-400 duration-150 hover:text-secondary" type="submit">Envoyer</button>
-        {{ form_end(requestForm) }}
-    </div>
+            </small>
+        </div>
+        <button class="bg-secondary text-primary mt-4 mb-2 py-2 px-4 w-fit justify-self-center hover:bg-400 duration-150 hover:text-secondary" type="submit">Envoyer</button>
+    {{ form_end(requestForm) }}
 {% endblock %}

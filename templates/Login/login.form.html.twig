@@ -1,8 +1,14 @@
 {% extends 'Login/login.html.twig' %}
 
 {% block content %}
-<section class="my-8 md:my-12 flex flex-col md:max-w-[900px] w-11/12 mx-auto items-center ">
-    {% if ((login == 1) or (login == 2)) %} 
+<h1 class="title_section">Connexion</h1>
+{# {% if error %}
+    <div class="error_container text-sm">{{ error }}</div>
+{% endif %}
+{% if success %}
+    <div class="success_container text-sm">{{ success }}</div>
+{% endif %} #}
+{# {% if ((login == 1) or (login == 2)) %} 
     <div class="reset_password_success">
         {% if (login == 1) %}
             <p>Mot de passe modifié avec succès !</p>
@@ -12,51 +18,41 @@
         {% endif %}
         <button class=" bg-secondary text-primary mt-4 rounded-full w-9 h-9 flex justify-center items-center justify-self-center hover:bg-400 duration-150 hover:text-secondary mx-auto" id="reset_success" onclick="closeResetPassword(event)"><i class="fa-solid fa-check"></i></button>
     </div> 
-
-    {% endif %}
-    {% if error %}
-        <div class="error_container">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
-    <div class="flex w-full">
-        <div class="text-secondary font-secondary drop-shadow-lg max-w-[380px] md:max-w-none md:flex-1 mx-auto lg:min-h-[480px]">
-            <div class="bg-500 p-4 lg:h-[70%] lg:flex lg:flex-col lg:justify-center">
-                <form action="{{ path('login') }}" method="post" class="grid gap-6">
-                    <div class="form_container">
-                        <label for="username">Email :</label>
-                        <div class="form_inputContainer">
-                            <i class="fa-solid fa-at form_icon"></i>
-                            <input type="text" id="username" name="_username" value="{{ last_email }}">
-                        </div>
-                    </div>
-                    <div class="form_container">
-                        <label for="password">Mot de passe :</label>
-                        <div class="form_inputContainer">
-                            <i class="fa-solid fa-lock form_icon"></i>
-                            <input type="password" id="password" name="_password">
-                            <span role="button" onclick="togglePassword(event)" class="w-[36px]">
-                                <i class="fa-solid fa-eye hide button-full" ></i>
-                                <i class="fa-solid fa-eye-slash button-full"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="flex flex-col md:flex-row md:items-center justify-between">
-                        <label >
-                            <input class="mr-2" type="checkbox" name="_remember_me" checked/> Se souvenir de moi
-                        </label>
-                        <a href={{ path('app_forgot_password_request') }} class="text-sm hover:underline duration-75">Mot de passe oublié ?</a>
-                    </div>
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                    <button type="submit" class=" bg-secondary text-primary mt-4 mb-2 py-2 px-4 w-fit justify-self-center hover:bg-400 duration-150 hover:text-secondary">Se connecter</button>
-
-                </form>
-            </div>
-            <div class="bg-400 text-center py-5 text-primary lg:h-[30%] lg:flex lg:flex-col lg:justify-center">
-                <p class="mb-2">Pas de compte ? </p>
-                <a href={{ path ('sign_up') }} class="underline underline-offset-2 hover:text-secondary duration-150">Créez-en un !</a>
-            </div>
+{% endif %} #}
+{% if error %}
+    <div class="error_container text-sm">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+{% endif %}
+<form action="{{ path('login') }}" method="post" class="text-secondary max-w-[589px] w-11/12 mx-auto lg:mx-auto lg:w-5/6 font-secondary border border-solid border-500 p-3 flex flex-col gap-2">
+    <div class="label-lg">
+        <label for="username">Email :</label>
+        <div class="form_inputContainer_2">
+            <i class="fa-solid fa-at form_icon"></i>
+            <input type="text" id="username" class="form_input" name="_username" value="{{ last_email }}" placeholder="Email">
         </div>
-        <div class="hidden md:block image_login form_image"></div>
     </div>
-</section>
+    <div class="label-lg">
+        <label for="password">Mot de passe :</label>
+        <div class="form_inputContainer_2">
+            <i class="fa-solid fa-lock form_icon"></i>
+            <input type="password" id="password" class="form_input" name="_password" placeholder="Mot de passe">
+            <span role="button" onclick="togglePassword(event)" class="w-[36px]">
+                <i class="fa-solid fa-eye hide button-full" ></i>
+                <i class="fa-solid fa-eye-slash button-full"></i>
+            </span>
+        </div>
+    </div>
+    <div class="flex flex-col md:flex-row md:items-center justify-between">
+        <label >
+            <input class="mr-2" type="checkbox" name="_remember_me" checked/> Se souvenir de moi
+        </label>
+        <a href={{ path('app_forgot_password_request') }} class="text-sm hover:underline duration-75">Mot de passe oublié ?</a>
+    </div>
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+    <button type="submit" class=" bg-secondary text-primary mt-4 mb-2 py-2 px-4 w-fit justify-self-center hover:bg-400 duration-150 hover:text-secondary">Se connecter</button>
+</form>
+<div class="max-w-[589px] mt-8 py-4 text-center w-11/12 mx-auto lg:w-5/6 font-secondary border border-solid border-400 text-secondary">
+    <p class="text-lg font-primary">Pas de compte ? </p>
+    <a href="{{ path ('sign_up') }}" class="text-center w-11/12 mx-auto underline underline-offset-2 duration-150">Créez-en un !</a>
+</div>
     
 {% endblock %}

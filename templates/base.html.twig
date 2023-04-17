@@ -63,7 +63,8 @@
 							</li>
 						{% else %}
 							<li>
-								<a href={{ path('login') }} class="{{ app.request.attributes.get('_route') == 'login' ? 'active' : null }}">Connexion</a>
+								<a href={{ path('login') }} class="{{ (app.request.attributes.get('_route') == 'login' or app.request.attributes.get('_route') == 'app_forgot_password_request'
+																	 or app.request.attributes.get('_route') == 'app_check_email' or app.request.attributes.get('_route') == 'app_reset_password') ? 'active' : null }}">Connexion</a>
 							</li>
 							<li>
 								<a href={{ path('sign_up') }} class="{{ app.request.attributes.get('_route') == 'sign_up' ? 'active' : null }}">Inscription</a>

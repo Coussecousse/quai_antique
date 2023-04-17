@@ -1,43 +1,36 @@
 {% extends 'Login/login.html.twig' %}
 
-{% block content_subtitle %}
-    <div class="font-secondary text-secondary text-center my-5 text-lg px-4 md:text-xl">
-        <h2 class="">Réinitialiser le mot de passe</h2>
-    </div>
-{% endblock %}
-
 {% block content %}
-    <div class="text-secondary font-secondary drop-shadow-lg max-w-[380px] mx-auto bg-500 w-11/12 p-4">
-        {{ form_start(resetForm, {'attr' : { 'class' : 'p-4 grid gap-6'}}) }}
-            <div class="form_container">
-                {{ form_label(resetForm.plainPassword.first) }}
-                <div class="form_inputContainer form_icon">
-                    <i class="fa-solid fa-lock"></i>
-                    {{ form_widget(resetForm.plainPassword.first) }}
-                    <span role="button" onclick="togglePassword(event)" class="w-[36px]">
-                        <i class="fa-solid fa-eye button-full hide" ></i>
-                        <i class="fa-solid fa-eye-slash button-full"></i>
-                    </span>
-                </div>
-                <small class="form_error">
-                    {{ form_errors(resetForm.plainPassword.first)}}
-                </small>
-            </div>
-            <div class="form_container">
-                {{ form_label(resetForm.plainPassword.second) }}
-                <div class="form_inputContainer form_icon">
-                    <i class="fa-solid fa-lock"></i>
-                    {{ form_widget(resetForm.plainPassword.second) }}
-                    <span role="button" onclick="togglePassword(event)" class="w-[36px]">
-                        <i class="fa-solid fa-eye button-full hide" ></i>
-                        <i class="fa-solid fa-eye-slash button-full"></i>
-                    </span>
-                </div>
-                <small class="form_error">
-                    {{ form_errors(resetForm.plainPassword.second)}}
-                </small>
-            </div>
-            <button class="bg-secondary text-primary mt-4 mb-2 py-2 px-4 w-fit justify-self-center hover:bg-400 duration-150 hover:text-secondary" type="submit">Réinitialiser le mot de passe</button>
-        {{ form_end(resetForm) }}
+<h1 class="title_section">Réinitialiser le mot de passe</h1>
+{{form_start(resetForm, {'attr' : { 'class' : 'text-secondary max-w-[589px] w-11/12 mx-auto lg:mx-auto lg:w-5/6 font-secondary border border-solid border-500 p-3 flex flex-col gap-2'}}) }}
+    <div class="label-lg">
+        {{ form_label(resetForm.plainPassword.first) }}
+        <div class="form_inputContainer_2">
+            <i class="fa-solid fa-lock form_icon"></i>
+            {{ form_widget(resetForm.plainPassword.first, { 'attr' : { 'class' : 'form_input' }}) }}
+            <span role="button" onclick="togglePassword(event)" class="w-[36px]">
+                <i class="fa-solid fa-eye button-full hide" ></i>
+                <i class="fa-solid fa-eye-slash button-full"></i>
+            </span>
+        </div>
+        <small class="form_error">
+            {{ form_errors(resetForm.plainPassword.first)}}
+        </small>
     </div>
+    <div class="label-lg">
+        {{ form_label(resetForm.plainPassword.second) }}
+        <div class="form_inputContainer_2">
+            <i class="fa-solid fa-lock form_icon"></i>
+            {{ form_widget(resetForm.plainPassword.second, { 'attr' : { 'class' : 'form_input' }}) }}
+            <span role="button" onclick="togglePassword(event)" class="w-[36px]">
+                <i class="fa-solid fa-eye button-full hide" ></i>
+                <i class="fa-solid fa-eye-slash button-full"></i>
+            </span>
+        </div>
+        <small class="form_error">
+            {{ form_errors(resetForm.plainPassword.second)}}
+        </small>
+    </div>
+    <button class="bg-secondary text-primary mt-4 mb-2 py-2 px-4 w-fit justify-self-center hover:bg-400 duration-150 hover:text-secondary" type="submit">Réinitialiser le mot de passe</button>
+{{ form_end(resetForm) }}
 {% endblock %}

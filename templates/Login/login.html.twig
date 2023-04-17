@@ -6,39 +6,8 @@
     <main class="pt-24 flex justify-evenly form_main" id="login">
         <section class="w-full lg:w-[45%] mb-16 ">
             <div class="w-full mx-auto relative flex flex-col top-1/2 -translate-y-1/2">
-                <h1 class="title_section">Connexion</h1>
-                <form action="{{ path('login') }}" method="post" class="text-secondary max-w-[589px] w-11/12 mx-auto lg:mx-auto lg:w-5/6 font-secondary border border-solid border-500 p-3 flex flex-col gap-2">
-                    <div class="label-lg">
-                        <label for="username">Email :</label>
-                        <div class="form_inputContainer_2">
-                            <i class="fa-solid fa-at form_icon"></i>
-                            <input type="text" id="username" class="form_input" name="_username" value="{{ last_email }}" placeholder="Email">
-                        </div>
-                    </div>
-                    <div class="label-lg">
-                        <label for="password">Mot de passe :</label>
-                        <div class="form_inputContainer_2">
-                            <i class="fa-solid fa-lock form_icon"></i>
-                            <input type="password" id="password" class="form_input" name="_password" placeholder="Mot de passe">
-                            <span role="button" onclick="togglePassword(event)" class="w-[36px]">
-                                <i class="fa-solid fa-eye hide button-full" ></i>
-                                <i class="fa-solid fa-eye-slash button-full"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="flex flex-col md:flex-row md:items-center justify-between">
-                        <label >
-                            <input class="mr-2" type="checkbox" name="_remember_me" checked/> Se souvenir de moi
-                        </label>
-                        <a href={{ path('app_forgot_password_request') }} class="text-sm hover:underline duration-75">Mot de passe oublié ?</a>
-                    </div>
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                    <button type="submit" class=" bg-secondary text-primary mt-4 mb-2 py-2 px-4 w-fit justify-self-center hover:bg-400 duration-150 hover:text-secondary">Se connecter</button>
-                </form>
-                <div class="max-w-[589px] mt-8 py-4 text-center w-11/12 mx-auto lg:w-5/6 font-secondary border border-solid border-400 text-secondary">
-                    <p class="text-lg font-primary">Pas de compte ? </p>
-                    <a href="{{ path ('sign_up') }}" class="text-center w-11/12 mx-auto underline underline-offset-2 duration-150">Créez-en un !</a>
-                </div>
+                {% block content %}
+                {% endblock %}
             </div>
         </section>
         <div class="-z-10 2xl:w-[70%] hidden lg:block w-[55%] reservation_container login_image relative"></div>

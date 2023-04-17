@@ -15,7 +15,6 @@ class LoginController extends AbstractController
     #[Route('/login/{login}', name: 'login')]
     public function index(AuthenticationUtils $authenticationUtils, Request $request, $login = 0): Response
     {
-        dump($this->getUser());
         // get the login error if there's one 
         $error = $authenticationUtils->getLastAuthenticationError();
 
@@ -24,9 +23,9 @@ class LoginController extends AbstractController
         $form = $this->createForm(LoginType::class);
         $form->handleRequest($request);
 
-        return $this->render('Login/login.html.twig', [
-            'last_email' => $lastEmail,
-            'error' => $error,
+        return $this->render('Login/login.form.html.twig', [
+            'last_email' => $lastEmail ?? null,
+            'error' => $error ?? null,
             "login" => $login,
         ]);
         
