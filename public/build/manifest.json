@@ -70,5 +70,8 @@
   "build/images/svg/line-white.svg": "/build/images/svg/line-white.svg",
   "build/images/svg/hamburger-close.svg": "/build/images/svg/hamburger-close.svg",
   "build/images/svg/hamburger-open.svg": "/build/images/svg/hamburger-open.svg",
-  "build/images/svg/Rectangle.svg": "/build/images/svg/Rectangle.svg"
+  "build/images/svg/Rectangle.svg": "/build/images/svg/Rectangle.svg",
+  "build/images/contact-medium.jpg": "/build/images/contact-medium.63a3162e.jpg",
+  "build/images/contact-large.jpg": "/build/images/contact-large.551cf342.jpg",
+  "build/images/contact-extraLarge.jpg": "/build/images/contact-extraLarge.8648627b.jpg"
 }

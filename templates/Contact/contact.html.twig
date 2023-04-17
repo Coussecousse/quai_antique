@@ -4,14 +4,61 @@
 {% endblock %}
 
 {% block body %}
-	<main class="pt-24">
-		<div class="title_container">
-			<h1 class="title_section">Contact</h1>
-			<img src={{ asset('/images/svg/'~ "line-white.svg") }} alt="un point entouré de deux traits de longeur égales" class="w-[100px]">
-			{% block contact_title %}
-			{% endblock %}
-		</div>
-		{% block content %}
-		{% endblock %}
+	<main class="pt-24 flex justify-evenly">
+		<div class="-z-10 2xl:w-[70%] hidden lg:block w-[55%] reservation_container contact_image relative"></div>
+		<section class="w-full lg:w-[45%] mb-16">
+			<div class="w-full mx-auto relative top-1/2 -translate-y-1/2">
+				<h1 class="title_section text-secondary">Pour nous contacter</h1>
+				<div class="font-secondary text-secondary text-center my-5 text-lg px-4 ">
+					<p>Une demande spécifique ?</p>
+					<p>Contactez directement notre équipe !</p>
+				</div>
+				{% if result == "error" %}
+					<div class="error_container text-sm">
+						<p class="">Une erreur est survenue lors de l'envoie du formulaire de contact.</p>
+						<p>Nous vous invitons à prendre contact directement avec nous.</p>
+						<p class="mt-4">Veuillez nous excuser pour la gêne occasionnée.</p>
+					</div>
+				{% endif %}
+				{% if result == "success" %}
+					<div class="success_container text-sm">
+						<p class="mb-4">Message envoyé avec succès !</p>
+						<p>Notre équpe se mettra en contact avec vous le plus rapidement possible.</p>
+					</div>
+				{% endif %}
+				{{ form_start(form, { 'attr' : { 'class' : 'text-secondary max-w-[589px] w-11/12 mx-auto lg:mx-auto lg:w-5/6 font-secondary border border-solid border-500 p-3 flex flex-col gap-2'}}) }}
+					<div class="label-lg">
+						{{ form_label(form.name) }}
+						<div class="form_inputContainer_2">
+							<i class="fa-solid fa-user form_icon"></i>
+							{{ form_widget(form.name, { 'attr' : { "class": "form_input",'placeholder' : 'Nom Prenom'}}) }}
+						</div>
+						<small class="form_error">
+							{{ form_errors(form.name)}}
+						</small>
+					</div>
+					<div class="label-lg">
+						{{ form_label(form.tel) }}
+						<div class="form_inputContainer_2">
+							<i class="fa-solid fa-phone form_icon"></i>
+							{{ form_widget(form.tel, { 'attr': {'class': "form_input", 'placeholder': '0123456789'}}) }}
+						</div>
+						<small class="form_error">
+							{{ form_errors(form.tel)}}
+						</small>
+					</div>
+					<div class="flex flex-col label-lg">
+						{{ form_label(form.message) }}
+						{{ form_widget(form.message, { 'attr': {'class': " placeholder:text-secondary/50 p-2 min-h-[190px] bg-500", 'placeholder': 'Écrivez nous un message ici !', 
+														'min' : '20', 'max' : '450'}}) }}
+						<small class="form_error">
+							{{ form_errors(form.message)}}
+						</small>
+					</div>
+            		<button type="submit" class="bg-secondary text-primary w-fit p-3 mt-5 hover:bg-400 hover:text-secondary duration-150">Envoyer<i class="fa-solid fa-paper-plane pl-2"></i></button>
+            	{{ form_end(form) }}
+			</div>
+
+		</section>
 	</main>
 {% endblock %}

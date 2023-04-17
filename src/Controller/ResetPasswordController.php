@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Yaml\Yaml;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\ResetPassword\Controller\ResetPasswordControllerTrait;
 use SymfonyCasts\Bundle\ResetPassword\Exception\ResetPasswordExceptionInterface;
@@ -157,8 +158,11 @@ class ResetPasswordController extends AbstractController
             return $this->redirectToRoute('app_check_email');
         }
 
+        $datas = Yaml::parseFile($this->getParameter('data'));
+        $emailRestaurant = $datas['email'];
+        
         $email = (new TemplatedEmail())
-            ->from('restaurant@quai-antique.fr')
+            ->from($emailRestaurant)
             ->to($user->getEmail())
             ->subject('Réinitialiser votre mot de passe.')
             ->htmlTemplate('reset_password/email.html.twig')

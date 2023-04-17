@@ -20,6 +20,7 @@ use Symfony\Component\Mime\Crypto\DkimSigner;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bridge\Twig\Mime\WrappedTemplatedEmail;
+use Symfony\Component\Yaml\Yaml;
 use Twig\Environment;
 
 class UserController extends AbstractController 
@@ -157,9 +158,12 @@ class UserController extends AbstractController
         $key = file_get_contents('../dkim/dkim.private.key');
         $signer = new DkimSigner($key, 'quai-antique.fr', 'default');
 
+        $datas = Yaml::parseFile($this->getParameter('data'));
+        $emailRestaurant = $datas['email'];
+        
         $email = (new TemplatedEmail())        
-            ->from('restaurant@quai-antique.fr')   
-            ->to($email)
+            ->from($emailRestaurant)   
+            ->to($emailRestaurant)
             ->subject("Validez votre compte sur le site du Quai Antique !");
 
         $html = $this->render('SignUp/mail/email.html.twig',[

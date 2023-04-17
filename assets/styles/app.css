@@ -24,7 +24,15 @@ a {
   @apply w-full h-full items-center justify-center;
   display: flex !important;
 }
-
+.form_inputContainer_2 {
+  @apply h-8 flex items-center bg-500 relative;
+}
+.form_input {
+  @apply pl-2 w-full bg-500 placeholder:text-secondary/50;
+}
+.label-lg label {
+  @apply text-lg;
+}
 /* HEADER */
 header nav a {
   position: relative;
@@ -586,6 +594,14 @@ header nav a.active::after {
     transform: rotate(360deg);
   }
 }
+/* CONTACT */
+.contact_image {
+  background:  linear-gradient(90deg, rgba(23,21,21,0) 75%, rgba(23,21,21,1) 100%),
+    linear-gradient(0deg, rgba(23, 21, 21, 0) 75%, rgba(23, 21, 21, 1) 100%),
+    center / cover no-repeat
+      url("../../public/images/contact/contact-medium.jpg"),
+    linear-gradient(rgba(23, 21, 21, 0) 75%, rgb(23, 21, 21));
+}
 
 /* ADMIN RESERVATIONS */
 .admin_reservations_grid {
@@ -637,21 +653,6 @@ header nav a.active::after {
   footer div:nth-child(2) div {
     gap: clamp(1rem, -3.215rem + 8.781vw, 4.688rem);
   }
-  .reservation_image {
-    background: linear-gradient(
-        90deg,
-        rgba(23, 21, 21, 1) 0%,
-        linear-gradient(
-          0deg,
-          rgba(23, 21, 21, 0) 75%,
-          rgba(23, 21, 21, 1) 100%
-        ),
-        rgba(23, 21, 21, 0) 25%
-      ),
-      linear-gradient(rgba(23, 21, 21, 0) 75%, rgb(23, 21, 21)),
-      center / cover no-repeat
-        url("../../public/images/reservation/reservation-medium.jpg");
-  }
   .image {
     background: linear-gradient(rgba(23, 21, 21, 0) 50%, rgb(23, 21, 21)),
       center 61% / cover no-repeat
@@ -686,6 +687,13 @@ header nav a.active::after {
       center / cover no-repeat
         url("../../public/images/reservation/reservation-large.jpg");
   }
+  .contact_image {
+    background:  linear-gradient(90deg, rgba(23,21,21,0) 75%, rgba(23,21,21,1) 100%),
+    linear-gradient(0deg, rgba(23, 21, 21, 0) 75%, rgba(23, 21, 21, 1) 100%),
+    center / cover no-repeat
+      url("../../public/images/contact/contact-large.jpg"),
+    linear-gradient(rgba(23, 21, 21, 0) 75%, rgb(23, 21, 21));
+  }
 }
 @media screen and (min-width: 1300px) {
   .image {
@@ -712,8 +720,14 @@ header nav a.active::after {
       center / cover no-repeat
         url("../../public/images/reservation/reservation-extraLarge.jpg");
   }
+  .contact_image {
+    background:  linear-gradient(90deg, rgba(23,21,21,0) 75%, rgba(23,21,21,1) 100%),
+    linear-gradient(0deg, rgba(23, 21, 21, 0) 75%, rgba(23, 21, 21, 1) 100%),
+    center / cover no-repeat
+      url("../../public/images/contact/contact-extraLarge.jpg"),
+    linear-gradient(rgba(23, 21, 21, 0) 75%, rgb(23, 21, 21));
+  }
 }
-
 
 @media print {
   .no_print {

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+    <div class="parent">
+        <div class="container">
+            <div class="logo">
+                <img src="https://quai-antique.fr/images/svg/logo-white.svg" alt="Logo Quai Antique en inscription avec des montagnes derrière.">
+            </div>
+            <h1>Bonjour,</h1>
+
+            <p>Un message vous a été envoyé :</p>
+
+            <p>De : {{ name }}</p>
+            <p>Téléphone : <a href="{{'tel:'~ tel }}">{{ tel }}</a></p>
+
+            <p>Message :</p>
+            <p>{{ message }}</p>
+        </div>
+    </div>               
+</html>             
+                
+
+                
+<style>
+.parent {
+    background : rgb(247,249,250);
+    padding : 24px;
+    max-width : 500px;
+    margin : 0 auto;
+}
+.logo {
+    border-bottom: 1px solid #CCCCCC;
+    padding : 24px;
+    background : rgb(23, 21, 21);
+}
+img {
+    height : 100%;
+    max-height: 90px;
+    width: auto;
+}
+.container {
+    font-family : serif;
+    width: 100%;
+    background : #fff;
+}
+a {
+    white-space: nowrap;
+}
+.button {   
+    display : inline-block;
+    white-space: nowrap;
+    margin : 24px 0; 
+    background : rgb(23, 21, 21);
+    text-align: center;
+    padding : 14px 12px;
+    color : rgb(249, 246, 240);
+    text-decoration : none;
+    position: relative;
+    left : 50%;
+    transform: translateX(-50%);
+}
+
+.code {
+    background : rgb(247,249,250);
+    padding : 8px;
+    letter-spacing : 0.2rem;
+    text-align: center;
+}
+
+</style>
