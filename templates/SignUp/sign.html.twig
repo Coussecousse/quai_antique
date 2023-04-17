@@ -3,15 +3,15 @@
 {% block title %} Inscription{% endblock %}
 
 {% block body %}
-    <main class="pt-24 flex flex-col justify-evenly" id="sign-up">
-        <div class="title_container bg-primary">
-            <h1 class="title_section">Inscription</h1>
-            <img src={{ asset('/images/svg/'~ "line-white.svg") }} alt="un point entouré de deux traits de longeur égales" class="w-[100px]">
-            {% block content_subtitle %}
-            {% endblock %}
-        </div>
-        {% block content %}
-        {% endblock %}
+    <main class="pt-24 flex justify-evenly" id="sign-up">
+        <section class="w-full lg:w-[45%] mb-16">
+            <div class="title_container bg-primary">
+                <h1 class="title_section">Inscription</h1>
+                {% block content_subtitle %}
+                {% endblock %}
+            </div>
+        </section>
+        <div class="-z-10 2xl:w-[70%] hidden lg:block w-[55%] reservation_container contact_image relative"></div>
     </main>
 {% endblock %}
 {% block scripts %}

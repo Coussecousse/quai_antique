@@ -24,7 +24,7 @@ class LoginController extends AbstractController
         $form = $this->createForm(LoginType::class);
         $form->handleRequest($request);
 
-        return $this->render('Login/login.form.html.twig', [
+        return $this->render('Login/login.html.twig', [
             'last_email' => $lastEmail,
             'error' => $error,
             "login" => $login,

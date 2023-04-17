@@ -73,5 +73,7 @@
   "build/images/svg/Rectangle.svg": "/build/images/svg/Rectangle.svg",
   "build/images/contact-medium.jpg": "/build/images/contact-medium.63a3162e.jpg",
   "build/images/contact-large.jpg": "/build/images/contact-large.551cf342.jpg",
-  "build/images/contact-extraLarge.jpg": "/build/images/contact-extraLarge.8648627b.jpg"
+  "build/images/contact-extraLarge.jpg": "/build/images/contact-extraLarge.8648627b.jpg",
+  "build/images/login-large.jpg": "/build/images/login-large.2571eded.jpg",
+  "build/images/login-extraLarge.jpg": "/build/images/login-extraLarge.fdd17ec3.jpg"
 }

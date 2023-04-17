@@ -9,17 +9,6 @@
     </div>
 {% endblock %}
 {% block content %} 
-    {# {% if error %}
-        <div>
-            {% if (error == 1062) %}
-            <p>Une erreur est survenue :</p>
-            <p>L'email que vous avez entré est déjà associé à un compte existant.</p>
-            {% else %}
-            <p>Une erreur est survenue.</p>
-            <p>Nous vous invitons à prendre contact directement avec nous.</p>
-            {% endif %}
-        </div>
-    {% endif %} #}
     {% if error %}
         <div class="alert alter-danger error_container">{{ error }}</div>
     {% endif %}

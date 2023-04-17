@@ -79,7 +79,7 @@ header nav a.active::after {
 }
 
 /* HOME */
-.image {
+.home_image {
   background: linear-gradient(rgba(23, 21, 21, 0) 50%, rgb(23, 21, 21)),
     center / cover no-repeat url("../../public/images/home/home-small.webp");
 }
@@ -304,7 +304,7 @@ header nav a.active::after {
 }
 /* FORM */
 .form_main {
-  min-height: calc(100vh - 164px - 2rem);
+  min-height: calc(100vh - 164px);
 }
 .form_image {
   @apply w-3/5 max-w-[600px];
@@ -337,9 +337,16 @@ header nav a.active::after {
 }
 
 /* LOGIN */
-.image_login {
-  background: center / cover no-repeat
-    url("../../public/images/login/login-medium.jpg");
+.login_image {
+  background: linear-gradient(
+    90deg,
+    rgba(23, 21, 21, 1) 0%,
+    rgba(23, 21, 21, 0) 25%
+  ),
+    linear-gradient(0deg, rgba(23, 21, 21, 0) 75%, rgba(23, 21, 21, 1) 100%),
+    center / cover no-repeat
+      url("../../public/images/login/login-medium.jpg"),
+    linear-gradient(rgba(23, 21, 21, 0) 75%, rgb(23, 21, 21));
 }
 .reset_password_success {
   @apply absolute bg-primary p-4 text-secondary font-secondary top-1/2 left-1/2 -translate-x-1/2 z-10 w-10/12 max-w-[280px] duration-75 text-center;
@@ -372,7 +379,7 @@ header nav a.active::after {
 }
 /* GENERAL */
 .title_section {
-  @apply text-2.25xl lg:text-3xl font-primary mb-16 max-w-[589px] w-11/12 mx-auto lg:mx-auto lg:w-5/6;
+  @apply text-secondary text-2.25xl lg:text-3xl font-primary mb-16 max-w-[589px] w-11/12 mx-auto lg:mx-auto lg:w-5/6;
 }
 .input_withoutIcon {
   @apply px-2 h-8 w-full;
@@ -653,7 +660,7 @@ header nav a.active::after {
   footer div:nth-child(2) div {
     gap: clamp(1rem, -3.215rem + 8.781vw, 4.688rem);
   }
-  .image {
+  .home_image {
     background: linear-gradient(rgba(23, 21, 21, 0) 50%, rgb(23, 21, 21)),
       center 61% / cover no-repeat
         url("../../public/images/home/home-medium.webp");
@@ -663,7 +670,7 @@ header nav a.active::after {
   }
 }
 @media screen and (min-width: 992px) {
-  .image {
+  .home_image {
     background: linear-gradient(rgba(23, 21, 21, 0) 50%, rgb(23, 21, 21)),
       center 61% / cover no-repeat
         url("../../public/images/home/home-large.webp");
@@ -694,9 +701,20 @@ header nav a.active::after {
       url("../../public/images/contact/contact-large.jpg"),
     linear-gradient(rgba(23, 21, 21, 0) 75%, rgb(23, 21, 21));
   }
+  .login_image {
+    background: linear-gradient(
+      90deg,
+      rgba(23, 21, 21, 1) 0%,
+      rgba(23, 21, 21, 0) 25%
+    ),
+    linear-gradient(0deg, rgba(23, 21, 21, 0) 75%, rgba(23, 21, 21, 1) 100%),
+    center / cover no-repeat
+      url("../../public/images/login/login-large.jpg"),
+    linear-gradient(rgba(23, 21, 21, 0) 75%, rgb(23, 21, 21));
+  }
 }
 @media screen and (min-width: 1300px) {
-  .image {
+  .home_image {
     background: linear-gradient(rgba(23, 21, 21, 0) 50%, rgb(23, 21, 21)),
       center 61% / cover no-repeat
         url("../../public/images/home/home-extraLarge.webp");
@@ -725,6 +743,17 @@ header nav a.active::after {
     linear-gradient(0deg, rgba(23, 21, 21, 0) 75%, rgba(23, 21, 21, 1) 100%),
     center / cover no-repeat
       url("../../public/images/contact/contact-extraLarge.jpg"),
+    linear-gradient(rgba(23, 21, 21, 0) 75%, rgb(23, 21, 21));
+  }
+  .login_image {
+    background: linear-gradient(
+      90deg,
+      rgba(23, 21, 21, 1) 0%,
+      rgba(23, 21, 21, 0) 25%
+    ),
+    linear-gradient(0deg, rgba(23, 21, 21, 0) 75%, rgba(23, 21, 21, 1) 100%),
+    center / cover no-repeat
+      url("../../public/images/login/login-extraLarge.jpg"),
     linear-gradient(rgba(23, 21, 21, 0) 75%, rgb(23, 21, 21));
   }
 }
