@@ -19,7 +19,7 @@
         
             <p><b>Si vous n'êtes pas à l'origine de cette demande d'inscription, veuillez ignorer ce message.</b></p>
     
-            <p>Pour tout autre soucis, vous pouvez nous contacter par mail :<a href="mailto:"> lorem@ipsum.fr </a> ou téléphone : <a href="tel:+123456789">+33 1 23 45 67 89</a>.
+            <p>Pour tout autre soucis, vous pouvez nous contacter par mail :<a href="{{ 'mailto:'~ emailRestaurant }}"> {{emailRestaurant}}</a> ou téléphone : <a href="{{ 'tel:+33'~ tel|slice(1)|replace({' ' : ''}) }}">+33 {{ tel|slice(1) }}</a>.
         
             <p>Cordialement,</p>
         

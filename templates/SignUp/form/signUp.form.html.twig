@@ -9,59 +9,60 @@
     </div>
 {% endblock %}
 {% block content %} 
+    <h1 class="title_section">Inscription</h1>
+    <div class="font-secondary text-secondary text-center my-5 text-lg px-4 ">
+		<p>Envie de devenir un habitué ?</p>
+        <p>Alors inscrivez vous !</p>
+    </div>
     {% if error %}
-        <div class="alert alter-danger error_container">{{ error }}</div>
+        <div class="text-sm error_container">{{ error }}</div>
     {% endif %}
-    <section class="my-8 md:my-12 flex md:max-w-[900px] w-11/12 mx-auto items-center ">
-            <div class="flex w-full">
-                <div class="hidden md:block image_sign-up form_image"></div>
-                <div class="text-secondary font-secondary drop-shadow-lg max-w-[380px] md:max-w-none md:flex-1 mx-auto">
-                    {{ form_start(form, {'attr' : { 'class' : 'bg-500 p-4 grid gap-6'}}) }}
-                        <div class="form_container">
-                            {{ form_label(form.email) }}
-                            <div class="form_inputContainer">
-                                <i class="fa-solid fa-at form_icon"></i>
-                                {{ form_widget(form.email) }}
-                            </div>
-                            <div>
-                                {{ form_errors(form.email)}}
-                            </div>
-                        </div>
-                        <div class="form_container">
-                            {{ form_label(form.password) }}
-                            <div class="form_inputContainer">
-                                <i class="fa-solid fa-lock form_icon"></i>
-                                {{ form_widget(form.password) }}
-                                <span role="button" onclick="togglePassword(event)" class="w-[36px]">
-                                    <i class="fa-solid fa-eye button-full hide" ></i>
-                                    <i class="fa-solid fa-eye-slash button-full"></i>
-                                </span>
-                            </div>
-                            <div>
-                                {{ form_errors(form.password)}}
-                            </div>
-                        </div>
-                        <div class="form_container">
-                            {{ form_label(form.confirm) }}
-                            <div class="form_inputContainer">
-                                <i class="fa-solid fa-lock form_icon"></i>
-                                {{ form_widget(form.confirm) }}
-                                <span role="button" onclick="togglePassword(event)" class="w-[36px]">
-                                    <i class="fa-solid fa-eye hide button-full"></i>
-                                    <i class="fa-solid fa-eye-slash button-full"></i>
-                                </span>                            
-                            </div>
-                            <div>
-                                {{ form_errors(form.confirm)}}
-                            </div>
-                        </div>
-                        <button type="submit" class=" bg-secondary text-primary mt-4 mb-2 py-2 px-4 w-fit justify-self-center hover:bg-400 duration-150 hover:text-secondary">Inscription</button>
-                    {{ form_end(form) }}
-                    <div class="bg-400 text-center py-5 text-primary">
-                        <p class="mb-2">Déjà un compte ? </p>
-                        <a href={{ path ('login') }} class="underline underline-offset-2 hover:text-secondary duration-150">Connectez vous !</a>
-                    </div>
-                </div>
+
+    {{ form_start(form, {'attr' : { 'class' : 'text-secondary max-w-[589px] w-11/12 mx-auto lg:mx-auto lg:w-5/6 font-secondary border border-solid border-500 p-3 flex flex-col gap-2'}}) }}
+        <div class="label-lg">
+            {{ form_label(form.email) }}
+            <div class="form_inputContainer_2">
+                <i class="fa-solid fa-at form_icon"></i>
+                {{ form_widget(form.email, { 'attr' : { 'class' : 'form_input', 'placeholder' : 'Email'}}) }}
             </div>
-        </section>
+            <small class="form_error">
+                {{ form_errors(form.email)}}
+            </small>
+        </div>
+        <div class="label-lg">
+            {{ form_label(form.password) }}
+            <div class="form_inputContainer_2">
+                <i class="fa-solid fa-lock form_icon"></i>
+                {{ form_widget(form.password, { 'attr' : { 'class' : 'form_input', 'placeholder' : 'Mot de passe'}}) }}
+                <span role="button" onclick="togglePassword(event)" class="w-[36px]">
+                    <i class="fa-solid fa-eye button-full hide" ></i>
+                    <i class="fa-solid fa-eye-slash button-full"></i>
+                </span>
+            </div>
+                <small>Doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre.</small>
+            <small class="form_error">
+                {{ form_errors(form.password)}}
+            </small>
+        </div>
+        <div class="label-lg">
+            {{ form_label(form.confirm) }}
+            <div class="form_inputContainer_2">
+                <i class="fa-solid fa-lock form_icon"></i>
+                {{ form_widget(form.confirm, {'attr' : { 'class' : 'form_input', 'placeholder' : 'Confirmer le mot de passe'}}) }}
+                <span role="button" onclick="togglePassword(event)" class="w-[36px]">
+                    <i class="fa-solid fa-eye hide button-full"></i>
+                    <i class="fa-solid fa-eye-slash button-full"></i>
+                </span>                            
+            </div>
+            <small class="form_error">
+                {{ form_errors(form.confirm)}}
+            </small>
+        </div>
+        <button type="submit" class=" bg-secondary text-primary mt-4 mb-2 py-2 px-4 w-fit justify-self-center hover:bg-400 duration-150 hover:text-secondary">Inscription</button>
+    {{ form_end(form) }}
+    <div class="max-w-[589px] mt-8 py-4 text-center w-11/12 mx-auto lg:w-5/6 font-secondary border border-solid border-400 text-secondary">
+        <p class="text-lg font-primary mb-4">Déjà un compte ?</p>
+        <a href="{{ path ('login') }}" class="text-center w-11/12 mx-auto underline underline-offset-2 duration-150">Connectez vous !</a>
+    </div>
+
 {% endblock %}

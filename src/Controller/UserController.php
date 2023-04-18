@@ -25,7 +25,7 @@ use Twig\Environment;
 
 class UserController extends AbstractController 
 {
-    #[Route('/sign-up', name:'sign_up')]
+    #[Route('/inscription', name:'sign_up')]
     public function signIn(UserPasswordHasherInterface $userPasswordHasher, Request $request, ManagerRegistry $doctrine, UserRepository $userRepository) : Response 
     {
         $user = new Client($userRepository);
@@ -71,7 +71,9 @@ class UserController extends AbstractController
             $request->getSession()->set('email', $email);
             $request->getSession()->set('code', $randomCode);
 
-            return $this->redirectToRoute('signUp-sendEmail');
+            return $this->redirectToRoute('signUp-sendEmail', [
+                'again' => 'false'
+            ]);
         }
 
         return $this->render('SignUp/form/signUp.form.html.twig', [
@@ -139,19 +141,26 @@ class UserController extends AbstractController
     }
 
     #[Route('/sign-up/{result}', name : "signUp-mail")]
-    public function signUpResult($result, Request $request) {
+    public function signUpResult($result, Request $request, Environment $twig, MailerInterface $mailer) {
         if (!$result) {
             $request->getSession()->remove('email');
             $request->getSession()->remove('code');
         }
+        if ($request->getSession()->get('again') == true) {
+            $again = true;
+        }
         return $this->render('SignUp/mail/signUp.mail.html.twig', [
-            "result" => $result
+            "result" => $result,
+            "again" => $again ?? null
         ]);
     }
 
-    #[Route('/inscription/envoie-email', name:"signUp-sendEmail")]
-    public function signUpEmail(Environment $twig, MailerInterface $mailer, Request $request) {
+    #[Route('/inscription/envoie-email/{again}', name:"signUp-sendEmail")]
+    public function signUpEmail($again = false, Environment $twig, MailerInterface $mailer, Request $request) {
 
+        if ($again == 'true') {
+            $request->getSession()->set('again', 'true');
+        }
         $email = $request->getSession()->get('email');
         $randomCode = $request->getSession()->get('code');
 
@@ -160,6 +169,7 @@ class UserController extends AbstractController
 
         $datas = Yaml::parseFile($this->getParameter('data'));
         $emailRestaurant = $datas['email'];
+        $telRestaurant =$datas['tel'];
         
         $email = (new TemplatedEmail())        
             ->from($emailRestaurant)   
@@ -168,7 +178,9 @@ class UserController extends AbstractController
 
         $html = $this->render('SignUp/mail/email.html.twig',[
                         'email' => new WrappedTemplatedEmail($twig, $email),
-                        'code' => $randomCode                        
+                        'code' => $randomCode,
+                        'emailRestaurant' => $emailRestaurant,
+                        'tel' => $telRestaurant                        
                         ])
                     ->getContent();
 
@@ -180,11 +192,11 @@ class UserController extends AbstractController
             $mailer->send($signedEmail);
 
             return $this->redirectToRoute('signUp-mail', [
-                "result" => "success"
+                "result" => "success", 
             ]);
         } catch (TransportExceptionInterface $e) {
             return $this->redirectToRoute('signUp-mail', [
-                "result" => "error"
+                "result" => "error", 
             ]);
         }
     }

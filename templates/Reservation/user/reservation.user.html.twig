@@ -1,7 +1,7 @@
 {% extends 'Reservation/reservation.html.twig' %}
 
 {% block reservation %}
-<div class="w-full lg:w-[45%] reservation_container my-8 mx-4 md:mx-8 ">
+<div class="w-full lg:w-[45%] image_container my-8 mx-4 md:mx-8 ">
 	<div class="w-full mx-auto relative top-1/2 -translate-y-1/2 pb-16">
 		<h1 class="title_section">Faites votre réservation</h1>
 		{% if error %}
@@ -89,7 +89,7 @@
 										</div>
 									</div>
 								</div>
-								<button aria-label="Suivant" onclick="nextSlide(event)" data-card="0" class="mt-8 rounded-full bg-secondary text-primary hover:text-secondary hover:bg-500 duration-150 h-10 w-10 mx-auto">
+								<button aria-label="Suivant" onclick="nextSlide(event)" data-card="0" class="mt-8 rounded-full button_style h-10 w-10 mx-auto">
 									<i class="fa-solid fa-arrow-right form_icon text-xl"></i>
 								</button>
 							</div>
@@ -122,10 +122,10 @@
 									<small class="form_error" id="error_schedule"></small>
 								</div>
 								<div class="flex gap-8 mx-auto flex-1 items-end buttons">
-									<button aria-label="Précédent" disabled onclick="previousSlide(event)" data-card="1" class="rounded-full bg-secondary text-primary hover:text-secondary hover:bg-500 duration-150 h-10 w-10">
+									<button aria-label="Précédent" disabled onclick="previousSlide(event)" data-card="1" class="rounded-full button_style h-10 w-10">
 										<i class="fa-solid fa-arrow-left form_icon text-xl"></i>
 									</button>
-									<button aria-label="Suivant" disabled onclick="nextSlide(event)" data-card="1" class="rounded-full bg-secondary text-primary hover:text-secondary hover:bg-500 duration-150 h-10 w-10">
+									<button aria-label="Suivant" disabled onclick="nextSlide(event)" data-card="1" class="rounded-full button_style h-10 w-10">
 										<i class="fa-solid fa-arrow-right form_icon text-xl"></i>
 									</button>
 								</div>
@@ -176,10 +176,10 @@
 										</div>
 									</div>
 									<div class="flex gap-8 mx-auto flex-1 items-end buttons">
-										<button aria-label="Précédent" disabled onclick="previousSlide(event)" data-card="1" class="rounded-full bg-secondary text-primary hover:text-secondary hover:bg-500 duration-150 h-10 w-10">
+										<button aria-label="Précédent" disabled onclick="previousSlide(event)" data-card="1" class="rounded-full button_style h-10 w-10">
 											<i class="fa-solid fa-arrow-left form_icon text-xl"></i>
 										</button>
-										<button aria-label="Valider" disabled type="submit" data-card="1" class="rounded-full bg-secondary text-primary hover:text-secondary hover:bg-500 duration-150 h-10 w-10">
+										<button aria-label="Valider" disabled type="submit" data-card="1" class="rounded-full button_style h-10 w-10">
 											<i class="fa-solid fa-check form_icon text-xl"></i>
 										</button>
 									</div>
@@ -192,11 +192,11 @@
 							<h2 class="text-lg font-primary">Envie d'aller plus vite ?
 							</h2>
 							<div class="flex flex-col gap-2 items-center">
-								<button class="px-4 py-2 bg-400 text-primary duration-150 hover:bg-500 group">
+								<button class="px-4 py-2 button_style group">
 									<a href="{{ path('sign_up') }}" class="group-hover:text-secondary duration-150">Inscrivez vous</a>
 								</button>
 								<span>ou</span>
-								<button class="px-4 py-2 bg-400 text-primary duration-150 hover:bg-500 group">
+								<button class="px-4 py-2 button_style group">
 									<a href="{{ path('login') }}" class="group-hover:text-secondary duration-150">Connectez vous</a>
 								</button>
 							</div>
@@ -204,8 +204,8 @@
 						</div>
 					{% elseif not 'ROLE_ADMIN' in app.user.roles %}
 						<div class="mt-8 py-4 max-w-[589px] w-11/12 mx-auto lg:w-5/6 font-secondary border border-solid border-400 flex flex-col gap-8 items-center">
-							<h2 class="text-lg font-primary">Envie d'aller plus vite ?
-							</h2>
+							<p class="text-lg font-primary">Envie d'aller plus vite ?
+							</p>
 							<p class="text-center w-11/12 mx-auto">Vous pouvez créer des fiches de pré-remplissage personnalisés juste
 								<a href="{{ url('client_profil', {'page_down' : 'modèles' }) }}" class="underline underline-offset-2">ici</a>
 								!</p>
@@ -213,5 +213,5 @@
 					{% endif %}
 				</div>
 			</div>
-			<div class="-z-10 2xl:w-[70%] hidden lg:block w-[55%] reservation_container reservation_image relative"></div>
+			<div class="-z-10 2xl:w-[70%] hidden lg:block w-[55%] image_container reservation_image relative"></div>
 {% endblock %}

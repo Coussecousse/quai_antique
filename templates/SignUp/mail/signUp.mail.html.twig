@@ -2,12 +2,14 @@
 
 {% block content %}
 <section class="min-h-[calc(100vh-300px)] flex flex-col lg:text-lg font-secondary justify-center items-center gap-12">
-    <div class="bg-500 drop-shadow-lg w-11/12 max-w-[500px] p-6 text-secondary text-center">
+    <div class="text-center text-secondary max-w-[589px] w-11/12 mx-auto lg:mx-auto lg:w-5/6 font-secondary border border-solid border-500 p-3">
         {% if result == "success" %}
         <p class="mb-4">Un mail de confirmation vous a été envoyé !</p>
         <p>Veuillez le valider afin de pouvoir vous connecter.</p>
         <small class="mt-6">Si vous n'avez rien reçu, veuillez vérifier votre boîte de <span class="underline underline-offset-2">SPAM</span></small>
-        <p class="pt-8">Sinon, vous pouvez <a href="{{ path('signUp-sendEmail') }}" class="hover:underline hover:underline-offset-2">renvoyer un mail.</a></p>
+        {% if again != 'true' %}
+        <p class="pt-8">Sinon, vous pouvez <a href="{{ path('signUp-sendEmail', { 'again' : 'true' }) }}" class="hover:underline hover:underline-offset-2">renvoyer un mail.</a></p>
+        {% endif %}
         {% else %}
         <p class="">Une erreur est survenue.</p>
         <p>Nous vous invitons à prendre contact directement avec nous.</p>
@@ -24,6 +26,6 @@
         <p>Veuillez nous excuser pour la gêne occasionnée.</p>
         {% endif %}
     </div>
-    <button class="bg-secondary p-4 group hover:bg-400 duration-150 drop-shadow-lg w-fit"><a href="{{ path('home') }}" class="hover:underline underline-offset-4 text-primary group-hover:text-secondary duration-150">Revenir à l'accueil</a></button>
+    <button class="p-4 group w-fit button_style"><a href="{{ path('home') }}" class="group-hover:text-secondary duration-150">Revenir à l'accueil</a></button>
 </section>
 {% endblock %}

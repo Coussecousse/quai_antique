@@ -415,7 +415,7 @@
       </trans-unit>
       <trans-unit id="fvxWW3V" resname="The CSRF token is invalid. Please try to resubmit the form.">
         <source>The CSRF token is invalid. Please try to resubmit the form.</source>
-        <target>Le jeton CSRF est invalide. Veuillez renvoyer le formulaire.</target>
+        <target>Une erreur est survenue.</target>
       </trans-unit>
       <trans-unit id="eo1zeih" resname="This value is not a valid HTML5 color.">
         <source>This value is not a valid HTML5 color.</source>

@@ -9,7 +9,7 @@
 {% endif %}
 <div class="profil_container min-h-screen">
     <h1 class="no_print text-3xl mb-12 md:mb-16 mt-6 font-primary">Réservations</h1>
-    <button class="no_print relative left-1/2 -translate-x-1/2 mb-6 px-4 py-2 bg-secondary text-primary group duration-150 hover:bg-400"><a href="{{ path('reservation') }}" class="group-hover:text-secondary duration-150">Faire une réservation</a></button>
+    <button class="no_print relative left-1/2 -translate-x-1/2 mb-6 px-4 py-2 group button_style"><a href="{{ path('reservation') }}" class="group-hover:text-secondary duration-150">Faire une réservation</a></button>
     <form class="w-fit min-w-[200px] mx-auto text-sm sm-600:text-base flex items-center justify-center">
         <input value={{ search_date }} type="date" name="search_date" class="bg-secondary text-primary input_withoutIcon">
         <button type="submit" class="no_print px-2 bg-400 text-secondary hover:bg-primary duration-150 h-8 flex justify-center items-center gap-2 min-w-[2rem] sm-600:min-w-fit"><p class="hidden sm-600:block">Rechercher</p><i class="fa-solid fa-magnifying-glass icon_profil"></i></button>

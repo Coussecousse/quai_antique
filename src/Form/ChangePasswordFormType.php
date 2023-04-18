@@ -35,7 +35,7 @@ class ChangePasswordFormType extends AbstractType
                             'max' => 60,
                         ]),
                         new Regex([
-                            "pattern" => "/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/", "message" => "Le mot de passe doit posséder au minimum 8 caractères, une lettre majuscule, une lettre minuscule et un chiffre."
+                            "pattern" => "/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/", "message" => "Le mot de passe doit posséder au minimum 8 caractères, une majuscule, une minuscule et un chiffre."
                         ])
                     ],
                     'label' => 'Nouveau mot de passe :',

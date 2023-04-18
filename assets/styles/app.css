@@ -1,17 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-:root {
-  --color-primary: rgb(23, 21, 21);
-  --colo-secondary: rgb(249, 246, 240);
-}
 
 @import url("https://fonts.googleapis.com/css2?family=Alice&family=Open+Sans:wght@400;600;700&family=Petit+Formal+Script&display=swap");
 
 html {
   scroll-behavior: smooth;
 }
-
 html,
 body,
 main {
@@ -27,27 +22,47 @@ a {
 .form_inputContainer_2 {
   @apply h-8 flex items-center bg-500 relative;
 }
+.form_profilContainer {
+  @apply flex ;
+}
+.form_profilContainer input {
+  @apply bg-transparent flex-1;
+}
 .form_input {
   @apply pl-2 w-full bg-500 placeholder:text-secondary/50;
 }
 .label-lg label {
   @apply text-lg;
 }
+/* Buttons */
+.button_style {
+  @apply bg-secondary drop-shadow-lg text-primary hover:bg-400 cursor-pointer duration-150 hover:text-secondary ;
+}
+
+/*  Error  */
+.error_container {
+  @apply bg-red-700 p-4 max-w-[380px] mx-auto font-secondary my-6 text-secondary drop-shadow-lg;
+}
+/* SUCCESS */
+.success_container {
+  @apply bg-green-700 p-4 max-w-[380px] mx-auto font-secondary my-6 text-secondary drop-shadow-lg;
+}
 /* HEADER */
 header nav a {
-  position: relative;
+  @apply relative;
 }
-header nav li:hover {
-  @apply scale-105 duration-100;
+header nav a::after,
+header nav a::before {
+  @apply content-[''] absolute bg-secondary h-px left-1/2 -translate-x-1/2 w-0;
+  transition: width 150ms;
 }
-header nav a.active::after,
-header nav a.active::before {
-  content: "";
-  position: absolute;
-  background-color: var(--colo-secondary);
-  height: 1px;
-  left: 50%;
-  transform: translateX(-50%);
+header nav a.not-active:hover::before {
+  width: 50px;
+  top: -1px;
+}
+header nav a.not-active:hover::after {
+  width: 25px;
+  top: -6px;
 }
 header nav a.active::before {
   width: 50px;
@@ -183,6 +198,9 @@ header nav a.active::after {
 .main-content section {
   @apply text-secondary font-primary w-full relative flex-1 flex items-center;
 } 
+#description .description {
+  display: list-item;
+}
 .card_grid {
   @apply grid gap-6 mx-auto justify-center flex-1;
   grid-template-columns: repeat(auto-fit, minmax(135px, 237px) );
@@ -309,25 +327,6 @@ header nav a.active::after {
 .form_image {
   @apply w-3/5 max-w-[600px];
 }
-.form_container {
-  @apply flex flex-col gap-2;
-}
-.form_container label {
-  @apply font-semibold tracking-wider;
-}
-/* SIGN IN */
-
-.image_sign-up {
-  @apply w-3/5 max-w-[600px];
-  background: center / cover no-repeat
-    url("../../public/images/sign-up/sign_up-medium.jpg");
-}
-.form_inputContainer {
-  @apply flex bg-400/20 h-8 max-w-[395px] mx-auto md:w-11/12;
-}
-.form_inputContainer input {
-  @apply flex-1 bg-transparent pl-1 w-full;
-}
 .form_icon {
   @apply px-2 items-center h-8 justify-center;
   display: flex !important;
@@ -348,18 +347,14 @@ header nav a.active::after {
       url("../../public/images/login/login-medium.jpg"),
     linear-gradient(rgba(23, 21, 21, 0) 75%, rgb(23, 21, 21));
 }
-.reset_password_success {
-  @apply absolute bg-primary p-4 text-secondary font-secondary top-1/2 left-1/2 -translate-x-1/2 z-10 w-10/12 max-w-[280px] duration-75 text-center;
+/* SIGN UP */
+.signUp_image {
+  background:  linear-gradient(90deg, rgba(23,21,21,0) 75%, rgba(23,21,21,1) 100%),
+    linear-gradient(0deg, rgba(23, 21, 21, 0) 75%, rgba(23, 21, 21, 1) 100%),
+    center / cover no-repeat
+      url("../../public/images/sign-up/sign_up-medium.jpg"),
+    linear-gradient(rgba(23, 21, 21, 0) 75%, rgb(23, 21, 21));
 }
-/*  Error  */
-.error_container {
-  @apply bg-red-700 p-4 max-w-[380px] mx-auto font-secondary my-6 text-secondary drop-shadow-lg;
-}
-/* SUCCESS */
-.success_container {
-  @apply bg-green-700 p-4 max-w-[380px] mx-auto font-secondary my-6 text-secondary drop-shadow-lg;
-}
-
 /* PROFIL */
 #restaurant input::placeholder {
   @apply text-primary/60;
@@ -544,7 +539,7 @@ header nav a.active::after {
   grid-template-columns: clamp(6.25rem, 0.89rem + 11.1667vw, 10.94rem) auto;
 }
 /* Réservation */
-.reservation_container {
+.image_container {
   min-height: calc(100vh - 113px);
 }
 .reservation_image {
@@ -609,6 +604,7 @@ header nav a.active::after {
       url("../../public/images/contact/contact-medium.jpg"),
     linear-gradient(rgba(23, 21, 21, 0) 75%, rgb(23, 21, 21));
 }
+/*  */
 
 /* ADMIN RESERVATIONS */
 .admin_reservations_grid {
@@ -712,6 +708,13 @@ header nav a.active::after {
       url("../../public/images/login/login-large.jpg"),
     linear-gradient(rgba(23, 21, 21, 0) 75%, rgb(23, 21, 21));
   }
+  .signUp_image {
+    background:  linear-gradient(90deg, rgba(23,21,21,0) 75%, rgba(23,21,21,1) 100%),
+      linear-gradient(0deg, rgba(23, 21, 21, 0) 75%, rgba(23, 21, 21, 1) 100%),
+      center / cover no-repeat
+        url("../../public/images/sign-up/sign_up-large.jpg"),
+      linear-gradient(rgba(23, 21, 21, 0) 75%, rgb(23, 21, 21));
+  }
 }
 @media screen and (min-width: 1300px) {
   .home_image {
@@ -755,6 +758,13 @@ header nav a.active::after {
     center / cover no-repeat
       url("../../public/images/login/login-extraLarge.jpg"),
     linear-gradient(rgba(23, 21, 21, 0) 75%, rgb(23, 21, 21));
+  }
+  .signUp_image {
+    background:  linear-gradient(90deg, rgba(23,21,21,0) 75%, rgba(23,21,21,1) 100%),
+      linear-gradient(0deg, rgba(23, 21, 21, 0) 75%, rgba(23, 21, 21, 1) 100%),
+      center / cover no-repeat
+        url("../../public/images/sign-up/sign_up-extraLarge.jpg"),
+      linear-gradient(rgba(23, 21, 21, 0) 75%, rgb(23, 21, 21));
   }
 }
 

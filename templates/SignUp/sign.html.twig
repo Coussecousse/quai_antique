@@ -4,14 +4,13 @@
 
 {% block body %}
     <main class="pt-24 flex justify-evenly" id="sign-up">
-        <section class="w-full lg:w-[45%] mb-16">
-            <div class="title_container bg-primary">
-                <h1 class="title_section">Inscription</h1>
-                {% block content_subtitle %}
+        <div class="-z-10 2xl:w-[70%] hidden lg:block w-[55%] image_container signUp_image relative"></div>
+        <section class="w-full lg:w-[45%] mb-16 ">
+            <div class="w-full mx-auto relative flex flex-col top-1/2 -translate-y-1/2">
+                {% block content %}
                 {% endblock %}
             </div>
         </section>
-        <div class="-z-10 2xl:w-[70%] hidden lg:block w-[55%] reservation_container contact_image relative"></div>
     </main>
 {% endblock %}
 {% block scripts %}

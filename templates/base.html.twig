@@ -31,43 +31,43 @@
 				<nav class="hidden md/5:flex md/5:items-center uppercase duration bg-primary" id="header-menu">
 					<ul class="md/5:inline-flex text-secondary font-secondary relative top-[57px] text-sm xl:text-lg">
 						<li>
-							<a href={{ path('home') }} class="{{ app.request.attributes.get('_route') == 'home' ? 'active' : null }}">Accueil</a>
+							<a href={{ path('home') }} class="{{ app.request.attributes.get('_route') == 'home' ? 'active' : 'not-active' }}">Accueil</a>
 						</li>
 						<li>
-							<a href={{ path('card') }} class="{{ app.request.attributes.get('_route') == 'card' ? 'active' : null }}">Carte</a>
+							<a href={{ path('card') }} class="{{ app.request.attributes.get('_route') == 'card' ? 'active' : 'not-active' }}">Carte</a>
 						</li>
 						{% if app.user and 'ROLE_ADMIN' in app.user.roles %}
 							<li>
-								<a class="{{ app.request.attributes.get('_route') == 'admin_reservation' ? 'active' : null }}" href="{{ url('admin_reservations', { 'service' : 'midi' }) }}">Réservations</a>
+								<a class="{{ app.request.attributes.get('_route') == 'admin_reservation' ? 'active' : 'not-active' }}" href="{{ url('admin_reservations', { 'service' : 'midi' }) }}">Réservations</a>
 							</li>
 						{% else %}
 							<li>
-								<a href={{ path('reservation') }} class="{{ app.request.attributes.get('_route') == 'reservation' ? 'active' : null }}">Réserver</a>
+								<a href={{ path('reservation') }} class="{{ app.request.attributes.get('_route') == 'reservation' ? 'active' : 'not-active' }}">Réserver</a>
 							</li>
 						{% endif %}
 						<li>
-							<a href={{ path('contact') }} class="{{ app.request.attributes.get('_route') == 'contact' ? 'active' : null }}">Contact</a>
+							<a href={{ path('contact') }} class="{{ app.request.attributes.get('_route') == 'contact' ? 'active' : 'not-active' }}">Contact</a>
 						</li>
 						{% if app.user %}
 							{% if 'ROLE_ADMIN' in app.user.roles %}
 								<li>
-									<a class="{{ app.request.attributes.get('_route') == 'home' ? 'admin_profil' : null }}" href="{{ url('admin_profil', {'page_up':'informations', 'page_down' : 'carousel'}) }}">Profil</a>
+									<a class="{{ app.request.attributes.get('_route') == 'home' ? 'admin_profil' : 'not-active' }}" href="{{ url('admin_profil', {'page_up':'informations', 'page_down' : 'carousel'}) }}">Profil</a>
 								</li>
 							{% else %}
 								<li>
-									<a class="{{ app.request.attributes.get('_route') == 'client_profil' ? 'active' : null }}" href="{{ url('client_profil', {'page_down' : 'modèles' }) }}">Profil</a>
+									<a class="{{ app.request.attributes.get('_route') == 'client_profil' ? 'active' : 'not-active' }}" href="{{ url('client_profil', {'page_down' : 'modèles' }) }}">Profil</a>
 								</li>
 							{% endif %}
 							<li>
-								<a href={{ path('logout') }}>Deconnexion</a>
+								<a href={{ path('logout') }} class="not-active">Deconnexion</a>
 							</li>
 						{% else %}
 							<li>
 								<a href={{ path('login') }} class="{{ (app.request.attributes.get('_route') == 'login' or app.request.attributes.get('_route') == 'app_forgot_password_request'
-																	 or app.request.attributes.get('_route') == 'app_check_email' or app.request.attributes.get('_route') == 'app_reset_password') ? 'active' : null }}">Connexion</a>
+																	 or app.request.attributes.get('_route') == 'app_check_email' or app.request.attributes.get('_route') == 'app_reset_password') ? 'active' : 'not-active' }}">Connexion</a>
 							</li>
 							<li>
-								<a href={{ path('sign_up') }} class="{{ app.request.attributes.get('_route') == 'sign_up' ? 'active' : null }}">Inscription</a>
+								<a href={{ path('sign_up') }} class="{{ app.request.attributes.get('_route') == 'sign_up' ? 'active' : 'not-active' }}">Inscription</a>
 							</li>
 						{% endif %}
 					</ul>
@@ -133,13 +133,13 @@
 									<a class="hover:underline hover:underline-offset-2" href="{{ path('home') }}">Accueil</a>
 								</li>
 								<li>
-									<a class="hover:underline hover:underline-offset-2" href="">Carte</a>
+									<a class="hover:underline hover:underline-offset-2" href="{{ path('card') }}">Carte</a>
 								</li>
 								<li>
-									<a class="hover:underline hover:underline-offset-2" href="">Réserver</a>
+									<a class="hover:underline hover:underline-offset-2" href=" {{ path('reservation') }}">Réserver</a>
 								</li>
 								<li>
-									<a class="hover:underline hover:underline-offset-2" href="">Contact</a>
+									<a class="hover:underline hover:underline-offset-2" href="{{ path('contact') }}">Contact</a>
 								</li>
 								{% if app.user %}
 									{% if app.user.roles == 'ROLE_ADMIN' %}
@@ -148,18 +148,18 @@
 										</li>
 									{% else %}
 										<li>
-											<a class="hover:underline hover:underline-offset-2" href="">Profil</a>
+											<a class="hover:underline hover:underline-offset-2" href="{{ path('client_profil') }}">Profil</a>
 										</li>
 									{% endif %}
 									<li>
-										<a class="hover:underline hover:underline-offset-2" href="">Deconnexion</a>
+										<a class="hover:underline hover:underline-offset-2" href="{{ path('logout') }}">Deconnexion</a>
 									</li>
 								{% else %}
 									<li>
-										<a class="hover:underline hover:underline-offset-2" href="">Connexion</a>
+										<a class="hover:underline hover:underline-offset-2" href="{{ path('login') }}">Connexion</a>
 									</li>
 									<li>
-										<a class="hover:underline hover:underline-offset-2" href="">Inscription</a>
+										<a class="hover:underline hover:underline-offset-2" href="{{ path('sign_up') }}">Inscription</a>
 									</li>
 								{% endif %}
 							</ul>

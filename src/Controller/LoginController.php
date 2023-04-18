@@ -12,7 +12,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class LoginController extends AbstractController
 {
-    #[Route('/login/{login}', name: 'login')]
+    #[Route('/connexion/{login}', name: 'login')]
     public function index(AuthenticationUtils $authenticationUtils, Request $request, $login = 0): Response
     {
         // get the login error if there's one 
@@ -30,7 +30,7 @@ class LoginController extends AbstractController
         ]);
         
     }
-    #[Route('/logout', name:'logout', methods : ['GET'])]
+    #[Route('/déconnexion', name:'logout', methods : ['GET'])]
     public function logout()
     {
     }
