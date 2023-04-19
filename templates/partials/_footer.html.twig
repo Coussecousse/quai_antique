@@ -1,0 +1,79 @@
+<footer class="no_print bg-500 text-secondary font-third py-4 px-5 w-full md:flex md:justify-center text-sm">
+    <div class="grid max-w-[440px] mx-auto md:w-fit md:max-w-[340px] md:min-w-[300px] md:mx-0 lg:w-[400px]">
+        <p class="footer_title">Horaires</p>
+        <ul class="scedules text-xs">
+        {% set frenchDays = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'] %}
+        {% for key, day in schedules %}
+            <li>{{ frenchDays[key] }}
+                <ul>
+                    {% if day.eveningClose %}
+                        <li>Fermé</li>
+                    {% else %}
+                        <li>{{ day.eveningStart|date('H:i') }} - {{ day.eveningEnd|date('H:i') }}</li>
+                    {% endif %}
+                    {% if day.noonClose %}
+                        <li>Fermé</li>
+                    {% else %}
+                        <li>{{ day.noonStart|date('H:i') }} - {{ day.noonEnd|date('H:i') }}</li>
+                    {% endif %}
+                </ul>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+    <div class="sm:flex gap-6 max-w-[440px] mx-auto md:mx-0 lg:max-w-[600px]">
+        <div class="grid grid-cols-2 my-4 sm:flex-1 sm:flex sm:gap-6 md:my-0">
+            <div>
+                <p class="footer_title">Site</p>
+                <ul class="text-xs">
+                    <li>
+                        <a class="hover:underline hover:underline-offset-2" href="{{ path('home') }}">Accueil</a>
+                    </li>
+                    <li>
+                        <a class="hover:underline hover:underline-offset-2" href="{{ path('card') }}">Carte</a>
+                    </li>
+                    <li>
+                        <a class="hover:underline hover:underline-offset-2" href=" {{ path('reservation') }}">Réserver</a>
+                    </li>
+                    <li>
+                        <a class="hover:underline hover:underline-offset-2" href="{{ path('contact') }}">Contact</a>
+                    </li>
+                    {% if app.user %}
+                        {% if app.user.roles == 'ROLE_ADMIN' %}
+                            <li>
+                                <a class="hover:underline hover:underline-offset-2" href="{{ path('admin_profil') }}">Profil</a>
+                            </li>
+                        {% else %}
+                            <li>
+                                <a class="hover:underline hover:underline-offset-2" href="{{ path('client_profil') }}">Profil</a>
+                            </li>
+                        {% endif %}
+                        <li>
+                            <a class="hover:underline hover:underline-offset-2" href="{{ path('logout') }}">Deconnexion</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a class="hover:underline hover:underline-offset-2" href="{{ path('login') }}">Connexion</a>
+                        </li>
+                        <li>
+                            <a class="hover:underline hover:underline-offset-2" href="{{ path('sign_up') }}">Inscription</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div>
+                <p class="footer_title">Contact</p>
+                <ul class="text-xs">
+                    <li>
+                        <a class="hover:underline hover:underline-offset-2" href="{{ 'tel:+33'~ tel|slice(1)|replace({' ' : ''}) }}">+33 {{ tel|slice(1) }}</a>
+                    </li>
+                    <li>
+                        <a class="hover:underline hover:underline-offset-2" href="{{ 'mailto:'~ email }}">{{ email }}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <a href="{{ path('home') }}"><img class="max-w-[160px] mx-auto sm:inline-block sm:w-fit sm:mx-0" src={{ asset('/images/svg/'~'logo-white.svg')}} alt=""></a>
+    </div>
+</footer>
+

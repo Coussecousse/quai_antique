@@ -1,0 +1,54 @@
+<header class="no_print z-10 h-[80px] md:h-[100px] w-full absolute flex justify-between px-6 py-3 md:px-12 bg-transparent duration-300">
+    <a href="{{ path('home') }}" class=""><img src={{ asset('/images/svg/'~ "logo-white.svg")}} alt="Logo Quai Antique blanc" class="h-full"></a>
+    <button class="md/5:hidden z-20 md/5:z-0" id="menu-hamburger">
+        <div class="hamburger-lines close">
+            <span class="line line1"></span>
+            <span class="line line2"></span>
+            <span class="line line3"></span>
+        </div>
+    </button>
+    <nav class="hidden md/5:flex md/5:items-center uppercase duration bg-primary" id="header-menu">
+        <ul class="md/5:inline-flex text-secondary font-secondary relative top-[57px] text-sm xl:text-base">
+            <li>
+                <a href={{ path('home') }} class="{{ app.request.attributes.get('_route') == 'home' ? 'active' : 'not-active' }}">Accueil</a>
+            </li>
+            <li>
+                <a href={{ path('card') }} class="{{ app.request.attributes.get('_route') == 'card' ? 'active' : 'not-active' }}">Carte</a>
+            </li>
+            {% if app.user and 'ROLE_ADMIN' in app.user.roles %}
+                <li>
+                    <a class="{{ app.request.attributes.get('_route') == 'admin_reservation' ? 'active' : 'not-active' }}" href="{{ url('admin_reservations', { 'service' : 'midi' }) }}">Réservations</a>
+                </li>
+            {% else %}
+                <li>
+                    <a href={{ path('reservation') }} class="{{ app.request.attributes.get('_route') == 'reservation' ? 'active' : 'not-active' }}">Réserver</a>
+                </li>
+            {% endif %}
+            <li>
+                <a href={{ path('contact') }} class="{{ app.request.attributes.get('_route') == 'contact' ? 'active' : 'not-active' }}">Contact</a>
+            </li>
+            {% if app.user %}
+                {% if 'ROLE_ADMIN' in app.user.roles %}
+                    <li>
+                        <a class="{{ app.request.attributes.get('_route') == 'home' ? 'admin_profil' : 'not-active' }}" href="{{ url('admin_profil', {'page_up':'informations', 'page_down' : 'carousel'}) }}">Profil</a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a class="{{ app.request.attributes.get('_route') == 'client_profil' ? 'active' : 'not-active' }}" href="{{ url('client_profil', {'page_down' : 'modèles' }) }}">Profil</a>
+                    </li>
+                {% endif %}
+                <li>
+                    <a href={{ path('logout') }} class="not-active">Deconnexion</a>
+                </li>
+            {% else %}
+                <li>
+                    <a href={{ path('login') }} class="{{ (app.request.attributes.get('_route') == 'login' or app.request.attributes.get('_route') == 'app_forgot_password_request'
+                                                            or app.request.attributes.get('_route') == 'app_check_email' or app.request.attributes.get('_route') == 'app_reset_password') ? 'active' : 'not-active' }}">Connexion</a>
+                </li>
+                <li>
+                    <a href={{ path('sign_up') }} class="{{ app.request.attributes.get('_route') == 'sign_up' ? 'active' : 'not-active' }}">Inscription</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+</header>
