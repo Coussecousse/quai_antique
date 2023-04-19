@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+	<main class="pt-24 text-secondary min_main font-secondary flex items-center">
+		<fieldset class="h-fit w-11/12 mx-auto max-w-[598px] relative top-1/2 -translate-y-1/2 border border-solid border-500 p-3 text-center">
+			<legend align="center">
+				<h1 class="px-2 text-[80px] font-primary">404</h1>
+			</legend>
+			
+			<p class="py-4"><span class="text-3xl">Oups !</span>
+				La page que vous cherchez n'existe pas.
+			</p>
+			<a href="{{ path('home') }}" class="card_backLink"><i class="fa-solid fa-arrow-left px-2"></i>Revenir à l'accueil</a>
+
+		</fieldset>
+
+	</main>
+{% endblock %}

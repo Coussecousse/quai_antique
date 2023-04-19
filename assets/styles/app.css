@@ -321,7 +321,7 @@ header nav a.active::after {
   @apply text-red-500;
 }
 /* FORM */
-.form_main {
+.min_main {
   min-height: calc(100vh - 164px);
 }
 .form_image {

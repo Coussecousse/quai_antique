@@ -13,3 +13,5 @@ liip_imagine:
         thumbnail_web_path:
             filters:
                 thumbnail: { mode: inset }
+    twig:
+        mode: lazy

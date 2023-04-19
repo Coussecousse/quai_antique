@@ -82,7 +82,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/sign-up/validate', name: 'signUp-validate')]
+    #[Route('/inscription/valider', name: 'signUp-validate')]
     public function signUpValidate(Request $request, UserRepository $repository, ManagerRegistry $doctrine) {
 
         $request->getSession()->remove('email');
@@ -112,7 +112,7 @@ class UserController extends AbstractController
         
         return $this->render('SignUp/validate/signUp.validate.html.twig');
     }
-    #[Route('/sign-up/validate/{result}', name : "signUp-validate-result")]
+    #[Route('/inscription/valider/{result}', name : "signUp-validate-result")]
     public function signUpValidateResult($result, Request $request, UserRepository $repository, ManagerRegistry $doctrine) {
 
         $code = $request->query->get('code');
@@ -140,7 +140,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/sign-up/{result}', name : "signUp-mail")]
+    #[Route('/inscription/{result}', name : "signUp-mail")]
     public function signUpResult($result, Request $request, Environment $twig, MailerInterface $mailer) {
         if (!$result) {
             $request->getSession()->remove('email');
