@@ -70,10 +70,25 @@
                     <li>
                         <a class="hover:underline hover:underline-offset-2" href="{{ 'mailto:'~ email }}">{{ email }}</a>
                     </li>
+                    <li class="pt-2">
+                        <span class="flex gap-0">
+                            <i class="fa-solid fa-city pr-2 h-fit"></i>
+                            <p class="flex-1">{{ street }}</p>
+                        </span>
+                        <span class="flex">
+                            <i class="fa-solid fa-street-view pr-2 h-fit"></i>
+                            <p class="flex-1">{{ city }}</p>
+                        </span>
+                        <span class="flex">
+                            <i class="fa-solid fa-house pr-2 h-fit"></i>
+                            <p class="flex-1">{{ postcode }}</p>
+                        </span>
+
+                    </li>
                 </ul>
             </div>
         </div>
-        <a href="{{ path('home') }}"><img class="max-w-[160px] mx-auto sm:inline-block sm:w-fit sm:mx-0" src={{ asset('/images/svg/'~'logo-white.svg')}} alt=""></a>
+        <a href="{{ path('home') }}" class="mt-4"><img class="max-w-[160px] mx-auto sm:inline-block sm:w-fit sm:mx-0" src={{ asset('/images/svg/'~'logo-white.svg')}} alt=""></a>
     </div>
 </footer>
 
