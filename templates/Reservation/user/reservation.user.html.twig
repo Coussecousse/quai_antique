@@ -213,5 +213,9 @@
 					{% endif %}
 				</div>
 			</div>
-			<div class="-z-10 2xl:w-[70%] hidden lg:block w-[55%] image_container reservation_image relative"></div>
+			<div class="-z-10 2xl:w-[70%] hidden lg:block w-[55%] image_container relative" id="moving-pic"><div class="reservation_image"></div></div>
+{% endblock %}
+{% block scripts %}
+{{ parent() }}
+<script src={{ asset('/js/moving-pic/'~'script.js') }}></script>
 {% endblock %}

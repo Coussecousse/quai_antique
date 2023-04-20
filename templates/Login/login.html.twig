@@ -10,11 +10,12 @@
                 {% endblock %}
             </div>
         </section>
-        <div class="-z-10 2xl:w-[70%] hidden lg:block w-[55%] image_container login_image relative"></div>
+        <div class="-z-10 2xl:w-[70%] hidden lg:block w-[55%] image_container relative" id="moving-pic"><div class="login_image"></div></div>
     </main>
     
 {% endblock %}
 {% block scripts %}
 <script src={{ asset('/js/signUp-login/'~'script.js') }}></script>
+<script src={{ asset('/js/moving-pic/'~'script.js') }}></script>
 {% endblock %}
      

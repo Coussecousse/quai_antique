@@ -92,7 +92,55 @@ header nav a.active::after {
 .scedules ul > li:first-child {
   @apply after:h-full after:w-[1px] after:absolute after:bg-secondary after:left-full;
 }
-
+/* MOVING IMAGES */
+.image_1 {
+  background: center / cover no-repeat url('../../public/images/moving/1_medium.jpg');
+}
+.image_2 {
+  background: center / cover no-repeat
+  url("../../public/images/moving/2_medium.jpg");
+}
+.image_3 {
+  background: center / cover no-repeat
+  url("../../public/images/moving/3_medium.jpg");
+}
+.image_4 {
+  background: center / cover no-repeat
+  url("../../public/images/moving/4_medium.jpg");
+}
+.image_5 {
+  background: center / cover no-repeat
+  url("../../public/images/moving/5_medium.jpg");
+}
+.image_container > div {
+  @apply w-full h-full -z-10;
+}
+.image_container {
+  @apply z-10;
+  min-height: calc(100vh - 113px);
+}
+.image-coming {
+  animation : coming 1s linear forwards;
+}
+.image-leaving {
+  animation: leaving 1s linear forwards;
+}
+#moving_pic > div {
+  @apply opacity-0;
+}
+@keyframes coming {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 100%;
+  }
+}
+@keyframes leaving {
+  to {
+    opacity: 0;
+  }
+}
 /* HOME */
 .home_image {
   background: linear-gradient(rgba(23, 21, 21, 0) 50%, rgb(23, 21, 21)),
@@ -343,16 +391,12 @@ header nav a.active::after {
     rgba(23, 21, 21, 0) 25%
   ),
     linear-gradient(0deg, rgba(23, 21, 21, 0) 75%, rgba(23, 21, 21, 1) 100%),
-    center / cover no-repeat
-      url("../../public/images/login/login-medium.jpg"),
     linear-gradient(rgba(23, 21, 21, 0) 75%, rgb(23, 21, 21));
 }
 /* SIGN UP */
 .signUp_image {
   background:  linear-gradient(90deg, rgba(23,21,21,0) 75%, rgba(23,21,21,1) 100%),
     linear-gradient(0deg, rgba(23, 21, 21, 0) 75%, rgba(23, 21, 21, 1) 100%),
-    center / cover no-repeat
-      url("../../public/images/sign-up/sign_up-medium.jpg"),
     linear-gradient(rgba(23, 21, 21, 0) 75%, rgb(23, 21, 21));
 }
 /* PROFIL */
@@ -539,9 +583,7 @@ header nav a.active::after {
   grid-template-columns: clamp(6.25rem, 0.89rem + 11.1667vw, 10.94rem) auto;
 }
 /* Réservation */
-.image_container {
-  min-height: calc(100vh - 113px);
-}
+
 .reservation_image {
   background: linear-gradient(
       90deg,
@@ -549,8 +591,6 @@ header nav a.active::after {
       rgba(23, 21, 21, 0) 25%
     ),
     linear-gradient(0deg, rgba(23, 21, 21, 0) 75%, rgba(23, 21, 21, 1) 100%),
-    center / cover no-repeat
-      url("../../public/images/reservation/reservation-medium.jpg"),
     linear-gradient(rgba(23, 21, 21, 0) 75%, rgb(23, 21, 21));
 }
 #grid_reservation {
@@ -600,8 +640,6 @@ header nav a.active::after {
 .contact_image {
   background:  linear-gradient(90deg, rgba(23,21,21,0) 75%, rgba(23,21,21,1) 100%),
     linear-gradient(0deg, rgba(23, 21, 21, 0) 75%, rgba(23, 21, 21, 1) 100%),
-    center / cover no-repeat
-      url("../../public/images/contact/contact-medium.jpg"),
     linear-gradient(rgba(23, 21, 21, 0) 75%, rgb(23, 21, 21));
 }
 /*  */
@@ -671,100 +709,12 @@ header nav a.active::after {
       center 61% / cover no-repeat
         url("../../public/images/home/home-large.webp");
   }
-  .image_sign-up {
-    background: center / cover no-repeat
-      url("../../public/images/sign-up/sign_up-large.jpg");
-  }
-  .reservation_image {
-    background: linear-gradient(
-        90deg,
-        rgba(23, 21, 21, 1) 0%,
-        linear-gradient(
-          0deg,
-          rgba(23, 21, 21, 0) 75%,
-          rgba(23, 21, 21, 1) 100%
-        ),
-        rgba(23, 21, 21, 0) 25%
-      ),
-      linear-gradient(rgba(23, 21, 21, 0) 75%, rgb(23, 21, 21)),
-      center / cover no-repeat
-        url("../../public/images/reservation/reservation-large.jpg");
-  }
-  .contact_image {
-    background:  linear-gradient(90deg, rgba(23,21,21,0) 75%, rgba(23,21,21,1) 100%),
-    linear-gradient(0deg, rgba(23, 21, 21, 0) 75%, rgba(23, 21, 21, 1) 100%),
-    center / cover no-repeat
-      url("../../public/images/contact/contact-large.jpg"),
-    linear-gradient(rgba(23, 21, 21, 0) 75%, rgb(23, 21, 21));
-  }
-  .login_image {
-    background: linear-gradient(
-      90deg,
-      rgba(23, 21, 21, 1) 0%,
-      rgba(23, 21, 21, 0) 25%
-    ),
-    linear-gradient(0deg, rgba(23, 21, 21, 0) 75%, rgba(23, 21, 21, 1) 100%),
-    center / cover no-repeat
-      url("../../public/images/login/login-large.jpg"),
-    linear-gradient(rgba(23, 21, 21, 0) 75%, rgb(23, 21, 21));
-  }
-  .signUp_image {
-    background:  linear-gradient(90deg, rgba(23,21,21,0) 75%, rgba(23,21,21,1) 100%),
-      linear-gradient(0deg, rgba(23, 21, 21, 0) 75%, rgba(23, 21, 21, 1) 100%),
-      center / cover no-repeat
-        url("../../public/images/sign-up/sign_up-large.jpg"),
-      linear-gradient(rgba(23, 21, 21, 0) 75%, rgb(23, 21, 21));
-  }
 }
 @media screen and (min-width: 1300px) {
   .home_image {
     background: linear-gradient(rgba(23, 21, 21, 0) 50%, rgb(23, 21, 21)),
       center 61% / cover no-repeat
         url("../../public/images/home/home-extraLarge.webp");
-  }
-  .image_sign-up {
-    background: center / cover no-repeat
-      url("../../public/images/sign-up/sign_up-extraLarge.jpg");
-  }
-  .reservation_image {
-    background: linear-gradient(
-        90deg,
-        rgba(23, 21, 21, 1) 0%,
-        linear-gradient(
-          0deg,
-          rgba(23, 21, 21, 0) 75%,
-          rgba(23, 21, 21, 1) 100%
-        ),
-        rgba(23, 21, 21, 0) 25%
-      ),
-      linear-gradient(rgba(23, 21, 21, 0) 75%, rgb(23, 21, 21)),
-      center / cover no-repeat
-        url("../../public/images/reservation/reservation-extraLarge.jpg");
-  }
-  .contact_image {
-    background:  linear-gradient(90deg, rgba(23,21,21,0) 75%, rgba(23,21,21,1) 100%),
-    linear-gradient(0deg, rgba(23, 21, 21, 0) 75%, rgba(23, 21, 21, 1) 100%),
-    center / cover no-repeat
-      url("../../public/images/contact/contact-extraLarge.jpg"),
-    linear-gradient(rgba(23, 21, 21, 0) 75%, rgb(23, 21, 21));
-  }
-  .login_image {
-    background: linear-gradient(
-      90deg,
-      rgba(23, 21, 21, 1) 0%,
-      rgba(23, 21, 21, 0) 25%
-    ),
-    linear-gradient(0deg, rgba(23, 21, 21, 0) 75%, rgba(23, 21, 21, 1) 100%),
-    center / cover no-repeat
-      url("../../public/images/login/login-extraLarge.jpg"),
-    linear-gradient(rgba(23, 21, 21, 0) 75%, rgb(23, 21, 21));
-  }
-  .signUp_image {
-    background:  linear-gradient(90deg, rgba(23,21,21,0) 75%, rgba(23,21,21,1) 100%),
-      linear-gradient(0deg, rgba(23, 21, 21, 0) 75%, rgba(23, 21, 21, 1) 100%),
-      center / cover no-repeat
-        url("../../public/images/sign-up/sign_up-extraLarge.jpg"),
-      linear-gradient(rgba(23, 21, 21, 0) 75%, rgb(23, 21, 21));
   }
 }
 
