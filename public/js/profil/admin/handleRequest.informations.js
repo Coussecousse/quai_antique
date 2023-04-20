@@ -15,6 +15,8 @@ emailButton.addEventListener('click', e => {
     const setEmail = document.querySelector('#change_email');
 
     setEmail.children[0].classList.replace('fa-pen', 'fa-check');
+    setEmail.children[1].textContent = "Valider";
+
     passwordButton.classList.add('hide');
     setPassword.classList.remove('hide');
 
@@ -89,7 +91,8 @@ passwordButton.addEventListener('click', e => {
 
     emailButton.classList.add('hide');
 
-    passwordButton.children[0].classList.replace('fa-pen','fa-check');
+    passwordButton.children[0].classList.replace('fa-pen', 'fa-check');
+    passwordButton.children[1].textContent = "Valider";
 
     const changePassword = document.querySelectorAll('.change_password');
 

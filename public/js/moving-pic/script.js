@@ -2,22 +2,10 @@ const container = document.querySelector("#moving-pic");
 
 const imagesClass = ['image_1', 'image_2', 'image_3','image_4', 'image_5'];
 
+let page = location.pathname;
+page = page.split("/");
 
-// const interval = setInterval(() => {
-//     let page = location.href;
-//     page = currentRoute.split("/").pop();
-//     console.log(page)
-//     switch (page) {
-//         case 'reservation':
-            
-//             break;
-//     }
-// }, 1000);
-let page = location.href;
-page = page.split("/").pop();
-console.log(page)
-
-switch(page) {
+switch(page[1]) {
     case 'reservation':
         changeImage('image_1', 0);
         break;

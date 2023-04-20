@@ -5,8 +5,8 @@
     <div class="text-center text-secondary max-w-[589px] w-11/12 mx-auto lg:mx-auto lg:w-5/6 font-secondary border border-solid border-500 p-3">
         {% if result == "success" %}
         <p class="mb-4">Un mail de confirmation vous a été envoyé !</p>
-        <p>Veuillez le valider afin de pouvoir vous connecter.</p>
-        <small class="mt-6">Si vous n'avez rien reçu, veuillez vérifier votre boîte de <span class="underline underline-offset-2">SPAM</span></small>
+        <p class="mb-6">Veuillez le valider afin d'accéder à toutes les fonctionnalités lors de votre connexion.</p>
+        <small class="">Si vous n'avez rien reçu, veuillez vérifier votre boîte de <span class="underline underline-offset-2">SPAM</span></small>
         {% if again != 'true' %}
         <p class="pt-8">Sinon, vous pouvez <a href="{{ path('signUp-sendEmail', { 'again' : 'true' }) }}" class="hover:underline hover:underline-offset-2">renvoyer un mail.</a></p>
         {% endif %}

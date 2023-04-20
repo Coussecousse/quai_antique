@@ -8,5 +8,7 @@
             <input placeholder="1 2 3 4 5 6" type="text" name="code" id="code" required class="md:text-xl form_input w-11/12 md:w-5/6 h-8 mx-auto tracking-code text-center">
             <button class="bg-secondary py-3 px-5 group hover:bg-400 duration-150 drop-shadow-lg w-fit text-primary hover:text-secondary mx-auto" type="submit">Valider</button>
         </form>
+    </div>
+    <small class="card_backLink"><a href="{{ path('signUp-sendEmail', { 'again' : 'true' }) }}">Renvoyer un code</a></small>
 </section>
 {% endblock %}

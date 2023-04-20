@@ -45,7 +45,6 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/client/réserver, roles: ROLE_VERIFIED }
         - { path: ^/logout, roles: ROLE_USER }
 
 when@test:

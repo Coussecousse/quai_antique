@@ -439,7 +439,7 @@ header nav a.active::after {
   grid-template-columns: clamp(6.25rem, 0.89rem + 11.1667vw, 10.94rem) auto;
 }
 .profil_up {
-  @apply min-h-[319px] z-10 relative;
+  @apply min-h-[359px] z-10 relative;
 }
 
 .input_whitePlaceholder {
@@ -454,7 +454,7 @@ header nav a.active::after {
   @apply opacity-50 hover:opacity-100;
 }
 .hidden_label {
-  @apply max-w-[395px] mx-auto block md:mx-0;
+  @apply max-w-[395px] block md:mx-0;
 }
 /* CAROUSEL */
 .input_carousel {
@@ -672,6 +672,11 @@ header nav a.active::after {
     padding: 0 4px;
   }
 }
+@media screen and (min-width: 425px){
+  .sm-hide {
+    display: none !important;
+  }
+}
 @media screen and (min-width: 560px) {
   #schedules .fa-lock-open,
   #schedules .fa-lock,
@@ -688,6 +693,7 @@ header nav a.active::after {
     grid-template-columns: repeat(3, 13px 1fr);
   }
 }
+
 @media screen and (min-width: 768px) {
   footer,
   footer div:nth-child(2),

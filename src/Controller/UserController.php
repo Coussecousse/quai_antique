@@ -160,8 +160,8 @@ class UserController extends AbstractController
         if ($again == 'true') {
             $request->getSession()->set('again', 'true');
         }
-        $email = $request->getSession()->get('email');
-        $randomCode = $request->getSession()->get('code');
+        $email = $request->getSession()->get('email') ? $request->getSession()->get('email') : $this->getUser()->getEmail();
+        $randomCode = $request->getSession()->get('code') ?  $request->getSession()->get('code') : $this->getUser()->getCode();
 
         $key = file_get_contents('../dkim/dkim.private.key');
         $signer = new DkimSigner($key, 'quai-antique.fr', 'default');
@@ -172,7 +172,7 @@ class UserController extends AbstractController
         
         $email = (new TemplatedEmail())        
             ->from($emailRestaurant)   
-            ->to($emailRestaurant)
+            ->to($email)
             ->subject("Validez votre compte sur le site du Quai Antique !");
 
         $html = $this->render('SignUp/mail/email.html.twig',[
