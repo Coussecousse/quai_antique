@@ -18,17 +18,17 @@ class FooterController extends AbstractController
         $restaurantDatas = Yaml::parseFile($this->getParameter('data'));
         $email = $restaurantDatas['email'];
         $tel = $restaurantDatas['tel'];
-        
-        $datas = [
-            'schedules' => $schedules,
-            'email' => $email,
-            'tel' => $tel
-        ];
+        $street = $restaurantDatas['street'];
+        $city = $restaurantDatas['city'];
+        $postcode = $restaurantDatas['postcode'];
                 
         return $this->render('partials/_footer.html.twig', [
             'schedules' => $schedules,
             'email' => $email,
-            'tel' => $tel
+            'tel' => $tel,
+            'street' => $street,
+            'city' => $city,
+            'postcode' => $postcode
         ]);
     }
 }
