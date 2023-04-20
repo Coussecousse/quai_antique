@@ -17,7 +17,7 @@
             </li>
             {% if app.user and 'ROLE_ADMIN' in app.user.roles %}
                 <li>
-                    <a class="{{ app.request.attributes.get('_route') == 'admin_reservation' ? 'active' : 'not-active' }}" href="{{ url('admin_reservations', { 'service' : 'midi' }) }}">Réservations</a>
+                    <a class="{{ "/reservations" in app.request.pathInfo ? 'active' : 'not-active' }}" href="{{ url('admin_reservations', { 'service' : 'midi' }) }}">Réservations</a>
                 </li>
             {% else %}
                 <li>
@@ -30,11 +30,11 @@
             {% if app.user %}
                 {% if 'ROLE_ADMIN' in app.user.roles %}
                     <li>
-                        <a class="{{ app.request.attributes.get('_route') == 'home' ? 'admin_profil' : 'not-active' }}" href="{{ url('admin_profil', {'page_up':'informations', 'page_down' : 'carousel'}) }}">Profil</a>
+                        <a class="{{ '/profil' in app.request.pathInfo ? 'active' : 'not-active' }}" href="{{ url('admin_profil', {'page_up':'informations', 'page_down' : 'carousel'}) }}">Profil</a>
                     </li>
                 {% else %}
                     <li>
-                        <a class="{{ app.request.attributes.get('_route') == 'client_profil' ? 'active' : 'not-active' }}" href="{{ url('client_profil', {'page_down' : 'modèles' }) }}">Profil</a>
+                        <a class="{{ '/profil' in app.request.pathInfo == 'client_profil' ? 'active' : 'not-active' }}" href="{{ url('client_profil', {'page_down' : 'modèles' }) }}">Profil</a>
                     </li>
                 {% endif %}
                 <li>
@@ -42,8 +42,7 @@
                 </li>
             {% else %}
                 <li>
-                    <a href={{ path('login') }} class="{{ (app.request.attributes.get('_route') == 'login' or app.request.attributes.get('_route') == 'app_forgot_password_request'
-                                                            or app.request.attributes.get('_route') == 'app_check_email' or app.request.attributes.get('_route') == 'app_reset_password') ? 'active' : 'not-active' }}">Connexion</a>
+                    <a href={{ path('login') }} class="{{ '/inscription' in app.request.pathInfo ? 'active' : 'not-active' }}">Connexion</a>
                 </li>
                 <li>
                     <a href={{ path('sign_up') }} class="{{ app.request.attributes.get('_route') == 'sign_up' ? 'active' : 'not-active' }}">Inscription</a>
