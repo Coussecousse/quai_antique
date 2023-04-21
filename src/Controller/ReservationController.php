@@ -115,6 +115,7 @@ class ReservationController extends AbstractController
             $templates = $user->getTemplate();
         }
         if ($request->isMethod('POST')) {
+
             $date = $request->get('date');
             $reservation = json_decode($request->getContent(), true);
             $template = $request->get('template');
@@ -306,7 +307,17 @@ class ReservationController extends AbstractController
                 if ($this->getUser() && !in_array('ROLE_ADMIN', $this->getUser()->getRoles())) {
                     $new_res->setClient($userRepository->find($this->getUser()));
                 }
+
+                // Check token
+                $submittedToken = $reservation['token'];
+                if (!$this->isCsrfTokenValid('user-reservation', $submittedToken)) {
+                    return new JsonResponse([
+                        'result' => 'error'
+                    ]);
+                } 
+                    
                 $reservationRepository->save($new_res, true);
+                
 
                 return new JsonResponse([
                     'result' => 'success'

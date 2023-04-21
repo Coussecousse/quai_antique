@@ -117,7 +117,7 @@ function sendDate(date, service) {
         service.classList.replace('slow-opacity-reverse','slow-opacity-in');
         const eveningContainer = document.querySelector('#service_evening');
         const noonContainer = document.querySelector('#service_noon');
-
+        console.log(evening);
         if (evening.length == 0 || !evening) {
             handleDisableInput(eveningContainer, true);
             noonContainer.querySelector('input').checked = true;
@@ -421,6 +421,8 @@ function sendReservation(e) {
         service = "noon";
     }
 
+    const token = document.querySelector('input[name=token]').value;
+
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
         let url = window.location.origin + window.location.pathname;
@@ -454,7 +456,8 @@ function sendReservation(e) {
         places : places,
         allergies : allergies,
         date : date,
-        schedule : schedule
+        schedule : schedule,
+        token : token
     }
     xhr.send(JSON.stringify(data));
 }
