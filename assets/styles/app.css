@@ -34,6 +34,9 @@ a {
 .label-lg label {
   @apply text-lg;
 }
+.title_2 {
+  font-size: clamp(2.5rem, 1.938rem + 2.809vw, 5.625rem);
+}
 /* Buttons */
 .button_style {
   @apply bg-secondary drop-shadow-lg text-primary hover:bg-400 cursor-pointer duration-150 hover:text-secondary ;
@@ -652,6 +655,12 @@ header nav a.active::after {
 .admin_reservations_grid > * {
   @apply border border-solid border-primary text-center;
 }
+
+/* Cookie */
+.active_buttonCookie {
+  opacity: 80%;
+}
+
 
 @keyframes flash {
   from { 
