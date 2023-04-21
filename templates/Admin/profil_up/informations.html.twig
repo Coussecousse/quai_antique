@@ -6,7 +6,7 @@
             <div class="form_profilContainer bg-400/20 input_profil">
                 <i class="fa-solid fa-at form_icon"></i>
                 <input class="input_whitePlaceholder" type="email" name="email" id="email" placeholder={{ app.user.email }} required minlength=5 maxlength=80 value={{ last_email }}>
-                <button type="submit" id="change_email" class="form_icon" ><i class="fa-solid fa-pen sm-hide"></i><p class="opacity-80 hover:opacity-100 hidden sm:block">Modifier</p></button>
+                <button aria-label="Modifier email" type="submit" id="change_email" class="form_icon" ><i class="fa-solid fa-pen sm-hide"></i><p class="opacity-80 hover:opacity-100 hidden sm:block">Modifier</p></button>
             </div>
         </form>
         <form class="form_profil items-center" method="POST">
@@ -14,11 +14,11 @@
             <div class="form_profilContainer bg-400/20 input_profil relative">
                 <i class="fa-solid fa-lock form_icon"></i>
                 <input class="input_whitePlaceholder w-full" type="password" minlength=8 maxlength=80 name="password" id="password" placeholder="********" required pattern="\^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,80}$\" onfocus="displayRules()" title="Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscle et un chiffre.">
-                <span role="button" onclick="togglePassword(event)">
+                <span aria-label="Afficher ou non mot de passe" role="button" onclick="togglePassword(event)">
                     <i class="fa-solid fa-eye w-[36px] hide form_icon" ></i>
                     <i class="fa-solid fa-eye-slash w-[36px] form_icon"></i>
                 </span>
-                <button type="submit" id="change_password" class="form_icon" ><i class="fa-solid fa-pen sm-hide"></i><p class="opacity-80 hover:opacity-100 hidden sm:block">Modifier</p></button>
+                <button aria-label="Modifier mot de passe" type="submit" id="change_password" class="form_icon" ><i class="fa-solid fa-pen sm-hide"></i><p class="opacity-80 hover:opacity-100 hidden sm:block">Modifier</p></button>
             </div>
             <small class="block col-start-2 hide form_error" id="error_password"></small>
             <small class="block col-start-2 hide" id="need_password">
@@ -32,7 +32,7 @@
             <div class="hide form_profilContainer bg-400/20 input_profil hide change_password relative py-1">
                 <i class="fa-solid fa-lock form_icon"></i>
                 <input class="input_whitePlaceholder" type="password" minlength=8 maxlength=80 name="valid_password" id="valid_password" placeholder="Nouveau mot de passe" pattern="\^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,80}$\" title="Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscle et un chiffre." required>
-                <span role="button" onclick="togglePassword(event)">
+                <span aria-label="Afficher ou non mot de passe" role="button" onclick="togglePassword(event)">
                     <i class="fa-solid fa-eye w-[36px] hide form_icon" ></i>
                     <i class="fa-solid fa-eye-slash w-[36px] form_icon"></i>
                 </span>
@@ -42,7 +42,7 @@
             <div class="col-start-2 hide form_profilContainer bg-400/20 input_profil hide change_password relative py-1">
                 <i class="fa-solid fa-lock form_icon"></i>
                 <input class="input_whitePlaceholder" type="password" minlength=8 maxlength=80 name="old_password" id="old_password" placeholder="Ancien mot de passe" pattern="\^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,80}$\" required title="Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscle et un chiffre.">
-                <span role="button" onclick="togglePassword(event)">
+                <span aria-label="Afficher ou non mot de passe" role="button" onclick="togglePassword(event)">
                     <i class="fa-solid fa-eye w-[36px] hide form_icon"></i>
                     <i class="fa-solid fa-eye-slash w-[36px] form_icon"></i>
                 </span>

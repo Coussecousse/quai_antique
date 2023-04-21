@@ -68,9 +68,9 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="bg-secondary text-primary hover:bg-primary hover:text-secondary duration-150 px-4 py-2 mt-4 relative left-1/2 -translate-x-1/2">Ajouter une nouvelle date</button>
+                <button aria-label="Ajouter" type="submit" class="bg-secondary text-primary hover:bg-primary hover:text-secondary duration-150 px-4 py-2 mt-4 relative left-1/2 -translate-x-1/2">Ajouter une nouvelle date</button>
             {{ form_end(form_dates) }}
-            <button onclick="deletePastDates()" class="scale-[.8] hover:scale-100 duration-150 box-shadow-lg mt-4 bg-red-600 px-4 py-2 relative left-1/2 -translate-x-1/2">Supprimer les dates passées</button>
+            <button aria-label="Supprimer les dates antérieures" onclick="deletePastDates()" class="scale-[.8] hover:scale-100 duration-150 box-shadow-lg mt-4 bg-red-600 px-4 py-2 relative left-1/2 -translate-x-1/2">Supprimer les dates passées</button>
         </section>
         <section class="flex mt-6">
             <form class="mx-auto text-sm sm-600:text-base flex items-center justify-center">
@@ -87,7 +87,7 @@
                                 <p class="flex-1">{{ date.date|date("d/m/Y", false) }}</p>
                                 <i class="fa-regular fa-calendar text-sm px-[6px]"></i>
                             </div>
-                            <button onclick="deleteDate(event)" data-id={{ date.id }} class="bg-red-600 duration-150 hover:bg-secondary absolute button_profil right-0 top-2"><i class="fa-solid fa-trash form_icon hover:text-red-600 duration-150"></i></button>
+                            <button aria-label="Supprimer" onclick="deleteDate(event)" data-id={{ date.id }} class="bg-red-600 duration-150 hover:bg-secondary absolute button_profil right-0 top-2"><i class="fa-solid fa-trash form_icon hover:text-red-600 duration-150"></i></button>
                         </div>
                         <div class="w-full flex justify-evenly pt-4">
                             <div class="flex flex-col gap-3">

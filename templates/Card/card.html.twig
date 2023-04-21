@@ -13,7 +13,7 @@
             <section class="">
                 <ul class="card_grid">
                     <li class="group">
-                        <a href="{{ path('card-starter') }}">
+                        <a href="{{ path('card-starter') }}" aria-label="Entrées">
                             <picture>
                                 <source srcset={{ asset('/images/card/'~"starter-extraLarge.jpg") }} media="(min-width : 1200px)">
                                 <source srcset={{ asset('/images/card/'~"starter-large.jpg") }} media="(min-width : 990px)">
@@ -26,7 +26,7 @@
                         </a>
                     </li>
                     <li class="group">
-                        <a href="{{ path('card-main') }}">
+                        <a href="{{ path('card-main') }}" aria-label="Plats">
                             <picture>
                                 <source srcset={{ asset('/images/card/'~"main-large.jpg") }} media="(min-width : 990px)">
                                 <source srcset={{ asset('/images/card/'~"main-medium.jpg") }} media="(min-width : 768px)">
@@ -39,7 +39,7 @@
                         </a>
                     </li>
                     <li class="group">
-                        <a href="{{ path('card-dessert') }}">
+                        <a href="{{ path('card-dessert') }}" aria-label="Desserts">
                             <picture>
                                 <source srcset={{ asset('/images/card/'~"dessert-extraLarge.jpg") }} media="(min-width : 1200px)">
                                 <source srcset={{ asset('/images/card/'~"dessert-large.jpg") }} media="(min-width : 990px)">
@@ -52,7 +52,7 @@
                         </a>
                     </li>
                     <li class="group">
-                        <a href="{{ path('card-menus') }}">
+                        <a href="{{ path('card-menus') }}" aria-label="Menus">
                             <picture>
                                 <source srcset={{ asset('/images/card/'~"menu-extraLarge.jpg") }} media="(min-width : 1200px)">
                                 <source srcset={{ asset('/images/card/'~"menu-large.jpg") }} media="(min-width : 990px)">

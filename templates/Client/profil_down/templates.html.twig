@@ -78,7 +78,7 @@
 										</button>
 									</div>
 								</div>
-								<button class="text-2xl self-start md:self-center" onclick="showTemplate(event)">
+								<button aria-label="Ouvrir fermer la fiche" class="text-2xl self-start md:self-center" onclick="showTemplate(event)">
 									<i class="fa-solid fa-caret-down text-secondary button-full"></i>
 									<i class="hide fa-solid fa-caret-up button-full"></i>
 								</button>
@@ -189,7 +189,7 @@
                                             {% else %}
                                             <input type="checkbox"  name="{{ 'allergies[]_'~ template.id }}" value="nuts">
                                             {% endif %}
-                                            <label for="{{ 'allergies_13_'~ template.id }}"">Fruits à coque</label>
+                                            <label for="{{ 'allergies_13_'~ template.id }}">Fruits à coque</label>
 										</div>
 									</div>
 								</div>

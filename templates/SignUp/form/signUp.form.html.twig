@@ -34,7 +34,7 @@
             <div class="form_inputContainer_2">
                 <i class="fa-solid fa-lock form_icon"></i>
                 {{ form_widget(form.password, { 'attr' : { 'class' : 'form_input', 'placeholder' : 'Mot de passe'}}) }}
-                <span role="button" onclick="togglePassword(event)" class="w-[36px]">
+                <span aria-label="Afficher ou non mot de passe" role="button" onclick="togglePassword(event)" class="w-[36px]">
                     <i class="fa-solid fa-eye button-full hide" ></i>
                     <i class="fa-solid fa-eye-slash button-full"></i>
                 </span>
@@ -49,7 +49,7 @@
             <div class="form_inputContainer_2">
                 <i class="fa-solid fa-lock form_icon"></i>
                 {{ form_widget(form.confirm, {'attr' : { 'class' : 'form_input', 'placeholder' : 'Confirmer le mot de passe'}}) }}
-                <span role="button" onclick="togglePassword(event)" class="w-[36px]">
+                <span aria-label="Afficher ou non mot de passe" role="button" onclick="togglePassword(event)" class="w-[36px]">
                     <i class="fa-solid fa-eye hide button-full"></i>
                     <i class="fa-solid fa-eye-slash button-full"></i>
                 </span>                            

@@ -67,14 +67,14 @@
 									</div>
 									<input type="hidden" value={{ day.id }} name="schedule[id_schedule]">
 								</div>
-								<button type="submit" class="bg-secondary text-primary duration-150 hover:bg-primary hover:text-secondary px-4 py-2 w-fit mx-auto mt-4">Modifier les horaires</button>
+								<button aria-label="Modifier" type="submit" class="bg-secondary text-primary duration-150 hover:bg-primary hover:text-secondary px-4 py-2 w-fit mx-auto mt-4">Modifier les horaires</button>
 							</form>
 						</div>
 					</li>
 				{% endfor %}
 			</ol>
 			<div class="flex flex-col items-center">
-				<button onclick="submitAllTheDays(event)" class="bg-primary text-secondary px-4 py-3 box-shadow-lg mb-2 mt-8 hover:bg-400 hover:text-secondary duration-150">Modifier <span class="underline underline-offset-2">tous</span> les horaires</button>
+				<button aria-label="Modifier tous les horaires" onclick="submitAllTheDays(event)" class="bg-primary text-secondary px-4 py-3 box-shadow-lg mb-2 mt-8 hover:bg-400 hover:text-secondary duration-150">Modifier <span class="underline underline-offset-2">tous</span> les horaires</button>
 				<small class="error_submitAll bg-red-600 p-2 hide box-shadow-lg"></small>
 			</div>
 		</section>
