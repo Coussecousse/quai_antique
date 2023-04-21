@@ -724,12 +724,52 @@ header nav a.active::after {
       center 61% / cover no-repeat
         url("../../public/images/home/home-large.webp");
   }
+  .image_1 {
+    background: center / cover no-repeat 
+    url('../../public/images/moving/1_large.jpg');
+  }
+  .image_2 {
+    background: center / cover no-repeat
+    url("../../public/images/moving/2_large.jpg");
+  }
+  .image_3 {
+    background: center / cover no-repeat
+    url("../../public/images/moving/3_large.jpg");
+  }
+  .image_4 {
+    background: center / cover no-repeat
+    url("../../public/images/moving/4_large.jpg");
+  }
+  .image_5 {
+    background: center / cover no-repeat
+    url("../../public/images/moving/5_large.jpg");
+  }
 }
 @media screen and (min-width: 1300px) {
   .home_image {
     background: linear-gradient(rgba(23, 21, 21, 0) 50%, rgb(23, 21, 21)),
       center 61% / cover no-repeat
         url("../../public/images/home/home-extraLarge.webp");
+  }
+  .image_1 {
+    background: center / cover no-repeat 
+    url('../../public/images/moving/1_extraLarge.jpg');
+  }
+  .image_2 {
+    background: center / cover no-repeat
+    url("../../public/images/moving/2_extraLarge.jpg");
+  }
+  .image_3 {
+    background: center / cover no-repeat
+    url("../../public/images/moving/3_extraLarge.jpg");
+  }
+  .image_4 {
+    background: center / cover no-repeat
+    url("../../public/images/moving/4_extraLarge.jpg");
+  }
+  .image_5 {
+    background: center / cover no-repeat
+    url("../../public/images/moving/5_extraLarge.jpg");
   }
 }
 
