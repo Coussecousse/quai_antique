@@ -1,5 +1,4 @@
 function deleteReservation(e) {
-    console.log(e.target)
     const id = e.target.parentElement.dataset.id;
 
     const xhr = new XMLHttpRequest();

@@ -117,7 +117,7 @@ function sendDate(date, service) {
         service.classList.replace('slow-opacity-reverse','slow-opacity-in');
         const eveningContainer = document.querySelector('#service_evening');
         const noonContainer = document.querySelector('#service_noon');
-        console.log(evening);
+
         if (evening.length == 0 || !evening) {
             handleDisableInput(eveningContainer, true);
             noonContainer.querySelector('input').checked = true;
@@ -429,7 +429,6 @@ function sendReservation(e) {
 
         if (this.readyState == 4 && this.status == 200) {
             const response = JSON.parse(xhr.responseText);
-            console.log(response.result)
             switch(response.result){
                 case 'success':
                     window.location = url + "?result=success";

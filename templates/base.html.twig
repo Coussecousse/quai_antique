@@ -6,8 +6,9 @@
 		<title>Quai Antique |
 			{% block title %}{% endblock %}
 		</title>
+		<meta name="description" content="Site internet du Quai Antique, restaurant du chef Arnaud Michant situé à Chambéry. Cuisine traditionnelle et gastronomique des saveurs de la Savoie.">
 		<link
-		rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+		rel="icon" href="{{ asset('images/icon/favicon.ico')}}">
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
 		{% endblock %}
@@ -20,11 +21,7 @@
 	<body class="bg-primary min-h-screen w-full overflow-x-hidden">
 		{% include('partials/_header.html.twig') %}
 		{% block body %}{% endblock %}
-		{# {% include('Footer/footer.html.twig') %} #}
-		{# {% render ('footer_data') %} #}
-		{# {% include controller('App\\Controller\\FooterController::footerData') %} #}
 		{{ render(path('footer_data')) }}
-		{# {% render(controller('App\\Controller\\FooterController::footerData')) %} #}
 		<script src="https://kit.fontawesome.com/4ba6d56c15.js" crossorigin="anonymous"></script>
 		<script src={{ asset('/js/global-script.js') }}></script>
 		{% block scripts %}{% endblock %}

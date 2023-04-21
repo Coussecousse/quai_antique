@@ -158,16 +158,6 @@ function centerNextElement() {
   active.dataset.active = false;
   next.dataset.active = true;
 
-  const rect = next.getBoundingClientRect();
-  const leftPosition = rect.left;
-
-  const widthElement = next.clientWidth;
-  const middleElement = leftPosition + widthElement / 2;
-
-  const screenWidth = window.innerWidth;
-
-  const middleScreen = screenWidth / 2;
-
   if (next.dataset.image == carousel.children.length - 1) {
     const soustraction = giveSoustraction(next, true) - 16;
     carousel.style.transform =
@@ -214,16 +204,6 @@ function centerPreviousElement() {
   active.dataset.active = false;
   previous.dataset.active = true;
 
-  const rect = previous.getBoundingClientRect();
-  const leftPosition = rect.left;
-
-  const widthElement = previous.clientWidth;
-  const middleElement = leftPosition + widthElement / 2;
-
-  const screenWidth = window.innerWidth;
-
-  const middleScreen = screenWidth / 2;
-
   if (previous.dataset.image == carousel.children.length - 1) {
     const soustraction = giveSoustraction(previous, true) + 16;
     carousel.style.transform =
@@ -257,9 +237,9 @@ function centerPreviousElement() {
 const buttons = document.querySelector("#home_buttons");
 
 buttons.addEventListener("click", (e) => {
-  if (e.target.parentElement.ariaLabel == "gauche") {
+  if (e.target.parentElement.ariaLabel == "Gauche") {
     centerPreviousElement();
-  } else if (e.target.parentElement.ariaLabel == "droite") {
+  } else if (e.target.parentElement.ariaLabel == "Droite") {
     centerNextElement();
   } else if (e.target.classList.contains("carousel_button")) {
     for (let button of buttons.children) {

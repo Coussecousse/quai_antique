@@ -31,7 +31,7 @@
             <div class="font-primary flex flex-col gap-8 md:mb-4">
                 <div class="carousel_pics duration-150">
                     {% for key, image in images_carousel %}
-                        <div class="{{ key > 1 ? (key + 1 == images_carousel|length ? 'invisible opacity-0 group' : 'group') : 'group' }}" style="order: {{ key + 1 }}" data-image="{{ key }}" data-active="{{ key == 0 ? 'true' : 'false' }}">
+                        <div class="{{ key > 1 ? (key + 1 != images_carousel|length ? 'invisible opacity-0 group' : 'group') : 'group' }}" style="order: {{ key + 1 }}" data-image="{{ key }}" data-active="{{ key == 0 ? 'true' : 'false' }}">
                             <picture>
                                 <source srcset={{ asset( image.path|split('.')[0] ~"-extraLarge."~ image.path|split('.')[1]) }} media="(min-width : 1200px)">
                                 <source srcset={{ asset(image.path|split('.')[0] ~"-large."~ image.path|split('.')[1]) }} media="(min-width : 990px)">
