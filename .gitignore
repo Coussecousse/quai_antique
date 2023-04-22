@@ -7,7 +7,7 @@
 /.env.local.php
 /.env.*.local
 /config/secrets/prod/prod.decrypt.private.php
-/public/bundles/
+/public_html/bundles/
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
@@ -30,5 +30,5 @@ yarn-error.log
 
 /src/DataFixtures/AdminFixture.php
 ###> liip/imagine-bundle ###
-/public/media/cache/
+/public_html/media/cache/
 ###< liip/imagine-bundle ###
