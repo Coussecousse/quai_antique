@@ -4,11 +4,11 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
-    directory: '%kernel.project_dir%/public'
-    uploads: '%kernel.project_dir%/public/images/uploads/'
-    resize: '%kernel.project_dir%/public/images/resize/'
-    build-uploads: '%kernel.project_dir%/public/build/images/uploads/'
-    build-resize: '%kernel.project_dir%/public/build/images/resize/'
+    directory: '%kernel.project_dir%/public_html_html'
+    uploads: '%kernel.project_dir%/public_html/images/uploads/'
+    resize: '%kernel.project_dir%/public_html/images/resize/'
+    build-uploads: '%kernel.project_dir%/public_html/build/images/uploads/'
+    build-resize: '%kernel.project_dir%/public_html/build/images/resize/'
     data : '%kernel.project_dir%/config/data/restaurant.yaml'
 
 services:

@@ -179,7 +179,7 @@ __webpack_require__.r(__webpack_exports__);
 
 // any CSS you import will output into a single css file (app.css in this case)
 
-// import '../public/build/app.css'
+// import '../public_html/build/app.css'
 
 // start the Stimulus application
 

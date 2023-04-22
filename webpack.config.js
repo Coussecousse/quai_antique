@@ -9,9 +9,9 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 Encore
     .enablePostCssLoader()
     // directory where compiled assets will be stored
-    .setOutputPath('public/build/')
+    .setOutputPath('public_html/build/')
     .copyFiles({
-        from: './public/images',
+        from: './public_html/images',
         
         // optional target path, relative to the output dir
         to: 'images/[path][name].[ext]',
