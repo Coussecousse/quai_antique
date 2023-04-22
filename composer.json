@@ -9,6 +9,7 @@
         "ext-iconv": "*",
         "doctrine/annotations": "^1.0",
         "doctrine/doctrine-bundle": "^2.8",
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.14",
         "imagine/imagine": "^1.2",
@@ -33,6 +34,7 @@
         "symfony/process": "6.2.*",
         "symfony/property-access": "6.2.*",
         "symfony/property-info": "6.2.*",
+        "symfony/requirements-checker": "^2.0",
         "symfony/runtime": "6.2.*",
         "symfony/security-bundle": "6.2.*",
         "symfony/security-csrf": "6.2.*",
@@ -46,7 +48,6 @@
         "symfony/yaml": "6.2.*",
         "symfonycasts/reset-password-bundle": "^1.17",
         "twig/extra-bundle": "^2.12|^3.0",
-        "doctrine/doctrine-fixtures-bundle": "^3.4",
         "twig/twig": "^2.12|^3.0"
     },
     "config": {
@@ -78,7 +79,8 @@
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+            "assets:install %PUBLIC_DIR%": "symfony-cmd",
+            "requirements-checker": "script"
         },
         "post-install-cmd": [
             "@auto-scripts"

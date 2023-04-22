@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fc27c026d440e5ae39cdf73df972c6ac",
+    "content-hash": "b244693927c2d3088963f4939f33fd1d",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -2059,16 +2059,16 @@
         },
         {
             "name": "phpstan/phpdoc-parser",
-            "version": "1.20.0",
+            "version": "1.20.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpdoc-parser.git",
-                "reference": "10553ab3f0337ff1a71433c3417d7eb2a3eec1fd"
+                "reference": "57f6787f0bb6431905a18aa7caea25dcd2bd59e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/10553ab3f0337ff1a71433c3417d7eb2a3eec1fd",
-                "reference": "10553ab3f0337ff1a71433c3417d7eb2a3eec1fd",
+                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/57f6787f0bb6431905a18aa7caea25dcd2bd59e0",
+                "reference": "57f6787f0bb6431905a18aa7caea25dcd2bd59e0",
                 "shasum": ""
             },
             "require": {
@@ -2098,9 +2098,9 @@
             "description": "PHPDoc parser with support for nullable, intersection and generic types",
             "support": {
                 "issues": "https://github.com/phpstan/phpdoc-parser/issues",
-                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.20.0"
+                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.20.1"
             },
-            "time": "2023-04-20T11:18:07+00:00"
+            "time": "2023-04-22T09:05:52+00:00"
         },
         {
             "name": "psr/cache",
@@ -5656,6 +5656,72 @@
                 }
             ],
             "time": "2023-03-14T15:00:05+00:00"
+        },
+        {
+            "name": "symfony/requirements-checker",
+            "version": "v2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/requirements-checker.git",
+                "reference": "cf8893f384348a338157d637e170fe8fb2356016"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/requirements-checker/zipball/cf8893f384348a338157d637e170fe8fb2356016",
+                "reference": "cf8893f384348a338157d637e170fe8fb2356016",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9"
+            },
+            "bin": [
+                "bin/requirements-checker"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Requirements\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Check Symfony requirements and give recommendations",
+            "keywords": [
+                "configuration",
+                "distribution"
+            ],
+            "support": {
+                "issues": "https://github.com/symfony/requirements-checker/issues",
+                "source": "https://github.com/symfony/requirements-checker/tree/v2.0.1"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-11-30T16:18:33+00:00"
         },
         {
             "name": "symfony/routing",
