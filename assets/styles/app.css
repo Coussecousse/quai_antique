@@ -41,6 +41,9 @@ a {
 .button_style {
   @apply bg-secondary drop-shadow-lg text-primary hover:bg-400 cursor-pointer duration-150 hover:text-secondary ;
 }
+.button_style a {
+  @apply w-full h-full flex items-center justify-center;
+}
 
 /*  Error  */
 .error_container {

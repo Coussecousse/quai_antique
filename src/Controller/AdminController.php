@@ -437,7 +437,7 @@ class AdminController extends AbstractController
         return $this->changeRestaurantDatas($restaurant, 'email', $email, $path);
     }
     private function handleSomeRestaurantDatas($data, $dataName, $restaurant, $path) {
-        if (!$this->checkPattern($data, '/^[\p{L}\s\'-]{2,50}$/u')) {
+        if (!filter_var($data, FILTER_VALIDATE_INT)) {
             return new JsonResponse([
                 'result' => 'error_pattern'
             ]);
@@ -882,7 +882,7 @@ class AdminController extends AbstractController
             }
             //  Places
             if ($placesRestaurant) {
-                return $this->handleSomeRestaurantDatas($cityRestaurant, 'places', $restaurant, $path);
+                return $this->handleSomeRestaurantDatas($placesRestaurant, 'places', $restaurant, $path);
             }
             // Carousel
             // Title
