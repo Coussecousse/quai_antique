@@ -110,6 +110,11 @@ function sendDate(date, service) {
 
     sendPromise.then(response => successSend(response))
     function successSend(response) {
+        if (response.result  == 'error_places'){
+            errorContainer.innerHTML = "Le nombre de places donné n'est pas valide.";
+            errorContainer.classList.remove('flash')
+            return;
+        }
         errorContainer.classList.remove('flash');
         const evening = response.evening;
         const noon = response.noon;

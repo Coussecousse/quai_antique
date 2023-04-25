@@ -102,7 +102,7 @@ class ReservationRepository extends ServiceEntityRepository
             array_push($reservations_timestamp, $date);
         }
         sort($reservations_timestamp);
-        dump($reservations_timestamp);
+        
         foreach($reservations_timestamp as $timestamp){
             foreach($reservations as $reservation) {
                 date_timestamp_get($reservation->getDate()) == $timestamp ?

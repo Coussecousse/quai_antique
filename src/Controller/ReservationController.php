@@ -122,6 +122,12 @@ class ReservationController extends AbstractController
 
             if ($date) {
                 $places = $request->request->get('places');
+                
+                if (!$this->checkPattern($places, '/^(1?[1-9]|19)$/')) {
+                    return new JsonResponse([
+                        'result' => 'error_places'
+                    ]);
+                }
 
                 $date = date_create_from_format('D M d Y H:i:s e+',$date);
                 $date = $date->format('Y-m-d');
@@ -188,7 +194,7 @@ class ReservationController extends AbstractController
                 $schedule = $reservation['schedule'];
 
                 if (!$this->checkPattern($name, '/^[\p{L}\d\s.\'’()-]{2,100}+$/u') ||
-                    !$this->checkPattern($places, '/^\d+$/') || 
+                    !$this->checkPattern($places, '/^(1?[1-9]|19)$/') || 
                     !$this->checkPattern($date, '/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/') ||
                     !$this->checkPattern($schedule, '/^(?:[01][0-9]|2[0-3]):[0-5][0-9]$/')
                 )
