@@ -165,23 +165,39 @@ function centerNextElement() {
         ? "translateX(" + soustraction + "px)"
         : "translateX(" + soustraction * -1 + "px)";
 
-    const nextToNewActive = document.querySelector("div[data-image='0']");
-    nextToNewActive.classList.remove("invisible", "opacity-0");
+    // const nextToNewActive = document.querySelector("div[data-image='0']");
+    // nextToNewActive.classList.add("invisible", "opacity-0");
+    // console.log(nextToNewActive)
   } else {
     const soustraction = giveSoustraction(next);
     transformCarousel(carousel, transform.e + soustraction);
 
-    const nextToNewActive = next.nextElementSibling;
-    nextToNewActive.classList.remove("invisible", "opacity-0");
+    // const nextToNewActive = next.nextElementSibling;
+    // nextToNewActive.classList.add("invisible", "opacity-0");
+    // console.log(nextToNewActive)
   }
-
+  next.classList.contains('invisible') ? 
+  next.classList.remove('invisible', 'opacity-0') : 
+  null;
+  console.log('yo')
   if (active.dataset.image == 0) {
     const previousToLastActive =
-      carousel.children[carousel.children.length - 1];
+    carousel.children[carousel.children.length - 1];
     previousToLastActive.classList.add("invisible", "opacity-0");
+
   } else {
     const previousToLastActive = active.previousElementSibling;
     previousToLastActive.classList.add("invisible", "opacity-0");
+  }
+  if (next.dataset.image == carousel.children.length - 1) {
+    const nextToNewActive = carousel.children[0];
+    nextToNewActive.classList.remove('invisible', 'opacity-0');
+
+    const previous = next.previousElementSibling;
+    previous.classList.add('invisible', 'opacity-0');
+  } else if(next.dataset.image != carousel.children.length - 2 ) {
+    const nextToNewActive = next.nextElementSibling;
+    nextToNewActive.classList.remove('invisible', 'opacity-0');
   }
 
   alignButtonWithImage(next.dataset.image);
@@ -215,9 +231,16 @@ function centerPreviousElement() {
     transformCarousel(carousel, transform.e - soustraction);
   }
 
+  previous.classList.contains('invisible') ? 
+  previous.classList.remove('invisible', 'opacity-0') : 
+  null;
+
   if (active.dataset.image == carousel.children.length - 1) {
     const nextToLastActive = document.querySelector("div[data-image='0']");
     nextToLastActive.classList.add("invisible", "opacity-0");
+  } else if (previous.dataset.image == carousel.children.length - 2) {
+    const nextToNewActive = previous.nextElementSibling;
+    nextToNewActive.classList.add("invisible", "opacity-0");
   } else {
     const nextToLastActive = active.nextElementSibling;
     nextToLastActive.classList.add("invisible", "opacity-0");
@@ -226,11 +249,10 @@ function centerPreviousElement() {
   if (previous.dataset.image == 0) {
     const previousToNewActive = carousel.children[carousel.children.length - 1];
     previousToNewActive.classList.remove("invisible", "opacity-0");
-  } else {
+  } else if (previous.dataset.image != carousel.children.length - 1) {
     const previousToNewActive = previous.previousElementSibling;
     previousToNewActive.classList.remove("invisible", "opacity-0");
-  }
-
+  } 
   alignButtonWithImage(previous.dataset.image);
 }
 
