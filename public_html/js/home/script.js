@@ -159,32 +159,25 @@ function centerNextElement() {
   next.dataset.active = true;
 
   if (next.dataset.image == carousel.children.length - 1) {
-    const soustraction = giveSoustraction(next, true) - 16;
+    const soustraction = giveSoustraction(next, true) + 16;
+    console.log(soustraction)
     carousel.style.transform =
       soustraction > 0
         ? "translateX(" + soustraction + "px)"
         : "translateX(" + soustraction * -1 + "px)";
 
-    // const nextToNewActive = document.querySelector("div[data-image='0']");
-    // nextToNewActive.classList.add("invisible", "opacity-0");
-    // console.log(nextToNewActive)
   } else {
     const soustraction = giveSoustraction(next);
     transformCarousel(carousel, transform.e + soustraction);
-
-    // const nextToNewActive = next.nextElementSibling;
-    // nextToNewActive.classList.add("invisible", "opacity-0");
-    // console.log(nextToNewActive)
   }
   next.classList.contains('invisible') ? 
   next.classList.remove('invisible', 'opacity-0') : 
   null;
-  console.log('yo')
+
   if (active.dataset.image == 0) {
     const previousToLastActive =
     carousel.children[carousel.children.length - 1];
     previousToLastActive.classList.add("invisible", "opacity-0");
-
   } else {
     const previousToLastActive = active.previousElementSibling;
     previousToLastActive.classList.add("invisible", "opacity-0");
@@ -240,7 +233,7 @@ function centerPreviousElement() {
     nextToLastActive.classList.add("invisible", "opacity-0");
   } else if (previous.dataset.image == carousel.children.length - 2) {
     const nextToNewActive = previous.nextElementSibling;
-    nextToNewActive.classList.add("invisible", "opacity-0");
+    next.classList.add("invisible", "opacity-0");
   } else {
     const nextToLastActive = active.nextElementSibling;
     nextToLastActive.classList.add("invisible", "opacity-0");
