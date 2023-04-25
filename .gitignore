@@ -10,6 +10,7 @@
 /public_html/bundles/
 /var/
 /vendor/
+/src/DataFixtures/AdminFixture.php
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###

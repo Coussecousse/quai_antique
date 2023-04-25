@@ -155,7 +155,7 @@ class ClientController extends AbstractController
         $user = $this->getUser();
         
         // Reservations 
-        $reservations = $reservationRepository->findBy(['client' => $user]);
+        $reservations = $reservationRepository->getReservationsASC($user);
         $delete_reservation = $request->request->get('delete_reservation');
         $search_reservation = $request->query->get('search_reservation');
         // Last email use when try to to modify informations

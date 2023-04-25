@@ -91,6 +91,30 @@ class ReservationRepository extends ServiceEntityRepository
         }
         return $reservations;
     }
+
+    public function getReservationsASC($client) {
+        $reservations = $this->findBy(['client' => $client]);
+        $reservations_ASC = [];
+        $reservations_timestamp = [];
+        foreach($reservations as $reservation) {
+            $date = $reservation->getDate();
+            $date = date_timestamp_get($date);
+            array_push($reservations_timestamp, $date);
+        }
+        sort($reservations_timestamp);
+        dump($reservations_timestamp);
+        foreach($reservations_timestamp as $timestamp){
+            foreach($reservations as $reservation) {
+                date_timestamp_get($reservation->getDate()) == $timestamp ?
+                array_push($reservations_ASC, $reservation) 
+                : null;
+            }
+        }
+
+        return $reservations_ASC;
+    }
+
+
 //    /**
 //     * @return Reservation[] Returns an array of Reservation objects
 //     */
