@@ -272,11 +272,13 @@ header nav a.active::after {
   @apply text-lg duration-500 h-full w-full absolute top-0 bg-500/50 lg:scale-0 lg:rounded-full;
 }
 .card_title-container h2{
-  @apply relative top-1/2 text-center -translate-y-1/2;
+  @apply relative top-1/2 text-center -translate-y-1/2 font-secondary z-10;
+  -webkit-transform:translate3d(0,0,0);
+  transform: translate3d(0, 0, 0);
 }
 /*  CARD - OPTIONS */
 .card_description {
-  @apply font-third text-[.9rem];
+  @apply font-third text-[.8rem] lg:text-sm;
 }
 
 .box {
@@ -325,9 +327,11 @@ header nav a.active::after {
 #menu h3 {
   @apply font-primary;
 }
-.card-items h3,
+.card-items h3 {
+  @apply text-base lg:text-lg;
+}
 .price {
-  @apply text-lg;
+  @apply text-sm lg:text-base;
 }
 .comment,
 .price {

@@ -17,7 +17,7 @@
                                 <h3>{{ food.title }}</h3>
                                 <p class="card_description" >{{ food.description}}</p>
                             </div>
-                            <p class="price">{{ food.price|number_format(2, '.', ',') }}</p>
+                            <p class="price">{{ food.price|number_format(2, '.', ',') }} € TTC</p>
                         </li>
                     {% endfor %}
                 </ul>
