@@ -160,7 +160,6 @@ function centerNextElement() {
 
   if (next.dataset.image == carousel.children.length - 1) {
     const soustraction = giveSoustraction(next, true);
-    console.log(soustraction)
     carousel.style.transform =
       soustraction > 0
         ? "translateX(" + soustraction + "px)"
