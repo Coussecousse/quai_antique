@@ -12,9 +12,15 @@
 /vendor/
 /src/DataFixtures/AdminFixture.php
 ###< symfony/framework-bundle ###
-/public_html/build/images/resize/*
-/public_html/images/resize/*
 
+/public_html/build/images/resize/*
+!/public_html/build/images/resize/.gitignore
+/public_html/images/resize/*
+!/public_html/images/resize/.gitignore
+/public_html/build/images/uploads/*
+!/public_html/build/images/uploads/.gitignore
+/public_html/images/uploads/*
+!/public_html/build/images/uploads/.gitignore
 
 ###> phpunit/phpunit ###
 /phpunit.xml
