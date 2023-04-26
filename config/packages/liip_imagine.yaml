@@ -7,6 +7,10 @@ liip_imagine:
             web_path: ~
     webp: 
         generate: true
+    loaders:
+        default:
+            filesystem:
+                data_root: "/"
 
     filter_sets:
         cache: ~

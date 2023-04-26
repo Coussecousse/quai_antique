@@ -38,7 +38,6 @@ npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
-/src/DataFixtures/AdminFixture.php
 ###> liip/imagine-bundle ###
 /public_html/media/cache/
 ###< liip/imagine-bundle ###

@@ -18,7 +18,7 @@ class AdminFixtures extends Fixture
         $admin = new Admin();
         $encodePassword = $this->adminPasswordHasher->hashPassword(
             $admin, 
-            "2RkBDK8t92vq8t"
+            "motdepasse"
         );
         $admin->setEmail("admin@gmail.com")->setPassword($encodePassword)->setCode(0)->setRoles(array('ROLE_ADMIN', 'ROLE_VERIFIED'));
 

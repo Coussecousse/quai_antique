@@ -38,7 +38,7 @@ class ReservationController extends AbstractController
         }
         
         $time = $start;
-        
+        dump($timestamp);
         if ($timestamp < $end) {
             if ($timestamp > $start){
                 while ($time <= $timestamp) {
@@ -132,7 +132,12 @@ class ReservationController extends AbstractController
                 $date = date_create_from_format('D M d Y H:i:s e+',$date);
                 $date = $date->format('Y-m-d');
                 $date = new DateTime($date);
-                $hour = date_format($date, 'H:i');
+                $today = new DateTime();
+                if ($date->format('Y-m-d') == $today->format('Y-m-d')) {
+                    $hour = $today->format('H:i');
+                } else {
+                    $hour = date_format($date, 'H:i');  
+                }
                 $hour = new DateTime('1970-01-01 '.$hour);
                 $timestamp = date_timestamp_get($hour);
 
