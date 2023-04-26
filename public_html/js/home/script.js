@@ -159,7 +159,7 @@ function centerNextElement() {
   next.dataset.active = true;
 
   if (next.dataset.image == carousel.children.length - 1) {
-    const soustraction = giveSoustraction(next, true) + 16;
+    const soustraction = giveSoustraction(next, true);
     console.log(soustraction)
     carousel.style.transform =
       soustraction > 0
