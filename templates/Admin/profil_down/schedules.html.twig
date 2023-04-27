@@ -21,14 +21,14 @@
 												<label hidden for="schedule_evening_start">Début du service :</label>
 												<div class="flex mx-auto max-w-[7.5rem]">
 													<i class="fa-solid fa-sun form_icon bg-primary/20"></i>
-													<input value="{{ day.eveningStart is empty ? "" : day.eveningStart|date('H:i', "Europe/Paris") }}" class="input_black input_withoutIcon p-0 sm:p-1 input_time" type="time" name="schedule_evening[start]" placeholder"hh:mm">
+													<input value="{{ day.eveningStart is empty ? "" : day.eveningStart|date('H:i') }}" class="input_black input_withoutIcon p-0 sm:p-1 input_time" type="time" name="schedule_evening[start]" placeholder"hh:mm">
 												</div>
 											</div>
 											<div class="">
 												<label hidden for="schedule_evening_end">Fin du service :</label>
 												<div class="flex mx-auto max-w-[7.5rem]">
 													<i class="fa-solid fa-sun form_icon bg-primary/20"></i>
-													<input value="{{ day.eveningEnd is empty ? "" : day.eveningEnd|date('H:i', "Europe/Paris") }}" class="input_black input_withoutIcon p-0 sm:p-1 input_time" type="time" name="schedule_evening[end]" placeholder"hh:mm">
+													<input value="{{ day.eveningEnd is empty ? "" : day.eveningEnd|date('H:i') }}" class="input_black input_withoutIcon p-0 sm:p-1 input_time" type="time" name="schedule_evening[end]" placeholder"hh:mm">
 												</div>
 											</div>
 											<div class="flex gap-2 justify-center">
@@ -45,14 +45,14 @@
 												<label hidden for="schedule_noon_start">Début du service :</label>
 												<div class="flex mx-auto max-w-[7.5rem]">
 													<i class="fa-solid fa-moon form_icon bg-primary/20"></i>
-													<input value="{{ day.noonStart is empty ? "" : day.noonStart|date('H:i', "Europe/Paris") }}" class="input_black input_withoutIcon p-0 sm:p-1 input_time" type="time" name="schedule_noon[start]" placeholder"hh:mm">
+													<input value="{{ day.noonStart is empty ? "" : day.noonStart|date('H:i') }}" class="input_black input_withoutIcon p-0 sm:p-1 input_time" type="time" name="schedule_noon[start]" placeholder"hh:mm">
 												</div>
 											</div>
 											<div class="">
 												<label hidden for="schedule_noon_end[hour][minute]">Fin du service :</label>
 												<div class="flex mx-auto max-w-[7.5rem]">
 													<i class="fa-solid fa-moon form_icon bg-primary/20"></i>
-													<input value="{{ day.noonEnd is empty ? "" : day.noonEnd|date('H:i', "Europe/Paris") }}" class="input_black input_withoutIcon p-0 sm:p-1 input_time" type="time" name="schedule_noon[end]" placeholder"hh:mm">
+													<input value="{{ day.noonEnd is empty ? "" : day.noonEnd|date('H:i') }}" class="input_black input_withoutIcon p-0 sm:p-1 input_time" type="time" name="schedule_noon[end]" placeholder"hh:mm">
 												</div>
 											</div>
 											<div class="flex gap-2 justify-center">

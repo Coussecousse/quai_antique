@@ -20,6 +20,7 @@ use App\Repository\OfferRepository;
 use App\Repository\ScheduleRepository;
 use App\Repository\UserRepository;
 use DateTime;
+use DateTimeZone;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -186,9 +187,13 @@ class AdminController extends AbstractController
         $time_end = $form->get($service. '_end')->getData();
 
         if ($service == 'evening'){
-            $newDate->setEveningStart($time_start)->setEveningEnd($time_end)->setEvening_close(false)->setEvening_normal(false);
+            $newDate->setEveningStart($time_start->setTimezone(new DateTimeZone('Europe/paris')))
+                    ->setEveningEnd($time_end->setTimezone(new DateTimeZone('Europe/paris')))
+                    ->setEvening_close(false)->setEvening_normal(false);
         } else {
-            $newDate->setNoonStart($time_start)->setNoonEnd($time_end)->setNoon_close(false)->setNoon_normal(false);
+            $newDate->setNoonStart($time_start->setTimezone(new DateTimeZone('Europe/paris')))
+                    ->setNoonEnd($time_end->setTimezone(new DateTimeZone('Europe/paris')))
+                    ->setNoon_close(false)->setNoon_normal(false);
         }
         return $newDate;
 
@@ -471,9 +476,11 @@ class AdminController extends AbstractController
                     return 'error_pattern';
                 };
             }
+            $start = new DateTime($schedule_evening['start'], new DateTimeZone('Europe/Paris'));
+            $end = new Datetime($schedule_evening['end'], new DateTimeZone('Europe/Paris'));
             try {
-                $day->setEveningStart(new DateTime($schedule_evening['start']))
-                    ->setEveningEnd(new DateTime($schedule_evening['end']))
+                $day->setEveningStart($start)
+                    ->setEveningEnd($end)
                     ->setEveningClose(false);
             } catch (Exception $e) {
                 return 'error';
@@ -497,9 +504,11 @@ class AdminController extends AbstractController
                     return 'error_pattern';
                 };
             }
+            $start = new DateTime($schedule_noon['start'], new \DateTimeZone('Europe/Paris'));
+            $end = new DateTime($schedule_noon['end'], new \DateTimeZone('Europe/Paris'));
             try {
-                $day->setNoonStart(new DateTime($schedule_noon['start']))
-                    ->setNoonEnd(new DateTime($schedule_noon['end']))
+                $day->setNoonStart($start)
+                    ->setNoonEnd($end)
                     ->setNoonClose(false);
             } catch (Exception $e) {
                 return 'error';
@@ -520,10 +529,13 @@ class AdminController extends AbstractController
                             ]);
                         }
                     }
+                    $start = new DateTime($service[0], new DateTimeZone ('Europe/Paris'));
+                    $end = new DateTime($service[1], new DateTimeZone('Europe/Paris'));
+                    
                     if ($key == 0)  {
-                        $newDay->setEveningStart(new DateTime($service[0]))->setEveningEnd(new DateTime($service[1]))->setEveningClose(false);
+                        $newDay->setEveningStart($start)->setEveningEnd($end)->setEveningClose(false);
                     } else {
-                        $newDay->setNoonStart(new DateTime($service[0]))->setNoonEnd(new DateTime($service[1]))->setNoonClose(false);
+                        $newDay->setNoonStart($start)->setNoonEnd($end)->setNoonClose(false);
                     }
                 } else {
                     if ($key == 0) {
