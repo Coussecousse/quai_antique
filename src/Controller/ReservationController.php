@@ -66,6 +66,9 @@ class ReservationController extends AbstractController
                 $time = strtotime('+15 minutes', $time);
             }
         } 
+        dump($timestamp);
+        dump($array);
+        dump($time);
         return $array;
     }
     private function getAndDisplaySchedulesSpecialDate($time, $schedule, $repository, $timestamp, $places, $reservationRepository, $date, $array= []) {
@@ -146,10 +149,11 @@ class ReservationController extends AbstractController
                 }
 
                 $date = date_create_from_format('D M d Y H:i:s e+',$date);
-                $date->setTimezone(new DateTimeZone('UTC'));
+                $date->setTimezone(new DateTimeZone('Europe/Paris'));
                 $date = $date->format('Y-m-d');
-                $date = new DateTime($date);
+                $date = new DateTime($date, new DatetimeZone('Europe/Paris'));
                 $today = new DateTime();
+                $today->setTimezone(new DateTimeZone('Europe/Paris'));
                 if ($date->format('Y-m-d') == $today->format('Y-m-d')) {
                     $hour = $today->format('H:i');
                 } else {
