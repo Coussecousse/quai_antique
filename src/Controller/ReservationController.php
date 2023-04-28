@@ -66,9 +66,6 @@ class ReservationController extends AbstractController
                 $time = strtotime('+15 minutes', $time);
             }
         } 
-        dump($timestamp);
-        dump($array);
-        dump($time);
         return $array;
     }
     private function getAndDisplaySchedulesSpecialDate($time, $schedule, $repository, $timestamp, $places, $reservationRepository, $date, $array= []) {
