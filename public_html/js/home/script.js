@@ -53,12 +53,14 @@ function transformCarousel(carousel, calcul) {
 }
 
 // ______________
-const activePic = document.querySelector('div[data-active="true"]');
-
-const soustraction = giveSoustraction(activePic);
-
-const carousel = document.querySelector(".carousel_pics");
-transformCarousel(carousel, soustraction);
+window.addEventListener('load', (event) => {
+  const activePic = document.querySelector('div[data-active="true"]');
+  
+  const soustraction = giveSoustraction(activePic);
+  
+  const carousel = document.querySelector(".carousel_pics");
+  transformCarousel(carousel, soustraction);
+});
 // ________________
 
 function giveTransform(carousel) {
