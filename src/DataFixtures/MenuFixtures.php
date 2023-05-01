@@ -15,11 +15,13 @@ class MenuFixtures extends Fixture
                 'Menu du Jour' => [
                     [
                         'title' => 'Formule du travailleur',
+                        'conditions' => '-Du lundi au samedi midi-',
                         'description' => ['Entrée du jour', 'Plat du jour', 'Dessert du jour'],
                         'price' => 30
                     ],
                     [
                         'title' => 'Formule complète du travailleur',
+                        'conditions' => '-Du lundi au samedi midi-',
                         'description' => ['Apéritif', 'Vin 38cl', 'Entrée du jour', 'Plat du jour', 'Dessert du jour', 'Café'],
                         'price' => 42
                     ],
@@ -27,11 +29,13 @@ class MenuFixtures extends Fixture
                 'Menu du touriste' => [
                     [
                         'title' => 'Formule découverte',
+                        'conditions' => null,
                         'description' => ['Assiette de cochonailles', 'L’authentique farçon savoyard maison', 'Assortiment de fromages secs de Savoie'],
                         'price' => 48
                     ],
                     [
                         'title' => 'Formule Royale',
+                        'conditions' => null,
                         'description' => ['Escalope de foie gras poêlée au miel ', 'Fondue Royale', 'Coupe des montagnes'],
                         'price' => 67
                     ]
@@ -43,7 +47,7 @@ class MenuFixtures extends Fixture
             $newMenu->setTitle($name);
             foreach($menu as $offer) {
                 $newOffer = new Offer();
-                $newOffer->setTitle($offer['title'])->setDescription($offer['description'])->setPrice($offer['price']);
+                $newOffer->setTitle($offer['title'])->setDescription($offer['description'])->setConditions($offer['conditions'])->setPrice($offer['price']);
                 $newMenu->addOffer($newOffer);
             }
             $manager->persist($newMenu);
