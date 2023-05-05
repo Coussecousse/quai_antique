@@ -146,9 +146,9 @@ class ReservationController extends AbstractController
                 }
 
                 $date = date_create_from_format('D M d Y H:i:s e+',$date);
-                $date->setTimezone(new DateTimeZone('Europe/Paris'));
+                
                 $date = $date->format('Y-m-d');
-                $date = new DateTime($date, new DatetimeZone('Europe/Paris'));
+                $date = new DateTime($date, new DatetimeZone('UTC'));
                 $today = date_create('now', timezone_open('UTC'));
                 if ($date->format('Y-m-d') == $today->format('Y-m-d')) {
                     $hour = $today->format('H:i');
