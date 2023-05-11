@@ -140,7 +140,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/inscription/{result}', name : "signUp-mail")]
-    public function signUpResult($result, Request $request, Environment $twig, MailerInterface $mailer) {
+    public function signUpResult($result, Request $request) {
         if (!$result) {
             $request->getSession()->remove('email');
             $request->getSession()->remove('code');
