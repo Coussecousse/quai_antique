@@ -386,6 +386,13 @@ class AdminController extends AbstractController
                 'result' => 'error_pattern'
             ]);
         }
+        
+        //Check password pattern
+        if (!$this->checkPattern($password, "/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,80}$/")) {
+            return new JsonResponse([
+                'result' => 'error_pattern'
+            ]);
+        }
 
         //  Check same password
         if (!$userPasswordHasher->isPasswordValid($user, $password)) {
