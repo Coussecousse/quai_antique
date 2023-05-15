@@ -133,17 +133,13 @@ class AdminController extends AbstractController
             try {
                 copy($path, $newPath);
             } catch (Exception $e) {
-                return new JsonResponse([
-                    'result' => 'error'
-                ]);
+                return false
             }
 
             $optimizer = new ImageOptimizer();
             $optimizer->resize($newPath, $size);
         }
-        return new JsonResponse([
-            'result' => 'success'
-        ]);
+        return true;
     }
     private function getErrorScheduleDate($form, $service, $newDate) {
         $time_close = $form->get($service. '_close')->getData();
