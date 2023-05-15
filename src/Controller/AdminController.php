@@ -133,7 +133,9 @@ class AdminController extends AbstractController
             try {
                 copy($path, $newPath);
             } catch (Exception $e) {
-                return false;
+                return new JsonResponse([
+                    'result' => 'error'
+                ]);
             }
 
             $optimizer = new ImageOptimizer();
