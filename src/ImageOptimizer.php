@@ -2,8 +2,6 @@
 
 namespace App;
 
-use App\Entity\Carousel;
-use Doctrine\Persistence\ManagerRegistry;
 use Imagine\Gd\Imagine;
 use Imagine\Image\Box;
 
