@@ -230,7 +230,7 @@ function showMenu(e) {
         const divParent = caret.parentElement.parentElement.parentElement;
         divParent.classList.add('after');
 
-        const buttonAffOffer = divParent.children[1].classList.remove('hide');
+        divParent.children[1].classList.remove('hide');
 
         const listOffer = divParent.nextElementSibling;
         listOffer.classList.remove('hide');
@@ -241,8 +241,7 @@ function showMenu(e) {
         const divParent = caret.parentElement.parentElement.parentElement;
         divParent.classList.remove('after');
 
-        const buttonAffOffer = divParent.children[1].classList.add('hide')
-
+        divParent.children[1].classList.add('hide')
         
         const listOffer = divParent.nextElementSibling;
         listOffer.classList.add('hide');
