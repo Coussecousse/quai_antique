@@ -23,28 +23,30 @@ class ReservationController extends AbstractController
     {
         return preg_match($pattern, $expression);
     }
+    private function getEnd($schedule){
+        $end = $schedule->getEveningEnd()->format('Y-m-d H:i:s');
+        $end = new DateTime($end, new DateTimeZone('Europe/Paris'));
+        return strtotime('-30 minutes', $end->getTimestamp());
+    }
+
+    private function getStart($schedule) {
+        $start = $schedule->getEveningStart()->format('Y-m-d H:i:s');
+        $start = new DateTime($start, new DateTimeZone('Europe/Paris'));
+    
+        return $start->getTimestamp();
+    }
     private function addTime($time, $schedule, $timestamp, $places, $repository, $date, $array = []) {
         if ($time == 'evening') {
-            $eveningEnd = $schedule->getEveningEnd()->format('Y-m-d H:i:s');
-            $eveningEnd = new DateTime($eveningEnd, new DateTimeZone('Europe/Paris'));
-            $end = strtotime('-30 minutes', $eveningEnd->getTimestamp());
-        
-            $eveningStart = $schedule->getEveningStart()->format('Y-m-d H:i:s');
-            $eveningStart = new DateTime($eveningStart, new DateTimeZone('Europe/Paris'));
-        
-            $start = $eveningStart->getTimestamp();
+            $end = $this->getEnd($schedule);
+            $start = $this->getStart($schedule);
             
             if (!$this->checkPlaces($places, $time, $end, $date, $repository)) {
                 return false;
             }
         } else {
-            $noonEnd = $schedule->getNoonEnd()->format('Y-m-d H:i:s');
-            $noonEnd = new DateTime($noonEnd, new DateTimeZone('Europe/Paris'));
-            $end = strtotime('-30 minutes', $noonEnd->getTimestamp());
+            $end = $this->getEnd($schedule);
             
-            $noonStart = $schedule->getNoonStart()->format('Y-m-d H:i:s');
-            $noonStart = new DateTime($noonStart, new DateTimeZone('Europe/Paris'));
-            $start = $noonStart->getTimestamp(); 
+            $start = $this->getStart($schedule); 
             
             if (!$this->checkPlaces($places, $time, $start, $date, $repository)) {
                 return false;
