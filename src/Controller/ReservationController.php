@@ -24,30 +24,27 @@ class ReservationController extends AbstractController
         return preg_match($pattern, $expression);
     }
     private function addTime($time, $schedule, $timestamp, $places, $repository, $date, $array = []) {
-        if ( $time == 'evening') {
-            $eveningEnd = $schedule->getEveningEnd();
-            $eveningEnd = $eveningEnd->format('Y-m-d H:i:s');
-            $eveningEnd = date_create($eveningEnd, timezone_open('Europe/Paris'));
-            $end = strtotime('-30 minutes', date_timestamp_get($eveningEnd));
-
-            $eveningStart = $schedule->getEveningStart();
-            $eveningStart = $eveningStart->format('Y-m-d H:i:s');
-            $eveningStart = date_create($eveningStart, timezone_open('Europe/Paris'));
+        if ($time == 'evening') {
+            $eveningEnd = $schedule->getEveningEnd()->format('Y-m-d H:i:s');
+            $eveningEnd = new DateTime($eveningEnd, new DateTimeZone('Europe/Paris'));
+            $end = strtotime('-30 minutes', $eveningEnd->getTimestamp());
+        
+            $eveningStart = $schedule->getEveningStart()->format('Y-m-d H:i:s');
+            $eveningStart = new DateTime($eveningStart, new DateTimeZone('Europe/Paris'));
+        
+            $start = $eveningStart->getTimestamp();
             
-            $start = date_timestamp_get($eveningStart);    
             if (!$this->checkPlaces($places, $time, $end, $date, $repository)) {
                 return false;
-            }                
+            }
         } else {
-            $noonEnd = $schedule->getNoonEnd();
-            $noonEnd = $noonEnd->format('Y-m-d H:i:s');
-            $noonEnd = date_create($noonEnd, timezone_open('Europe/Paris'));
-            $end = strtotime('-30 minutes', date_timestamp_get($noonEnd));
+            $noonEnd = $schedule->getNoonEnd()->format('Y-m-d H:i:s');
+            $noonEnd = new DateTime($noonEnd, new DateTimeZone('Europe/Paris'));
+            $end = strtotime('-30 minutes', $noonEnd->getTimestamp());
             
-            $noonStart = $schedule->getNoonStart();
-            $noonStart = $noonStart->format('Y-m-d H:i:s');
-            $noonStart = date_create($noonStart, timezone_open('Europe/Paris'));
-            $start = date_timestamp_get($noonStart); 
+            $noonStart = $schedule->getNoonStart()->format('Y-m-d H:i:s');
+            $noonStart = new DateTime($noonStart, new DateTimeZone('Europe/Paris'));
+            $start = $noonStart->getTimestamp(); 
             
             if (!$this->checkPlaces($places, $time, $start, $date, $repository)) {
                 return false;
@@ -145,20 +142,22 @@ class ReservationController extends AbstractController
                     ]);
                 }
 
-                $date = date_create_from_format('D M d Y H:i:s e+',$date);
+                $date = date_create_from_format('D M d Y H:i:s e+', $date);
                 
                 $date = $date->format('Y-m-d');
-                $date = new DateTime($date, new DatetimeZone('UTC'));
-                $today = date_create('now', timezone_open('UTC'));
+                $date = new DateTime($date, new DateTimeZone('UTC'));
+                $today = new DateTime('now', new DateTimeZone('UTC'));
+
                 if ($date->format('Y-m-d') == $today->format('Y-m-d')) {
                     $hour = $today->format('H:i');
                 } else {
-                    $hour = date_format($date, 'H:i');  
-                };
-                $hour = new DateTime('1970-01-01 '.$hour);
-                $timestamp = date_timestamp_get($hour);
+                    $hour = $date->format('H:i');  
+                }
 
-                $day = date('N', date_timestamp_get($date));
+                $hour = new DateTime('1970-01-01 '.$hour, new DateTimeZone('UTC'));
+                $timestamp = $hour->getTimestamp();
+
+                $day = date('N', strtotime($date->format('Y-m-d')));
                 
                 $schedules_evening = [];
                 $schedules_noon = [];
