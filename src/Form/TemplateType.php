@@ -55,7 +55,7 @@ class TemplateType extends AbstractType
                 new Range(['min' => 1, 'max' => 20, 'notInRangeMessage' => "Le nombre donné n'est pas dans la range autorisée."]),
                 new NotBlank(["message" => "Ne peut pas être vide."]),
                 new Type(['type' => 'float', 'message' => 'Doit être un chiffre.']),
-                new LessThanOrEqual(['value' => 20, 'message' => 'Contactez directement le restaurant pour des réservations de plus de 20 personnes.']),
+                new LessThanOrEqual(['value' => 19, 'message' => 'Contactez directement le restaurant pour des réservations de plus de 20 personnes.']),
                 new GreaterThanOrEqual(['value' => 1, 'message' => 'Une personne obligatoirement.'])
                 ]
         ])
