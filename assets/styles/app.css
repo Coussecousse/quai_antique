@@ -99,25 +99,6 @@ header nav a.active::after {
   @apply after:h-full after:w-[1px] after:absolute after:bg-secondary after:left-full;
 }
 /* MOVING IMAGES */
-.image_1 {
-  background: center / cover no-repeat url('../../public_html/images/moving/1_medium.jpg');
-}
-.image_2 {
-  background: center / cover no-repeat
-  url("../../public_html/images/moving/2_medium.jpg");
-}
-.image_3 {
-  background: center / cover no-repeat
-  url("../../public_html/images/moving/3_medium.jpg");
-}
-.image_4 {
-  background: center / cover no-repeat
-  url("../../public_html/images/moving/4_medium.jpg");
-}
-.image_5 {
-  background: center / cover no-repeat
-  url("../../public_html/images/moving/5_medium.jpg");
-}
 .image_container > div {
   @apply w-full h-full -z-10;
 }
