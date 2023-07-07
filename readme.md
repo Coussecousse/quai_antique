@@ -1,5 +1,4 @@
 # Quai Antique #
-`Note pour l'inspecteur à la fin du fichier readme.md`
 
 Pour installer ce site en local veuillez suivre les étapes suivantes :
 
@@ -105,15 +104,3 @@ intl.use_exceptions = 0
 Votre site en local est prêt ! 
 
 Le site internet est disponible ici : [Quai-antique](https://quai-antique.fr/)
-_____________________
-
-`Pour l'inspecteur :`
-
-Ayant oublié de vous partager les logins pour vous connecter en tant qu'administrateur, je les mets exceptionnellement ici :
-
-Email : `admin23z2qVjQ@gmail.com`
-
-Mot de passe : `weFyyW8338yNU2`
-
-Ces informations seront supprimées dès que j'aurais reçu un retour.
-__________________
