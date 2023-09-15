@@ -5,7 +5,7 @@
             <div class="form_profilContainer bg-primary/10 input_profil">
                 <i class="fa-solid fa-phone form_icon"></i>
                 <input class="input_whitePlaceholder" type="tel" name="tel" id="tel" required placeholder="{{ restaurant.tel }}" pattern='^(?:0|\+33)[1-9](?:\d{2}){4}$'>
-                <button aria-label="Modifier téléphone" type="submit" id="change_tel" class="form_icon" ><i class="fa-solid fa-pen"></i></button>
+                <button aria-label="Modifier téléphone" type="submit" id="change_tel" class="form_icon" ><i class="fa-solid fa-pen sm-hide"></i><p class="opacity-80 hover:opacity-100 hidden sm:block">Modifier</p></button>
             </div>
         </form>
         <form method="POST" class="form_profil">
@@ -13,7 +13,7 @@
             <div class="form_profilContainer bg-primary/10 input_profil">
                 <i class="fa-solid fa-at form_icon"></i>
                 <input class="input_whitePlaceholder" type="email" name="emailRestaurant" id="emailRestaurant" required placeholder="{{ restaurant.email }}" minlength=5 maxlength=50>
-                <button aria-label="Modifier email" type="submit" id="change_email" class="form_icon" ><i class="fa-solid fa-pen"></i></button>
+                <button aria-label="Modifier email" type="submit" id="change_email" class="form_icon" ><i class="fa-solid fa-pen sm-hide"></i><p class="opacity-80 hover:opacity-100 hidden sm:block">Modifier</p></button>
             </div>
         </form>
         <form method="POST" class="form_profil">
@@ -21,7 +21,7 @@
             <div class="form_profilContainer bg-primary/10 input_profil">
                 <i class="fa-solid fa-city form_icon"></i>
                 <input class="input_whitePlaceholder" type="text" name="city" id="city" required placeholder="{{ restaurant.city }}" minlength=2 maxlength=50>
-                <button aria-label="Modifier ville" type="submit" id="change_city" class="form_icon" ><i class="fa-solid fa-pen"></i></button>
+                <button aria-label="Modifier ville" type="submit" id="change_city" class="form_icon" ><i class="fa-solid fa-pen sm-hide"></i><p class="opacity-80 hover:opacity-100 hidden sm:block">Modifier</p></button>
             </div>
         </form>
         <form method="post" class="form_profil">
@@ -29,7 +29,7 @@
             <div class="form_profilContainer bg-primary/10 input_profil">
                 <i class="fa-solid fa-street-view form_icon"></i>
                 <input class="input_whitePlaceholder" type="text" name="street" id="street" required placeholder="{{ restaurant.street }}" minlength=5 maxlength=80>
-                <button aria-label="Modifier rue" type="submit" id="change_street" class="form_icon" ><i class="fa-solid fa-pen"></i></button>
+                <button aria-label="Modifier rue" type="submit" id="change_street" class="form_icon" ><i class="fa-solid fa-pen sm-hide"></i><p class="opacity-80 hover:opacity-100 hidden sm:block">Modifier</p></button>
             </div>
         </form>
         <form method="post" class="form_profil">
@@ -37,7 +37,7 @@
             <div class="form_profilContainer bg-primary/10 input_profil">
                 <i class="fa-solid fa-house form_icon"></i>
                 <input class="input_whitePlaceholder" type="number" name="postcode" id="postcode" required placeholder="{{ restaurant.postcode }}" pattern='\d{5}$\' minlength=5 maxlength=5> 
-                <button aria-label="Modifier code postal" type="submit" id="change_postcode" class="form_icon" ><i class="fa-solid fa-pen"></i></button>
+                <button aria-label="Modifier code postal" type="submit" id="change_postcode" class="form_icon" ><i class="fa-solid fa-pen sm-hide"></i><p class="opacity-80 hover:opacity-100 hidden sm:block">Modifier</p></button>
             </div>
         </form>
         <form method="post" class="form_profil items-center">
@@ -45,7 +45,7 @@
             <div class="form_profilContainer bg-primary/10 input_profil">
                 <i class="fa-solid fa-utensils form_icon"></i>
                 <input class="input_whitePlaceholder" type="number" name="places" id="places" required placeholder={{ restaurant.places }} placeholder="\d{1,3}$\" minlength=1 maxlength=3>
-                <button aria-label="Modifier places dans le restaurant" type="submit" id="change_places" class="form_icon" ><i class="fa-solid fa-pen"></i></button>
+                <button aria-label="Modifier places dans le restaurant" type="submit" id="change_places" class="form_icon" ><i class="fa-solid fa-pen sm-hide"></i><p class="opacity-80 hover:opacity-100 hidden sm:block">Modifier</p></button>
             </div>
         </form>
     </div>
