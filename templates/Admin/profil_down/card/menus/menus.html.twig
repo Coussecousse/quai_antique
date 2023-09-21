@@ -94,7 +94,6 @@
     <ol class="compositions_model compositions flex flex-col gap-2"
     data-offer-id="{{ key }}"
     data-index="{{ offer.description|length }}"
-    data-prototype="{{  _self.compositions_prototype_empty(offer.description.vars.prototype)|e('html_attr') }}"
     >
     {% for composition in offer.description %}
         {{ _self.compositions_prototype_empty(composition) }}

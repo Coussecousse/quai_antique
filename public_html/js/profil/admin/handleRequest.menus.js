@@ -36,7 +36,7 @@ function addFormToCollection(e) {
     const item = document.createElement('li');
     const offers = document.querySelector('.offers').children;
     let prototype;
-    if (offers.length > 0 && !collectionHolder.classList.contains('offers') && collectionHolder.dataset.offerId != '0') {
+    if (offers.length > 0 && !collectionHolder.classList.contains('offers')) {
         let offerId;
         if (collectionHolder.dataset.offerId === '') {
             let i = 0;
@@ -114,7 +114,7 @@ function modifyElement(element, index, changement) {
     if (element.previousElementSibling.children.length == 0) {
         element.previousElementSibling.setAttribute('for', changement + index);
     } else {
-    element.previousElementSibling.children[0].setAttribute('for', changement + index);
+        element.previousElementSibling.children[0].setAttribute('for', changement + index);
     }
 }
 function addOffer(e) {
@@ -137,15 +137,10 @@ function addOffer(e) {
     const conditions = newOffer.querySelector('.offer_conditions_model');
     modifyElement(conditions, index - 1, 'menu_'+ indexMenu +'_offer_conditions_');
 
-    const buttons = newOffer.querySelectorAll('.add_item_link');
-    buttons.forEach( button => {
-        button.classList.remove('add_item_link');
-        if (button.dataset.collectionHolderClass == "compositions") {
-            button.onclick = e => addComposition(e);
-            button.dataset.indexMenu = form[4].dataset.indexMenu;
-            button.dataset.indexOffer = button.parentElement.nextElementSibling.children.length - 1;
-        }
-    })
+    const button = newOffer.querySelector('.add_item_link');
+    button.onclick = e => addComposition(e);
+    button.dataset.indexMenu = form[4].dataset.indexMenu;
+    button.dataset.indexOffer = indexOffer;
 
     const olCompositions = newOffer.querySelector('.compositions_model');
     olCompositions.dataset.index = '';
@@ -381,7 +376,6 @@ function deleteMenu(e) {
 const form = document.querySelector('#menu_5');
 
 document.addEventListener('scroll', () => {
-    let posY = window.pageYOffset;
 
     const menus = document.querySelector('.menus').children;
     const activeMenus = [];
