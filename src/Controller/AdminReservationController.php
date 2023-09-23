@@ -21,16 +21,14 @@ class AdminReservationController extends AbstractController
         $search_date = $request->query->get('search_date');
         if ($search_date) {
             $request->getSession()->set('search_date', $search_date);
-            $search_date = new Datetime($search_date);
         } else if ($request->getSession()->get('search_date')) {
             $search_date = $request->getSession()->get('search_date');
-            $search_date = new Datetime($search_date);
         } else {
             $search_date = new Datetime();
             $search_date = $search_date->format('Y-m-d');
-            $search_date = new Datetime($search_date);
         }
-
+        $search_date = new Datetime($search_date);
+        
         $special_date = $dateRepository->findOneBy(['date' => $search_date]);
         
         if ($service == 'midi') {
