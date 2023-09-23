@@ -149,7 +149,6 @@ class AdminReservationController extends AbstractController
             'places' => $places ?? 0,
             'percentage' => $percentage ?? 0,
             'search_date' => $search_date->format('Y-m-d'),
-            // 'user_templates' => $templates
         ]);
     }   
 }
