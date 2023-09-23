@@ -42,26 +42,12 @@ class AdminReservationController extends AbstractController
                     if ($date->getEveningClose()) {
                         $close = true;
                     } else {
-                        $schedules = [];
                         $start = date_timestamp_get($date->getEveningStart());
                         $end = strtotime('-30 minutes', date_timestamp_get($date->getEveningEnd()));
-
-                        $time = $start;
-                        while($time <= $end) {
-                            array_push($schedules, $time);
-                            $time = strtotime('+15 minutes', $time);
-                        }
                     }
                 } else {
-                    $schedules = [];
                     $start = date_timestamp_get($special_date->getEveningStart());
                     $end = strtotime('-30 minutes', date_timestamp_get($special_date->getEveningEnd()));
-
-                    $time = $start;
-                    while($time <= $end) {
-                        array_push($schedules, $time);
-                        $time = strtotime('+15 minutes', $time);
-                    }
                 }
             } else {    
                 $day = date('N', date_timestamp_get($search_date));
@@ -69,15 +55,8 @@ class AdminReservationController extends AbstractController
                 if ($date->getEveningClose()) {
                     $close = true;
                 } else {
-                    $schedules = [];
                     $start = date_timestamp_get($date->getEveningStart());
                     $end = strtotime('-30 minutes', date_timestamp_get($date->getEveningEnd()));
-
-                    $time = $start;
-                    while($time <= $end) {
-                        array_push($schedules, $time);
-                        $time = strtotime('+15 minutes', $time);
-                    }
                 }
             }
             if (!isset($close)) {
@@ -103,12 +82,10 @@ class AdminReservationController extends AbstractController
                     if ($date->getNoonClose()) {
                         $close = true;
                     } else {
-                        $schedules = [];
                         $start = date_timestamp_get($date->getNoonStart());
                         $end = strtotime('-30 minutes', date_timestamp_get($date->getNoonEnd()));
                     }
                 } else {
-                    $schedules = [];
                     $start = date_timestamp_get($special_date->getNoonStart());
                     $end = strtotime('-30 minutes', date_timestamp_get($special_date->getNoonEnd()));
                 }
@@ -118,7 +95,6 @@ class AdminReservationController extends AbstractController
                 if ($date->getNoonClose()) {
                     $close = true;
                 } else {
-                    $schedules = [];
                     $start = date_timestamp_get($date->getNoonStart());
                     $end = strtotime('-30 minutes', date_timestamp_get($date->getNoonEnd()));
                 }
