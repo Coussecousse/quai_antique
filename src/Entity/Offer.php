@@ -47,12 +47,12 @@ class Offer
         return $this;
     }
 
-    public function getDescription(): array
+    public function getFoods(): array
     {
         return $this->description;
     }
 
-    public function setDescription(array $description): self
+    public function setFoods(array $description): self
     {
         $this->description = $description;
 

@@ -294,7 +294,7 @@ class AdminController extends AbstractController
                     ]);
                 }
             }
-            $offer->setTitle($newOffer[0])->setConditions($newOffer[1])->setDescription($newOffer[2])->setPrice($newOffer[3]);
+            $offer->setTitle($newOffer[0])->setConditions($newOffer[1])->setFoods($newOffer[2])->setPrice($newOffer[3]);
             $menu->addOffer($offer);
         }
 

@@ -47,7 +47,7 @@ class MenuFixtures extends Fixture
             $newMenu->setTitle($name);
             foreach($menu as $offer) {
                 $newOffer = new Offer();
-                $newOffer->setTitle($offer['title'])->setDescription($offer['description'])->setConditions($offer['conditions'])->setPrice($offer['price']);
+                $newOffer->setTitle($offer['title'])->setFoods($offer['description'])->setConditions($offer['conditions'])->setPrice($offer['price']);
                 $newMenu->addOffer($newOffer);
             }
             $manager->persist($newMenu);

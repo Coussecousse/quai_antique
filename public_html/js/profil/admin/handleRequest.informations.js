@@ -90,15 +90,17 @@ passwordButton.addEventListener('click', e => {
     count++;
 
     emailButton.classList.add('hide');
-
+    
     passwordButton.children[0].classList.replace('fa-pen', 'fa-check');
     passwordButton.children[1].textContent = "Valider";
-
+    
     const changePassword = document.querySelectorAll('.change_password');
-
+    
     changePassword.forEach(element => {
         element.classList.remove('hide');
     })
+    
+    console.log('hey')
 
     const validPassword = document.querySelector('#valid_password');
     const oldPassword = document.querySelector('#old_password');
@@ -132,7 +134,6 @@ passwordButton.addEventListener('click', e => {
     if (error) {
         return;
     }
-
     passwordButton.disabled = true;
 
     const xhr = new XMLHttpRequest();

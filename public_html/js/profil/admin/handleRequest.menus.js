@@ -118,7 +118,6 @@ function modifyElement(element, index, changement) {
     }
 }
 function addOffer(e) {
-    const form = e.target.form;
     const indexMenu = e.target.dataset.indexMenu;
     const indexOffer = e.target.dataset.indexOffer;
 
@@ -127,19 +126,15 @@ function addOffer(e) {
     
     newOffer.dataset.indexMenu = indexMenu;
 
-    const formMenu = e.target.parentElement.parentElement;
-    const ul = formMenu.querySelector('.modify_offers');
-    const index = ul.children.length + 1;
-
     const title = newOffer.querySelector('.offer_title_model');
-    modifyElement(title, index - 1, 'menu_'+ indexMenu +'_offer_title_');
+    modifyElement(title, indexOffer, 'menu_'+ indexMenu +'_offer_title_');
 
     const conditions = newOffer.querySelector('.offer_conditions_model');
-    modifyElement(conditions, index - 1, 'menu_'+ indexMenu +'_offer_conditions_');
+    modifyElement(conditions, indexOffer, 'menu_'+ indexMenu +'_offer_conditions_');
 
     const button = newOffer.querySelector('.add_item_link');
     button.onclick = e => addComposition(e);
-    button.dataset.indexMenu = form[4].dataset.indexMenu;
+    button.dataset.indexMenu = indexMenu;
     button.dataset.indexOffer = indexOffer;
 
     const olCompositions = newOffer.querySelector('.compositions_model');
@@ -178,7 +173,7 @@ function addOffer(e) {
     })
 
     const price = newOffer.querySelector('#menus_offers_0_price');
-    modifyElement(price, index - 1, 'menu_'+ indexMenu +'_price_');
+    modifyElement(price, indexOffer, 'menu_'+ indexMenu +'_price_');
     
     ul.appendChild(newOffer);
 }

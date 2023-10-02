@@ -21,7 +21,7 @@ class ClientController extends AbstractController
     {
         return preg_match($pattern, $expression);
     }
-    private function handlePassword($request, $password, $userPasswordHasher, $user, $em) {
+    private function handlePassword($request, $password, $userPasswordHasher, $user, $userRepository) {
         $oldPassword = $request->request->get('oldPassword');
         if (!$this->checkPattern($password, "/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,80}$/")) {
             return new JsonResponse([
@@ -29,7 +29,7 @@ class ClientController extends AbstractController
             ]);
         }
 
-        // Check old password && user.password are the same
+        // Check if old password && user.password are the same
         if (!$userPasswordHasher->isPasswordValid($user, $oldPassword)){
             return new JsonResponse([
                 'result' => 'error_invalid'
@@ -42,8 +42,7 @@ class ClientController extends AbstractController
         $user->setPassword($encodePassword);
 
         try {
-            $em->persist($user);
-            $em->flush();
+            $userRepository->save($user, true);
         } catch (Exception $e) {
             return new JsonResponse([
                 'result' => 'error'
@@ -216,7 +215,7 @@ class ClientController extends AbstractController
 
             // Change password
             if ($password && !$email) {
-                return $this->handlePassword($request, $password, $userPasswordHasher, $user, $em);
+                return $this->handlePassword($request, $password, $userPasswordHasher, $user, $userRepository);
             }
             // Change email
             if ($email && $password) {

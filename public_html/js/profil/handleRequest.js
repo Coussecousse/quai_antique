@@ -1,4 +1,5 @@
 function addError(element, error) {
+    console.log('yop')
     if (count > 1)
     {
         element.classList.contains('hide') ? element.classList.remove('hide') : null;
